@@ -48,7 +48,7 @@ public class BasicOpsTest extends Application {
     	
         
         // Create Image and ImageView objects
-    	File mapFile = new File("/Users/andrewrottier/Documents/CS_3733_team10/CS3733_Graphics/sample_map.jpg");
+    	File mapFile = new File("CS3733_Graphics/sample_map.jpg");
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
