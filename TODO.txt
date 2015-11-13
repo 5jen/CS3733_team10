@@ -1,0 +1,12 @@
+===========Oct 30=============
+- Hello team! I created this file to record our todo list in the future. 
+  I created a dev branch for development in order to have a reliable version
+  control during our project development. Every time we need to deliver a 
+  iteration, we merge the dev branch to the master. The 'bug' and 'feature' 
+  branch will be created in the future if needed. 
+  
+  Thanks for reading and have a nice weekend! 
+                                                          - Yang Xu
+
+===========
+                                                          
