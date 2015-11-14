@@ -51,25 +51,26 @@ public class Graph {
 			AbsNode current = unknownFrontier.pollFirstEntry().getValue();
 			
 			if (current == to){
+				path = backtrack(current);
 				return path;
 			}
 			
 			explored.add(current);
 			
 			for (Edge neighbor : current.getEdges()){
-				if (neighbor.getParent() == null){
-					neighbor.cost = d(current, neighbor) + current.cost;
-					neighbor.parent = current;
-					unknownFrontier.put((neighbor.cost+ d(neighbor, goal)), neighbor);
+				AbsNode neighborNode = neighbor.getTo();
+				if (neighborNode.getParent() == null){
+					neighborNode.setCost(d(current, neighborNode) + current.getCost());
+					neighborNode.setParent(current);
+					unknownFrontier.put((neighborNode.getCost()+ d(neighborNode, to)), neighborNode);
 				}
 				else {
-					if ((d(current, neighbor) + current.cost) < neighbor.cost){
-						neighbor.cost = d(current, neighbor) + current.cost;
-						neighbor.parent = current;
+					if ((d(current, neighborNode) + current.getCost()) < neighborNode.getCost()){
+						neighborNode.setCost(d(current, neighborNode) + current.getCost());
+						neighborNode.setParent(current);
 					}
 				}
 			}
-			
 		}
 			
 		return null; // No Path Found
@@ -86,5 +87,15 @@ public class Graph {
 	public double d(AbsNode from, AbsNode to){
 		return Math.sqrt( (from.getX() - to.getX())^2 + (from.getY()-to.getY())^2);
 	}
-
+	
+	public LinkedList<AbsNode> backtrack(AbsNode current){
+		LinkedList <AbsNode> path = new LinkedList<AbsNode>();
+		path.push(current);
+		while (current.getParent() != null){
+			path.push(current.getParent());
+			current = current.getParent();
+		}
+		return path;
+	}
 }
+		
