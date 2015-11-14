@@ -53,4 +53,12 @@ public class AbsNode {
 	public void setCost(double costToSet){
 		cost = costToSet;
 	}
+	
+	public void deleteEdge(Edge anEdge){
+		for(Edge e: edges){
+			if(anEdge.equals(e)){
+				edges.remove(e);
+			}
+		}
+	}
 }
