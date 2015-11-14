@@ -8,10 +8,10 @@ public class Edge {
 	private AbsNode to;
 	private double distance;
 	
-	public Edge(AbsNode fromNode, AbsNode toNode, double distanceBetween){
+	public Edge(AbsNode fromNode, AbsNode toNode){
 		from = fromNode;
 		to = toNode;
-		distance = Math.sqrt( (fromNode.getX() - toNode.getX())^2 + (fromNode.getY()-toNode.getY())^2);
+		distance = Math.sqrt( Math.pow((fromNode.getX() - toNode.getX()), 2.0) + Math.pow((fromNode.getY()-toNode.getY()), 2.0));
 	}
 	
 	public AbsNode getFrom(){
