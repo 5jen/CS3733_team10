@@ -29,11 +29,11 @@ public class Graph {
 	}
 	
 	public LinkedList<AbsNode> findRoute(AbsNode from, AbsNode to){
-		if (to.getIsWalkable()){
+		if (!to.getIsWalkable()){
 			return null;
 		}
 		
-		if (from.getIsWalkable()){
+		if (!from.getIsWalkable()){
 			return null;
 		}
 		
