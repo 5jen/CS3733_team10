@@ -8,7 +8,10 @@ public class AbsNodeTest {
 
 	@Test
 	public void testAbsNode() {
-		fail("Not yet implemented");
+		AbsNode node1 = new AbsNode(5, 6, true);
+		assertEquals(5, node1.getX());
+		assertEquals(6, node1.getY());
+		assertEquals(true, node1.getIsWalkable());
 	}
 
 	@Test
@@ -31,28 +34,32 @@ public class AbsNodeTest {
 	}
 
 	@Test
-	public void testGetEdges() {
-		fail("Not yet implemented");
+	public void testSetGetEdges() {
+		AbsNode aNode = new AbsNode(4, 5, true);
+		AbsNode bNode = new AbsNode(6, 7, true);
+		Edge edge1 = new Edge(aNode, bNode, 10);
+		aNode.setEdges(edge1);
+		
+		assertEquals(edge1, aNode.getEdges().pop());
 	}
 
 	@Test
-	public void testGetParent() {
-		fail("Not yet implemented");
+	public void testSetGetParent() {
+		AbsNode node19 = new AbsNode(1, 2, true);
+		AbsNode node18 = new AbsNode(3, 4, true);
+		node19.setParent(node18);
+		assertEquals(node18, node19.getParent());
 	}
 
-	@Test
-	public void testSetParent() {
-		fail("Not yet implemented");
-	}
 
 	@Test
-	public void testGetCost() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetCost() {
-		fail("Not yet implemented");
+	public void testSetGetCost() {
+		AbsNode node20 = new AbsNode(1, 2, true);
+		node20.setCost(20);
+		double testCost = node20.getCost();
+		
+		assertEquals(20, testCost, 1);
+		
 	}
 
 }

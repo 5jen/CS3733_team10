@@ -18,8 +18,8 @@ public class Graph {
 		
 	}
 	
-	public void addEdge(Edge edgeToAdd){
-		
+	public void addEdge(AbsNode node1, AbsNode node2){
+		Edge newEdge1 = new Edge()
 	}
 	
 	public LinkedList<AbsNode> findRoute(AbsNode to, AbsNode from){

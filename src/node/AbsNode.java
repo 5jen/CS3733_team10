@@ -28,6 +28,10 @@ public class AbsNode {
 	public boolean getIsWalkable(){
 		return isWalkable;
 	}
+
+	public void setEdges(Edge anEdge){
+		edges.push(anEdge);
+	}
 	
 	public LinkedList<Edge> getEdges(){
 		return edges;
