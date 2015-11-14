@@ -9,12 +9,13 @@ public class AbsNode {
 	private boolean isWalkable;
 	private AbsNode parent;
 	private double cost;
-	private LinkedList<Edge> edges;
+	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
 	public AbsNode(int valX, int valY, boolean isWalk){
 		X = valX;
 		Y = valY;
 		isWalkable = isWalk;
+		
 	}
 	
 	public int getX(){

@@ -20,7 +20,12 @@ public class Graph {
 	}
 	
 	public void addEdge(AbsNode node1, AbsNode node2){
-		Edge newEdge1 = new Edge()
+		Edge newEdge1 = new Edge(node1, node2, 0);
+		Edge newEdge2 = new Edge(node2, node1, 0);
+		
+		node1.setEdges(newEdge1);
+		node2.setEdges(newEdge2);
+		
 	}
 	
 	public LinkedList<AbsNode> findRoute(AbsNode from, AbsNode to){
