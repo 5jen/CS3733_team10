@@ -5,18 +5,34 @@ import java.util.TreeMap;
 
 public class Graph {
 	
-	private LinkedList<AbsNode> nodes;
+	private LinkedList<AbsNode> nodes = new LinkedList<AbsNode>();
 	
 	public Graph(){
 		
 	}
 	
 	public void addNode(AbsNode nodeToAdd){
-		
+		nodes.push(nodeToAdd);
 	}
 	
 	public void deleteNode(AbsNode nodeToDelete){
+		LinkedList<AbsNode> connectingNodeList = new LinkedList<AbsNode>();
+		LinkedList<Edge> edgeList = nodeToDelete.getEdges();
+		for(Edge e : edgeList){
+			connectingNodeList.add(e.getTo());
+		}
 		
+		nodes.remove(nodeToDelete); // Deletes the node from the graph
+		
+		for (AbsNode node : nodes){
+			for (AbsNode cNode : connectingNodeList){
+				if (cNode.equals(node)){
+					for(Edge e : node.getEdges()){
+						node.deleteEdge(e);
+					}
+				}
+			}
+		}
 	}
 	
 	public void addEdge(AbsNode node1, AbsNode node2){
