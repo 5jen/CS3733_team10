@@ -12,6 +12,8 @@ public class AbsNodeTest {
 		assertEquals(5, node1.getX());
 		assertEquals(6, node1.getY());
 		assertEquals(true, node1.getIsWalkable());
+		
+		//Add a case for when it will fail
 	}
 
 	@Test
@@ -37,7 +39,7 @@ public class AbsNodeTest {
 	public void testSetGetEdges() {
 		AbsNode aNode = new AbsNode(4, 5, true);
 		AbsNode bNode = new AbsNode(6, 7, true);
-		Edge edge1 = new Edge(aNode, bNode, 10);
+		Edge edge1 = new Edge(aNode, bNode);
 		aNode.setEdges(edge1);
 		
 		assertEquals(edge1, aNode.getEdges().pop());
