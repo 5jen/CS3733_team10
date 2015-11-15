@@ -27,11 +27,12 @@ public class Graph {
 		for (AbsNode node : nodes){
 			for (AbsNode cNode : connectingNodeList){
 				if (cNode.equals(node)){
-					for (Edge e : node.getEdges())
+					for (Edge e : node.getEdges()){
 						if(e.getTo().equals(nodeToDelete)){
 							node.deleteEdge(e);
 							break;
 						}
+					}
 				}
 			}
 		}

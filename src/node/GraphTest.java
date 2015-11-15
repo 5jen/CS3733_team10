@@ -145,6 +145,8 @@ public class GraphTest {
 		
 		assertEquals(expectedResult, actualResult);
 		
+		assertEquals(null, testGraph.findRoute(nodeE, nodeJ));
+		
 	}
 
 //	@Test
