@@ -1,9 +1,12 @@
 package maptool;
 
+import java.awt.event.MouseListener;
 import java.io.File;
+
 import java.util.LinkedList;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,9 +23,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import node.Graph;
+//import node.Place;
+//import node.Node;
 import node.Place;
-import node.Node;
 
 import java.io.File;
 import java.util.Arrays;
@@ -34,6 +40,10 @@ import javafx.application.Application;
 
 
 public class MapTool extends Application{
+	boolean delete = false;
+	boolean startCoord, endCoord  = false;
+	double startX, startY, endX, endY = 0.0;
+
 	public static void main(String[] args) {
         launch(args);
     }
@@ -74,10 +84,24 @@ public class MapTool extends Application{
         //final TextField typeField = new TextField("Type"); 
         final RadioButton isPlace = new RadioButton();
         final Button createNodeButton = new Button("Create Node");
+        final Button deleteNodeButton = new Button("Delete Node");
         controls.setLayoutX(10);
         controls.setLayoutY(640);
-        controls.getChildren().addAll(xField, yField, nameField, isPlace, createNodeButton);  
+        controls.getChildren().addAll(xField, yField, nameField, isPlace, createNodeButton,deleteNodeButton);  
   
+        //create vertical interface
+        final VBox edgeControls = new VBox(20);
+        final TextField fromField = new TextField("");
+        final TextField toField = new TextField("");
+        final Button createEdgeButton = new Button("Create Edge");
+        final Button deleteEdgeButton = new Button("Delete Edge");
+        final Button saveGraph = new Button("Save");
+        edgeControls.setLayoutX(830);
+        edgeControls.setLayoutY(20);
+        edgeControls.getChildren().addAll(fromField, toField, createEdgeButton, deleteEdgeButton, saveGraph);  
+  
+        
+        //create actual map
         File mapFile = new File("CS3733_Graphics/AK2.png");
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
@@ -85,15 +109,28 @@ public class MapTool extends Application{
         imageView.setLayoutX(0);  
         imageView.setLayoutY(0);  
         
+        //create background
+        File backgroundFile = new File("CS3733_Graphics/BlueBackground.jpg");
+        Image bgImage = new Image(backgroundFile.toURI().toString());
+        ImageView bgView = new ImageView();
+        bgView.setImage(bgImage);
+        bgView.setLayoutX(0);  
+        bgView.setLayoutY(0);  
+        
         //Attach everything to the screen
+        root.getChildren().add(bgView);
+        root.getChildren().add(edgeControls);
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
         root.getChildren().add(imageView);  
-  
+        
+        //Create a Graph to store the node information
+        Graph map = new Graph();
+
         final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {  
             @Override  
             public void handle(ActionEvent event) {  
-                
+                root.getChildren().remove(warningBox);
             	int x = -1, y = -1;
             	
             	try{
@@ -130,11 +167,35 @@ public class MapTool extends Application{
                                 "-fx-max-height: 15px;"
                         );
                     	newNodeButton.relocate(x, y);
-                    	root.getChildren().add(newNodeButton);
+                    	//Add actions for when you click this unique button
+                    	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            public void handle(MouseEvent event) {
+                            	if(delete){
+                            		root.getChildren().remove(newNodeButton);
+                            		delete = false;
+                            	}
+                            	else if(!startCoord){
+                            		startX = newNodeButton.getLayoutX()+ 8;
+                            		startY = newNodeButton.getLayoutY() + 8;
+                            		fromField.setText(newPlace.getName());
+                            		startCoord = true;
+                            	}
+                            	else if(!endCoord){
+                            		endX = newNodeButton.getLayoutX() + 8;
+                            		endY = newNodeButton.getLayoutY() + 8;
+                            		toField.setText(newPlace.getName());
+                            		startCoord = false;
+                            		endCoord = false;
+                            	}
+                            }
+                        });
+                    	root.getChildren().add(newNodeButton); //add to the screen
+                    	map.addNode(newPlace);
+                    	
                 	}
                 	//creating a way point
                 	else{
-                		Node newNode = new Node(x, y, true, nameField.getText());
+                		//Node newNode = new Node(x, y, true, nameField.getText());
                     	Button newNodeButton = new Button("");
                     	newNodeButton.setStyle(
                     			"-fx-background-color: #000000; " +
@@ -145,6 +206,26 @@ public class MapTool extends Application{
                                 "-fx-max-height: 10px;"
                         );
                     	newNodeButton.relocate(x, y);
+                    	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            public void handle(MouseEvent event) {
+                            	//fromField.setText(newNodeButton.);
+                            	if(delete){
+                            		root.getChildren().remove(newNodeButton);
+                            		delete = false;
+                            	}
+                            	else if(!startCoord){
+                            		startX = newNodeButton.getLayoutX()+ 8;
+                            		startY = newNodeButton.getLayoutY() + 8;
+                            		startCoord = true;
+                            	}
+                            	else if(!endCoord){
+                            		endX = newNodeButton.getLayoutX() + 8;
+                            		endY = newNodeButton.getLayoutY() + 8;
+                            		startCoord = false;
+                            		endCoord = false;
+                            	}
+                            }
+                        });
                     	root.getChildren().add(newNodeButton);
                 	}
                 	 
@@ -155,7 +236,13 @@ public class MapTool extends Application{
             }  
         }; 
         
-        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+        saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+            	//Save the Graph
+            }
+        });
+        
+        scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//Set the location coordinates in the input boxes
             	xField.setText(Integer.toString((int)event.getX()));
@@ -163,8 +250,37 @@ public class MapTool extends Application{
             }
         });
         
-
-        
+        deleteNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+            	delete = true;
+            }
+        });
+        deleteEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+            	delete = true;
+            }
+        });
+       createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+            	Line line = new Line();
+            	 line.setStartX(startX);
+                 line.setStartY(startY);
+                 line.setEndX(endX);
+                 line.setEndY(endY);
+                 line.setStrokeWidth(3);
+                 line.setStyle("-fx-background-color:  #F0F8FF; ");
+                 root.getChildren().add(line);
+                 
+                 line.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                	 public void handle(MouseEvent event){
+                		if(delete) {
+                			root.getChildren().remove(line); 
+                			delete = false;
+                		}
+                	 }
+                 });
+            }
+        });
         createNodeButton.setOnAction(moveHandler);  
         xField.setOnAction(moveHandler);  
         yField.setOnAction(moveHandler);  
