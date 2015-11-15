@@ -25,9 +25,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import node.AbsNode;
+import node.Edge;
 import node.Graph;
-//import node.Place;
-//import node.Node;
+import node.Node;
 import node.Place;
 
 import java.io.File;
@@ -50,6 +51,11 @@ public class MapTool extends Application{
  
     @Override
     public void start(Stage primaryStage) {
+    	LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
+    	//LinkedList<Place> placeList = new LinkedList<Place>();
+    	//LinkedList<Node> nodeList = new LinkedList<Node>();
+    	LinkedList<Edge> edgeList = new LinkedList<Edge>();
+
         
     	/*Initialize the nodes
     	 * -Very expandable- can initialize classes for each building.
@@ -60,7 +66,7 @@ public class MapTool extends Application{
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0); 
     	final Label warningLabel = new Label("");
-    	warningLabel.setTextFill(Color.RED);
+    	warningLabel.setTextFill(Color.WHITE);
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel);  
@@ -91,8 +97,8 @@ public class MapTool extends Application{
   
         //create vertical interface
         final VBox edgeControls = new VBox(20);
-        final TextField fromField = new TextField("");
-        final TextField toField = new TextField("");
+        final Label fromField = new Label("Start: ");
+        final Label toField = new Label("End: ");
         final Button createEdgeButton = new Button("Create Edge");
         final Button deleteEdgeButton = new Button("Delete Edge");
         final Button saveGraph = new Button("Save");
@@ -124,8 +130,6 @@ public class MapTool extends Application{
         root.getChildren().add(controlLabels);
         root.getChildren().add(imageView);  
         
-        //Create a Graph to store the node information
-        Graph map = new Graph();
 
         final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {  
             @Override  
@@ -157,7 +161,6 @@ public class MapTool extends Application{
                 	warningLabel.setText("");//Remove warning, bc successful
                 	//If we are creating an actual place
                 	if(isPlace.isSelected()){
-                		Place newPlace = new Place(x, y, true, nameField.getText());
                     	Button newNodeButton = new Button("");
                     	newNodeButton.setStyle(
                                 "-fx-background-radius: 5em; " +
@@ -167,35 +170,38 @@ public class MapTool extends Application{
                                 "-fx-max-height: 15px;"
                         );
                     	newNodeButton.relocate(x, y);
+                    	Place newPlace = new Place(x, y, true, nameField.getText());
+                		nodeList.add(newPlace);
                     	//Add actions for when you click this unique button
                     	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent event) {
                             	if(delete){
                             		root.getChildren().remove(newNodeButton);
+                            		nodeList.remove(newPlace);
                             		delete = false;
                             	}
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+ 8;
                             		startY = newNodeButton.getLayoutY() + 8;
-                            		fromField.setText(newPlace.getName());
+                            		fromField.setText("Start: " + newPlace.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX() + 8;
                             		endY = newNodeButton.getLayoutY() + 8;
-                            		toField.setText(newPlace.getName());
+                            		toField.setText("End: " + newPlace.getName());
                             		startCoord = false;
                             		endCoord = false;
                             	}
                             }
                         });
                     	root.getChildren().add(newNodeButton); //add to the screen
-                    	map.addNode(newPlace);
                     	
                 	}
                 	//creating a way point
                 	else{
-                		//Node newNode = new Node(x, y, true, nameField.getText());
+                		Node newNode = new Node(x, y, true, nameField.getText());
+                		nodeList.add(newNode);
                     	Button newNodeButton = new Button("");
                     	newNodeButton.setStyle(
                     			"-fx-background-color: #000000; " +
@@ -206,21 +212,24 @@ public class MapTool extends Application{
                                 "-fx-max-height: 10px;"
                         );
                     	newNodeButton.relocate(x, y);
-                    	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                       	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent event) {
                             	//fromField.setText(newNodeButton.);
                             	if(delete){
                             		root.getChildren().remove(newNodeButton);
+                            		nodeList.remove(newNode);
                             		delete = false;
                             	}
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+ 8;
                             		startY = newNodeButton.getLayoutY() + 8;
+                            		fromField.setText("Start: " + newNode.getReferencePoint());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX() + 8;
                             		endY = newNodeButton.getLayoutY() + 8;
+                            		toField.setText("End: " + newNode.getReferencePoint());
                             		startCoord = false;
                             		endCoord = false;
                             	}
@@ -239,6 +248,8 @@ public class MapTool extends Application{
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//Save the Graph
+            	//save(nodeList);
+            	//save(edgeList);
             }
         });
         
@@ -262,6 +273,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+            	Edge newEdge = new Edge(nodeList.get(nodeList.size()-2), nodeList.get(nodeList.size()-1), getDistance());
+            	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
                  line.setStartY(startY);
@@ -274,7 +287,9 @@ public class MapTool extends Application{
                  line.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 	 public void handle(MouseEvent event){
                 		if(delete) {
-                			root.getChildren().remove(line); 
+                			root.getChildren().remove(line);
+                			edgeList.remove(newEdge);
+                			System.out.println(edgeList);
                 			delete = false;
                 		}
                 	 }
@@ -287,6 +302,7 @@ public class MapTool extends Application{
   
         primaryStage.setScene(scene);  
         primaryStage.show();  
+        
     }  
   
     	
@@ -309,5 +325,10 @@ public class MapTool extends Application{
     	return true;
     }
     
+    public int getDistance(){
+    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
+    }
     
 }
+
+
