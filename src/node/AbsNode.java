@@ -7,14 +7,15 @@ public class AbsNode {
 	private int X;
 	private int Y;
 	private boolean isWalkable;
-	private AbsNode parent;
-	private double cost;
-	private LinkedList<Edge> edges;
+	private AbsNode parent = null;
+	private double cost = 0;
+	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
 	public AbsNode(int valX, int valY, boolean isWalk){
 		X = valX;
 		Y = valY;
 		isWalkable = isWalk;
+		
 	}
 	
 	public int getX(){
@@ -27,6 +28,10 @@ public class AbsNode {
 	
 	public boolean getIsWalkable(){
 		return isWalkable;
+	}
+
+	public void setEdges(Edge anEdge){
+		edges.push(anEdge);
 	}
 	
 	public LinkedList<Edge> getEdges(){
@@ -47,5 +52,21 @@ public class AbsNode {
 	
 	public void setCost(double costToSet){
 		cost = costToSet;
+	}
+	
+	public void deleteEdge(Edge anEdge){
+		for(Edge e: edges){
+			if(anEdge.equals(e)){
+				edges.remove(e);
+				break;
+			}
+		}
+	}
+	
+	public void printConnectingNodes(){
+		for (Edge e : edges){
+			String sf = String.format("X:%d, Y:%d", e.getTo().getX(), e.getTo().getY());
+			System.out.println(sf);
+		}
 	}
 }

@@ -1,15 +1,17 @@
 package node;
 
+import java.lang.Math;
+
 public class Edge {
 
 	private AbsNode from;
 	private AbsNode to;
-	private int distance;
+	private double distance;
 	
-	public Edge(AbsNode fromNode, AbsNode toNode, int distanceBetween){
+	public Edge(AbsNode fromNode, AbsNode toNode){
 		from = fromNode;
 		to = toNode;
-		distance = distanceBetween;
+		distance = Math.sqrt( Math.pow((fromNode.getX() - toNode.getX()), 2.0) + Math.pow((fromNode.getY()-toNode.getY()), 2.0));
 	}
 	
 	public AbsNode getFrom(){
@@ -20,7 +22,11 @@ public class Edge {
 		return to;
 	}
 	
-	public int getDistance(){
+	public double getDistance(){
 		return distance;
+	}
+	
+	public void setDistance(double dToSet){
+		distance = dToSet;
 	}
 }
