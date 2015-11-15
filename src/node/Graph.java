@@ -51,13 +51,13 @@ public class Graph {
 	}
 	
 	public LinkedList<AbsNode> findRoute(AbsNode from, AbsNode to){
-		if (!to.getIsWalkable()){
-			return null;
-		}
-		
-		if (!from.getIsWalkable()){
-			return null;
-		}
+//		if (!to.getIsWalkable()){
+//			return null;
+//		}
+//		
+//		if (!from.getIsWalkable()){
+//			return null;
+//		}
 		
 		LinkedList<AbsNode> path = new LinkedList<AbsNode>();
 		TreeMap<Double, AbsNode> unknownFrontier = new TreeMap<Double, AbsNode>();
@@ -69,10 +69,13 @@ public class Graph {
 			n.setParent(null);
 		}
 		
-		while (unknownFrontier.size() != 0){
+		while (unknownFrontier.size() > 0){
 			AbsNode current = unknownFrontier.pollFirstEntry().getValue();
+			System.out.println("Start looking at current node");
 			
 			if (current.equals(to)){
+				System.out.println("Path Found!");
+				from.setParent(null);
 				path = backtrack(current);
 				return path;
 			}
@@ -80,14 +83,17 @@ public class Graph {
 			explored.add(current);
 			
 			for (Edge neighbor : current.getEdges()){
+				System.out.println("Looking at neighbors...");
 				AbsNode neighborNode = neighbor.getTo();
 				if (neighborNode.getParent() == null){
 					neighborNode.setCost(d(current, neighborNode) + current.getCost());
 					neighborNode.setParent(current);
 					unknownFrontier.put((neighborNode.getCost()+ d(neighborNode, to)), neighborNode);
+					System.out.println("Adding new node to frontier...");
 				}
 				else {
 					if ((d(current, neighborNode) + current.getCost()) < neighborNode.getCost()){
+						System.out.println("Resetting cost and parent of already visited node");
 						neighborNode.setCost(d(current, neighborNode) + current.getCost());
 						neighborNode.setParent(current);
 					}
@@ -114,8 +120,11 @@ public class Graph {
 		LinkedList <AbsNode> path = new LinkedList<AbsNode>();
 		path.push(current);
 		while (current.getParent() != null){
+			String fs = String.format("Current Node Position, X:%d Y:%d", current.getParent().getX(), current.getParent().getY());
+			System.out.println(fs);
 			path.push(current.getParent());
 			current = current.getParent();
+			System.out.println("Added node to result");
 		}
 		return path;
 	}

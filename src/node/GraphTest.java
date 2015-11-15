@@ -100,7 +100,51 @@ public class GraphTest {
 
 	@Test
 	public void testFindRoute() {
-		fail("Not yet implemented");
+		Graph testGraph = new Graph();
+		
+		AbsNode nodeA = new AbsNode(0,3,true);
+		AbsNode nodeB = new AbsNode(1,3,true);
+		AbsNode nodeC = new AbsNode(2,3,true);
+		AbsNode nodeD = new AbsNode(0,2,true);
+		AbsNode nodeE = new AbsNode(2,2,true);
+		AbsNode nodeF = new AbsNode(0,1,true);
+		AbsNode nodeG = new AbsNode(1,1,true);
+		AbsNode nodeH = new AbsNode(2,1,true);
+		AbsNode nodeI = new AbsNode(1,0,true);
+		AbsNode nodeJ = new AbsNode(2,0,true);
+		
+		testGraph.addNode(nodeA);
+		testGraph.addNode(nodeB);
+		testGraph.addNode(nodeC);
+		testGraph.addNode(nodeD);
+		testGraph.addNode(nodeE);
+		testGraph.addNode(nodeF);
+		testGraph.addNode(nodeG);
+		testGraph.addNode(nodeH);
+		testGraph.addNode(nodeI);
+		testGraph.addNode(nodeJ);
+		
+		testGraph.addEdge(nodeA, nodeB);
+		testGraph.addEdge(nodeB, nodeC);
+		testGraph.addEdge(nodeA, nodeD);
+		testGraph.addEdge(nodeD, nodeF);
+		testGraph.addEdge(nodeF, nodeG);
+		testGraph.addEdge(nodeG, nodeH);
+		testGraph.addEdge(nodeG, nodeI);
+		testGraph.addEdge(nodeG, nodeJ);
+		
+		LinkedList<AbsNode> expectedResult = new LinkedList<AbsNode>();
+		
+		expectedResult.add(nodeA);
+		expectedResult.add(nodeD);
+		expectedResult.add(nodeF);
+		expectedResult.add(nodeG);
+		expectedResult.add(nodeJ);
+		
+		LinkedList<AbsNode> actualResult = testGraph.findRoute(nodeA, nodeJ);
+		
+		assertEquals(expectedResult, actualResult);
+		
 	}
 
 //	@Test
