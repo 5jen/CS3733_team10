@@ -27,20 +27,26 @@ public class Graph {
 		for (AbsNode node : nodes){
 			for (AbsNode cNode : connectingNodeList){
 				if (cNode.equals(node)){
-					for(Edge e : node.getEdges()){
-						node.deleteEdge(e);
-					}
+					for (Edge e : node.getEdges())
+						if(e.getTo().equals(nodeToDelete)){
+							node.deleteEdge(e);
+							break;
+						}
 				}
 			}
 		}
 	}
 	
 	public void addEdge(AbsNode node1, AbsNode node2){
-		Edge newEdge1 = new Edge(node1, node2);
-		Edge newEdge2 = new Edge(node2, node1);
+		int index1 = nodes.indexOf(node1);
+		int index2 = nodes.indexOf(node2);
 		
-		node1.setEdges(newEdge1);
-		node2.setEdges(newEdge2);
+		
+		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2));
+		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1));
+		
+		nodes.get(index1).setEdges(newEdge1);
+		nodes.get(index2).setEdges(newEdge2);
 		
 	}
 	
@@ -66,7 +72,7 @@ public class Graph {
 		while (unknownFrontier.size() != 0){
 			AbsNode current = unknownFrontier.pollFirstEntry().getValue();
 			
-			if (current == to){
+			if (current.equals(to)){
 				path = backtrack(current);
 				return path;
 			}
@@ -101,7 +107,7 @@ public class Graph {
 	}
 	
 	public double d(AbsNode from, AbsNode to){
-		return Math.sqrt( (from.getX() - to.getX())^2 + (from.getY()-to.getY())^2);
+		return Math.sqrt( Math.pow(from.getX() - to.getX(), 2.0) + Math.pow((from.getY()-to.getY()), 2.0));
 	}
 	
 	public LinkedList<AbsNode> backtrack(AbsNode current){
