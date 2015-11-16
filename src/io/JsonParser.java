@@ -39,13 +39,17 @@ public class JsonParser {
 	    if (json.length()>0){
 	    	for (int i=0;i<json.length();i++){
 	    		JSONObject job = json.getJSONObject(i);
+	    		//extract content right here
+	    		
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
 	    		boolean isWalk = job.getBoolean("isWalk");
+	    		
+	    		//replace this argument with a class to create the class
 	    		System.out.println(isWalk);
 	    	}
 	    }
-	    
+	    // replace the return value with a actual class
 	    return "";
 	}
     /**
@@ -84,7 +88,6 @@ public class JsonParser {
 	}
     
     
-    
     /**
      * Change json info to a string
      * @return
@@ -94,28 +97,31 @@ public class JsonParser {
     	//create json object 
     	JSONObject json = new JSONObject();
     	
+    	//use getter from the class to create nodes
+        //instead of using put   	
     	json.put("valx",100);
     	json.put("valy",209);
     	json.put("place", "ak");
+    	
     	JSONArray array = new JSONArray();
     	array.put(json);
     	String j2s = array.toString();
         
     	return j2s;
     }
-    
+    /**
+     * Stores a JSON string into a text file
+     * @param str is the JSON string to store
+     * @param path is the path of the saving file
+     * @throws IOException
+     */
     public static void saveFile(String str,String path) throws IOException{
         FileWriter fo = new FileWriter(path);
         PrintWriter out = new PrintWriter(fo);  
         out.write(str);  
         out.println();  
-   
-		fo.close();
-
+        fo.close();
         out.close();  
-
-
-
     }
     
     private static String testPrepareJSONObject(){  
