@@ -161,7 +161,10 @@ public class GPSapp extends Application{
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	 // Call findRoute on 2 nodes
+            	// Need to string compare from 
+            		// LocationSelectorSTART.getValue() and LocationSelectorDEST.getValue() to get actual nodes 
+            		// Any better way???
+            	// Call findRoute on 2 nodes, returns a LinkedList<AbsNode>
                 // LinkedList<AbsNode> route = findRoute();
                 // Call Draw Route
                 // drawRoute(root, route);
