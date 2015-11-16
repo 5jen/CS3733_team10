@@ -14,8 +14,8 @@ import org.json.JSONStringer;
 import org.json.JSONTokener;
 import org.json.JSONArray;
 
-import org.junit.Test;
 
+import org.junit.Test;
 
 
 public class JsonParser {
