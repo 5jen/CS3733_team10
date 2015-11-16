@@ -131,7 +131,7 @@ public class MapTool extends Application{
         root.getChildren().add(imageView);  
         
 
-        final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {  
+        final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
             @Override  
             public void handle(ActionEvent event) {  
                 root.getChildren().remove(warningBox);
@@ -155,6 +155,13 @@ public class MapTool extends Application{
             		warningLabel.setText("Error, coordinates not valid");
             		root.getChildren().add(warningBox); 
             	}
+                
+                // Make sure a name is entered before creating node
+                
+                else if (nameField.getText().equals("")){
+                	warningLabel.setText("Error, must enter a name");
+            		root.getChildren().add(warningBox); 
+                }
                 
             	//passes all validity checks, create waypoint and add button
                 else{
@@ -296,9 +303,7 @@ public class MapTool extends Application{
                  });
             }
         });
-        createNodeButton.setOnAction(moveHandler);  
-        xField.setOnAction(moveHandler);  
-        yField.setOnAction(moveHandler);  
+        createNodeButton.setOnAction(CreateHandler);  
   
         primaryStage.setScene(scene);  
         primaryStage.show();  
