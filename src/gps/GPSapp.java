@@ -62,28 +62,22 @@ public class GPSapp extends Application{
  
     @Override
     public void start(Stage primaryStage) {
-        
-    	/*Initialize the nodes
-    	 * -Very expandable- can initialize classes for each building.
-    	 */
     	
+    	final Pane root = new Pane(); 
+            	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
+    	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = 
-    		    FXCollections.observableArrayList(
-    		        "AK1",
-    		        "AK2",
-    		        "AK3"
-    		    );
-    	
-    	final ComboBox mapSelector = new ComboBox(mapOptions);
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
+    	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
     	mapSelectionBoxV.setLayoutY(20);
     	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
+    	
     	
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0); 
@@ -92,30 +86,39 @@ public class GPSapp extends Application{
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel); 
-    	
-    	//Create input box field labels (on top of the text boxes)
-        final HBox controlLabels = new HBox(160); 
-        final Label xFieldName = new Label("Start");
-        xFieldName.setTextFill(Color.WHITE);
-        final Label yFieldName = new Label("Destination");
-        yFieldName.setTextFill(Color.WHITE);
-        controlLabels.setLayoutX(10);
-        controlLabels.setLayoutY(620);
-        controlLabels.getChildren().addAll(xFieldName, yFieldName);  
-
-    	
-    	//Create the menu interface for entering info
-    	final Pane root = new Pane();  
-        final HBox controls = new HBox(25);  
-        final TextField startField = new TextField("");  
-        final TextField endField = new TextField("");  
+        
+      //Create the START selection drop down menu
         final Button findRouteButton = new Button("Find Route");
-        controls.setLayoutX(10);
-        controls.setLayoutY(640);
-        controls.getChildren().addAll(startField, endField, findRouteButton);  
+    	final VBox LocationSelectionBoxV = new VBox(5);
+    	final Label LocationSelectorLabelSTART = new Label("Start");
+    	LocationSelectorLabelSTART.setTextFill(Color.WHITE);
+    	final Label LocationSelectorLabelDEST = new Label("Destination");
+    	LocationSelectorLabelDEST.setTextFill(Color.WHITE);
+    	final HBox LocationSelectionBoxHLABEL = new HBox(185);
+    	final HBox LocationSelectionBoxH = new HBox(60); 
+    	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
+    	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
+    	LocationSelectorSTART.setPrefWidth(150);
+    	LocationSelectorDEST.setPrefWidth(150);
+    	LocationSelectorSTART.setVisibleRowCount(4);
+    	LocationSelectorDEST.setVisibleRowCount(4);
+    	LocationSelectionBoxHLABEL.getChildren().addAll(LocationSelectorLabelSTART, LocationSelectorLabelDEST);
+    	LocationSelectionBoxH.getChildren().addAll(LocationSelectorSTART, LocationSelectorDEST, findRouteButton);
+    	LocationSelectionBoxV.setLayoutX(10);
+    	LocationSelectionBoxV.setLayoutY(620);
+    	LocationSelectionBoxV.getChildren().addAll(LocationSelectionBoxHLABEL, LocationSelectionBoxH);
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/AK2.png");
+        mapSelector.setValue("AK2"); // Default Map when App is opened
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
@@ -133,84 +136,8 @@ public class GPSapp extends Application{
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
-        root.getChildren().add(controls);
-        root.getChildren().add(controlLabels); 
+        root.getChildren().add(LocationSelectionBoxV);
         root.getChildren().add(imageView);  
-  
-        /*final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {  
-            @Override  
-            public void handle(ActionEvent event) {  
-                double x = Double.parseDouble(startField.getText());  
-                double y = Double.parseDouble(endField.getText());  
-                imageView.setLayoutX(x);  
-                imageView.setLayoutY(y);  
-            }  
-        }; */ 
-        
-        final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {  
-            @Override  
-            public void handle(ActionEvent event) {  
-                root.getChildren().remove(warningBox); //clear any existing warning
-            	
-                //CHANGE TO MAKE SURE THEY ARE STRINGS (FOR IF SOMEONE MAY MANUALLY ENTER INPUT)
-                //check to see if proper fields types given
-                /*if(!isValidCoords(startField.getText())){
-            		warningLabel.setText("Error, coordinates not valid");
-            		root.getChildren().add(warningBox); 
-            	}*/
-                
-            	//passes all validity checks, create waypoint and add button
-                /*else{
-                	warningLabel.setText("");//Remove warning, bc successful
-                	//If we are creating an actual place
-                	if(isPlace.isSelected()){
-                    	Button newNodeButton = new Button("");
-                    	newNodeButton.setStyle(
-                                "-fx-background-radius: 5em; " +
-                                "-fx-min-width: 15px; " +
-                                "-fx-min-height: 15px; " +
-                                "-fx-max-width: 15px; " +
-                                "-fx-max-height: 15px;"
-                        );
-                    	newNodeButton.relocate(x, y);
-                    	//Place newPlace = new Place(x, y, true, nameField.getText());
-                		//nodeList.add(newPlace);
-                    	
-                    	//Add actions for when you click this unique button
-                    	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent event) {
-                            	if(delete){
-                            		root.getChildren().remove(newNodeButton);
-                            		nodeList.remove(newPlace);
-                            		delete = false;
-                            	}
-                            	else if(!startCoord){
-                            		startX = newNodeButton.getLayoutX()+ 8;
-                            		startY = newNodeButton.getLayoutY() + 8;
-                            		fromField.setText("Start: " + newPlace.getName());
-                            		startCoord = true;
-                            	}
-                            	else if(!endCoord){
-                            		endX = newNodeButton.getLayoutX() + 8;
-                            		endY = newNodeButton.getLayoutY() + 8;
-                            		toField.setText("End: " + newPlace.getName());
-                            		startCoord = false;
-                            		endCoord = false;
-                            	}
-                            }
-                        });
-                    	
-                    	//root.getChildren().add(newNodeButton); //add to the screen
-                    	
-                	}
-                	
-                	 
-                	
-                	//After placing node on screen, save it to a external file (wait for yang)
-                }*/
-            	
-            }  
-        }; 
         
         
         //Add actions to the Load Map button
@@ -219,7 +146,6 @@ public class GPSapp extends Application{
             	root.getChildren().remove(imageView); //remove current map, then load new one
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
-                //System.out.println("CS3733_Graphics/" + (String) mapSelector.getValue()+"/.png");
             	Image mapImage = new Image(newMapFile.toURI().toString());
                 ImageView imageView = new ImageView();
                 imageView.setImage(mapImage);
@@ -227,7 +153,7 @@ public class GPSapp extends Application{
                 imageView.setLayoutY(0);
                 imageView.resize(800, 600); //incase map is not already scaled perfectly
                 root.getChildren().add(imageView); 
-                //add nodes/node buttons to the screen
+                //add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
                 //graph.drawEdges?
             }
         });
@@ -242,9 +168,6 @@ public class GPSapp extends Application{
             }
         });
         
-        findRouteButton.setOnAction(moveHandler);  
-        startField.setOnAction(moveHandler);  
-        endField.setOnAction(moveHandler);  
   
         primaryStage.setScene(new Scene(root, 1050, 700));  
         primaryStage.show();  
