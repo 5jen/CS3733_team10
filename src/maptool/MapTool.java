@@ -273,7 +273,7 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Edge newEdge = new Edge(nodeList.get(nodeList.size()-2), nodeList.get(nodeList.size()-1), getDistance());
+            	Edge newEdge = new Edge(nodeList.get(nodeList.size()-2), nodeList.get(nodeList.size()-1));
             	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
