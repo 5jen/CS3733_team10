@@ -67,7 +67,7 @@ public class MapTool extends Application{
     @Override
     public void start(Stage primaryStage) {
     	
-    	
+    	System.out.println("edgelist length" + edgeList.size());
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
@@ -489,7 +489,7 @@ public class MapTool extends Application{
     }
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
-    	LinkedList<Edge> edgeList = null;
+    	LinkedList<Edge> edgeList = new LinkedList<Edge>();
     	AbsNode fromNode;
     	AbsNode toNode;
     	//first find the from node
