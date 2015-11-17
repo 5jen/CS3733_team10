@@ -168,16 +168,8 @@ public class JsonParser {
     	JSONArray array = new JSONArray();
     	for(int i = 0; i < edgeList.size(); i++){
     		JSONObject json = new JSONObject();
-    		if(edgeList.get(i).getFrom().getIsPlace())
-    			json.put("from", (Place)edgeList.get(i).getFrom());
-    		else
-    			json.put("from", (Node)edgeList.get(i).getFrom());
-    		
-    		if(edgeList.get(i).getTo().getIsPlace())
-    			json.put("to", (Place)edgeList.get(i).getTo());
-    		else
-    			json.put("to", (Node)edgeList.get(i).getTo());
-    		
+    		json.put("from", edgeList.get(i).getFrom().getName());
+    		json.put("to", edgeList.get(i).getTo().getName());
         	json.put("distance", edgeList.get(i).getDistance());
         	array.put(json);
     	}

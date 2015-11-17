@@ -121,8 +121,8 @@ public class MapTool extends Application{
   
         //create vertical interface
         final VBox edgeControls = new VBox(20);
-        final Label fromField = new Label("Start: ");
-        final Label toField = new Label("End: ");
+        final Label fromField = new Label("");
+        final Label toField = new Label("");
         final Button createEdgeButton = new Button("Create Edge");
         final Button deleteEdgeButton = new Button("Delete Edge");
         final Button saveGraph = new Button("Save");
@@ -149,16 +149,18 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);
+        root.getChildren().add(imageView);
+        
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
-        root.getChildren().add(imageView);
-        
-        drawPlaces(nodeList, root, fromField, toField);
         
         drawEdges(edgeList, gc);
         root.getChildren().add(canvas);
+        drawPlaces(nodeList, root, fromField, toField);
+        
+        
 
         final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
             @Override  
@@ -219,13 +221,13 @@ public class MapTool extends Application{
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+ 8;
                             		startY = newNodeButton.getLayoutY() + 8;
-                            		fromField.setText("Start: " + newPlace.getName());
+                            		fromField.setText(newPlace.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX() + 8;
                             		endY = newNodeButton.getLayoutY() + 8;
-                            		toField.setText("End: " + newPlace.getName());
+                            		toField.setText(newPlace.getName());
                             		startCoord = false;
                             		endCoord = false;
                             	}
@@ -292,6 +294,7 @@ public class MapTool extends Application{
             	
             	//save edges
             	String edgeData = json.jsonToStringEdge(edgeList);
+            	System.out.println(edgeData);
             	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
             	try {
 					json.saveFile(edgeData, edgePath);
@@ -321,7 +324,21 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Edge newEdge = new Edge(nodeList.get(nodeList.size()-2), nodeList.get(nodeList.size()-1), getDistance());
+            	AbsNode fromNode = new AbsNode(0, 0, false, false);
+            	AbsNode toNode = new AbsNode(0, 0, false, false);
+            	for(int i = 0; i < nodeList.size(); i ++){
+
+        			//check difference between place and node..
+        			if(nodeList.get(i).getName().equals(fromField.getText())){
+        				fromNode = nodeList.get(i);
+        			}
+        			if(nodeList.get(i).getName().equals(toField.getText())){
+        				toNode = nodeList.get(i);
+        			}
+        			
+            	}
+            	
+            	Edge newEdge = new Edge(fromNode, toNode, getDistance());
             	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
@@ -350,6 +367,7 @@ public class MapTool extends Application{
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
                //clear existing node list
+        	   root.getChildren().remove(canvas);
            		root.getChildren().remove(imageView); //remove current map, then load new one
            		nodeList.clear(); 
            		edgeListConversion.clear();
@@ -374,20 +392,22 @@ public class MapTool extends Application{
            		root.getChildren().add(imageView); 
                 drawPlaces(nodeList, root, fromField, toField);
                 drawEdges(edgeList, gc);
+                root.getChildren().add(canvas);
+
 
            }
            
        });
        
         createNodeButton.setOnAction(CreateHandler);  
-  
+        
         primaryStage.setScene(scene);  
         primaryStage.show();  
         
     }  
     
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
-    	
+    	//System.out.println("edge list size: " + edges.size());
     	for(int i = 0; i < edges.size(); i++){
     		System.out.println("Line Iterator: " + i);
 	  		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
@@ -508,7 +528,7 @@ public class MapTool extends Application{
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
-        		//System.out.println("Node Iterator: " + j);
+        		System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(i).getX() + " =? " + edgeListConversion.get(i).getFrom());
 
     			//check difference between place and node..
     			if(nodeList.get(i).getIsPlace()){
@@ -526,9 +546,10 @@ public class MapTool extends Application{
     					toNode = (Node)nodeList.get(i);
     				}
     			}
-    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
-    			edgeList.add(newEdge);
+    			
     		}
+    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+			edgeList.add(newEdge);
     	}
     	
     	return edgeList;
