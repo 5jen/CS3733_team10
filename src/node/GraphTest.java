@@ -150,6 +150,20 @@ public class GraphTest {
 		assertEquals(someList1, testGraph.findRoute(nodeA, nodeB));
 		assertEquals(null, testGraph.findRoute(nodeE, nodeJ));
 		
+		//Tests the ability of the code to update the cost of travelling to a previously traveled to node
+		LinkedList<AbsNode> anotherResult = new LinkedList<AbsNode>();
+		anotherResult.add(nodeJ);
+		anotherResult.add(nodeG);
+		anotherResult.add(nodeF);
+		anotherResult.add(nodeD);
+		anotherResult.add(nodeA);
+		anotherResult.add(nodeB);
+		anotherResult.add(nodeC);
+		testGraph.addEdge(nodeH, nodeE);
+		testGraph.addEdge(nodeE, nodeD);
+		LinkedList<AbsNode> parentChangeResult = testGraph.findRoute(nodeJ, nodeC);
+		
+		assertEquals(anotherResult, parentChangeResult);
 	}
 
 //	@Test
