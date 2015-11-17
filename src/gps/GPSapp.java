@@ -20,7 +20,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.AbsNode;
+import node.Edge;
 import node.Place;
+import node.Graph;
 import ui.Node;
 import ui.NodeList;
 
@@ -65,18 +67,19 @@ public class GPSapp extends Application{
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
 	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
+	
+	LinkedList<Edge> edgeList = new LinkedList<Edge>();//json.getJsonContentEdge("Graphs/AK1Edges.json");
+	Canvas canvas = new Canvas(800, 650);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false;
 	String startNode, endNode;
+	Graph graph = new Graph(nodeList);
+	
     @Override
     public void start(Stage primaryStage) {
     	
     	final Pane root = new Pane(); 
-          
-    	
-    	
-   
-    	
-    	
+    	System.out.println("size of nodelist: " + nodeList.size());
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
@@ -109,13 +112,10 @@ public class GPSapp extends Application{
     	final HBox LocationSelectionBoxHLABEL = new HBox(185);
     	final HBox LocationSelectionBoxH = new HBox(60); 
     	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	//Initialize the Drop down menu for inital Map
+    	for(int i = 0; i < nodeList.size() - 1; i ++){ 
+        	LocationOptions.add(((Place)nodeList.get(i)).getName());
+        }
     	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
     	LocationSelectorSTART.setPrefWidth(150);
@@ -151,15 +151,20 @@ public class GPSapp extends Application{
         root.getChildren().add(LocationSelectionBoxV);
         root.getChildren().add(imageView);  
         
-        drawPlaces(nodeList, root);
+        
+        graph = createGraph(graph, nodeList, edgeList);
+        drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
         
         
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	root.getChildren().remove(imageView); //remove current map, then load new one
-            	nodeList.clear(); 
+            	nodeList.clear();
+           		edgeList.clear();
             	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+            	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	graph = createGraph(graph, nodeList, edgeList);
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
             	Image mapImage = new Image(newMapFile.toURI().toString());
@@ -169,9 +174,13 @@ public class GPSapp extends Application{
                 imageView.setLayoutY(0);
                 imageView.resize(800, 600); //incase map is not already scaled perfectly
                 root.getChildren().add(imageView); 
-                //add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
-                //graph.drawEdges?
-                drawPlaces(nodeList, root);
+                //add node buttons to the screen and populates the drop down menus
+                LocationOptions.clear();
+                for(int i = 0; i < nodeList.size() - 1; i ++){ 
+                	LocationOptions.add(((Place)nodeList.get(i)).getName());
+                }
+                
+                drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
             }
         });
         
@@ -179,12 +188,25 @@ public class GPSapp extends Application{
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	// Need to string compare from 
-            		// LocationSelectorSTART.getValue() and LocationSelectorDEST.getValue() to get actual nodes 
-            		// Any better way???
+            	Place startPlace = null;
+            	Place endPlace = null;
+            	for(int i = 0; i < nodeList.size() - 1; i ++){ 
+                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
+                		startPlace = ((Place)nodeList.get(i));
+                	}
+                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorDEST.getValue())) {
+                		endPlace = ((Place)nodeList.get(i));
+                	}
+                }
+
+            	
             	// Call findRoute on 2 nodes, returns a LinkedList<AbsNode>
-                // LinkedList<AbsNode> route = findRoute();
+            	//create graph and add nodes
+            	
+                LinkedList<AbsNode> route = graph.findRoute(startPlace, endPlace); //WHY WONT THIS CALL WORK??!!??!?!!??!?!
                 // Call Draw Route
-                // drawRoute(root, route);
+                
+                drawRoute(gc, route);
             }
         });
         
@@ -193,35 +215,55 @@ public class GPSapp extends Application{
         primaryStage.show();  
     }  
     
+    private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
+    	g.setNodes(nodes);
+    	/*for(int i = 0; i < nodes.size(); i++){
+    		System.out.println("Node: "+ i + " " + nodes.get(i));
+    		//g.addNode(nodes.get(i));
+    		AbsNode nodeToAdd = new AbsNode(1,1,true,true);
+    		g.addNode(nodeToAdd);
+    	}*/
+    	for(int i = 0; i < edges.size(); i++){
+    		g.addEdge(edges.get(i).getFrom(), edges.get(i).getTo());
+    	}
+    	
+    	return g;
+    }
     
-    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root){
+    
+    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, ComboBox<String> LocationSelectorSTART, ComboBox<String> LocationSelectorDEST){
     	int i;
-    	for(i = 0; i < nodes.size() - 1; i ++){ 
-    		Button newNodeButton = new Button("");
-        	newNodeButton.setStyle(
-                    "-fx-background-radius: 5em; " +
-                    "-fx-min-width: 15px; " +
-                    "-fx-min-height: 15px; " +
-                    "-fx-max-width: 15px; " +
-                    "-fx-max-height: 15px;"
-            );
-        	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
-        	AbsNode newNode = nodes.get(i);
-        	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {
-                	//LocationSelectorSTART
-                	if (!start){
-                		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
-                		start = true;
-                	}
-                	if(!end){
-                		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
-                		//LocationSelectorDEST.setValue(endNode);
-                		start = false;
-                	}
-                }
-            });
-        	root.getChildren().add(newNodeButton);
+    	for(i = 0; i < nodes.size(); i ++){ 
+    		if(nodes.get(i).getIsPlace()){
+        		Button newNodeButton = new Button("");
+            	newNodeButton.setStyle(
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 15px; " +
+                        "-fx-min-height: 15px; " +
+                        "-fx-max-width: 15px; " +
+                        "-fx-max-height: 15px;"
+                );
+            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            	AbsNode newNode = nodes.get(i);
+            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	if (!start){
+                    		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
+                    		LocationSelectorSTART.setValue(startNode);
+                    		start = true;
+                    	}
+                    	else if(!end){
+                    		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
+                    		LocationSelectorDEST.setValue(endNode);
+                    		start = false;
+                    		end = false;
+                    	}
+                    }
+                });
+            	root.getChildren().add(newNodeButton);
+    		} else if(!nodes.get(i).getIsPlace()){
+    			//Do nothing
+    		}
 	  		
 
     	}
@@ -230,11 +272,10 @@ public class GPSapp extends Application{
     private void drawRoute(GraphicsContext gc, LinkedList<AbsNode> route) {
         
     	//iterate through the route drawing a connection between nodes
-    	for(int i = 0; i < route.size() - 1; i ++){  
+    	for(int i = 1; i <= route.size(); i ++){  
 	  		gc.strokeLine(route.get(i).getX(), route.get(i).getY(), route.get(i+1).getX(),route.get(i+1).getY());
-
+	  		
     	}
     }
-
-    
+       
 }

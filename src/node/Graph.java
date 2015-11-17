@@ -7,12 +7,16 @@ public class Graph {
 	
 	private LinkedList<AbsNode> nodes = new LinkedList<AbsNode>();
 	
-	public Graph(){
-		
+	public Graph(LinkedList<AbsNode> nodeList){
+		this.nodes = nodeList;
 	}
 	
 	public void addNode(AbsNode nodeToAdd){
-		nodes.push(nodeToAdd);
+		nodes.add(nodeToAdd);
+	}
+	
+	public void setNodes(LinkedList<AbsNode> nodeList){
+		nodes = nodeList;
 	}
 	
 	public void deleteNode(AbsNode nodeToDelete){
