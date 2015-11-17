@@ -2,6 +2,8 @@ package node;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 public class AbsNodeTest {
@@ -63,5 +65,25 @@ public class AbsNodeTest {
 		assertEquals(20, testCost, 1);
 		
 	}
+	
+	@Test
+	public void testDeleteEdge() {
+		AbsNode node25 = new AbsNode(1, 2, true);
+		AbsNode node26 = new AbsNode(2, 2, true);
+		Edge anEdge = new Edge(node25, node26);
+		
+		node25.deleteEdge(anEdge);
+		
+		LinkedList<Edge> aResult = new LinkedList<Edge>();
+		
+		
+		assertEquals(aResult, node25.getEdges());
+		
+		node25.deleteEdge(anEdge);
+		
+	}
 
+	
+	
+	
 }
