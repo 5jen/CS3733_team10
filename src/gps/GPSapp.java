@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.AbsNode;
 import node.Place;
+import node.Graph;
 import ui.Node;
 import ui.NodeList;
 
@@ -174,10 +175,20 @@ public class GPSapp extends Application{
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	// Need to string compare from 
-            		// LocationSelectorSTART.getValue() and LocationSelectorDEST.getValue() to get actual nodes 
-            		// Any better way???
+            	Place startPlace;
+            	Place endPlace;
+            	for(int i = 0; i < nodeList.size() - 1; i ++){ 
+                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
+                		startPlace = ((Place)nodeList.get(i));
+                	}
+                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorDEST.getValue())) {
+                		endPlace = ((Place)nodeList.get(i));
+                	}
+                }
+
+            	
             	// Call findRoute on 2 nodes, returns a LinkedList<AbsNode>
-                // LinkedList<AbsNode> route = findRoute();
+                //LinkedList<AbsNode> route = findRoute(startPlace, endPlace); //WHY WONT THIS CALL WORK??!!??!?!!??!?!
                 // Call Draw Route
                 // drawRoute(root, route);
             }
