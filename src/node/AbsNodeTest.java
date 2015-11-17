@@ -70,16 +70,22 @@ public class AbsNodeTest {
 	public void testDeleteEdge() {
 		AbsNode node25 = new AbsNode(1, 2, true);
 		AbsNode node26 = new AbsNode(2, 2, true);
-		Edge anEdge = new Edge(node25, node26);
+		AbsNode node27 = new AbsNode(2, 1, true);
 		
-		node25.deleteEdge(anEdge);
+		Edge someEdge = new Edge(node25, node26);
+		Edge anotherEdge = new Edge(node25, node27);
+		
+		node25.setEdges(someEdge);
+		
+		node25.deleteEdge(someEdge);
 		
 		LinkedList<Edge> aResult = new LinkedList<Edge>();
 		
-		
+		//if this passes then something is wrong
 		assertEquals(aResult, node25.getEdges());
 		
-		node25.deleteEdge(anEdge);
+		node25.deleteEdge(someEdge);
+		node25.deleteEdge(anotherEdge);
 		
 	}
 

@@ -142,9 +142,12 @@ public class GraphTest {
 		expectedResult.add(nodeJ);
 		
 		LinkedList<AbsNode> actualResult = testGraph.findRoute(nodeA, nodeJ);
+		LinkedList<AbsNode> someList1 = new LinkedList<AbsNode>();
+		someList1.add(nodeA);
+		someList1.add(nodeB);
 		
 		assertEquals(expectedResult, actualResult);
-		
+		assertEquals(someList1, testGraph.findRoute(nodeA, nodeB));
 		assertEquals(null, testGraph.findRoute(nodeE, nodeJ));
 		
 	}
