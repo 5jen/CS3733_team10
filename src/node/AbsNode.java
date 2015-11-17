@@ -9,13 +9,14 @@ public class AbsNode {
 	private boolean isWalkable;
 	private AbsNode parent = null;
 	private double cost = 0;
+	private boolean isPlace;
 	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
-	public AbsNode(int valX, int valY, boolean isWalk){
+	public AbsNode(int valX, int valY, boolean isWalk, boolean place){
 		X = valX;
 		Y = valY;
 		isWalkable = isWalk;
-		
+		isPlace = place;
 	}
 	
 	public int getX(){
@@ -28,6 +29,10 @@ public class AbsNode {
 	
 	public boolean getIsWalkable(){
 		return isWalkable;
+	}
+	
+	public boolean getIsPlace(){
+		return isPlace;
 	}
 
 	public void setEdges(Edge anEdge){

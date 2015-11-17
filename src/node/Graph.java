@@ -41,10 +41,11 @@ public class Graph {
 	public void addEdge(AbsNode node1, AbsNode node2){
 		int index1 = nodes.indexOf(node1);
 		int index2 = nodes.indexOf(node2);
+		int dist = getDistance(node1, node2);
 		
 		
-		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2));
-		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1));
+		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2), dist);
+		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1), dist);
 		
 		nodes.get(index1).setEdges(newEdge1);
 		nodes.get(index2).setEdges(newEdge2);
@@ -129,5 +130,9 @@ public class Graph {
 		}
 		return path;
 	}
+	
+	public int getDistance(AbsNode n1, AbsNode n2){
+    	return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
+    }
 }
 		
