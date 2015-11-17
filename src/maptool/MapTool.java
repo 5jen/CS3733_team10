@@ -325,6 +325,7 @@ public class MapTool extends Application{
     	return true;
     }
     
+    
     public int getDistance(){
     	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
     }
