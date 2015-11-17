@@ -16,7 +16,7 @@ public class GraphTest {
 	@Test
 	public void testAddNode() {
 		Graph testAdd = new Graph();
-		AbsNode nodeAdd = new AbsNode(5,6, true);
+		AbsNode nodeAdd = new AbsNode(5,6, true, true);
 		testAdd.addNode(nodeAdd);
 		
 		LinkedList<AbsNode> linkListNode = new LinkedList<AbsNode>();
@@ -26,10 +26,10 @@ public class GraphTest {
 		
 		Graph testMultiple = new Graph();
 		
-		AbsNode node1 = new AbsNode(0,0, true);
-		AbsNode node2 = new AbsNode(1,0,true);
-		AbsNode node3 = new AbsNode(0,1, true);
-		AbsNode node4 = new AbsNode(1,1, true);
+		AbsNode node1 = new AbsNode(0,0, true, true);
+		AbsNode node2 = new AbsNode(1,0,true, true);
+		AbsNode node3 = new AbsNode(0,1, true, true);
+		AbsNode node4 = new AbsNode(1,1, true, true);
 		
 		testMultiple.addNode(node1);
 		testMultiple.addNode(node2);
@@ -50,8 +50,8 @@ public class GraphTest {
 	public void testAddEdge() {
 		Graph addEdgeTest = new Graph();
 		
-		AbsNode node1 = new AbsNode(4,2, true);
-		AbsNode node2 = new AbsNode(9,3, true);
+		AbsNode node1 = new AbsNode(4,2, true, true);
+		AbsNode node2 = new AbsNode(9,3, true, true);
 		
 		addEdgeTest.addNode(node2);
 		addEdgeTest.addNode(node1);
@@ -66,10 +66,10 @@ public class GraphTest {
 	public void testDeleteNode() {
 		Graph deleteTest = new Graph();
 		
-		AbsNode node1 = new AbsNode(0,0,true);
-		AbsNode node2 = new AbsNode(0,5,true);
-		AbsNode node3 = new AbsNode(5,0,true);
-		AbsNode node4 = new AbsNode(5,5,true);
+		AbsNode node1 = new AbsNode(0,0,true, true);
+		AbsNode node2 = new AbsNode(0,5,true, true);
+		AbsNode node3 = new AbsNode(5,0,true, true);
+		AbsNode node4 = new AbsNode(5,5,true, true);
 		
 		deleteTest.addNode(node4);
 		deleteTest.addNode(node3);
@@ -102,16 +102,16 @@ public class GraphTest {
 	public void testFindRoute() {
 		Graph testGraph = new Graph();
 		
-		AbsNode nodeA = new AbsNode(0,3,true);
-		AbsNode nodeB = new AbsNode(1,3,true);
-		AbsNode nodeC = new AbsNode(2,3,true);
-		AbsNode nodeD = new AbsNode(0,2,true);
-		AbsNode nodeE = new AbsNode(2,2,true);
-		AbsNode nodeF = new AbsNode(0,1,true);
-		AbsNode nodeG = new AbsNode(1,1,true);
-		AbsNode nodeH = new AbsNode(2,1,true);
-		AbsNode nodeI = new AbsNode(1,0,true);
-		AbsNode nodeJ = new AbsNode(2,0,true);
+		AbsNode nodeA = new AbsNode(0,3,true, true);
+		AbsNode nodeB = new AbsNode(1,3,true, true);
+		AbsNode nodeC = new AbsNode(2,3,true, true);
+		AbsNode nodeD = new AbsNode(0,2,true, true);
+		AbsNode nodeE = new AbsNode(2,2,true, true);
+		AbsNode nodeF = new AbsNode(0,1,true, true);
+		AbsNode nodeG = new AbsNode(1,1,true, true);
+		AbsNode nodeH = new AbsNode(2,1,true, true);
+		AbsNode nodeI = new AbsNode(1,0,true, true);
+		AbsNode nodeJ = new AbsNode(2,0,true, true);
 		
 		testGraph.addNode(nodeA);
 		testGraph.addNode(nodeB);
@@ -156,8 +156,8 @@ public class GraphTest {
 
 	@Test
 	public void testD() {
-		AbsNode node1 = new AbsNode(0,0,true);
-		AbsNode node2 = new AbsNode(2,2,true);
+		AbsNode node1 = new AbsNode(0,0,true, true);
+		AbsNode node2 = new AbsNode(2,2,true, true);
 		
 		Graph dGraph = new Graph();
 		
@@ -168,13 +168,13 @@ public class GraphTest {
 
 	@Test
 	public void testBacktrack() {
-		AbsNode node1 = new AbsNode(0,0,true);
-		AbsNode node6 = new AbsNode(2,2,true);
-		AbsNode node10 = new AbsNode(2,4,true);
-		AbsNode node11 = new AbsNode(4,4,true);
-		AbsNode node7 = new AbsNode(4,2,true);
-		AbsNode node8 = new AbsNode(6,2,true);
-		AbsNode node12 = new AbsNode(6,4,true);
+		AbsNode node1 = new AbsNode(0,0,true, true);
+		AbsNode node6 = new AbsNode(2,2,true, true);
+		AbsNode node10 = new AbsNode(2,4,true, true);
+		AbsNode node11 = new AbsNode(4,4,true, true);
+		AbsNode node7 = new AbsNode(4,2,true, true);
+		AbsNode node8 = new AbsNode(6,2,true, true);
+		AbsNode node12 = new AbsNode(6,4,true, true);
 		
 		node12.setParent(node8);
 		node8.setParent(node7);
