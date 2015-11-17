@@ -8,7 +8,7 @@ public class Edge {
 	private AbsNode to;
 	private double distance;
 	
-	public Edge(AbsNode fromNode, AbsNode toNode, int dist){
+	public Edge(AbsNode fromNode, AbsNode toNode, double dist){
 		from = fromNode;
 		to = toNode;
 		distance = dist;

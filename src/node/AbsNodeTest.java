@@ -68,33 +68,29 @@ public class AbsNodeTest {
 	
 	@Test
 	public void testDeleteEdge() {
-<<<<<<< .merge_file_a08380
-		AbsNode node25 = new AbsNode(1, 2, true);
-		AbsNode node26 = new AbsNode(2, 2, true);
-		AbsNode node27 = new AbsNode(2, 1, true);
-=======
 		AbsNode node25 = new AbsNode(1, 2, true, true);
 		AbsNode node26 = new AbsNode(2, 2, true, true);
-		Edge anEdge = new Edge(node25, node26, getDistance(node25, node26));
->>>>>>> .merge_file_a01772
+		AbsNode node27 = new AbsNode(2, 1, true, true);
+
 		
-		Edge someEdge = new Edge(node25, node26);
-		Edge anotherEdge = new Edge(node25, node27);
+		Edge someEdge = new Edge(node25, node26, getDistance(node25, node26));
+		Edge anotherEdge = new Edge(node25, node27,getDistance(node25, node27));
 		
 		node25.setEdges(someEdge);
+		node25.setEdges(anotherEdge);
 		
 		node25.deleteEdge(someEdge);
 		
-<<<<<<< .merge_file_a08380
 		LinkedList<Edge> aResult = new LinkedList<Edge>();
-		
-		//if this passes then something is wrong
-=======
->>>>>>> .merge_file_a01772
+		aResult.add(anotherEdge);
+
 		assertEquals(aResult, node25.getEdges());
 		
-		node25.deleteEdge(someEdge);
 		node25.deleteEdge(anotherEdge);
+		
+		LinkedList<Edge> eResult = new LinkedList<Edge>();
+		
+		assertEquals(eResult, node25.getEdges());
 		
 	}
 

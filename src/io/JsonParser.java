@@ -51,16 +51,7 @@ public class JsonParser {
 	    		
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
-<<<<<<< HEAD
-	    		boolean isWalk = job.getBoolean("isWalk");
-	    		
-	    		//replace this argument with a class to create the class
-	    		System.out.println(isWalk);
-	    	}
-	    }
-	    // replace the return value with a actual class
-	    return "";
-=======
+
 	    		String name = job.getString("name");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
@@ -78,7 +69,6 @@ public class JsonParser {
 	    }
 	    
 	    return nodeList;
->>>>>>> origin/andrew_rottier
 	}
     /**
      * Load json file to a string
@@ -121,22 +111,10 @@ public class JsonParser {
      * @return
      * @throws JSONException
      */
-<<<<<<< HEAD
-    public static String jsonToString() throws JSONException {
-    	//create json object 
-    	JSONObject json = new JSONObject();
-    	
-    	//use getter from the class to create nodes
-        //instead of using put   	
-    	json.put("valx",100);
-    	json.put("valy",209);
-    	json.put("place", "ak");
-    	
-=======
+
     //Field order: valx, valy, name, isPlace
     public static String jsonToString(LinkedList<AbsNode> nodeList) throws JSONException {
 
->>>>>>> origin/andrew_rottier
     	JSONArray array = new JSONArray();
     	for(int i = 0; i < nodeList.size(); i++){
     		JSONObject json = new JSONObject();
@@ -155,7 +133,7 @@ public class JsonParser {
     	String j2s = array.toString();
     	return j2s;
     }
-<<<<<<< HEAD
+
     /**
      * Stores a JSON string into a text file
      * @param str is the JSON string to store
@@ -163,10 +141,7 @@ public class JsonParser {
      * @throws IOException
      */
     public static void saveFile(String str,String path) throws IOException{
-=======
-    
-    public static void saveFile(String str, String path) throws IOException{
->>>>>>> origin/andrew_rottier
+
         FileWriter fo = new FileWriter(path);
         PrintWriter out = new PrintWriter(fo);  
         out.write(str);  
