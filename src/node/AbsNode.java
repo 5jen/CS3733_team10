@@ -74,4 +74,9 @@ public class AbsNode {
 			System.out.println(sf);
 		}
 	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 }

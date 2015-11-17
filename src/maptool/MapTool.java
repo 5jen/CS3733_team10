@@ -59,7 +59,8 @@ public class MapTool extends Application{
 	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
-	
+	Canvas canvas = new Canvas(800, 600);
+	GraphicsContext gc = canvas.getGraphicsContext2D();
 	
 	boolean start, end = false;
 	String startNode, endNode;
@@ -156,6 +157,8 @@ public class MapTool extends Application{
         
         drawPlaces(nodeList, root, fromField, toField);
         
+        drawEdges(edgeList, gc);
+        root.getChildren().add(canvas);
 
         final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
             @Override  
@@ -342,6 +345,7 @@ public class MapTool extends Application{
             }
         });
        
+       
        //Add actions to the Load Map button
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
@@ -351,7 +355,7 @@ public class MapTool extends Application{
            		edgeListConversion.clear();
            		edgeList.clear();
             	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -369,7 +373,7 @@ public class MapTool extends Application{
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
                 drawPlaces(nodeList, root, fromField, toField);
-
+                drawEdges(edgeList, gc);
 
            }
            
@@ -382,7 +386,13 @@ public class MapTool extends Application{
         
     }  
     
-    
+    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
+    	
+    	for(int i = 0; i < edges.size(); i++){
+    		System.out.println("Line Iterator: " + i);
+	  		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
+    	}
+	}
   
     	
     //check to see if the coordinates are integers
@@ -490,58 +500,37 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	AbsNode fromNode;
-    	AbsNode toNode;
-    	//first find the from node
-    	for(int i = 0; i < nodeList.size(); i++){
-    		
-    		if(nodeList.get(i).getIsPlace()){
-    			if(((Place) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getFrom())){
-        			fromNode = nodeList.get(i);
-        			//then see the to node in the list and create an edge between the too
-        			for(int j = 0; j < nodeList.size(); j++){
-        				if(nodeList.get(j).getIsPlace()){
-        					if(((Place) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getTo())){
-            	    			toNode = nodeList.get(i);
-            	    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
-            	    			edgeList.add(newEdge);
-            				}
-        				} else {
-        					if(((Node) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getTo())){
-            	    			toNode = nodeList.get(i);
-            	    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
-            	    			edgeList.add(newEdge);
-            				}
-        				}
-        				
-        				
-        			}
-        		}
+    	AbsNode fromNode = new AbsNode(0, 0, delete, delete);
+    	AbsNode toNode = new AbsNode(0, 0, delete, delete);
+    	
+    	//iterate through the edges 
+    	for(int i = 0; i < edgeData.size(); i ++){
+    		//System.out.println("Edge Iterator: " + i);
+    		//iterate throught he nodelist to find the matching node
+    		for(int j = 0; j < nodeList.size(); j ++){
+        		//System.out.println("Node Iterator: " + j);
+
+    			//check difference between place and node..
+    			if(nodeList.get(i).getIsPlace()){
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = (Place)nodeList.get(i);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
+    					toNode = (Place)nodeList.get(i);
+    				}
+    			}else{
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = (Node)nodeList.get(i);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals(( nodeList.get(j)).getName())){
+    					toNode = (Node)nodeList.get(i);
+    				}
+    			}
+    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+    			edgeList.add(newEdge);
     		}
-    		else{
-    			if(((Node) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getFrom())){
-        			fromNode = nodeList.get(i);
-        			//then see the to node in the list and create an edge between the too
-        			for(int j = 0; j < nodeList.size(); j++){
-        				if(nodeList.get(j).getIsPlace()){
-        					if(((Place) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getTo())){
-            	    			toNode = nodeList.get(i);
-            	    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
-            	    			edgeList.add(newEdge);
-            				}
-        				} else {
-        					if(((Node) nodeList.get(i)).getName().equals(edgeListConversion.get(i).getTo())){
-            	    			toNode = nodeList.get(i);
-            	    			Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
-            	    			edgeList.add(newEdge);
-            				}
-        				}
-        				
-        			}
-        		}
-    		}
-    		
     	}
+    	
     	return edgeList;
     }
     
