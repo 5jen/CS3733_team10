@@ -108,8 +108,8 @@ public class GPSapp extends Application{
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
     	LocationSelectorSTART.setPrefWidth(150);
     	LocationSelectorDEST.setPrefWidth(150);
-    	LocationSelectorSTART.setVisibleRowCount(4);
-    	LocationSelectorDEST.setVisibleRowCount(4);
+    	LocationSelectorSTART.setVisibleRowCount(3);
+    	LocationSelectorDEST.setVisibleRowCount(3);
     	LocationSelectionBoxHLABEL.getChildren().addAll(LocationSelectorLabelSTART, LocationSelectorLabelDEST);
     	LocationSelectionBoxH.getChildren().addAll(LocationSelectorSTART, LocationSelectorDEST, findRouteButton);
     	LocationSelectionBoxV.setLayoutX(10);
