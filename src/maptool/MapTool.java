@@ -263,10 +263,7 @@ public class MapTool extends Application{
                         });
                     	root.getChildren().add(newNodeButton);
                 	}
-                	 
-                	
-                	//After placing node on screen, save it to a external file (wait for yang)
-                	
+                               	
                 	
                 }
             	
@@ -282,11 +279,9 @@ public class MapTool extends Application{
             	try {
 					json.saveFile(data, path);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             	
-            	//save(edgeList);
             }
         });
         
@@ -349,8 +344,7 @@ public class MapTool extends Application{
            		imageView.setLayoutY(0);
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
-           		//add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
-           		//graph.drawEdges?
+
            }
            
        });
@@ -390,5 +384,3 @@ public class MapTool extends Application{
     }
     
 }
-
-

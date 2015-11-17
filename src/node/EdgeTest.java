@@ -32,8 +32,8 @@ public class EdgeTest {
 
 	@Test
 	public void testGetDistance() {
-		AbsNode node1 = new AbsNode(1, 2, true);
-		AbsNode node2 = new AbsNode(2, 2, true);
+		AbsNode node1 = new AbsNode(1, 2, true, true);
+		AbsNode node2 = new AbsNode(2, 2, true, true);
 		Edge edge1 = new Edge(node1, node2, getDistance(node1, node2));
 		
 		assertEquals(1, edge1.getDistance(), 0.001);

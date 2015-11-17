@@ -72,11 +72,6 @@ public class GPSapp extends Application{
     	
     	final Pane root = new Pane(); 
           
-    	
-    	
-   
-    	
-    	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
@@ -109,13 +104,10 @@ public class GPSapp extends Application{
     	final HBox LocationSelectionBoxHLABEL = new HBox(185);
     	final HBox LocationSelectionBoxH = new HBox(60); 
     	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
-    	LocationOptions.add("asdasdasdasdasdasd"); //ADD THESE WHILE READING IN JSON - ADD NAME STRING
+    	//Initialize the Drop down menu for inital Map
+    	for(int i = 0; i < nodeList.size() - 1; i ++){ 
+        	LocationOptions.add(((Place)nodeList.get(i)).getName());
+        }
     	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
     	LocationSelectorSTART.setPrefWidth(150);
@@ -151,7 +143,7 @@ public class GPSapp extends Application{
         root.getChildren().add(LocationSelectionBoxV);
         root.getChildren().add(imageView);  
         
-        drawPlaces(nodeList, root);
+        drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
         
         
         //Add actions to the Load Map button
@@ -169,9 +161,12 @@ public class GPSapp extends Application{
                 imageView.setLayoutY(0);
                 imageView.resize(800, 600); //incase map is not already scaled perfectly
                 root.getChildren().add(imageView); 
-                //add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
-                //graph.drawEdges?
-                drawPlaces(nodeList, root);
+                //add node buttons to the screen and populates the drop down menus
+                LocationOptions.clear();
+                for(int i = 0; i < nodeList.size() - 1; i ++){ 
+                	LocationOptions.add(((Place)nodeList.get(i)).getName());
+                }
+                drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
             }
         });
         
@@ -194,7 +189,7 @@ public class GPSapp extends Application{
     }  
     
     
-    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root){
+    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, ComboBox<String> LocationSelectorSTART, ComboBox<String> LocationSelectorDEST){
     	int i;
     	for(i = 0; i < nodes.size() - 1; i ++){ 
     		Button newNodeButton = new Button("");
@@ -209,15 +204,16 @@ public class GPSapp extends Application{
         	AbsNode newNode = nodes.get(i);
         	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                	//LocationSelectorSTART
                 	if (!start){
                 		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
+                		LocationSelectorSTART.setValue(startNode);
                 		start = true;
                 	}
-                	if(!end){
+                	else if(!end){
                 		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
                 		LocationSelectorDEST.setValue(endNode);
                 		start = false;
+                		end = false;
                 	}
                 }
             });
@@ -235,6 +231,5 @@ public class GPSapp extends Application{
 
     	}
     }
-
-    
+       
 }
