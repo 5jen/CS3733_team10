@@ -216,7 +216,7 @@ public class GPSapp extends Application{
                 	}
                 	if(!end){
                 		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
-                		LocationSelectorDEST.setValue(endNode);
+                		//LocationSelectorDEST.setValue(endNode);
                 		start = false;
                 	}
                 }
