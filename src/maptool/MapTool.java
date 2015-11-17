@@ -2,9 +2,10 @@ package maptool;
 
 import java.awt.event.MouseListener;
 import java.io.File;
-
+import java.io.IOException;
 import java.util.LinkedList;
 
+import io.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -38,6 +40,8 @@ import java.util.LinkedList;
 
 import javafx.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class MapTool extends Application{
@@ -51,9 +55,8 @@ public class MapTool extends Application{
  
     @Override
     public void start(Stage primaryStage) {
+    	JsonParser json = new JsonParser();
     	LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
-    	//LinkedList<Place> placeList = new LinkedList<Place>();
-    	//LinkedList<Node> nodeList = new LinkedList<Node>();
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
 
         
@@ -62,6 +65,21 @@ public class MapTool extends Application{
     	 */
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
+    	
+    	
+    	//Create a map selection drop down menu
+    	final VBox mapSelectionBoxV = new VBox(5);
+    	final Label mapSelectorLabel = new Label("Choose map");
+    	mapSelectorLabel.setTextFill(Color.WHITE);
+    	final HBox mapSelectionBoxH = new HBox(5);
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK0", "AK1", "AK2");
+    	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
+    	final Button LoadMapButton = new Button("Load Map");
+    	mapSelector.setValue("AK1");
+    	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
+    	mapSelectionBoxV.setLayoutX(820);
+    	mapSelectionBoxV.setLayoutY(400);
+    	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
           
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0); 
@@ -108,7 +126,7 @@ public class MapTool extends Application{
   
         
         //create actual map
-        File mapFile = new File("CS3733_Graphics/AK2.png");
+        File mapFile = new File("CS3733_Graphics/AK1.png");
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
@@ -125,6 +143,7 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);
+        root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
@@ -230,13 +249,13 @@ public class MapTool extends Application{
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+ 8;
                             		startY = newNodeButton.getLayoutY() + 8;
-                            		fromField.setText("Start: " + newNode.getReferencePoint());
+                            		fromField.setText("Start: " + newNode.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX() + 8;
                             		endY = newNodeButton.getLayoutY() + 8;
-                            		toField.setText("End: " + newNode.getReferencePoint());
+                            		toField.setText("End: " + newNode.getName());
                             		startCoord = false;
                             		endCoord = false;
                             	}
@@ -247,15 +266,26 @@ public class MapTool extends Application{
                 	 
                 	
                 	//After placing node on screen, save it to a external file (wait for yang)
+                	
+                	
                 }
             	
             }  
         }; 
         
+        //Save the Graph
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	//Save the Graph
             	//save(nodeList);
+            	String data = json.jsonToString(nodeList);
+            	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
+            	try {
+					json.saveFile(data, path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
             	//save(edgeList);
             }
         });
@@ -303,12 +333,36 @@ public class MapTool extends Application{
                  });
             }
         });
+       
+       //Add actions to the Load Map button
+       LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+           public void handle(MouseEvent event) {
+               //clear existing node list
+        	   nodeList.clear();
+           		root.getChildren().remove(imageView); //remove current map, then load new one
+           		
+           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+           		Image mapImage = new Image(newMapFile.toURI().toString());
+           		ImageView imageView = new ImageView();
+           		imageView.setImage(mapImage);
+           		imageView.setLayoutX(0);  
+           		imageView.setLayoutY(0);
+           		imageView.resize(800, 600); //incase map is not already scaled perfectly
+           		root.getChildren().add(imageView); 
+           		//add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
+           		//graph.drawEdges?
+           }
+           
+       });
+       
         createNodeButton.setOnAction(CreateHandler);  
   
         primaryStage.setScene(scene);  
         primaryStage.show();  
         
     }  
+    
+    
   
     	
     //check to see if the coordinates are integers

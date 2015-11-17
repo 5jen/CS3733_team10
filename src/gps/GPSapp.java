@@ -54,23 +54,35 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import io.JsonParser;
+
 
 public class GPSapp extends Application{
 	public static void main(String[] args) {
         launch(args);
     }
- 
+	
+	//Load up the JSON data and create the nodes for the map
+	JsonParser json = new JsonParser();
+	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
+	boolean start, end = false;
+	String startNode, endNode;
     @Override
     public void start(Stage primaryStage) {
     	
     	final Pane root = new Pane(); 
-            	
+          
+    	
+    	
+   
+    	
+    	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK0", "AK1", "AK2");
     	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
@@ -117,8 +129,8 @@ public class GPSapp extends Application{
     	LocationSelectionBoxV.getChildren().addAll(LocationSelectionBoxHLABEL, LocationSelectionBoxH);
   
         //Create the map image
-        File mapFile = new File("CS3733_Graphics/AK2.png");
-        mapSelector.setValue("AK2"); // Default Map when App is opened
+        File mapFile = new File("CS3733_Graphics/AK1.png");
+        mapSelector.setValue("AK1"); // Default Map when App is opened
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
@@ -139,11 +151,15 @@ public class GPSapp extends Application{
         root.getChildren().add(LocationSelectionBoxV);
         root.getChildren().add(imageView);  
         
+        drawPlaces(nodeList, root);
+        
         
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	root.getChildren().remove(imageView); //remove current map, then load new one
+            	nodeList.clear(); 
+            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
             	Image mapImage = new Image(newMapFile.toURI().toString());
@@ -155,6 +171,7 @@ public class GPSapp extends Application{
                 root.getChildren().add(imageView); 
                 //add nodes/node buttons to the screen AND POPULATE DROP DOWN MENUS FOR START AND DESTINATION
                 //graph.drawEdges?
+                drawPlaces(nodeList, root);
             }
         });
         
@@ -177,22 +194,47 @@ public class GPSapp extends Application{
     }  
     
     
-    private void drawRoute(Pane root, LinkedList<AbsNode> route) {
-        
-    	//iterate through the route drawing a connection between nodes
-    	for(int i = 0; i < route.size(); i ++){  
-	  		Line line = new Line();
-	  		line.setStartX(route.get(i).getX() );
-            line.setStartY(route.get(i).getY());
-            line.setEndX(route.get(i+1).getX());
-            line.setEndY(route.get(i+1).getY());
-            line.setStrokeWidth(3);
-            line.setStyle("-fx-background-color:  #F0F8FF; ");
-            root.getChildren().add(line);
+    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root){
+    	int i;
+    	for(i = 0; i < nodes.size() - 1; i ++){ 
+    		Button newNodeButton = new Button("");
+        	newNodeButton.setStyle(
+                    "-fx-background-radius: 5em; " +
+                    "-fx-min-width: 15px; " +
+                    "-fx-min-height: 15px; " +
+                    "-fx-max-width: 15px; " +
+                    "-fx-max-height: 15px;"
+            );
+        	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+        	AbsNode newNode = nodes.get(i);
+        	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                	//LocationSelectorSTART
+                	if (!start){
+                		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
+                		start = true;
+                	}
+                	if(!end){
+                		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
+                		LocationSelectorDEST.setValue(endNode);
+                		start = false;
+                	}
+                }
+            });
+        	root.getChildren().add(newNodeButton);
+	  		
 
     	}
-		
-	}
+    }
+    
+    private void drawRoute(GraphicsContext gc, LinkedList<AbsNode> route) {
+        
+    	//iterate through the route drawing a connection between nodes
+    	for(int i = 0; i < route.size() - 1; i ++){  
+	  		gc.strokeLine(route.get(i).getX(), route.get(i).getY(), route.get(i+1).getX(),route.get(i+1).getY());
+
+    	}
+    }
 
     
 }

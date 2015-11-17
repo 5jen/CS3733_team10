@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter; 
+import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.io.OutputStreamWriter;
 
 import org.json.JSONObject;
@@ -14,18 +15,23 @@ import org.json.JSONStringer;
 import org.json.JSONTokener;
 import org.json.JSONArray;
 
+import node.*;
 
 import org.junit.Test;
 
 
 public class JsonParser {
+	
+	public JsonParser(){
+		
+	}
     
 	@Test
     public void Test() throws JSONException, IOException{
     	//System.out.println(testPrepareJSONObject());
         //System.out.println(testGetJSONContent());
-        getJsonContent();
-        saveFile(jsonToString(),"testdata\\test2.json");        
+        //getJsonContent();
+        //saveFile(jsonToString(),"testdata\\test2.json");        
     }
 	
     private static String TestJSONText = "{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"}"; 
@@ -34,19 +40,32 @@ public class JsonParser {
      * Get JSON object from a text file includes array of JSONs
      * @return 
      */
-	public static String getJsonContent(){
-	    JSONArray json = new JSONArray(loadFile("testdata\\test.json"));//change path right here
+	public static LinkedList<AbsNode> getJsonContent(String path){
+	    JSONArray json = new JSONArray(loadFile(path));//change path right here
+	    LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
+	    
 	    if (json.length()>0){
 	    	for (int i=0;i<json.length();i++){
 	    		JSONObject job = json.getJSONObject(i);
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
-	    		boolean isWalk = job.getBoolean("isWalk");
-	    		System.out.println(isWalk);
+	    		String name = job.getString("name");
+	    		boolean isWalk = job.getBoolean("isWalkable");
+	    		boolean isPlace = job.getBoolean("isPlace");
+	    		
+	    		
+	    		AbsNode newNode;
+				if(isPlace){
+	    			newNode = new Place(x, y, isWalk, name);
+				}
+	    		else{
+	    			newNode = new Node(x, y, isWalk, name);
+	    		}
+				nodeList.add(newNode);
 	    	}
 	    }
 	    
-	    return "";
+	    return nodeList;
 	}
     /**
      * Load json file to a string
@@ -58,27 +77,27 @@ public class JsonParser {
         BufferedReader reader = null;
         String laststr = "";
         try {
-         //System.out.println("Reading one line each time");
-         reader = new BufferedReader(new FileReader(file));
-         String tempString = null;
-         int line = 1;
-         //read one line each time until read a empty line
-         while ((tempString = reader.readLine()) != null) {
-          //show line number 
-          System.out.println("line " + line + ": " + tempString);
-          laststr = laststr + tempString;
-          line ++;
-         }
-         reader.close();
+        	//System.out.println("Reading one line each time");
+        	reader = new BufferedReader(new FileReader(file));
+        	String tempString = null;
+        	int line = 1;
+        	//read one line each time until read a empty line
+        	while ((tempString = reader.readLine()) != null) {
+        		//show line number 
+        		System.out.println("line " + line + ": " + tempString);
+        		laststr = laststr + tempString;
+        		line ++;
+        	}
+        	reader.close();
         } catch (IOException e) {
-         e.printStackTrace();
+        	e.printStackTrace();
         } finally {
-         if (reader != null) {
-          try {
-           reader.close();
-          } catch (IOException e1) {
-          }
-         }
+        	if (reader != null) {
+        		try {
+        			reader.close();
+        		} catch (IOException e1) {
+        		}
+        	}
         }
         return laststr;
 	}
@@ -90,21 +109,29 @@ public class JsonParser {
      * @return
      * @throws JSONException
      */
-    public static String jsonToString() throws JSONException {
-    	//create json object 
-    	JSONObject json = new JSONObject();
-    	
-    	json.put("valx",100);
-    	json.put("valy",209);
-    	json.put("place", "ak");
+    //Field order: valx, valy, name, isPlace
+    public static String jsonToString(LinkedList<AbsNode> nodeList) throws JSONException {
+
     	JSONArray array = new JSONArray();
-    	array.put(json);
+    	for(int i = 0; i < nodeList.size(); i++){
+    		JSONObject json = new JSONObject();
+    		json.put("valx", nodeList.get(i).getX());
+        	json.put("valy", nodeList.get(i).getY());
+        	if(nodeList.get(i).getIsPlace())
+        		json.put("name", ((Place) nodeList.get(i)).getName());
+        	else
+        		json.put("name", ((Node) nodeList.get(i)).getName());
+        	json.put("isWalkable", nodeList.get(i).getIsWalkable());
+        	json.put("isPlace", nodeList.get(i).getIsPlace());
+        	array.put(json);
+    	}
+    	
+    	
     	String j2s = array.toString();
-        
     	return j2s;
     }
     
-    public static void saveFile(String str,String path) throws IOException{
+    public static void saveFile(String str, String path) throws IOException{
         FileWriter fo = new FileWriter(path);
         PrintWriter out = new PrintWriter(fo);  
         out.write(str);  
