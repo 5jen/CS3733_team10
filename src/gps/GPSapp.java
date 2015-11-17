@@ -202,33 +202,37 @@ public class GPSapp extends Application{
     
     private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, ComboBox<String> LocationSelectorSTART, ComboBox<String> LocationSelectorDEST){
     	int i;
-    	for(i = 0; i < nodes.size() - 1; i ++){ 
-    		Button newNodeButton = new Button("");
-        	newNodeButton.setStyle(
-                    "-fx-background-radius: 5em; " +
-                    "-fx-min-width: 15px; " +
-                    "-fx-min-height: 15px; " +
-                    "-fx-max-width: 15px; " +
-                    "-fx-max-height: 15px;"
-            );
-        	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
-        	AbsNode newNode = nodes.get(i);
-        	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {
-                	if (!start){
-                		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
-                		LocationSelectorSTART.setValue(startNode);
-                		start = true;
-                	}
-                	else if(!end){
-                		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
-                		LocationSelectorDEST.setValue(endNode);
-                		start = false;
-                		end = false;
-                	}
-                }
-            });
-        	root.getChildren().add(newNodeButton);
+    	for(i = 0; i < nodes.size(); i ++){ 
+    		if(nodes.get(i).getIsPlace()){
+        		Button newNodeButton = new Button("");
+            	newNodeButton.setStyle(
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 15px; " +
+                        "-fx-min-height: 15px; " +
+                        "-fx-max-width: 15px; " +
+                        "-fx-max-height: 15px;"
+                );
+            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            	AbsNode newNode = nodes.get(i);
+            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	if (!start){
+                    		if(newNode.getIsPlace()) startNode = ((Place) newNode).getName();
+                    		LocationSelectorSTART.setValue(startNode);
+                    		start = true;
+                    	}
+                    	else if(!end){
+                    		if(newNode.getIsPlace()) endNode = ((Place) newNode).getName();
+                    		LocationSelectorDEST.setValue(endNode);
+                    		start = false;
+                    		end = false;
+                    	}
+                    }
+                });
+            	root.getChildren().add(newNodeButton);
+    		} else if(!nodes.get(i).getIsPlace()){
+    			//Do nothing
+    		}
 	  		
 
     	}

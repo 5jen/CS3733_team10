@@ -52,17 +52,16 @@ public class MapTool extends Application{
 	public static void main(String[] args) {
         launch(args);
     }
+	
+	JsonParser json = new JsonParser();
+	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
+	boolean start, end = false;
+	String startNode, endNode;
  
     @Override
     public void start(Stage primaryStage) {
-    	JsonParser json = new JsonParser();
-    	LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
 
-        
-    	/*Initialize the nodes
-    	 * -Very expandable- can initialize classes for each building.
-    	 */
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
@@ -147,7 +146,9 @@ public class MapTool extends Application{
         root.getChildren().add(edgeControls);
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
-        root.getChildren().add(imageView);  
+        root.getChildren().add(imageView);
+        
+        drawPlaces(nodeList, root, fromField, toField);
         
 
         final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
@@ -240,7 +241,6 @@ public class MapTool extends Application{
                     	newNodeButton.relocate(x, y);
                        	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent event) {
-                            	//fromField.setText(newNodeButton.);
                             	if(delete){
                             		root.getChildren().remove(newNodeButton);
                             		nodeList.remove(newNode);
@@ -333,8 +333,9 @@ public class MapTool extends Application{
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
                //clear existing node list
-        	   nodeList.clear();
            		root.getChildren().remove(imageView); //remove current map, then load new one
+           		nodeList.clear(); 
+            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
            		
            		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
@@ -344,6 +345,8 @@ public class MapTool extends Application{
            		imageView.setLayoutY(0);
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
+                drawPlaces(nodeList, root, fromField, toField);
+
 
            }
            
@@ -378,9 +381,88 @@ public class MapTool extends Application{
     	return true;
     }
     
-    
+    // Returns the distance between the two nodes, in pixels
     public int getDistance(){
     	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
+    }
+    
+    // Draws the Places and Nodes on to the map
+    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, Label fromField, Label toField){
+    	int i;
+    	for(i = 0; i < nodes.size(); i ++){ 
+    		if(nodes.get(i).getIsPlace()){
+        		Button newNodeButton = new Button("");
+            	newNodeButton.setStyle(
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 15px; " +
+                        "-fx-min-height: 15px; " +
+                        "-fx-max-width: 15px; " +
+                        "-fx-max-height: 15px;"
+                );
+            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            	AbsNode newNode = nodes.get(i);
+            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	if(delete){
+                    		root.getChildren().remove(newNodeButton);
+                    		nodeList.remove(newNode);
+                    		delete = false;
+                    	}
+                    	else if(!startCoord){
+                    		startX = newNodeButton.getLayoutX()+ 8;
+                    		startY = newNodeButton.getLayoutY() + 8;
+                    		fromField.setText("Start: " + ((Place) newNode).getName());
+                    		startCoord = true;
+                    	}
+                    	else if(!endCoord){
+                    		endX = newNodeButton.getLayoutX() + 8;
+                    		endY = newNodeButton.getLayoutY() + 8;
+                    		toField.setText("End: " + ((Place) newNode).getName());
+                    		startCoord = false;
+                    		endCoord = false;
+                    	}
+                    }
+                });
+            	root.getChildren().add(newNodeButton);
+    		} else if(!nodes.get(i).getIsPlace()){
+        		Button newNodeButton = new Button("");
+        		newNodeButton.setStyle(
+            			"-fx-background-color: #000000; " +
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 10px; " +
+                        "-fx-min-height: 10px; " +
+                        "-fx-max-width: 10px; " +
+                        "-fx-max-height: 10px;"
+                );
+            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            	AbsNode newNode = nodes.get(i);
+            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	if(delete){
+                    		root.getChildren().remove(newNodeButton);
+                    		nodeList.remove(newNode);
+                    		delete = false;
+                    	}
+                    	else if(!startCoord){
+                    		startX = newNodeButton.getLayoutX()+ 8;
+                    		startY = newNodeButton.getLayoutY() + 8;
+                    		fromField.setText("Start: " + ((Node) newNode).getName());
+                    		startCoord = true;
+                    	}
+                    	else if(!endCoord){
+                    		endX = newNodeButton.getLayoutX() + 8;
+                    		endY = newNodeButton.getLayoutY() + 8;
+                    		toField.setText("End: " + ((Node) newNode).getName());
+                    		startCoord = false;
+                    		endCoord = false;
+                    	}
+                    }
+                });
+            	root.getChildren().add(newNodeButton);
+    		}
+	  		
+
+    	}
     }
     
 }
