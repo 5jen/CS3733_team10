@@ -78,7 +78,7 @@ public class MapTool extends Application{
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK0", "AK1", "AK2");
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
     	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelector.setValue("AK1");
