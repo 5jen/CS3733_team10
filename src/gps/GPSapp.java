@@ -48,6 +48,7 @@ import javafx.scene.effect.Light.Point;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -69,7 +70,8 @@ public class GPSapp extends Application{
 	JsonParser json = new JsonParser();
 	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	Canvas canvas = new Canvas(800, 650);
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false;
 	String startNode, endNode;
@@ -85,7 +87,7 @@ public class GPSapp extends Application{
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK0", "AK1", "AK2");
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
     	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
@@ -156,6 +158,13 @@ public class GPSapp extends Application{
         drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
         
         
+        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+            	//remove the canvas
+            	root.getChildren().remove(canvas);
+            }
+        });
+        
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -189,6 +198,8 @@ public class GPSapp extends Application{
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	root.getChildren().remove(canvas); //remove old path
+            	gc.clearRect(0, 0, 800, 600);
+            	
             	// Need to string compare from 
             	Place startPlace = new Place(0, 0, false, "");
             	Place endPlace = new Place(0, 0, false, "");
@@ -211,12 +222,14 @@ public class GPSapp extends Application{
                 
                 System.out.println(" " +route);
                 for(int i = 0; i < route.size(); i++){
-                	System.out.println("Route node: " + i + " , " + route.get(i));
+                	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                 }
-                // Call Draw Route
                 
                 drawRoute(gc, route);
                 root.getChildren().add(canvas);
+                
+                //for now, clear the route
+                route = new LinkedList<AbsNode>();
             }
         });
         
@@ -279,10 +292,19 @@ public class GPSapp extends Application{
     }
     
     private void drawRoute(GraphicsContext gc, LinkedList<AbsNode> route) {
-        
+    	 Color customBlue = Color.web("0x00b3fd"); 
+    	 
+    	 gc.setLineCap(StrokeLineCap.ROUND);
     	//iterate through the route drawing a connection between nodes
-    	for(int i = 1; i < route.size(); i ++){  
-	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
+    	for(int i = 1; i < route.size(); i ++){
+    		gc.setLineWidth(5);
+    		
+            gc.setStroke(Color.BLACK);
+	  		gc.strokeLine(route.get(i-1).getX()+8, route.get(i-1).getY()+8, route.get(i).getX()+8,route.get(i).getY()+8);
+            gc.setLineWidth(3);
+            
+            gc.setStroke(customBlue);
+	  		gc.strokeLine(route.get(i-1).getX()+8, route.get(i-1).getY()+8, route.get(i).getX()+8,route.get(i).getY()+8);
 	  		
     	}
     }
