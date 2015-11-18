@@ -364,6 +364,7 @@ public class MapTool extends Application{
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
+            	System.out.println(mapSelector.getValue());
             	
             	/* ^^^^^^^^^
             	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
@@ -381,7 +382,7 @@ public class MapTool extends Application{
            		root.getChildren().add(imageView); 
                 
                 
-                
+           		root.getChildren().add(canvas);
                 drawEdges(edgeList, gc, root);
                 int i;
                 for( i = 0; i < edgeList.size(); i++){
@@ -420,7 +421,6 @@ public class MapTool extends Application{
                		}
                	System.out.println("Drew edges");
                	drawEdgeBool = false;
-                root.getChildren().add(canvas);
                	drawPlaces(nodeList, root, fromField, toField);
 
 
