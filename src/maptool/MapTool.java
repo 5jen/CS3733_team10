@@ -390,7 +390,7 @@ public class MapTool extends Application{
            		imageView.setLayoutY(0);
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
-                drawPlaces(nodeList, root, fromField, toField);
+                
                 
                 
                 drawEdges(edgeList, gc, root);
@@ -398,11 +398,24 @@ public class MapTool extends Application{
                 for( i = 0; i < edgeList.size(); i++){
                		int j = i;
                		Line line = new Line();
-                  	 	line.setStartX(edgeList.get(i).getFrom().getX());
-                       line.setStartY(edgeList.get(i).getFrom().getY());
-                       line.setEndX(edgeList.get(i).getTo().getX());
-                       line.setEndY(edgeList.get(i).getTo().getY());
-                       line.setStrokeWidth(5);
+               	//Determine the offset we need to use for the tool graph FROM NODE
+               		if(edgeList.get(i).getFrom().getIsPlace()){
+               			line.setStartX(edgeList.get(i).getFrom().getX()+8);
+                        line.setStartY(edgeList.get(i).getFrom().getY()+8);
+               		} else{
+               			line.setStartX(edgeList.get(i).getFrom().getX()+5);
+                        line.setStartY(edgeList.get(i).getFrom().getY()+5);
+                        
+               		}
+               		//Determine the offset we need to use for the tool graph TO NODE
+               		if(edgeList.get(i).getTo().getIsPlace()){
+               			line.setEndX(edgeList.get(i).getTo().getX()+8);
+                        line.setEndY(edgeList.get(i).getTo().getY()+8);
+               		} else {
+               			line.setEndX(edgeList.get(i).getTo().getX()+5);
+                        line.setEndY(edgeList.get(i).getTo().getY()+5);
+               		}
+               		line.setStrokeWidth(3);
                        //line.setStyle("-fx-background-color:  #F0F8FF; ");
                        root.getChildren().add(line);
                		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -418,8 +431,9 @@ public class MapTool extends Application{
                		}
                	System.out.println("Drew edges");
                	drawEdgeBool = false;
-                
                 root.getChildren().add(canvas);
+               	drawPlaces(nodeList, root, fromField, toField);
+
 
            }
            
@@ -436,13 +450,28 @@ public class MapTool extends Application{
        		//gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
        		
        		Line line = new Line();
-          	 	line.setStartX(edgeList.get(i).getFrom().getX());
-               line.setStartY(edgeList.get(i).getFrom().getY());
-               line.setEndX(edgeList.get(i).getTo().getX());
-               line.setEndY(edgeList.get(i).getTo().getY());
-               line.setStrokeWidth(5);
-               //line.setStyle("-fx-background-color:  #F0F8FF; ");
-               root.getChildren().add(line);
+       		//Determine the offset we need to use for the tool graph FROM NODE
+       		if(edgeList.get(i).getFrom().getIsPlace()){
+       			line.setStartX(edgeList.get(i).getFrom().getX()+8);
+                line.setStartY(edgeList.get(i).getFrom().getY()+8);
+       		} else{
+       			line.setStartX(edgeList.get(i).getFrom().getX()+5);
+                line.setStartY(edgeList.get(i).getFrom().getY()+5);
+                
+       		}
+       		//Determine the offset we need to use for the tool graph TO NODE
+       		if(edgeList.get(i).getTo().getIsPlace()){
+       			line.setEndX(edgeList.get(i).getTo().getX()+8);
+                line.setEndY(edgeList.get(i).getTo().getY()+8);
+       		} else {
+       			line.setEndX(edgeList.get(i).getTo().getX()+5);
+                line.setEndY(edgeList.get(i).getTo().getY()+5);
+       		}
+       		
+          	
+            line.setStrokeWidth(3);
+            //line.setStyle("-fx-background-color:  #F0F8FF; ");
+            root.getChildren().add(line);
        		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
               	public void handle(MouseEvent event){
               		if(delete) {

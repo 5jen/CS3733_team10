@@ -101,6 +101,7 @@ public class GPSapp extends Application{
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel); 
+    	
         
       //Create the START selection drop down menu
         final Button findRouteButton = new Button("Find Route");
@@ -121,8 +122,8 @@ public class GPSapp extends Application{
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
     	LocationSelectorSTART.setPrefWidth(150);
     	LocationSelectorDEST.setPrefWidth(150);
-    	LocationSelectorSTART.setVisibleRowCount(3);
-    	LocationSelectorDEST.setVisibleRowCount(3);
+    	LocationSelectorSTART.setVisibleRowCount(8);
+    	LocationSelectorDEST.setVisibleRowCount(8);
     	LocationSelectionBoxHLABEL.getChildren().addAll(LocationSelectorLabelSTART, LocationSelectorLabelDEST);
     	LocationSelectionBoxH.getChildren().addAll(LocationSelectorSTART, LocationSelectorDEST, findRouteButton);
     	LocationSelectionBoxV.setLayoutX(10);
@@ -146,11 +147,25 @@ public class GPSapp extends Application{
         bgView.setLayoutX(0);  
         bgView.setLayoutY(0);
         
+        //Create a keyimage to place the map key on screen
+    	File keyFile = new File("CS3733_Graphics/Key.png");
+        Image keyImage = new Image(keyFile.toURI().toString());
+        
+        ImageView imageViewKey = new ImageView();
+        imageViewKey.setImage(keyImage);
+        
+        imageViewKey.setLayoutX(830);  
+        imageViewKey.setLayoutY(530);
+        
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(LocationSelectionBoxV);
-        root.getChildren().add(imageView);  
+        root.getChildren().add(imageView);
+        root.getChildren().add(imageViewKey);
+        
+        //Border the map app
+       // drawMapBorder(gc, root); //TO USE< CREATE A NEW CANVAS FOR THIS..
         
         
         graph = createGraph(graph, nodeList, edgeList);
@@ -173,6 +188,9 @@ public class GPSapp extends Application{
            		edgeList.clear();
             	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeList = convertEdgeData(edgeListConversion);
+            	
             	graph = createGraph(new Graph(), nodeList, edgeList);
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
@@ -189,6 +207,7 @@ public class GPSapp extends Application{
                 	if(nodeList.get(i).getIsPlace())
                 		LocationOptions.add(((Place)nodeList.get(i)).getName());
                 }
+                //drawMapBorder(gc, root);
                 graph = createGraph(graph, nodeList, edgeList);
                 drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
             }
@@ -238,7 +257,19 @@ public class GPSapp extends Application{
         primaryStage.show();  
     }  
     
-    private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
+    private void drawMapBorder(GraphicsContext gc, Pane root) {
+    	root.getChildren().remove(canvas);
+    	gc.setStroke(Color.BLACK);
+        gc.setLineWidth(4);
+        gc.strokeLine(2, 2, 2, 602);//left
+  		gc.strokeLine(2, 602, 798, 602);//bottom
+  		gc.strokeLine(798, 602, 798, 2);//right
+  		gc.strokeLine(2, 2, 798, 2);//top
+  		root.getChildren().add(canvas);
+		
+	}
+
+	private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
     	//g.setEdges(edges);
     	
