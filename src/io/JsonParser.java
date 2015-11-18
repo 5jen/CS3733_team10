@@ -37,7 +37,7 @@ public class JsonParser {
     private static String TestJSONText = "{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"}"; 
     private static String TestJSONText2 = "[{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"},{\"id\":20130031,\"phone\":\"13579246810\",\"name\":\"Jason\"}]";
     /**
-     * Get JSON object from a text file includes array of JSONs
+     * Get JSON object from a text file includes array of JSONs (for nodes and places!)
      * @return 
      */
 	public static LinkedList<AbsNode> getJsonContent(String path){
@@ -47,11 +47,8 @@ public class JsonParser {
 	    if (json.length()>0){
 	    	for (int i=0;i<json.length();i++){
 	    		JSONObject job = json.getJSONObject(i);
-	    		//extract content right here
-	    		
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
-
 	    		String name = job.getString("name");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
@@ -70,6 +67,32 @@ public class JsonParser {
 	    
 	    return nodeList;
 	}
+	
+	/**
+     * Get JSON object from a text file includes array of JSONs (for edges!)
+     * @return 
+     */
+	public static LinkedList<EdgeDataConversion> getJsonContentEdge(String path){
+	    JSONArray json = new JSONArray(loadFile(path));//change path right here
+	    LinkedList<EdgeDataConversion> edgeList = new LinkedList<EdgeDataConversion>();
+	    
+	    if (json.length()>0){
+	    	for (int i=0;i<json.length();i++){
+	    		JSONObject job = json.getJSONObject(i);
+	    		String from = job.getString("from");
+	    		String to = job.getString("to");
+	    		int dist = job.getInt("distance");
+	    		
+	    		EdgeDataConversion newEdge = new EdgeDataConversion(from, to, dist);
+	    		
+	    		
+				edgeList.add(newEdge);
+	    	}
+	    }
+	    
+	    return edgeList;
+	}
+	
     /**
      * Load json file to a string
      * @param path is the path of the json file
@@ -106,13 +129,13 @@ public class JsonParser {
 	}
     
     
+    
     /**
-     * Change json info to a string
+     * Change json info to a string (for nodes and places!)
      * @return
      * @throws JSONException
      */
-
-    //Field order: valx, valy, name, isPlace
+    //Field order: valx, valy, name, isWalkable, isPlace
     public static String jsonToString(LinkedList<AbsNode> nodeList) throws JSONException {
 
     	JSONArray array = new JSONArray();
@@ -133,21 +156,40 @@ public class JsonParser {
     	String j2s = array.toString();
     	return j2s;
     }
-
+    
     /**
-     * Stores a JSON string into a text file
-     * @param str is the JSON string to store
-     * @param path is the path of the saving file
-     * @throws IOException
+     * Change json info to a string (for edges)
+     * @return
+     * @throws JSONException
      */
-    public static void saveFile(String str,String path) throws IOException{
+    //Field order: valx, valy, name, isWalkable, isPlace
+    public static String jsonToStringEdge(LinkedList<Edge> edgeList) throws JSONException {
 
+    	JSONArray array = new JSONArray();
+    	for(int i = 0; i < edgeList.size(); i++){
+    		JSONObject json = new JSONObject();
+    		json.put("from", edgeList.get(i).getFrom().getName());
+    		json.put("to", edgeList.get(i).getTo().getName());
+        	json.put("distance", edgeList.get(i).getDistance());
+        	array.put(json);
+    	}
+    	
+    	String j2s = array.toString();
+    	return j2s;
+    }
+    
+    public static void saveFile(String str, String path) throws IOException{
         FileWriter fo = new FileWriter(path);
         PrintWriter out = new PrintWriter(fo);  
         out.write(str);  
         out.println();  
-        fo.close();
+   
+		fo.close();
+
         out.close();  
+
+
+
     }
     
     private static String testPrepareJSONObject(){  

@@ -2,6 +2,7 @@ package maptool;
 
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -29,6 +30,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import node.AbsNode;
 import node.Edge;
+import node.EdgeDataConversion;
 import node.Graph;
 import node.Node;
 import node.Place;
@@ -55,13 +57,18 @@ public class MapTool extends Application{
 	
 	JsonParser json = new JsonParser();
 	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+	Canvas canvas = new Canvas(800, 600);
+	GraphicsContext gc = canvas.getGraphicsContext2D();
+	
 	boolean start, end = false;
 	String startNode, endNode;
  
     @Override
     public void start(Stage primaryStage) {
-    	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-
+    	
+    	System.out.println("edgelist length" + edgeList.size());
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
@@ -114,8 +121,8 @@ public class MapTool extends Application{
   
         //create vertical interface
         final VBox edgeControls = new VBox(20);
-        final Label fromField = new Label("Start: ");
-        final Label toField = new Label("End: ");
+        final Label fromField = new Label("");
+        final Label toField = new Label("");
         final Button createEdgeButton = new Button("Create Edge");
         final Button deleteEdgeButton = new Button("Delete Edge");
         final Button saveGraph = new Button("Save");
@@ -142,13 +149,17 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);
+        root.getChildren().add(imageView);
+        
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
-        root.getChildren().add(imageView);
         
+        drawEdges(edgeList, gc);
+        root.getChildren().add(canvas);
         drawPlaces(nodeList, root, fromField, toField);
+        
         
 
         final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
@@ -210,13 +221,13 @@ public class MapTool extends Application{
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+ 8;
                             		startY = newNodeButton.getLayoutY() + 8;
-                            		fromField.setText("Start: " + newPlace.getName());
+                            		fromField.setText(newPlace.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX() + 8;
                             		endY = newNodeButton.getLayoutY() + 8;
-                            		toField.setText("End: " + newPlace.getName());
+                            		toField.setText(newPlace.getName());
                             		startCoord = false;
                             		endCoord = false;
                             	}
@@ -263,8 +274,7 @@ public class MapTool extends Application{
                         });
                     	root.getChildren().add(newNodeButton);
                 	}
-                               	
-                	
+                          
                 }
             	
             }  
@@ -274,14 +284,23 @@ public class MapTool extends Application{
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//save(nodeList);
-            	String data = json.jsonToString(nodeList);
+            	String nodeData = json.jsonToString(nodeList);
             	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
             	try {
-					json.saveFile(data, path);
+					json.saveFile(nodeData, path);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
             	
+            	//save edges
+            	String edgeData = json.jsonToStringEdge(edgeList);
+            	System.out.println(edgeData);
+            	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
+            	try {
+					json.saveFile(edgeData, edgePath);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
         
@@ -305,7 +324,21 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Edge newEdge = new Edge(nodeList.get(nodeList.size()-2), nodeList.get(nodeList.size()-1), getDistance());
+            	AbsNode fromNode = new AbsNode(0, 0, false, false);
+            	AbsNode toNode = new AbsNode(0, 0, false, false);
+            	for(int i = 0; i < nodeList.size(); i ++){
+
+        			//check difference between place and node..
+        			if(nodeList.get(i).getName().equals(fromField.getText())){
+        				fromNode = nodeList.get(i);
+        			}
+        			if(nodeList.get(i).getName().equals(toField.getText())){
+        				toNode = nodeList.get(i);
+        			}
+        			
+            	}
+            	
+            	Edge newEdge = new Edge(fromNode, toNode, getDistance());
             	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
@@ -329,14 +362,26 @@ public class MapTool extends Application{
             }
         });
        
+       
        //Add actions to the Load Map button
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
                //clear existing node list
+        	   root.getChildren().remove(canvas);
            		root.getChildren().remove(imageView); //remove current map, then load new one
            		nodeList.clear(); 
+           		edgeListConversion.clear();
+           		edgeList.clear();
             	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-           		
+            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeList = convertEdgeData(edgeListConversion);
+            	
+            	/* ^^^^^^^^^
+            	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
+            	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
+            	 * OVERRIDE THEM.
+            	 */
+            	
            		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
@@ -346,6 +391,8 @@ public class MapTool extends Application{
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
                 drawPlaces(nodeList, root, fromField, toField);
+                drawEdges(edgeList, gc);
+                root.getChildren().add(canvas);
 
 
            }
@@ -353,13 +400,19 @@ public class MapTool extends Application{
        });
        
         createNodeButton.setOnAction(CreateHandler);  
-  
+        
         primaryStage.setScene(scene);  
         primaryStage.show();  
         
     }  
     
-    
+    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
+    	//System.out.println("edge list size: " + edges.size());
+    	for(int i = 0; i < edges.size(); i++){
+    		System.out.println("Line Iterator: " + i);
+	  		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
+    	}
+	}
   
     	
     //check to see if the coordinates are integers
@@ -385,6 +438,7 @@ public class MapTool extends Application{
     public int getDistance(){
     	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
     }
+    
     // Draws the Places and Nodes on to the map
     private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, Label fromField, Label toField){
     	int i;
@@ -462,6 +516,43 @@ public class MapTool extends Application{
 	  		
 
     	}
+    }
+    
+    private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
+    	LinkedList<Edge> edgeList = new LinkedList<Edge>();
+    	AbsNode fromNode = new AbsNode(0, 0, delete, delete);
+    	AbsNode toNode = new AbsNode(0, 0, delete, delete);
+    	
+    	//iterate through the edges 
+    	for(int i = 0; i < edgeData.size(); i ++){
+    		//System.out.println("Edge Iterator: " + i);
+    		//iterate throught he nodelist to find the matching node
+    		for(int j = 0; j < nodeList.size(); j ++){
+        		System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(i).getX() + " =? " + edgeListConversion.get(i).getFrom());
+
+    			//check difference between place and node..
+    			if(nodeList.get(i).getIsPlace()){
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = (Place)nodeList.get(i);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
+    					toNode = (Place)nodeList.get(i);
+    				}
+    			}else{
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = (Node)nodeList.get(i);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals(( nodeList.get(j)).getName())){
+    					toNode = (Node)nodeList.get(i);
+    				}
+    			}
+    			
+    		}
+    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+			edgeList.add(newEdge);
+    	}
+    	
+    	return edgeList;
     }
     
 }

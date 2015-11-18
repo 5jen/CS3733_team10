@@ -18,6 +18,7 @@ public class Edge {
 		return from;
 	}
 	
+	
 	public AbsNode getTo(){
 		return to;
 	}
