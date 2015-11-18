@@ -115,8 +115,8 @@ public class GPSapp extends Application{
     	final HBox LocationSelectionBoxH = new HBox(60); 
     	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
     	//Initialize the Drop down menu for inital Map
-    	for(int i = 0; i < nodeList.size() - 1; i ++){ 
-        	LocationOptions.add(((Place)nodeList.get(i)).getName());
+    	for(int i = 0; i < nodeList.size() ; i ++){ 
+        	LocationOptions.add((nodeList.get(i)).getName());
         }
     	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
@@ -204,10 +204,10 @@ public class GPSapp extends Application{
             	Place startPlace = new Place(0, 0, false, "");
             	Place endPlace = new Place(0, 0, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){ 
-                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
+                	if((nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
                 		startPlace = ((Place)nodeList.get(i));
                 	}
-                	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorDEST.getValue())) {
+                	if((nodeList.get(i)).getName().equals(LocationSelectorDEST.getValue())) {
                 		endPlace = ((Place)nodeList.get(i));
                 	}
                 }
