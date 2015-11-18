@@ -3,7 +3,6 @@ package gps;
 import java.io.File;
 import java.util.LinkedList;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,12 +10,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.AbsNode;
@@ -25,35 +22,11 @@ import node.EdgeDataConversion;
 import node.Place;
 import node.Graph;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javafx.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.InnerShadow;
-import javafx.scene.effect.Light.Point;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import io.JsonParser;
@@ -66,8 +39,8 @@ public class GPSapp extends Application{
 	
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
-	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<AbsNode> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -186,9 +159,9 @@ public class GPSapp extends Application{
             	root.getChildren().remove(imageView); //remove current map, then load new one
             	nodeList.clear();
            		edgeList.clear();
-            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	graph = createGraph(new Graph(), nodeList, edgeList);
@@ -257,7 +230,7 @@ public class GPSapp extends Application{
         primaryStage.show();  
     }  
     
-    private void drawMapBorder(GraphicsContext gc, Pane root) {
+   /* private void drawMapBorder(GraphicsContext gc, Pane root) {
     	root.getChildren().remove(canvas);
     	gc.setStroke(Color.BLACK);
         gc.setLineWidth(4);
@@ -267,7 +240,7 @@ public class GPSapp extends Application{
   		gc.strokeLine(2, 2, 798, 2);//top
   		root.getChildren().add(canvas);
 		
-	}
+	}*/
 
 	private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);

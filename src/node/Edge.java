@@ -1,7 +1,5 @@
 package node;
 
-import java.lang.Math;
-
 public class Edge {
 
 	private AbsNode from;

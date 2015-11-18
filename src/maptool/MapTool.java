@@ -1,14 +1,11 @@
 package maptool;
 
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 
 import io.JsonParser;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -31,16 +27,9 @@ import javafx.stage.Stage;
 import node.AbsNode;
 import node.Edge;
 import node.EdgeDataConversion;
-import node.Graph;
 import node.Node;
 import node.Place;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javafx.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,8 +45,8 @@ public class MapTool extends Application{
     }
 	
 	JsonParser json = new JsonParser();
-	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<AbsNode> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -284,20 +273,20 @@ public class MapTool extends Application{
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//save(nodeList);
-            	String nodeData = json.jsonToString(nodeList);
+            	String nodeData = JsonParser.jsonToString(nodeList);
             	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
             	try {
-					json.saveFile(nodeData, path);
+					JsonParser.saveFile(nodeData, path);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
             	
             	//save edges
-            	String edgeData = json.jsonToStringEdge(edgeList);
+            	String edgeData = JsonParser.jsonToStringEdge(edgeList);
             	System.out.println(edgeData);
             	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
             	try {
-					json.saveFile(edgeData, edgePath);
+					JsonParser.saveFile(edgeData, edgePath);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -372,8 +361,8 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
