@@ -260,13 +260,13 @@ public class MapTool extends Application{
                             	else if(!startCoord){
                             		startX = newNodeButton.getLayoutX()+8;
                             		startY = newNodeButton.getLayoutY()+8;
-                            		fromField.setText("Start: " + newNode.getName());
+                            		fromField.setText(newNode.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
                             		endX = newNodeButton.getLayoutX()+8;
                             		endY = newNodeButton.getLayoutY()+8;
-                            		toField.setText("End: " + newNode.getName());
+                            		toField.setText(newNode.getName());
                             		startCoord = false;
                             		endCoord = false;
                             	}
