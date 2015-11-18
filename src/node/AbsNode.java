@@ -36,7 +36,7 @@ public class AbsNode {
 	}
 
 	public void setEdges(Edge anEdge){
-		edges.push(anEdge);
+		edges.add(anEdge);
 	}
 	
 	public LinkedList<Edge> getEdges(){

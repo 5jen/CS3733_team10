@@ -192,7 +192,7 @@ public class GPSapp extends Application{
             	// Need to string compare from 
             	Place startPlace = new Place(0, 0, false, "");
             	Place endPlace = new Place(0, 0, false, "");
-            	for(int i = 0; i < nodeList.size() - 1; i ++){ 
+            	for(int i = 0; i < nodeList.size(); i ++){ 
                 	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
                 		startPlace = ((Place)nodeList.get(i));
                 	}
@@ -207,12 +207,8 @@ public class GPSapp extends Application{
             	//create graph and add nodes
             	
                 LinkedList<AbsNode> route = new LinkedList<AbsNode>();
-                //route = graph.findRoute(startPlace, endPlace); 
+                route = graph.findRoute(startPlace, endPlace); 
                 
-                route.add(nodeList.get(0));
-                route.add(nodeList.get(1));
-                route.add(nodeList.get(2));
-
                 System.out.println(" " +route);
                 for(int i = 0; i < route.size(); i++){
                 	System.out.println("Route node: " + i + " , " + route.get(i));
@@ -231,13 +227,14 @@ public class GPSapp extends Application{
     
     private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-    	g.setEdges(edges);
+    	//g.setEdges(edges);
     	
     	for(int i = 0; i < g.getNodes().size(); i++){
-    		System.out.println("Node"+i+" = "+g.getNodes().get(i));
+    		//System.out.println("Node"+i+" = "+g.getNodes().get(i));
     	}
-    	for(int i = 0; i < g.getEdges().size(); i++){
-    		System.out.println("Edge"+i+" = from: "+g.getEdges().get(i).getFrom().getName()+", to: "+g.getEdges().get(i).getTo().getName());
+    	for(int i = 0; i < edges.size(); i++){
+    		g.addEdge(edges.get(i).getFrom(), edges.get(i).getTo());
+    		//System.out.println("Edge"+i+" = from: "+g.getEdges().get(i).getFrom().getName()+", to: "+g.getEdges().get(i).getTo().getName());
     	}
     	
     	return g;
