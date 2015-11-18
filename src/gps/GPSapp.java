@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.AbsNode;
 import node.Edge;
+import node.EdgeDataConversion;
 import node.Place;
 import node.Graph;
 import ui.Node;
@@ -67,13 +68,12 @@ public class GPSapp extends Application{
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
 	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
-	
-	LinkedList<Edge> edgeList = new LinkedList<Edge>();//json.getJsonContentEdge("Graphs/AK1Edges.json");
-	Canvas canvas = new Canvas(800, 650);
+	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false;
 	String startNode, endNode;
-	Graph graph = new Graph(nodeList);
+	Graph graph = new Graph();
 	
     @Override
     public void start(Stage primaryStage) {
@@ -159,12 +159,13 @@ public class GPSapp extends Application{
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+            	
             	root.getChildren().remove(imageView); //remove current map, then load new one
             	nodeList.clear();
            		edgeList.clear();
             	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-            	graph = createGraph(graph, nodeList, edgeList);
+            	graph = createGraph(new Graph(), nodeList, edgeList);
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
             	Image mapImage = new Image(newMapFile.toURI().toString());
@@ -179,7 +180,7 @@ public class GPSapp extends Application{
                 for(int i = 0; i < nodeList.size() - 1; i ++){ 
                 	LocationOptions.add(((Place)nodeList.get(i)).getName());
                 }
-                
+                graph = createGraph(graph, nodeList, edgeList);
                 drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
             }
         });
@@ -187,9 +188,10 @@ public class GPSapp extends Application{
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+            	root.getChildren().remove(canvas); //remove old path
             	// Need to string compare from 
-            	Place startPlace = null;
-            	Place endPlace = null;
+            	Place startPlace = new Place(0, 0, false, "");
+            	Place endPlace = new Place(0, 0, false, "");
             	for(int i = 0; i < nodeList.size() - 1; i ++){ 
                 	if(((Place)nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
                 		startPlace = ((Place)nodeList.get(i));
@@ -198,15 +200,27 @@ public class GPSapp extends Application{
                 		endPlace = ((Place)nodeList.get(i));
                 	}
                 }
-
+            	System.out.println("start: " + startPlace.getName());
+            	System.out.println("end: " + endPlace.getName());
             	
             	// Call findRoute on 2 nodes, returns a LinkedList<AbsNode>
             	//create graph and add nodes
             	
-                LinkedList<AbsNode> route = graph.findRoute(startPlace, endPlace); //WHY WONT THIS CALL WORK??!!??!?!!??!?!
+                LinkedList<AbsNode> route = new LinkedList<AbsNode>();
+                //route = graph.findRoute(startPlace, endPlace); 
+                
+                route.add(nodeList.get(0));
+                route.add(nodeList.get(1));
+                route.add(nodeList.get(2));
+
+                System.out.println(" " +route);
+                for(int i = 0; i < route.size(); i++){
+                	System.out.println("Route node: " + i + " , " + route.get(i));
+                }
                 // Call Draw Route
                 
                 drawRoute(gc, route);
+                root.getChildren().add(canvas);
             }
         });
         
@@ -217,14 +231,13 @@ public class GPSapp extends Application{
     
     private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-    	/*for(int i = 0; i < nodes.size(); i++){
-    		System.out.println("Node: "+ i + " " + nodes.get(i));
-    		//g.addNode(nodes.get(i));
-    		AbsNode nodeToAdd = new AbsNode(1,1,true,true);
-    		g.addNode(nodeToAdd);
-    	}*/
-    	for(int i = 0; i < edges.size(); i++){
-    		g.addEdge(edges.get(i).getFrom(), edges.get(i).getTo());
+    	g.setEdges(edges);
+    	
+    	for(int i = 0; i < g.getNodes().size(); i++){
+    		System.out.println("Node"+i+" = "+g.getNodes().get(i));
+    	}
+    	for(int i = 0; i < g.getEdges().size(); i++){
+    		System.out.println("Edge"+i+" = from: "+g.getEdges().get(i).getFrom().getName()+", to: "+g.getEdges().get(i).getTo().getName());
     	}
     	
     	return g;
@@ -265,17 +278,53 @@ public class GPSapp extends Application{
     			//Do nothing
     		}
 	  		
-
     	}
     }
     
     private void drawRoute(GraphicsContext gc, LinkedList<AbsNode> route) {
         
     	//iterate through the route drawing a connection between nodes
-    	for(int i = 1; i <= route.size(); i ++){  
-	  		gc.strokeLine(route.get(i).getX(), route.get(i).getY(), route.get(i+1).getX(),route.get(i+1).getY());
+    	for(int i = 1; i < route.size(); i ++){  
+	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
 	  		
     	}
+    }
+    
+    private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
+    	LinkedList<Edge> edgeList = new LinkedList<Edge>();
+    	AbsNode fromNode = new Place(0, 0, false, "");
+    	AbsNode toNode = new Place(0, 0, false, "");
+    	
+    	//iterate through the edges 
+    	for(int i = 0; i < edgeData.size(); i ++){
+    		//System.out.println("Edge Iterator: " + i);
+    		//iterate throught he nodelist to find the matching node
+    		for(int j = 0; j < nodeList.size(); j ++){
+        		//System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(j).getX() + " =? " + nodeList.get(j).getName());
+
+    			//check difference between place and node..
+    			if(nodeList.get(j).getIsPlace()){
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = (Place)nodeList.get(j);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
+    					toNode = (Place)nodeList.get(j);
+    				}
+    			}else{
+    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					fromNode = nodeList.get(j);
+    				}
+    				if(edgeListConversion.get(i).getTo().equals(( nodeList.get(j)).getName())){
+    					toNode = nodeList.get(j);
+    				}
+    			}
+    			
+    		}
+    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+			edgeList.add(newEdge);
+    	}
+    	
+    	return edgeList;
     }
        
 }

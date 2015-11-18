@@ -6,9 +6,10 @@ import java.util.TreeMap;
 public class Graph {
 	
 	private LinkedList<AbsNode> nodes = new LinkedList<AbsNode>();
+	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
-	public Graph(LinkedList<AbsNode> nodeList){
-		this.nodes = nodeList;
+	public Graph(){
+		
 	}
 	
 	public void addNode(AbsNode nodeToAdd){
@@ -18,6 +19,11 @@ public class Graph {
 	public void setNodes(LinkedList<AbsNode> nodeList){
 		nodes = nodeList;
 	}
+	
+	public void setEdges(LinkedList<Edge> edgeList){
+		edges = edgeList;
+	}
+	
 	
 	public void deleteNode(AbsNode nodeToDelete){
 		LinkedList<AbsNode> connectingNodeList = new LinkedList<AbsNode>();
@@ -116,6 +122,10 @@ public class Graph {
 	
 	public LinkedList<AbsNode> getNodes(){
 		return nodes;
+	}
+	
+	public LinkedList<Edge> getEdges(){
+		return edges;
 	}
 	
 	public double d(AbsNode from, AbsNode to){
