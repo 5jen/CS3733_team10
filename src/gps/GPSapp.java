@@ -3,7 +3,6 @@ package gps;
 import java.io.File;
 import java.util.LinkedList;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,12 +10,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.AbsNode;
@@ -24,38 +21,12 @@ import node.Edge;
 import node.EdgeDataConversion;
 import node.Place;
 import node.Graph;
-import ui.Node;
-import ui.NodeList;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javafx.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.InnerShadow;
-import javafx.scene.effect.Light.Point;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import io.JsonParser;
@@ -68,8 +39,8 @@ public class GPSapp extends Application{
 	
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
-	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<AbsNode> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -103,6 +74,7 @@ public class GPSapp extends Application{
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel); 
+    	
         
       //Create the START selection drop down menu
         final Button findRouteButton = new Button("Find Route");
@@ -116,14 +88,15 @@ public class GPSapp extends Application{
     	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
     	//Initialize the Drop down menu for inital Map
     	for(int i = 0; i < nodeList.size() ; i ++){ 
-        	LocationOptions.add((nodeList.get(i)).getName());
+    		if(nodeList.get(i).getIsPlace())
+    			LocationOptions.add((nodeList.get(i)).getName());
         }
     	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
     	LocationSelectorSTART.setPrefWidth(150);
     	LocationSelectorDEST.setPrefWidth(150);
-    	LocationSelectorSTART.setVisibleRowCount(3);
-    	LocationSelectorDEST.setVisibleRowCount(3);
+    	LocationSelectorSTART.setVisibleRowCount(8);
+    	LocationSelectorDEST.setVisibleRowCount(8);
     	LocationSelectionBoxHLABEL.getChildren().addAll(LocationSelectorLabelSTART, LocationSelectorLabelDEST);
     	LocationSelectionBoxH.getChildren().addAll(LocationSelectorSTART, LocationSelectorDEST, findRouteButton);
     	LocationSelectionBoxV.setLayoutX(10);
@@ -147,11 +120,25 @@ public class GPSapp extends Application{
         bgView.setLayoutX(0);  
         bgView.setLayoutY(0);
         
+        //Create a keyimage to place the map key on screen
+    	File keyFile = new File("CS3733_Graphics/Key.png");
+        Image keyImage = new Image(keyFile.toURI().toString());
+        
+        ImageView imageViewKey = new ImageView();
+        imageViewKey.setImage(keyImage);
+        
+        imageViewKey.setLayoutX(830);  
+        imageViewKey.setLayoutY(530);
+        
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(LocationSelectionBoxV);
-        root.getChildren().add(imageView);  
+        root.getChildren().add(imageView);
+        root.getChildren().add(imageViewKey);
+        
+        //Border the map app
+       // drawMapBorder(gc, root); //TO USE< CREATE A NEW CANVAS FOR THIS..
         
         
         graph = createGraph(graph, nodeList, edgeList);
@@ -172,8 +159,11 @@ public class GPSapp extends Application{
             	root.getChildren().remove(imageView); //remove current map, then load new one
             	nodeList.clear();
            		edgeList.clear();
-            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	edgeList = convertEdgeData(edgeListConversion);
+            	
             	graph = createGraph(new Graph(), nodeList, edgeList);
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
@@ -187,8 +177,10 @@ public class GPSapp extends Application{
                 //add node buttons to the screen and populates the drop down menus
                 LocationOptions.clear();
                 for(int i = 0; i < nodeList.size() - 1; i ++){ 
-                	LocationOptions.add(((Place)nodeList.get(i)).getName());
+                	if(nodeList.get(i).getIsPlace())
+                		LocationOptions.add(((Place)nodeList.get(i)).getName());
                 }
+                //drawMapBorder(gc, root);
                 graph = createGraph(graph, nodeList, edgeList);
                 drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
             }
@@ -238,7 +230,19 @@ public class GPSapp extends Application{
         primaryStage.show();  
     }  
     
-    private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
+   /* private void drawMapBorder(GraphicsContext gc, Pane root) {
+    	root.getChildren().remove(canvas);
+    	gc.setStroke(Color.BLACK);
+        gc.setLineWidth(4);
+        gc.strokeLine(2, 2, 2, 602);//left
+  		gc.strokeLine(2, 602, 798, 602);//bottom
+  		gc.strokeLine(798, 602, 798, 2);//right
+  		gc.strokeLine(2, 2, 798, 2);//top
+  		root.getChildren().add(canvas);
+		
+	}*/
+
+	private Graph createGraph(Graph g, LinkedList<AbsNode> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
     	//g.setEdges(edges);
     	
