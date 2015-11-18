@@ -61,7 +61,7 @@ public class MapTool extends Application{
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	
+	Boolean drawEdgeBool = true;
 	boolean start, end = false;
 	String startNode, endNode;
  
@@ -156,7 +156,7 @@ public class MapTool extends Application{
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
         
-        drawEdges(edgeList, gc);
+        drawEdges(edgeList, gc, root);
         root.getChildren().add(canvas);
         drawPlaces(nodeList, root, fromField, toField);
         
@@ -391,13 +391,73 @@ public class MapTool extends Application{
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
                 drawPlaces(nodeList, root, fromField, toField);
-                drawEdges(edgeList, gc);
+                
+                
+                drawEdges(edgeList, gc, root);
+                int i;
+                for( i = 0; i < edgeList.size(); i++){
+               		int j = i;
+               		Line line = new Line();
+                  	 	line.setStartX(edgeList.get(i).getFrom().getX());
+                       line.setStartY(edgeList.get(i).getFrom().getY());
+                       line.setEndX(edgeList.get(i).getTo().getX());
+                       line.setEndY(edgeList.get(i).getTo().getY());
+                       line.setStrokeWidth(5);
+                       //line.setStyle("-fx-background-color:  #F0F8FF; ");
+                       root.getChildren().add(line);
+               		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                      	public void handle(MouseEvent event){
+                      		if(delete) {
+                      			root.getChildren().remove(line);
+                      			edgeList.remove(edgeList.get(j));
+                      			System.out.println("Deleted edge");
+                      			delete = false;
+                      		}
+                      	 }
+                       });
+               		}
+               	System.out.println("Drew edges");
+               	drawEdgeBool = false;
+                
                 root.getChildren().add(canvas);
-
 
            }
            
        });
+       
+       
+       if(drawEdgeBool){
+    	   int i;
+       	for( i = 0; i < edgeList.size(); i++){
+       		int j = i; //used for getting edge index inside method scope
+       		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
+       		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
+       		//gc.setLineWidth(5);
+       		//gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
+       		
+       		Line line = new Line();
+          	 	line.setStartX(edgeList.get(i).getFrom().getX());
+               line.setStartY(edgeList.get(i).getFrom().getY());
+               line.setEndX(edgeList.get(i).getTo().getX());
+               line.setEndY(edgeList.get(i).getTo().getY());
+               line.setStrokeWidth(5);
+               //line.setStyle("-fx-background-color:  #F0F8FF; ");
+               root.getChildren().add(line);
+       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
+              	public void handle(MouseEvent event){
+              		if(delete) {
+              			root.getChildren().remove(line);
+              			edgeList.remove(edgeList.get(j));
+              			System.out.println("Deleted edge");
+              			delete = false;
+              		}
+              	 }
+               });
+       		}
+       	System.out.println("Drew edges");
+       	drawEdgeBool = false;
+       }
+       
        
         createNodeButton.setOnAction(CreateHandler);  
         
@@ -406,14 +466,10 @@ public class MapTool extends Application{
         
     }  
     
-    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
-    	//System.out.println("edge list size: " + edges.size());
-    	for(int i = 0; i < edges.size(); i++){
-    		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
-    		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
-    		gc.setLineWidth(5);
-    		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
-    	}
+    //Change where we call drawEdges to just change the drawEdgeBool to true;
+    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane root){
+    	drawEdgeBool = true;
+    	
 	}
   
     	

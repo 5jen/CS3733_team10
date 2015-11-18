@@ -24,8 +24,6 @@ import node.Edge;
 import node.EdgeDataConversion;
 import node.Place;
 import node.Graph;
-import ui.Node;
-import ui.NodeList;
 
 import java.io.File;
 import java.util.Arrays;
@@ -116,7 +114,8 @@ public class GPSapp extends Application{
     	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
     	//Initialize the Drop down menu for inital Map
     	for(int i = 0; i < nodeList.size() ; i ++){ 
-        	LocationOptions.add((nodeList.get(i)).getName());
+    		if(nodeList.get(i).getIsPlace())
+    			LocationOptions.add((nodeList.get(i)).getName());
         }
     	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
     	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
@@ -187,7 +186,8 @@ public class GPSapp extends Application{
                 //add node buttons to the screen and populates the drop down menus
                 LocationOptions.clear();
                 for(int i = 0; i < nodeList.size() - 1; i ++){ 
-                	LocationOptions.add(((Place)nodeList.get(i)).getName());
+                	if(nodeList.get(i).getIsPlace())
+                		LocationOptions.add(((Place)nodeList.get(i)).getName());
                 }
                 graph = createGraph(graph, nodeList, edgeList);
                 drawPlaces(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
