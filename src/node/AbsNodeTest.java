@@ -74,7 +74,7 @@ public class AbsNodeTest {
 
 		
 		Edge someEdge = new Edge(node25, node26, getDistance(node25, node26));
-		Edge anotherEdge = new Edge(node25, node27,getDistance(node25, node27));
+		Edge anotherEdge = new Edge(node25, node27, getDistance(node25, node27));
 		
 		node25.setEdges(someEdge);
 		node25.setEdges(anotherEdge);
