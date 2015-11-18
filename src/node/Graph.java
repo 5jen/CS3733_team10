@@ -53,7 +53,9 @@ public class Graph {
 		int index2 = nodes.indexOf(node2);
 		int dist = getDistance(node1, node2);
 		
-		
+		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
+		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
+
 		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2), dist);
 		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1), dist);
 		
@@ -80,7 +82,8 @@ public class Graph {
 		for (AbsNode n : nodes){
 			n.setParent(null);
 		}
-		
+		System.out.println("About to find the Route..");
+
 		while (unknownFrontier.size() > 0){
 			AbsNode current = unknownFrontier.pollFirstEntry().getValue();
 			System.out.println("Start looking at current node");
