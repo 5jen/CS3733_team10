@@ -207,8 +207,8 @@ public class MapTool extends Application{
                                 "-fx-max-width: 15px; " +
                                 "-fx-max-height: 15px;"
                         );
-                    	newNodeButton.relocate(x, y);
-                    	Place newPlace = new Place(x, y, true, nameField.getText());
+                    	newNodeButton.relocate(x-7, y-7);
+                    	Place newPlace = new Place(x-7, y-7, true, nameField.getText());
                 		nodeList.add(newPlace);
                     	//Add actions for when you click this unique button
                     	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -219,14 +219,14 @@ public class MapTool extends Application{
                             		delete = false;
                             	}
                             	else if(!startCoord){
-                            		startX = newNodeButton.getLayoutX()+ 8;
-                            		startY = newNodeButton.getLayoutY() + 8;
+                            		startX = newNodeButton.getLayoutX()+8;
+                            		startY = newNodeButton.getLayoutY()+8;
                             		fromField.setText(newPlace.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
-                            		endX = newNodeButton.getLayoutX() + 8;
-                            		endY = newNodeButton.getLayoutY() + 8;
+                            		endX = newNodeButton.getLayoutX()+8;
+                            		endY = newNodeButton.getLayoutY()+8;
                             		toField.setText(newPlace.getName());
                             		startCoord = false;
                             		endCoord = false;
@@ -238,7 +238,7 @@ public class MapTool extends Application{
                 	}
                 	//creating a way point
                 	else{
-                		Node newNode = new Node(x, y, true, nameField.getText());
+                		Node newNode = new Node(x-7, y-7, true, nameField.getText());
                 		nodeList.add(newNode);
                     	Button newNodeButton = new Button("");
                     	newNodeButton.setStyle(
@@ -249,7 +249,7 @@ public class MapTool extends Application{
                                 "-fx-max-width: 10px; " +
                                 "-fx-max-height: 10px;"
                         );
-                    	newNodeButton.relocate(x, y);
+                    	newNodeButton.relocate(x-7, y-7);
                        	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent event) {
                             	if(delete){
@@ -258,14 +258,14 @@ public class MapTool extends Application{
                             		delete = false;
                             	}
                             	else if(!startCoord){
-                            		startX = newNodeButton.getLayoutX()+ 8;
-                            		startY = newNodeButton.getLayoutY() + 8;
+                            		startX = newNodeButton.getLayoutX()+8;
+                            		startY = newNodeButton.getLayoutY()+8;
                             		fromField.setText("Start: " + newNode.getName());
                             		startCoord = true;
                             	}
                             	else if(!endCoord){
-                            		endX = newNodeButton.getLayoutX() + 8;
-                            		endY = newNodeButton.getLayoutY() + 8;
+                            		endX = newNodeButton.getLayoutX()+8;
+                            		endY = newNodeButton.getLayoutY()+8;
                             		toField.setText("End: " + newNode.getName());
                             		startCoord = false;
                             		endCoord = false;
@@ -409,8 +409,10 @@ public class MapTool extends Application{
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
     	//System.out.println("edge list size: " + edges.size());
     	for(int i = 0; i < edges.size(); i++){
-    		System.out.println("Line Iterator: " + i);
-	  		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
+    		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
+    		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
+    		gc.setLineWidth(5);
+    		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
     	}
 	}
   
@@ -464,13 +466,13 @@ public class MapTool extends Application{
                     	else if(!startCoord){
                     		startX = newNodeButton.getLayoutX()+ 8;
                     		startY = newNodeButton.getLayoutY() + 8;
-                    		fromField.setText("Start: " + ((Place) newNode).getName());
+                    		fromField.setText(((Place) newNode).getName());
                     		startCoord = true;
                     	}
                     	else if(!endCoord){
                     		endX = newNodeButton.getLayoutX() + 8;
                     		endY = newNodeButton.getLayoutY() + 8;
-                    		toField.setText("End: " + ((Place) newNode).getName());
+                    		toField.setText(((Place) newNode).getName());
                     		startCoord = false;
                     		endCoord = false;
                     	}
@@ -499,13 +501,13 @@ public class MapTool extends Application{
                     	else if(!startCoord){
                     		startX = newNodeButton.getLayoutX()+ 8;
                     		startY = newNodeButton.getLayoutY() + 8;
-                    		fromField.setText("Start: " + ((Node) newNode).getName());
+                    		fromField.setText( ((Node) newNode).getName());
                     		startCoord = true;
                     	}
                     	else if(!endCoord){
                     		endX = newNodeButton.getLayoutX() + 8;
                     		endY = newNodeButton.getLayoutY() + 8;
-                    		toField.setText("End: " + ((Node) newNode).getName());
+                    		toField.setText( ((Node) newNode).getName());
                     		startCoord = false;
                     		endCoord = false;
                     	}
@@ -528,22 +530,22 @@ public class MapTool extends Application{
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
-        		System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(i).getX() + " =? " + edgeListConversion.get(i).getFrom());
+        		//System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(j).getX() + " =? " + nodeList.get(j).getName());
 
     			//check difference between place and node..
-    			if(nodeList.get(i).getIsPlace()){
+    			if(nodeList.get(j).getIsPlace()){
     				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-    					fromNode = (Place)nodeList.get(i);
+    					fromNode = (Place)nodeList.get(j);
     				}
     				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
-    					toNode = (Place)nodeList.get(i);
+    					toNode = (Place)nodeList.get(j);
     				}
     			}else{
     				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-    					fromNode = (Node)nodeList.get(i);
+    					fromNode = (Node)nodeList.get(j);
     				}
     				if(edgeListConversion.get(i).getTo().equals(( nodeList.get(j)).getName())){
-    					toNode = (Node)nodeList.get(i);
+    					toNode = (Node)nodeList.get(j);
     				}
     			}
     			
