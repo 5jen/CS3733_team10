@@ -77,7 +77,7 @@ public class AbsNode {
 	
 	public void updateNode(int xPos, int yPos, boolean isWalk, boolean isPlce){
 		// TODO Method stub for updating a node.
-		// Has to update all edges involved
+		// Has to update all edges involved with the node being updated
 	}
 
 	public String getName() {
