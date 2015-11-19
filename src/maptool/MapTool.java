@@ -205,6 +205,12 @@ public class MapTool extends Application{
                             	if(delete){
                             		root.getChildren().remove(newNodeButton);
                             		nodeList.remove(newPlace);
+                            		//iterate through the edge list and delete all edges attached to this node
+                            		for(int i = 0; i < edgeList.size(); i++){
+                            			if(edgeList.get(i).getFrom().getName() == newPlace.getName() || edgeList.get(i).getTo().getName() == newPlace.getName()){
+                            				edgeList.remove(i);
+                            			}
+                            		}
                             		delete = false;
                             	}
                             	else if(!startCoord){
@@ -244,6 +250,13 @@ public class MapTool extends Application{
                             	if(delete){
                             		root.getChildren().remove(newNodeButton);
                             		nodeList.remove(newNode);
+                            		//WORKS BUT WILL NOT REMOVE THE EDGE LINE GRAPHIC UNTIL YOU SAVE AND RELOAD THE MAP... IT CURRENTLY JUST REMOVES IT FROM MEMORY
+                            		//iterate through the edge list and delete all edges attached to this node
+                            		for(int i = 0; i < edgeList.size(); i++){
+                            			if(edgeList.get(i).getFrom().getName() == newNode.getName() || edgeList.get(i).getTo().getName() == newNode.getName()){
+                            				edgeList.remove(i);
+                            			}
+                            		}
                             		delete = false;
                             	}
                             	else if(!startCoord){
@@ -407,6 +420,15 @@ public class MapTool extends Application{
                		line.setStrokeWidth(3);
                        //line.setStyle("-fx-background-color:  #F0F8FF; ");
                        root.getChildren().add(line);
+                       
+                       //********WORKING ON REMOVE EDGE LINE FROM SCREEN
+                    //remove line if it's not connected to anything
+                     //iterate through the edge list and delete all edges attached to this node
+               		//if(edgeList.get(i).getFrom().getName() == newNode.getName() || edgeList.get(i).getTo().getName() == newNode.getName()){
+               			//edgeList.remove(i);
+               		//}
+               		
+                       
                		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
                       	public void handle(MouseEvent event){
                       		if(delete) {
@@ -433,10 +455,6 @@ public class MapTool extends Application{
     	   int i;
        	for( i = 0; i < edgeList.size(); i++){
        		int j = i; //used for getting edge index inside method scope
-       		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
-       		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
-       		//gc.setLineWidth(5);
-       		//gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
        		
        		Line line = new Line();
        		//Determine the offset we need to use for the tool graph FROM NODE
@@ -461,6 +479,7 @@ public class MapTool extends Application{
             line.setStrokeWidth(3);
             //line.setStyle("-fx-background-color:  #F0F8FF; ");
             root.getChildren().add(line);
+            
        		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
               	public void handle(MouseEvent event){
               		if(delete) {
