@@ -76,12 +76,38 @@ public class AbsNode {
 	}
 	
 	public void updateNode(int xPos, int yPos, boolean isWalk, boolean isPlce){
-		// TODO Method stub for updating a node.
-		// Has to update all edges involved with the node being updated
+		X = xPos;
+		Y = yPos;
+		isWalkable = isWalk;
+		isPlace = isPlce;
+		
+		// Update edges where this node is the from node
+		for (Edge e : edges){
+			e.setDistance(getDistance(this, e.getTo()));
+		}
+		
+		// Update all edges where this node is the to node
+		LinkedList<AbsNode> connectingNodeList = new LinkedList<AbsNode>();
+		for (Edge e : edges){
+			connectingNodeList.add(e.getTo());
+		}
+		
+		for (AbsNode n : connectingNodeList){
+			for (Edge e : n.getEdges()){
+				if (e.getTo() == this){
+					e.setDistance(getDistance(this, n));
+				}
+			}
+		}
+			
 	}
 
 	public String getName() {
 		// TODO Auto-generated method stub
 		return "";
+	}
+	
+	public int getDistance(AbsNode n1, AbsNode n2){
+		return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
 	}
 }
