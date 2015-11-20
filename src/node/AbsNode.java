@@ -99,7 +99,6 @@ public class AbsNode {
 				}
 			}
 		}
-			
 	}
 
 	public String getName() {

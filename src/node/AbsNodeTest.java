@@ -98,5 +98,28 @@ public class AbsNodeTest {
 	public int getDistance(AbsNode n1, AbsNode n2){
 		return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
 	}
-	
+
+	@Test
+	public void testUpdateNode() throws Exception {
+		AbsNode node1 = new AbsNode(0, 0, true, true);
+        AbsNode node2 = new AbsNode(0, 1, true, true);
+        AbsNode node3 = new AbsNode(1, 1, true, true);
+
+        LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
+        nodeList.add(node1);
+        nodeList.add(node2);
+        nodeList.add(node3);
+
+        Graph graph = new Graph();
+        graph.setNodes(nodeList);
+
+        graph.addEdge(node1, node2);
+        graph.addEdge(node1, node3);
+        graph.addEdge(node2, node3);
+
+        node1.updateNode(node1.getX(), -1, node1.getIsWalkable(), node1.getIsPlace());
+
+        Edge edgeNode12 = node1.getEdges().getFirst();
+        assertEquals(2, edgeNode12.getDistance(), .001);
+	}
 }
