@@ -7,12 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
-import java.io.OutputStreamWriter;
-
 import org.json.JSONObject;
 import org.json.JSONException;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
 import org.json.JSONArray;
 
 import node.*;
@@ -34,8 +30,6 @@ public class JsonParser {
         //saveFile(jsonToString(),"testdata\\test2.json");        
     }
 	
-    private static String TestJSONText = "{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"}"; 
-    private static String TestJSONText2 = "[{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"},{\"id\":20130031,\"phone\":\"13579246810\",\"name\":\"Jason\"}]";
     /**
      * Get JSON object from a text file includes array of JSONs (for nodes and places!)
      * @return 
@@ -190,40 +184,5 @@ public class JsonParser {
 
 
 
-    }
-    
-    private static String testPrepareJSONObject(){  
-        JSONStringer jsonStringer = new JSONStringer();  
-        try {  
-            jsonStringer.object();  
-            jsonStringer.key("name");  
-            jsonStringer.value("Jason");  
-            jsonStringer.key("id");  
-            jsonStringer.value(20130001);  
-            jsonStringer.key("phone");  
-            jsonStringer.value("13579246810");  
-            jsonStringer.endObject();  
-        } catch (JSONException e) {  
-            e.printStackTrace();  
-        }  
-        return jsonStringer.toString();  
-    }    
-	
-    private static String testGetJSONContent(){  
-        JSONTokener jsonTokener = new JSONTokener(TestJSONText);   
-        JSONObject studentJSONObject;  
-        String name = null;  
-        int id = 0;  
-        String phone = null;  
-        try {  
-            studentJSONObject = (JSONObject) jsonTokener.nextValue();  
-            name = studentJSONObject.getString("name");  
-            id = studentJSONObject.getInt("id");  
-            phone = studentJSONObject.getString("phone");
-              
-        } catch (JSONException e) {  
-            e.printStackTrace();  
-        }  
-        return name + "  " + id + "   " + phone;  
     }  
 }

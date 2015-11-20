@@ -1,14 +1,11 @@
 package maptool;
 
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 
 import io.JsonParser;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -31,16 +27,9 @@ import javafx.stage.Stage;
 import node.AbsNode;
 import node.Edge;
 import node.EdgeDataConversion;
-import node.Graph;
 import node.Node;
 import node.Place;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javafx.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,12 +45,12 @@ public class MapTool extends Application{
     }
 	
 	JsonParser json = new JsonParser();
-	LinkedList<AbsNode> nodeList = json.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = json.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<AbsNode> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	
+	Boolean drawEdgeBool = true;
 	boolean start, end = false;
 	String startNode, endNode;
  
@@ -156,7 +145,7 @@ public class MapTool extends Application{
         root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
         
-        drawEdges(edgeList, gc);
+        drawEdges(edgeList, gc, root);
         root.getChildren().add(canvas);
         drawPlaces(nodeList, root, fromField, toField);
         
@@ -284,20 +273,20 @@ public class MapTool extends Application{
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//save(nodeList);
-            	String nodeData = json.jsonToString(nodeList);
+            	String nodeData = JsonParser.jsonToString(nodeList);
             	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
             	try {
-					json.saveFile(nodeData, path);
+					JsonParser.saveFile(nodeData, path);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
             	
             	//save edges
-            	String edgeData = json.jsonToStringEdge(edgeList);
+            	String edgeData = JsonParser.jsonToStringEdge(edgeList);
             	System.out.println(edgeData);
             	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
             	try {
-					json.saveFile(edgeData, edgePath);
+					JsonParser.saveFile(edgeData, edgePath);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -372,9 +361,10 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = json.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
+            	System.out.println(mapSelector.getValue());
             	
             	/* ^^^^^^^^^
             	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
@@ -390,14 +380,102 @@ public class MapTool extends Application{
            		imageView.setLayoutY(0);
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
-                drawPlaces(nodeList, root, fromField, toField);
-                drawEdges(edgeList, gc);
-                root.getChildren().add(canvas);
+                
+                
+           		root.getChildren().add(canvas);
+                drawEdges(edgeList, gc, root);
+                int i;
+                for( i = 0; i < edgeList.size(); i++){
+               		int j = i;
+               		Line line = new Line();
+               	//Determine the offset we need to use for the tool graph FROM NODE
+               		if(edgeList.get(i).getFrom().getIsPlace()){
+               			line.setStartX(edgeList.get(i).getFrom().getX()+8);
+                        line.setStartY(edgeList.get(i).getFrom().getY()+8);
+               		} else{
+               			line.setStartX(edgeList.get(i).getFrom().getX()+5);
+                        line.setStartY(edgeList.get(i).getFrom().getY()+5);
+                        
+               		}
+               		//Determine the offset we need to use for the tool graph TO NODE
+               		if(edgeList.get(i).getTo().getIsPlace()){
+               			line.setEndX(edgeList.get(i).getTo().getX()+8);
+                        line.setEndY(edgeList.get(i).getTo().getY()+8);
+               		} else {
+               			line.setEndX(edgeList.get(i).getTo().getX()+5);
+                        line.setEndY(edgeList.get(i).getTo().getY()+5);
+               		}
+               		line.setStrokeWidth(3);
+                       //line.setStyle("-fx-background-color:  #F0F8FF; ");
+                       root.getChildren().add(line);
+               		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                      	public void handle(MouseEvent event){
+                      		if(delete) {
+                      			root.getChildren().remove(line);
+                      			edgeList.remove(edgeList.get(j));
+                      			System.out.println("Deleted edge");
+                      			delete = false;
+                      		}
+                      	 }
+                       });
+               		}
+               	System.out.println("Drew edges");
+               	drawEdgeBool = false;
+               	drawPlaces(nodeList, root, fromField, toField);
 
 
            }
            
        });
+       
+       
+       if(drawEdgeBool){
+    	   int i;
+       	for( i = 0; i < edgeList.size(); i++){
+       		int j = i; //used for getting edge index inside method scope
+       		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
+       		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
+       		//gc.setLineWidth(5);
+       		//gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
+       		
+       		Line line = new Line();
+       		//Determine the offset we need to use for the tool graph FROM NODE
+       		if(edgeList.get(i).getFrom().getIsPlace()){
+       			line.setStartX(edgeList.get(i).getFrom().getX()+8);
+                line.setStartY(edgeList.get(i).getFrom().getY()+8);
+       		} else{
+       			line.setStartX(edgeList.get(i).getFrom().getX()+5);
+                line.setStartY(edgeList.get(i).getFrom().getY()+5);
+                
+       		}
+       		//Determine the offset we need to use for the tool graph TO NODE
+       		if(edgeList.get(i).getTo().getIsPlace()){
+       			line.setEndX(edgeList.get(i).getTo().getX()+8);
+                line.setEndY(edgeList.get(i).getTo().getY()+8);
+       		} else {
+       			line.setEndX(edgeList.get(i).getTo().getX()+5);
+                line.setEndY(edgeList.get(i).getTo().getY()+5);
+       		}
+       		
+          	
+            line.setStrokeWidth(3);
+            //line.setStyle("-fx-background-color:  #F0F8FF; ");
+            root.getChildren().add(line);
+       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
+              	public void handle(MouseEvent event){
+              		if(delete) {
+              			root.getChildren().remove(line);
+              			edgeList.remove(edgeList.get(j));
+              			System.out.println("Deleted edge");
+              			delete = false;
+              		}
+              	 }
+               });
+       		}
+       	System.out.println("Drew edges");
+       	drawEdgeBool = false;
+       }
+       
        
         createNodeButton.setOnAction(CreateHandler);  
         
@@ -406,14 +484,10 @@ public class MapTool extends Application{
         
     }  
     
-    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc){
-    	//System.out.println("edge list size: " + edges.size());
-    	for(int i = 0; i < edges.size(); i++){
-    		//System.out.println( "from x: " + edges.get(i).getFrom().getX() + "from y: " + edges.get(i).getFrom().getY());
-    		//System.out.println( "to x: " + edges.get(i).getTo().getX() + "to y: " + edges.get(i).getTo().getY());
-    		gc.setLineWidth(5);
-    		gc.strokeLine(edges.get(i).getFrom().getX(), edges.get(i).getFrom().getY(), edges.get(i).getTo().getX(),edges.get(i).getTo().getY());
-    	}
+    //Change where we call drawEdges to just change the drawEdgeBool to true;
+    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane root){
+    	drawEdgeBool = true;
+    	
 	}
   
     	
