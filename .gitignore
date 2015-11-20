@@ -1,8 +1,14 @@
 /bin/
 *.class
-.metadata
+*.metadata
 .metadata/*
 .classpath
 .project
 .DS_Store
 .settings/*
+*.jar
+
+# From IntelliJ
+/.idea/*
+/out/*
+*.iml
