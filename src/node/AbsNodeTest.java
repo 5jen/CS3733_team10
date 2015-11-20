@@ -120,6 +120,9 @@ public class AbsNodeTest {
         node1.updateNode(node1.getX(), -1, node1.getIsWalkable(), node1.getIsPlace());
 
         Edge edgeNode12 = node1.getEdges().getFirst();
+        Edge edgeNode21 = node2.getEdges().getFirst();
+
         assertEquals(2, edgeNode12.getDistance(), .001);
+        assertEquals(2, edgeNode21.getDistance(), .001);
 	}
 }

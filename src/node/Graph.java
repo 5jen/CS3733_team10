@@ -73,11 +73,10 @@ public class Graph {
 //			return null;
 //		}
 		
-		LinkedList<AbsNode> path = new LinkedList<AbsNode>();
+		LinkedList<AbsNode> path;
 		TreeMap<Double, AbsNode> unknownFrontier = new TreeMap<Double, AbsNode>();
 		from.setCost(0);
 		unknownFrontier.put((from.getCost() + d(from, to)), from);
-		LinkedList<AbsNode> explored = new LinkedList<AbsNode>();
 		
 		for (AbsNode n : nodes){
 			n.setParent(null);
@@ -94,8 +93,6 @@ public class Graph {
 				path = backtrack(current);
 				return path;
 			}
-			
-			explored.add(current);
 			
 			for (Edge neighbor : current.getEdges()){
 				System.out.println("Looking at neighbors...");
@@ -119,9 +116,9 @@ public class Graph {
 		return null; // No Path Found
 	}
 	
-	public void drawPath(LinkedList<Node> nodeList, LinkedList<AbsNode> absList){
-		
-	}
+//	public void drawPath(LinkedList<Node> nodeList, LinkedList<AbsNode> absList){
+//
+//	}
 	
 	public LinkedList<AbsNode> getNodes(){
 		return nodes;
