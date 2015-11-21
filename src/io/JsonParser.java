@@ -34,27 +34,22 @@ public class JsonParser {
      * Get JSON object from a text file includes array of JSONs (for nodes and places!)
      * @return 
      */
-	public static LinkedList<AbsNode> getJsonContent(String path){
+	public static LinkedList<Node> getJsonContent(String path){
 	    JSONArray json = new JSONArray(loadFile(path));//change path right here
-	    LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
+	    LinkedList<Node> nodeList = new LinkedList<Node>();
 	    
 	    if (json.length()>0){
 	    	for (int i=0;i<json.length();i++){
 	    		JSONObject job = json.getJSONObject(i);
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
+	    		int z = job.getInt("valz");
 	    		String name = job.getString("name");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
+	    		String type = job.getString("type");
 	    		
-	    		
-	    		AbsNode newNode;
-				if(isPlace){
-	    			newNode = new Place(x, y, isWalk, name);
-				}
-	    		else{
-	    			newNode = new Node(x, y, isWalk, name);
-	    		}
+	    		Node newNode = new Node(x, y, z, name, isWalk, isPlace, type);
 				nodeList.add(newNode);
 	    	}
 	    }
@@ -78,8 +73,6 @@ public class JsonParser {
 	    		int dist = job.getInt("distance");
 	    		
 	    		EdgeDataConversion newEdge = new EdgeDataConversion(from, to, dist);
-	    		
-	    		
 				edgeList.add(newEdge);
 	    	}
 	    }
@@ -130,19 +123,18 @@ public class JsonParser {
      * @throws JSONException
      */
     //Field order: valx, valy, name, isWalkable, isPlace
-    public static String jsonToString(LinkedList<AbsNode> nodeList) throws JSONException {
+    public static String jsonToString(LinkedList<Node> nodeList) throws JSONException {
 
     	JSONArray array = new JSONArray();
     	for(int i = 0; i < nodeList.size(); i++){
     		JSONObject json = new JSONObject();
     		json.put("valx", nodeList.get(i).getX());
         	json.put("valy", nodeList.get(i).getY());
-        	if(nodeList.get(i).getIsPlace())
-        		json.put("name", ((Place) nodeList.get(i)).getName());
-        	else
-        		json.put("name", ((Node) nodeList.get(i)).getName());
+        	json.put("valz", nodeList.get(i).getZ());
+        	json.put("name", nodeList.get(i).getName());
         	json.put("isWalkable", nodeList.get(i).getIsWalkable());
         	json.put("isPlace", nodeList.get(i).getIsPlace());
+        	json.put("type", nodeList.get(i).getType());
         	array.put(json);
     	}
     	
