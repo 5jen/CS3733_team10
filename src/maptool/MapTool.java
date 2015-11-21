@@ -24,11 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import node.AbsNode;
 import node.Edge;
 import node.EdgeDataConversion;
 import node.Node;
-import node.Place;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -45,7 +43,7 @@ public class MapTool extends Application{
     }
 	
 	JsonParser json = new JsonParser();
-	LinkedList<AbsNode> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
@@ -53,6 +51,7 @@ public class MapTool extends Application{
 	Boolean drawEdgeBool = true;
 	boolean start, end = false;
 	String startNode, endNode;
+	
  
     @Override
     public void start(Stage primaryStage) {
@@ -147,7 +146,7 @@ public class MapTool extends Application{
         
         drawEdges(edgeList, gc, root);
         root.getChildren().add(canvas);
-        drawPlaces(nodeList, root, fromField, toField);
+        drawNodes(nodeList, root, fromField, toField);
         
         
 
@@ -177,7 +176,6 @@ public class MapTool extends Application{
             	}
                 
                 // Make sure a name is entered before creating node
-                
                 else if (nameField.getText().equals("")){
                 	warningLabel.setText("Error, must enter a name");
             		root.getChildren().add(warningBox); 
@@ -187,98 +185,53 @@ public class MapTool extends Application{
                 else{
                 	warningLabel.setText("");//Remove warning, bc successful
                 	//If we are creating an actual place
+                	Button newNodeButton = new Button("");
+
                 	if(isPlace.isSelected()){
-                    	Button newNodeButton = new Button("");
                     	newNodeButton.setStyle(
-                                "-fx-background-radius: 5em; " +
-                                "-fx-min-width: 15px; " +
-                                "-fx-min-height: 15px; " +
-                                "-fx-max-width: 15px; " +
-                                "-fx-max-height: 15px;"
+                                "-fx-background-radius: 5em; " +  "-fx-min-width: 15px; " + "-fx-min-height: 15px; " + "-fx-max-width: 15px; " + "-fx-max-height: 15px;"
                         );
-                    	newNodeButton.relocate(x-7, y-7);
-                    	Place newPlace = new Place(x-7, y-7, true, nameField.getText());
-                		nodeList.add(newPlace);
-                    	//Add actions for when you click this unique button
-                    	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent event) {
-                            	if(delete){
-                            		root.getChildren().remove(newNodeButton);
-                            		nodeList.remove(newPlace);
-                            		//iterate through the edge list and delete all edges attached to this node
-                            		for(int i = 0; i < edgeList.size(); i++){
-                            			if(edgeList.get(i).getFrom().getName() == newPlace.getName() || edgeList.get(i).getTo().getName() == newPlace.getName()){
-                            				edgeList.remove(i);
-                            			}
-                            		}
-                            		delete = false;
-                            	}
-                            	else if(!startCoord){
-                            		startX = newNodeButton.getLayoutX()+8;
-                            		startY = newNodeButton.getLayoutY()+8;
-                            		fromField.setText(newPlace.getName());
-                            		startCoord = true;
-                            	}
-                            	else if(!endCoord){
-                            		endX = newNodeButton.getLayoutX()+8;
-                            		endY = newNodeButton.getLayoutY()+8;
-                            		toField.setText(newPlace.getName());
-                            		startCoord = false;
-                            		endCoord = false;
-                            	}
-                            }
-                        });
-                    	root.getChildren().add(newNodeButton); //add to the screen
-                    	
                 	}
-                	//creating a way point
                 	else{
-                		Node newNode = new Node(x-7, y-7, true, nameField.getText());
-                		nodeList.add(newNode);
-                    	Button newNodeButton = new Button("");
-                    	newNodeButton.setStyle(
-                    			"-fx-background-color: #000000; " +
-                                "-fx-background-radius: 5em; " +
-                                "-fx-min-width: 10px; " +
-                                "-fx-min-height: 10px; " +
-                                "-fx-max-width: 10px; " +
-                                "-fx-max-height: 10px;"
+                		newNodeButton.setStyle(
+                    			"-fx-background-color: #000000; " + "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
                         );
-                    	newNodeButton.relocate(x-7, y-7);
-                       	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent event) {
-                            	if(delete){
-                            		root.getChildren().remove(newNodeButton);
-                            		nodeList.remove(newNode);
-                            		//WORKS BUT WILL NOT REMOVE THE EDGE LINE GRAPHIC UNTIL YOU SAVE AND RELOAD THE MAP... IT CURRENTLY JUST REMOVES IT FROM MEMORY
-                            		//iterate through the edge list and delete all edges attached to this node
-                            		for(int i = 0; i < edgeList.size(); i++){
-                            			if(edgeList.get(i).getFrom().getName() == newNode.getName() || edgeList.get(i).getTo().getName() == newNode.getName()){
-                            				edgeList.remove(i);
-                            			}
-                            		}
-                            		delete = false;
-                            	}
-                            	else if(!startCoord){
-                            		startX = newNodeButton.getLayoutX()+8;
-                            		startY = newNodeButton.getLayoutY()+8;
-                            		fromField.setText(newNode.getName());
-                            		startCoord = true;
-                            	}
-                            	else if(!endCoord){
-                            		endX = newNodeButton.getLayoutX()+8;
-                            		endY = newNodeButton.getLayoutY()+8;
-                            		toField.setText(newNode.getName());
-                            		startCoord = false;
-                            		endCoord = false;
-                            	}
-                            }
-                        });
-                    	root.getChildren().add(newNodeButton);
                 	}
-                          
+                	newNodeButton.relocate(x-7, y-7);
+                	Node newPlace = new Node(x-7, y-7,nameField.getText(), true, isPlace.isSelected());
+                	nodeList.add(newPlace);
+                    //Add actions for when you click this unique button
+                    newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    	public void handle(MouseEvent event) {
+                    		if(delete){
+                    			root.getChildren().remove(newNodeButton);
+                            	nodeList.remove(newPlace);
+                            	//iterate through the edge list and delete all edges attached to this node
+                            	for(int i = 0; i < edgeList.size(); i++){
+                            		if(edgeList.get(i).getFrom().getName() == newPlace.getName() || edgeList.get(i).getTo().getName() == newPlace.getName()){
+                            			edgeList.remove(i);
+                            		}
+                            	}
+                            	delete = false;
+                            }
+                            else if(!startCoord){
+                            	startX = newNodeButton.getLayoutX()+8;
+                            	startY = newNodeButton.getLayoutY()+8;
+                            	fromField.setText(newPlace.getName());
+                            	startCoord = true;
+                            }
+                            else if(!endCoord){
+                            	endX = newNodeButton.getLayoutX()+8;
+                            	endY = newNodeButton.getLayoutY()+8;
+                            	toField.setText(newPlace.getName());
+                            	startCoord = false;
+                            	endCoord = false;
+                           	}
+                    	}
+                    });
+                    root.getChildren().add(newNodeButton); //add to the screen
+                    	
                 }
-            	
             }  
         }; 
         
@@ -326,8 +279,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	AbsNode fromNode = new AbsNode(0, 0, false, false);
-            	AbsNode toNode = new AbsNode(0, 0, false, false);
+            	Node fromNode = new Node(0, 0, "", false, false);
+            	Node toNode = new Node(0, 0, "", false, false);
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -350,6 +303,11 @@ public class MapTool extends Application{
                  line.setStrokeWidth(3);
                  line.setStyle("-fx-background-color:  #F0F8FF; ");
                  root.getChildren().add(line);
+                 
+                 //Add this line graphic to a list of edge graphics, this list parallel
+                 //our existing edgeList, so that when an edge is deleted from edgeList,
+                 //we also know to deleted from this list
+                 
                  
                  line.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 	 public void handle(MouseEvent event){
@@ -377,6 +335,7 @@ public class MapTool extends Application{
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
+            	System.out.println(mapSelector.getValue());
             	
             	/* ^^^^^^^^^
             	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
@@ -394,7 +353,7 @@ public class MapTool extends Application{
            		root.getChildren().add(imageView); 
                 
                 
-                
+           		root.getChildren().add(canvas);
                 drawEdges(edgeList, gc, root);
                 int i;
                 for( i = 0; i < edgeList.size(); i++){
@@ -442,8 +401,7 @@ public class MapTool extends Application{
                		}
                	System.out.println("Drew edges");
                	drawEdgeBool = false;
-                root.getChildren().add(canvas);
-               	drawPlaces(nodeList, root, fromField, toField);
+               	drawNodes(nodeList, root, fromField, toField);
 
 
            }
@@ -535,11 +493,12 @@ public class MapTool extends Application{
     }
     
     // Draws the Places and Nodes on to the map
-    private void drawPlaces(LinkedList<AbsNode> nodes, Pane root, Label fromField, Label toField){
+    private void drawNodes(LinkedList<Node> nodes, Pane root, Label fromField, Label toField){
     	int i;
     	for(i = 0; i < nodes.size(); i ++){ 
+    		Button newNodeButton = new Button("");
+    		//Determine what type of node image we choose
     		if(nodes.get(i).getIsPlace()){
-        		Button newNodeButton = new Button("");
             	newNodeButton.setStyle(
                         "-fx-background-radius: 5em; " +
                         "-fx-min-width: 15px; " +
@@ -547,34 +506,9 @@ public class MapTool extends Application{
                         "-fx-max-width: 15px; " +
                         "-fx-max-height: 15px;"
                 );
-            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
-            	AbsNode newNode = nodes.get(i);
-            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    public void handle(MouseEvent event) {
-                    	if(delete){
-                    		root.getChildren().remove(newNodeButton);
-                    		nodeList.remove(newNode);
-                    		delete = false;
-                    	}
-                    	else if(!startCoord){
-                    		startX = newNodeButton.getLayoutX()+ 8;
-                    		startY = newNodeButton.getLayoutY() + 8;
-                    		fromField.setText(((Place) newNode).getName());
-                    		startCoord = true;
-                    	}
-                    	else if(!endCoord){
-                    		endX = newNodeButton.getLayoutX() + 8;
-                    		endY = newNodeButton.getLayoutY() + 8;
-                    		toField.setText(((Place) newNode).getName());
-                    		startCoord = false;
-                    		endCoord = false;
-                    	}
-                    }
-                });
-            	root.getChildren().add(newNodeButton);
-    		} else if(!nodes.get(i).getIsPlace()){
-        		Button newNodeButton = new Button("");
-        		newNodeButton.setStyle(
+    		}
+            else{
+            	newNodeButton.setStyle(
             			"-fx-background-color: #000000; " +
                         "-fx-background-radius: 5em; " +
                         "-fx-min-width: 10px; " +
@@ -582,66 +516,51 @@ public class MapTool extends Application{
                         "-fx-max-width: 10px; " +
                         "-fx-max-height: 10px;"
                 );
-            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
-            	AbsNode newNode = nodes.get(i);
-            	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    public void handle(MouseEvent event) {
-                    	if(delete){
-                    		root.getChildren().remove(newNodeButton);
-                    		nodeList.remove(newNode);
-                    		delete = false;
-                    	}
-                    	else if(!startCoord){
-                    		startX = newNodeButton.getLayoutX()+ 8;
-                    		startY = newNodeButton.getLayoutY() + 8;
-                    		fromField.setText( ((Node) newNode).getName());
-                    		startCoord = true;
-                    	}
-                    	else if(!endCoord){
-                    		endX = newNodeButton.getLayoutX() + 8;
-                    		endY = newNodeButton.getLayoutY() + 8;
-                    		toField.setText( ((Node) newNode).getName());
-                    		startCoord = false;
-                    		endCoord = false;
-                    	}
+            }
+            newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            Node newNode = nodes.get(i);
+            newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            	public void handle(MouseEvent event) {
+            		if(delete){
+            			root.getChildren().remove(newNodeButton);
+            			nodeList.remove(newNode);
+                    	delete = false;
                     }
-                });
-            	root.getChildren().add(newNodeButton);
-    		}
-	  		
-
+                    else if(!startCoord){
+                    	startX = newNodeButton.getLayoutX()+ 8;
+                    	startY = newNodeButton.getLayoutY() + 8;
+                    	fromField.setText(newNode.getName());
+                    	startCoord = true;
+                    }
+                    else if(!endCoord){
+                    	endX = newNodeButton.getLayoutX() + 8;
+                    	endY = newNodeButton.getLayoutY() + 8;
+                    	toField.setText(newNode.getName());
+                    	startCoord = false;
+                    	endCoord = false;
+                   	}
+            	}
+            });
+            root.getChildren().add(newNodeButton);
+    		
     	}
     }
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	AbsNode fromNode = new AbsNode(0, 0, delete, delete);
-    	AbsNode toNode = new AbsNode(0, 0, delete, delete);
+    	Node fromNode = new Node(0, 0, "", delete, delete);
+    	Node toNode = new Node(0, 0, "", delete, delete);
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
-    		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
-        		//System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(j).getX() + " =? " + nodeList.get(j).getName());
-
-    			//check difference between place and node..
-    			if(nodeList.get(j).getIsPlace()){
-    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-    					fromNode = (Place)nodeList.get(j);
-    				}
-    				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
-    					toNode = (Place)nodeList.get(j);
-    				}
-    			}else{
-    				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-    					fromNode = (Node)nodeList.get(j);
-    				}
-    				if(edgeListConversion.get(i).getTo().equals(( nodeList.get(j)).getName())){
-    					toNode = (Node)nodeList.get(j);
-    				}
-    			}
-    			
+				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+					fromNode = nodeList.get(j);
+				}
+				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
+					toNode = nodeList.get(j);
+				}
     		}
     		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
 			edgeList.add(newEdge);

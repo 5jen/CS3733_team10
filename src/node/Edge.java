@@ -2,22 +2,22 @@ package node;
 
 public class Edge {
 
-	private AbsNode from;
-	private AbsNode to;
+	private Node from;
+	private Node to;
 	private double distance;
 	
-	public Edge(AbsNode fromNode, AbsNode toNode, int dist){
+	public Edge(Node fromNode, Node toNode, int dist){
 		from = fromNode;
 		to = toNode;
 		distance = dist;
 	}
 	
-	public AbsNode getFrom(){
+	public Node getFrom(){
 		return from;
 	}
 	
 	
-	public AbsNode getTo(){
+	public Node getTo(){
 		return to;
 	}
 	
