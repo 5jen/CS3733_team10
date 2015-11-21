@@ -43,11 +43,13 @@ public class JsonParser {
 	    		JSONObject job = json.getJSONObject(i);
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
+	    		int z = job.getInt("valz");
 	    		String name = job.getString("name");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
+	    		String type = job.getString("type");
 	    		
-	    		Node newNode = new Node(x, y, name, isWalk, isPlace);
+	    		Node newNode = new Node(x, y, z, name, isWalk, isPlace, type);
 				nodeList.add(newNode);
 	    	}
 	    }
@@ -71,8 +73,6 @@ public class JsonParser {
 	    		int dist = job.getInt("distance");
 	    		
 	    		EdgeDataConversion newEdge = new EdgeDataConversion(from, to, dist);
-	    		
-	    		
 				edgeList.add(newEdge);
 	    	}
 	    }
@@ -130,9 +130,11 @@ public class JsonParser {
     		JSONObject json = new JSONObject();
     		json.put("valx", nodeList.get(i).getX());
         	json.put("valy", nodeList.get(i).getY());
+        	json.put("valz", nodeList.get(i).getZ());
         	json.put("name", nodeList.get(i).getName());
         	json.put("isWalkable", nodeList.get(i).getIsWalkable());
         	json.put("isPlace", nodeList.get(i).getIsPlace());
+        	json.put("type", nodeList.get(i).getType());
         	array.put(json);
     	}
     	

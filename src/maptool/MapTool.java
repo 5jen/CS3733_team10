@@ -88,16 +88,18 @@ public class MapTool extends Application{
         final HBox controlLabels = new HBox(115); 
         final Label xFieldName = new Label("X Coordinate");
         final Label yFieldName = new Label("Y Coordinate");
+        final Label zFieldName = new Label("Z Coordinate");
         final Label isPlaceName = new Label("Place?");
         final Label nameFieldName = new Label("Name");
         controlLabels.setLayoutX(10);
         controlLabels.setLayoutY(620);
-        controlLabels.getChildren().addAll(xFieldName, yFieldName, nameFieldName, isPlaceName);  
+        controlLabels.getChildren().addAll(xFieldName, yFieldName, zFieldName, nameFieldName, isPlaceName);  
 
         //Create the actual input boxes and button 
         final HBox controls = new HBox(25);
         final TextField xField = new TextField("");  
-        final TextField yField = new TextField("");  
+        final TextField yField = new TextField("");
+        final TextField zField = new TextField("");
         final TextField nameField = new TextField(""); 
         //final TextField typeField = new TextField("Type"); 
         final RadioButton isPlace = new RadioButton();
@@ -105,7 +107,7 @@ public class MapTool extends Application{
         final Button deleteNodeButton = new Button("Delete Node");
         controls.setLayoutX(10);
         controls.setLayoutY(640);
-        controls.getChildren().addAll(xField, yField, nameField, isPlace, createNodeButton,deleteNodeButton);  
+        controls.getChildren().addAll(xField, yField, zField, nameField, isPlace, createNodeButton,deleteNodeButton);  
   
         //create vertical interface
         final VBox edgeControls = new VBox(20);
@@ -154,11 +156,12 @@ public class MapTool extends Application{
             @Override  
             public void handle(ActionEvent event) {  
                 root.getChildren().remove(warningBox);
-            	int x = -1, y = -1;
+            	int x = -1, y = -1, z = -1;
             	
             	try{
             		x = Integer.parseInt(xField.getText());  
             		y = Integer.parseInt(yField.getText());
+            		z = Integer.parseInt(zField.getText());
             	} catch (NumberFormatException e) {
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
@@ -198,7 +201,7 @@ public class MapTool extends Application{
                         );
                 	}
                 	newNodeButton.relocate(x-7, y-7);
-                	Node newPlace = new Node(x-7, y-7,nameField.getText(), true, isPlace.isSelected());
+                	Node newPlace = new Node(x-7, y-7, z, nameField.getText(), true, isPlace.isSelected(), typeField.getText());
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -279,8 +282,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, "", false, false);
-            	Node toNode = new Node(0, 0, "", false, false);
+            	Node fromNode = new Node(0, 0, 0, "", false, false, "");
+            	Node toNode = new Node(0, 0, 0, "", false, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -548,8 +551,8 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, "", delete, delete);
-    	Node toNode = new Node(0, 0, "", delete, delete);
+    	Node fromNode = new Node(0, 0, 0, "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "", false, false, "");
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){

@@ -9,59 +9,51 @@ public class Node {
 	private int Z;
 	private String name;
 	private boolean isWalkable;
+	private boolean isPlace;
+	private String type;
 	private Node parent = null;
 	private double cost = 0;
-	private boolean isPlace;
 	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
-	public Node(int valX, int valY, int valZ, String n, boolean isWalk, boolean place){
+	public Node(int valX, int valY, int valZ, String n, boolean isWalk, boolean place, String t){
 		X = valX;
 		Y = valY;
 		Z = valZ;
 		name = n;
 		isWalkable = isWalk;
 		isPlace = place;
+		type = t;
 	}
 	
-	public String getName(){
-		return this.name;
-	}
+	public String getName(){ return this.name; }
+	public void setName(String n){ this.name = n; }
 	
-	public int getX(){
-		return X;
-	}
+	public int getX(){ return X; }
+	public void setX(int x){ this.X = x; }
 	
-	public int getY(){
-		return Y;
-	}
+	public int getY(){ return Y; }
+	public void setY(int y){ this.Y = y; }
 	
-	public int getZ(){
-		return Z;
-	}
+	public int getZ(){ return Z; }
+	public void setZ(int z){ this.X = z; }
 	
-	public boolean getIsWalkable(){
-		return isWalkable;
-	}
+	public boolean getIsWalkable(){	return isWalkable; }
+	public void setIsWalkable(boolean n){ this.isWalkable = n; }
 	
-	public boolean getIsPlace(){
-		return isPlace;
-	}
+	public boolean getIsPlace(){ return isPlace; }
+	public void setIsPlace(boolean n){ this.isPlace = n; }
+	
+	public String getType(){ return type; }
+	public void setType(String n){ this.type = n; }
+	
 
-	public void setEdges(Edge anEdge){
-		edges.add(anEdge);
-	}
+	public void setEdges(Edge anEdge){ edges.add(anEdge); }
 	
-	public LinkedList<Edge> getEdges(){
-		return edges;
-	}
+	public LinkedList<Edge> getEdges(){ return edges; }
 	
-	public Node getParent(){
-		return parent;
-	}
+	public Node getParent(){ return parent; }
 	
-	public void setParent(Node parentToAdd){
-		parent = parentToAdd;
-	}
+	public void setParent(Node parentToAdd){ parent = parentToAdd; }
 	
 	public double getCost(){
 		return cost;
