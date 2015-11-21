@@ -7,12 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
-import java.io.OutputStreamWriter;
-
 import org.json.JSONObject;
 import org.json.JSONException;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
 import org.json.JSONArray;
 
 import node.*;
@@ -34,15 +30,13 @@ public class JsonParser {
         //saveFile(jsonToString(),"testdata\\test2.json");        
     }
 	
-    private static String TestJSONText = "{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"}"; 
-    private static String TestJSONText2 = "[{\"id\":20130001,\"phone\":\"13579246810\",\"name\":\"Jason\"},{\"id\":20130031,\"phone\":\"13579246810\",\"name\":\"Jason\"}]";
     /**
-     * Get JSON object from a text file includes array of JSONs
+     * Get JSON object from a text file includes array of JSONs (for nodes and places!)
      * @return 
      */
-	public static LinkedList<AbsNode> getJsonContent(String path){
+	public static LinkedList<Node> getJsonContent(String path){
 	    JSONArray json = new JSONArray(loadFile(path));//change path right here
-	    LinkedList<AbsNode> nodeList = new LinkedList<AbsNode>();
+	    LinkedList<Node> nodeList = new LinkedList<Node>();
 	    
 	    if (json.length()>0){
 	    	for (int i=0;i<json.length();i++){
@@ -53,20 +47,39 @@ public class JsonParser {
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
 	    		
-	    		
-	    		AbsNode newNode;
-				if(isPlace){
-	    			newNode = new Place(x, y, isWalk, name);
-				}
-	    		else{
-	    			newNode = new Node(x, y, isWalk, name);
-	    		}
+	    		Node newNode = new Node(x, y, name, isWalk, isPlace);
 				nodeList.add(newNode);
 	    	}
 	    }
 	    
 	    return nodeList;
 	}
+	
+	/**
+     * Get JSON object from a text file includes array of JSONs (for edges!)
+     * @return 
+     */
+	public static LinkedList<EdgeDataConversion> getJsonContentEdge(String path){
+	    JSONArray json = new JSONArray(loadFile(path));//change path right here
+	    LinkedList<EdgeDataConversion> edgeList = new LinkedList<EdgeDataConversion>();
+	    
+	    if (json.length()>0){
+	    	for (int i=0;i<json.length();i++){
+	    		JSONObject job = json.getJSONObject(i);
+	    		String from = job.getString("from");
+	    		String to = job.getString("to");
+	    		int dist = job.getInt("distance");
+	    		
+	    		EdgeDataConversion newEdge = new EdgeDataConversion(from, to, dist);
+	    		
+	    		
+				edgeList.add(newEdge);
+	    	}
+	    }
+	    
+	    return edgeList;
+	}
+	
     /**
      * Load json file to a string
      * @param path is the path of the json file
@@ -105,27 +118,45 @@ public class JsonParser {
     
     
     /**
-     * Change json info to a string
+     * Change json info to a string (for nodes and places!)
      * @return
      * @throws JSONException
      */
-    //Field order: valx, valy, name, isPlace
-    public static String jsonToString(LinkedList<AbsNode> nodeList) throws JSONException {
+    //Field order: valx, valy, name, isWalkable, isPlace
+    public static String jsonToString(LinkedList<Node> nodeList) throws JSONException {
 
     	JSONArray array = new JSONArray();
     	for(int i = 0; i < nodeList.size(); i++){
     		JSONObject json = new JSONObject();
     		json.put("valx", nodeList.get(i).getX());
         	json.put("valy", nodeList.get(i).getY());
-        	if(nodeList.get(i).getIsPlace())
-        		json.put("name", ((Place) nodeList.get(i)).getName());
-        	else
-        		json.put("name", ((Node) nodeList.get(i)).getName());
+        	json.put("name", nodeList.get(i).getName());
         	json.put("isWalkable", nodeList.get(i).getIsWalkable());
         	json.put("isPlace", nodeList.get(i).getIsPlace());
         	array.put(json);
     	}
     	
+    	
+    	String j2s = array.toString();
+    	return j2s;
+    }
+    
+    /**
+     * Change json info to a string (for edges)
+     * @return
+     * @throws JSONException
+     */
+    //Field order: valx, valy, name, isWalkable, isPlace
+    public static String jsonToStringEdge(LinkedList<Edge> edgeList) throws JSONException {
+
+    	JSONArray array = new JSONArray();
+    	for(int i = 0; i < edgeList.size(); i++){
+    		JSONObject json = new JSONObject();
+    		json.put("from", edgeList.get(i).getFrom().getName());
+    		json.put("to", edgeList.get(i).getTo().getName());
+        	json.put("distance", edgeList.get(i).getDistance());
+        	array.put(json);
+    	}
     	
     	String j2s = array.toString();
     	return j2s;
@@ -143,40 +174,5 @@ public class JsonParser {
 
 
 
-    }
-    
-    private static String testPrepareJSONObject(){  
-        JSONStringer jsonStringer = new JSONStringer();  
-        try {  
-            jsonStringer.object();  
-            jsonStringer.key("name");  
-            jsonStringer.value("Jason");  
-            jsonStringer.key("id");  
-            jsonStringer.value(20130001);  
-            jsonStringer.key("phone");  
-            jsonStringer.value("13579246810");  
-            jsonStringer.endObject();  
-        } catch (JSONException e) {  
-            e.printStackTrace();  
-        }  
-        return jsonStringer.toString();  
-    }    
-	
-    private static String testGetJSONContent(){  
-        JSONTokener jsonTokener = new JSONTokener(TestJSONText);   
-        JSONObject studentJSONObject;  
-        String name = null;  
-        int id = 0;  
-        String phone = null;  
-        try {  
-            studentJSONObject = (JSONObject) jsonTokener.nextValue();  
-            name = studentJSONObject.getString("name");  
-            id = studentJSONObject.getInt("id");  
-            phone = studentJSONObject.getString("phone");
-              
-        } catch (JSONException e) {  
-            e.printStackTrace();  
-        }  
-        return name + "  " + id + "   " + phone;  
     }  
 }

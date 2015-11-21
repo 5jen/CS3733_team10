@@ -16,27 +16,27 @@ public class GraphTest {
 	@Test
 	public void testAddNode() {
 		Graph testAdd = new Graph();
-		AbsNode nodeAdd = new AbsNode(5,6, true, true);
+		Node nodeAdd = new Node(5,6, "", true, true);
 		testAdd.addNode(nodeAdd);
 		
-		LinkedList<AbsNode> linkListNode = new LinkedList<AbsNode>();
+		LinkedList<Node> linkListNode = new LinkedList<Node>();
 		linkListNode.add(nodeAdd);
 		
 		assertEquals(linkListNode, testAdd.getNodes());
 		
 		Graph testMultiple = new Graph();
 		
-		AbsNode node1 = new AbsNode(0,0, true, true);
-		AbsNode node2 = new AbsNode(1,0,true, true);
-		AbsNode node3 = new AbsNode(0,1, true, true);
-		AbsNode node4 = new AbsNode(1,1, true, true);
+		Node node1 = new Node(0,0,"", true, true);
+		Node node2 = new Node(1,0,"",true, true);
+		Node node3 = new Node(0,1,"", true, true);
+		Node node4 = new Node(1,1,"", true, true);
 		
 		testMultiple.addNode(node1);
 		testMultiple.addNode(node2);
 		testMultiple.addNode(node3);
 		testMultiple.addNode(node4);
 		
-		LinkedList<AbsNode> linkList = new LinkedList<AbsNode>();
+		LinkedList<Node> linkList = new LinkedList<Node>();
 		linkList.add(node4);
 		linkList.add(node3);
 		linkList.add(node2);
@@ -50,8 +50,8 @@ public class GraphTest {
 	public void testAddEdge() {
 		Graph addEdgeTest = new Graph();
 		
-		AbsNode node1 = new AbsNode(4,2, true, true);
-		AbsNode node2 = new AbsNode(9,3, true, true);
+		Node node1 = new Node(4,2,"", true, true);
+		Node node2 = new Node(9,3,"", true, true);
 		
 		addEdgeTest.addNode(node2);
 		addEdgeTest.addNode(node1);
@@ -66,10 +66,10 @@ public class GraphTest {
 	public void testDeleteNode() {
 		Graph deleteTest = new Graph();
 		
-		AbsNode node1 = new AbsNode(0,0,true, true);
-		AbsNode node2 = new AbsNode(0,5,true, true);
-		AbsNode node3 = new AbsNode(5,0,true, true);
-		AbsNode node4 = new AbsNode(5,5,true, true);
+		Node node1 = new Node(0,0,"",true, true);
+		Node node2 = new Node(0,5,"",true, true);
+		Node node3 = new Node(5,0,"",true, true);
+		Node node4 = new Node(5,5,"",true, true);
 		
 		deleteTest.addNode(node4);
 		deleteTest.addNode(node3);
@@ -102,16 +102,16 @@ public class GraphTest {
 	public void testFindRoute() {
 		Graph testGraph = new Graph();
 		
-		AbsNode nodeA = new AbsNode(0,3,true, true);
-		AbsNode nodeB = new AbsNode(1,3,true, true);
-		AbsNode nodeC = new AbsNode(2,3,true, true);
-		AbsNode nodeD = new AbsNode(0,2,true, true);
-		AbsNode nodeE = new AbsNode(2,2,true, true);
-		AbsNode nodeF = new AbsNode(0,1,true, true);
-		AbsNode nodeG = new AbsNode(1,1,true, true);
-		AbsNode nodeH = new AbsNode(2,1,true, true);
-		AbsNode nodeI = new AbsNode(1,0,true, true);
-		AbsNode nodeJ = new AbsNode(2,0,true, true);
+		Node nodeA = new Node(0,3,"",true, true);
+		Node nodeB = new Node(1,3,"",true, true);
+		Node nodeC = new Node(2,3,"",true, true);
+		Node nodeD = new Node(0,2,"",true, true);
+		Node nodeE = new Node(2,2,"",true, true);
+		Node nodeF = new Node(0,1,"",true, true);
+		Node nodeG = new Node(1,1,"",true, true);
+		Node nodeH = new Node(2,1,"",true, true);
+		Node nodeI = new Node(1,0,"",true, true);
+		Node nodeJ = new Node(2,0,"",true, true);
 		
 		testGraph.addNode(nodeA);
 		testGraph.addNode(nodeB);
@@ -133,7 +133,7 @@ public class GraphTest {
 		testGraph.addEdge(nodeG, nodeI);
 		testGraph.addEdge(nodeG, nodeJ);
 		
-		LinkedList<AbsNode> expectedResult = new LinkedList<AbsNode>();
+		LinkedList<Node> expectedResult = new LinkedList<Node>();
 		
 		expectedResult.add(nodeA);
 		expectedResult.add(nodeD);
@@ -141,7 +141,7 @@ public class GraphTest {
 		expectedResult.add(nodeG);
 		expectedResult.add(nodeJ);
 		
-		LinkedList<AbsNode> actualResult = testGraph.findRoute(nodeA, nodeJ);
+		LinkedList<Node> actualResult = testGraph.findRoute(nodeA, nodeJ);
 		
 		assertEquals(expectedResult, actualResult);
 		
@@ -156,8 +156,8 @@ public class GraphTest {
 
 	@Test
 	public void testD() {
-		AbsNode node1 = new AbsNode(0,0,true, true);
-		AbsNode node2 = new AbsNode(2,2,true, true);
+		Node node1 = new Node(0,0,"",true, true);
+		Node node2 = new Node(2,2,"",true, true);
 		
 		Graph dGraph = new Graph();
 		
@@ -168,13 +168,13 @@ public class GraphTest {
 
 	@Test
 	public void testBacktrack() {
-		AbsNode node1 = new AbsNode(0,0,true, true);
-		AbsNode node6 = new AbsNode(2,2,true, true);
-		AbsNode node10 = new AbsNode(2,4,true, true);
-		AbsNode node11 = new AbsNode(4,4,true, true);
-		AbsNode node7 = new AbsNode(4,2,true, true);
-		AbsNode node8 = new AbsNode(6,2,true, true);
-		AbsNode node12 = new AbsNode(6,4,true, true);
+		Node node1 = new Node(0,0,"",true, true);
+		Node node6 = new Node(2,2,"",true, true);
+		Node node10 = new Node(2,4,"",true, true);
+		Node node11 = new Node(4,4,"",true, true);
+		Node node7 = new Node(4,2,"",true, true);
+		Node node8 = new Node(6,2,"",true, true);
+		Node node12 = new Node(6,4,"",true, true);
 		
 		node12.setParent(node8);
 		node8.setParent(node7);
@@ -185,9 +185,9 @@ public class GraphTest {
 		
 		Graph dummyGraph = new Graph();
 		
-		LinkedList<AbsNode> actualPath = dummyGraph.backtrack(node12);
+		LinkedList<Node> actualPath = dummyGraph.backtrack(node12);
 		
-		LinkedList<AbsNode> expectedPath = new LinkedList<AbsNode>();
+		LinkedList<Node> expectedPath = new LinkedList<Node>();
 		
 		expectedPath.add(node1);
 		expectedPath.add(node6);
