@@ -161,7 +161,7 @@ public class MapTool extends Application{
             	try{
             		x = Integer.parseInt(xField.getText());  
             		y = Integer.parseInt(yField.getText());
-            		z = Integer.parseInt(zField.getText());
+            		z = Integer.parseInt(yField.getText());
             	} catch (NumberFormatException e) {
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
