@@ -16,7 +16,7 @@ public class GraphTest {
 	@Test
 	public void testAddNode() {
 		Graph testAdd = new Graph();
-		Node nodeAdd = new Node(5,6, "", true, true);
+		Node nodeAdd = new Node(5,6, 0, "", true, true);
 		testAdd.addNode(nodeAdd);
 		
 		LinkedList<Node> linkListNode = new LinkedList<Node>();
@@ -26,10 +26,10 @@ public class GraphTest {
 		
 		Graph testMultiple = new Graph();
 		
-		Node node1 = new Node(0,0,"", true, true);
-		Node node2 = new Node(1,0,"",true, true);
-		Node node3 = new Node(0,1,"", true, true);
-		Node node4 = new Node(1,1,"", true, true);
+		Node node1 = new Node(0,0, 0, "", true, true);
+		Node node2 = new Node(1,0, 0, "", true, true);
+		Node node3 = new Node(0,1, 0, "", true, true);
+		Node node4 = new Node(1,1, 0, "", true, true);
 		
 		testMultiple.addNode(node1);
 		testMultiple.addNode(node2);
@@ -50,8 +50,8 @@ public class GraphTest {
 	public void testAddEdge() {
 		Graph addEdgeTest = new Graph();
 		
-		Node node1 = new Node(4,2,"", true, true);
-		Node node2 = new Node(9,3,"", true, true);
+		Node node1 = new Node(4,2, 0, "", true, true);
+		Node node2 = new Node(9,3, 0, "", true, true);
 		
 		addEdgeTest.addNode(node2);
 		addEdgeTest.addNode(node1);
@@ -66,10 +66,10 @@ public class GraphTest {
 	public void testDeleteNode() {
 		Graph deleteTest = new Graph();
 		
-		Node node1 = new Node(0,0,"",true, true);
-		Node node2 = new Node(0,5,"",true, true);
-		Node node3 = new Node(5,0,"",true, true);
-		Node node4 = new Node(5,5,"",true, true);
+		Node node1 = new Node(0,0, 0, "", true, true);
+		Node node2 = new Node(0,5, 0, "", true, true);
+		Node node3 = new Node(5,0, 0, "", true, true);
+		Node node4 = new Node(5,5, 0, "", true, true);
 		
 		deleteTest.addNode(node4);
 		deleteTest.addNode(node3);
@@ -102,16 +102,16 @@ public class GraphTest {
 	public void testFindRoute() {
 		Graph testGraph = new Graph();
 		
-		Node nodeA = new Node(0,3,"",true, true);
-		Node nodeB = new Node(1,3,"",true, true);
-		Node nodeC = new Node(2,3,"",true, true);
-		Node nodeD = new Node(0,2,"",true, true);
-		Node nodeE = new Node(2,2,"",true, true);
-		Node nodeF = new Node(0,1,"",true, true);
-		Node nodeG = new Node(1,1,"",true, true);
-		Node nodeH = new Node(2,1,"",true, true);
-		Node nodeI = new Node(1,0,"",true, true);
-		Node nodeJ = new Node(2,0,"",true, true);
+		Node nodeA = new Node(0,3, 0, "", true, true);
+		Node nodeB = new Node(1,3, 0, "", true, true);
+		Node nodeC = new Node(2,3, 0, "", true, true);
+		Node nodeD = new Node(0,2, 0, "", true, true);
+		Node nodeE = new Node(2,2, 0, "", true, true);
+		Node nodeF = new Node(0,1, 0, "", true, true);
+		Node nodeG = new Node(1,1, 0, "", true, true);
+		Node nodeH = new Node(2,1, 0, "", true, true);
+		Node nodeI = new Node(1,0, 0, "", true, true);
+		Node nodeJ = new Node(2,0, 0, "", true, true);
 		
 		testGraph.addNode(nodeA);
 		testGraph.addNode(nodeB);
@@ -156,8 +156,8 @@ public class GraphTest {
 
 	@Test
 	public void testD() {
-		Node node1 = new Node(0,0,"",true, true);
-		Node node2 = new Node(2,2,"",true, true);
+		Node node1 = new Node(0,0, 0, "", true, true);
+		Node node2 = new Node(2,2, 0, "", true, true);
 		
 		Graph dGraph = new Graph();
 		
@@ -168,13 +168,13 @@ public class GraphTest {
 
 	@Test
 	public void testBacktrack() {
-		Node node1 = new Node(0,0,"",true, true);
-		Node node6 = new Node(2,2,"",true, true);
-		Node node10 = new Node(2,4,"",true, true);
-		Node node11 = new Node(4,4,"",true, true);
-		Node node7 = new Node(4,2,"",true, true);
-		Node node8 = new Node(6,2,"",true, true);
-		Node node12 = new Node(6,4,"",true, true);
+		Node node1 = new Node(0,0, 0, "", true, true);
+		Node node6 = new Node(2,2, 0, "", true, true);
+		Node node10 = new Node(2,4, 0, "", true, true);
+		Node node11 = new Node(4,4, 0, "", true, true);
+		Node node7 = new Node(4,2, 0, "", true, true);
+		Node node8 = new Node(6,2, 0, "", true, true);
+		Node node12 = new Node(6,4, 0, "", true, true);
 		
 		node12.setParent(node8);
 		node8.setParent(node7);
