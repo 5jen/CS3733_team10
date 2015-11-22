@@ -179,6 +179,10 @@ public class GPSapp extends Application{
             	root.getChildren().remove(imageView); //remove current map, then load new one
             	nodeList.clear();
            		edgeList.clear();
+           		StartText.clear();
+           		DestText.clear();
+                StartList.setOpacity(0);
+                DestList.setOpacity(0);
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
@@ -200,6 +204,8 @@ public class GPSapp extends Application{
                 	if(nodeList.get(i).getIsPlace())
                 		LocationOptions.add(nodeList.get(i).getName());
                 }
+                StartList.setItems(LocationOptions);      
+                DestList.setItems(LocationOptions);
                 //drawMapBorder(gc, root);
                 graph = createGraph(graph, nodeList, edgeList);
                 drawNodes(nodeList, root, StartText, DestText);
