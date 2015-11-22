@@ -10,6 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -22,6 +24,8 @@ import node.EdgeDataConversion;
 import node.Graph;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
@@ -46,6 +50,11 @@ public class GPSapp extends Application{
 	boolean start, end = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
+	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
+	ListView<String> StartList = new ListView<String>();
+    ListView<String> DestList = new ListView<String>();
+    TextField StartText = new TextField();
+	TextField DestText = new TextField();
 	
     @Override
     public void start(Stage primaryStage) {
@@ -74,33 +83,40 @@ public class GPSapp extends Application{
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel); 
     	
-        
-      //Create the START selection drop down menu
-        final Button findRouteButton = new Button("Find Route");
-    	final VBox LocationSelectionBoxV = new VBox(5);
-    	final Label LocationSelectorLabelSTART = new Label("Start");
-    	LocationSelectorLabelSTART.setTextFill(Color.WHITE);
-    	final Label LocationSelectorLabelDEST = new Label("Destination");
-    	LocationSelectorLabelDEST.setTextFill(Color.WHITE);
-    	final HBox LocationSelectionBoxHLABEL = new HBox(185);
-    	final HBox LocationSelectionBoxH = new HBox(60); 
-    	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
-    	//Initialize the Drop down menu for inital Map
+    	
+    	//Initialize the Drop down menu for initial Map
     	for(int i = 0; i < nodeList.size() ; i ++){ 
     		if(nodeList.get(i).getIsPlace())
     			LocationOptions.add((nodeList.get(i)).getName());
         }
-    	final ComboBox<String> LocationSelectorSTART = new ComboBox<String>(LocationOptions);
-    	final ComboBox<String> LocationSelectorDEST = new ComboBox<String>(LocationOptions);
-    	LocationSelectorSTART.setPrefWidth(150);
-    	LocationSelectorDEST.setPrefWidth(150);
-    	LocationSelectorSTART.setVisibleRowCount(8);
-    	LocationSelectorDEST.setVisibleRowCount(8);
-    	LocationSelectionBoxHLABEL.getChildren().addAll(LocationSelectorLabelSTART, LocationSelectorLabelDEST);
-    	LocationSelectionBoxH.getChildren().addAll(LocationSelectorSTART, LocationSelectorDEST, findRouteButton);
-    	LocationSelectionBoxV.setLayoutX(10);
-    	LocationSelectionBoxV.setLayoutY(620);
-    	LocationSelectionBoxV.getChildren().addAll(LocationSelectionBoxHLABEL, LocationSelectionBoxH);
+    	
+    	//Find Route Button
+    	final Button findRouteButton = new Button("Find Route");
+    	findRouteButton.relocate(650, 610);
+
+    	
+    	
+    	//Searchable text boxes
+    	VBox StartSearch = new VBox();
+        VBox DestSearch = new VBox();
+        StartText.setPromptText("Start");
+        DestText.setPromptText("Destination");        
+        StartList.setMaxHeight(75);
+        DestList.setMaxHeight(75);
+        StartList.setItems(LocationOptions);      
+        DestList.setItems(LocationOptions);
+        StartSearch.relocate(300, 610);
+        StartSearch.getChildren().addAll(DestText, DestList);
+        DestSearch.relocate(20, 610);
+        DestSearch.getChildren().addAll(StartText, StartList);
+        StartList.setOpacity(0);
+        DestList.setOpacity(0);
+        
+        
+        
+        
+        
+        
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/AK1.png");
@@ -132,16 +148,21 @@ public class GPSapp extends Application{
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
-        root.getChildren().add(LocationSelectionBoxV);
         root.getChildren().add(imageView);
         root.getChildren().add(imageViewKey);
+        root.getChildren().add(StartSearch);
+        root.getChildren().add(DestSearch);
+        root.getChildren().add(findRouteButton);
+        
+        //Removes top bar!! Maybe implement a custom one to look better
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         
         //Border the map app
-       // drawMapBorder(gc, root); //TO USE< CREATE A NEW CANVAS FOR THIS..
+        // drawMapBorder(gc, root); //TO USE< CREATE A NEW CANVAS FOR THIS..
         
         
         graph = createGraph(graph, nodeList, edgeList);
-        drawNodes(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
+        drawNodes(nodeList, root, StartText, DestText);
         
         
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -181,7 +202,7 @@ public class GPSapp extends Application{
                 }
                 //drawMapBorder(gc, root);
                 graph = createGraph(graph, nodeList, edgeList);
-                drawNodes(nodeList, root, LocationSelectorSTART, LocationSelectorDEST);
+                drawNodes(nodeList, root, StartText, DestText);
             }
         });
         
@@ -195,10 +216,10 @@ public class GPSapp extends Application{
             	Node startPlace = new Node(0, 0, 0, "", false, false, "");
             	Node endPlace = new Node(0, 0, 0, "", false, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){ 
-                	if((nodeList.get(i)).getName().equals(LocationSelectorSTART.getValue())) {
+                	if((nodeList.get(i)).getName().equals(StartText.getText())) {
                 		startPlace = (nodeList.get(i));
                 	}
-                	if((nodeList.get(i)).getName().equals(LocationSelectorDEST.getValue())) {
+                	if((nodeList.get(i)).getName().equals(DestText.getText())) {
                 		endPlace = (nodeList.get(i));
                 	}
                 }
@@ -226,7 +247,60 @@ public class GPSapp extends Application{
         
   
         primaryStage.setScene(new Scene(root, 1050, 700));  
-        primaryStage.show();  
+        primaryStage.show();
+        
+        DestText.textProperty().addListener(
+                new ChangeListener<Object>() {
+                    public void changed(ObservableValue<?> observable2, 
+                                        Object oldVal2, Object newVal2) {
+                        handleSearchByKeyDest((String)oldVal2, (String)newVal2);
+                    }
+                });
+            
+            StartText.textProperty().addListener(
+                    new ChangeListener<Object>() {
+                        public void changed(ObservableValue<?> observable, 
+                                            Object oldVal, Object newVal) {
+                            handleSearchByKeyStart((String)oldVal, (String)newVal);
+                        }
+                    });
+            
+            DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+            		if (newPropertyValue) {
+            			DestList.setOpacity(100);
+                    }
+                    else {
+                    	DestList.setOpacity(0);
+                    }
+            	}
+            });
+            
+            StartText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+            		if (newPropertyValue) {
+            			StartList.setOpacity(100);
+                    }
+                    else {
+                    	StartList.setOpacity(0);
+                    }
+            	}
+            });
+                    
+            StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+    			public void handle(MouseEvent arg0) {
+    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
+    				
+    			}
+            });
+            DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+    			public void handle(MouseEvent arg0) {
+    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
+    				
+    			}
+            });
     }  
     
    /* private void drawMapBorder(GraphicsContext gc, Pane root) {
@@ -252,7 +326,7 @@ public class GPSapp extends Application{
     }
     
     
-    private void drawNodes(LinkedList<Node> nodes, Pane root, ComboBox<String> LocationSelectorSTART, ComboBox<String> LocationSelectorDEST){
+    private void drawNodes(LinkedList<Node> nodes, Pane root, TextField startText, TextField destText){
     	int i;
     	for(i = 0; i < nodes.size(); i ++){ 
     		if(nodes.get(i).getIsPlace()){
@@ -270,12 +344,12 @@ public class GPSapp extends Application{
                     public void handle(MouseEvent event) {
                     	if (!start){
                     		if(newNode.getIsPlace()) startNode = newNode.getName();
-                    		LocationSelectorSTART.setValue(startNode);
+                    		startText.setText(startNode);
                     		start = true;
                     	}
                     	else if(!end){
                     		if(newNode.getIsPlace()) endNode = newNode.getName();
-                    		LocationSelectorDEST.setValue(endNode);
+                    		DestText.setText(endNode);
                     		start = false;
                     		end = false;
                     	}
@@ -332,6 +406,96 @@ public class GPSapp extends Application{
     	}
     	
     	return edgeList;
+    }
+    
+    public void handleSearchByKeyStart(String oldVal, String newVal) {
+    	// If the number of characters in the text box is less than last time
+        // it must be because the user pressed delete
+        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+            // Restore the lists original set of entries 
+            // and start from the beginning
+        	StartList.setItems(LocationOptions);
+        }
+        StartList.setOpacity(100);
+        
+ 
+        // Break out all of the parts of the search text 
+        // by splitting on white space
+        String[] parts = newVal.toUpperCase().split(" ");
+ 
+        // Filter out the entries that don't contain the entered text
+        ObservableList<String> subentries = FXCollections.observableArrayList();
+        for ( Object entry: StartList.getItems() ) {
+            boolean match = true;
+            String entryText = (String)entry;
+            for ( String part: parts ) {
+                // The entry needs to contain all portions of the
+                // search string *but* in any order
+                if ( ! entryText.toUpperCase().contains(part) ) {
+                    match = false;
+                    break;
+                }
+            }
+ 
+            if ( match ) {
+                subentries.add(entryText);
+            }
+            if(subentries.size() *25 < 75)
+            	StartList.setMaxHeight(subentries.size() *25);
+            else
+            	StartList.setMaxHeight(75);
+        }
+        StartList.setItems(subentries);
+        
+        	if(subentries.isEmpty() || subentries.get(0).equals(StartText.getText()))
+        		StartList.setOpacity(0);
+        
+    }
+ 
+    public void handleSearchByKeyDest(String oldVal, String newVal) {
+        // If the number of characters in the text box is less than last time
+        // it must be because the user pressed delete
+        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+            // Restore the lists original set of entries 
+            // and start from the beginning
+        	DestList.setItems(LocationOptions);
+        }
+        DestList.setOpacity(100);
+        
+ 
+        // Break out all of the parts of the search text 
+        // by splitting on white space
+        String[] parts = newVal.toUpperCase().split(" ");
+ 
+        // Filter out the entries that don't contain the entered text
+        ObservableList<String> subentries = FXCollections.observableArrayList();
+        String entryText = "";
+        for ( Object entry: DestList.getItems() ) {
+            boolean match = true;
+            entryText = (String)entry;
+            for ( String part: parts ) {
+                // The entry needs to contain all portions of the
+                // search string *but* in any order
+                if ( ! entryText.toUpperCase().contains(part) ) {
+                    match = false;
+                    break;
+                }
+            }
+ 
+            if ( match ) {
+                subentries.add(entryText);
+            }
+            if(subentries.size() *25 < 75)
+            	DestList.setMaxHeight(subentries.size() *25);
+            else
+            	DestList.setMaxHeight(75);
+        }
+        DestList.setItems(subentries);
+
+        
+        	if(subentries.isEmpty() || subentries.get(0).equals(DestText.getText()))
+        		DestList.setOpacity(0);
+        
     }
        
 }
