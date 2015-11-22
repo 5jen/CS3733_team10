@@ -35,7 +35,7 @@ public class Node {
 	public void setY(int y){ this.Y = y; }
 	
 	public int getZ(){ return Z; }
-	public void setZ(int z){ this.X = z; }
+	public void setZ(int z){ this.Z = z; }
 	
 	public boolean getIsWalkable(){	return isWalkable; }
 	public void setIsWalkable(boolean n){ this.isWalkable = n; }
