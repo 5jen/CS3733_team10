@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.LinkedList;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,11 +15,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import node.Edge;
@@ -24,6 +32,8 @@ import node.EdgeDataConversion;
 import node.Graph;
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,7 +41,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.input.MouseEvent;
-
+import javafx.scene.input.ScrollEvent;
 import io.JsonParser;
 
 
@@ -112,11 +122,7 @@ public class GPSapp extends Application{
         StartList.setOpacity(0);
         DestList.setOpacity(0);
         
-        
-        
-        
-        
-        
+
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/AK1.png");
@@ -148,7 +154,7 @@ public class GPSapp extends Application{
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
-        root.getChildren().add(imageView);
+        //root.getChildren().add(imageView);
         root.getChildren().add(imageViewKey);
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
@@ -157,26 +163,26 @@ public class GPSapp extends Application{
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
         
-        //Border the map app
-        // drawMapBorder(gc, root); //TO USE< CREATE A NEW CANVAS FOR THIS..
         
         
         graph = createGraph(graph, nodeList, edgeList);
-        drawNodes(nodeList, root, StartText, DestText);
-        
-        
-        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-            	//remove the canvas
-            	root.getChildren().remove(canvas);
-            }
-        });
+        Pane NodePane = new Pane();
+
+	    drawNodes(nodeList, NodePane, StartText, DestText);
+
+        final Group group = new Group(imageView, canvas, NodePane);
+	    Parent zoomPane = createZoomPane(group);
+	    root.getChildren().add(zoomPane);
+
+	   
         
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	
-            	root.getChildren().remove(imageView); //remove current map, then load new one
+
+        	    root.getChildren().remove(zoomPane);
+        	    root.getChildren().remove(canvas);
+   
             	nodeList.clear();
            		edgeList.clear();
            		StartText.clear();
@@ -184,7 +190,6 @@ public class GPSapp extends Application{
                 StartList.setOpacity(0);
                 DestList.setOpacity(0);
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	//edgeList = json.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
             	
@@ -196,7 +201,6 @@ public class GPSapp extends Application{
                 imageView.setImage(mapImage);
                 imageView.setLayoutX(0);  
                 imageView.setLayoutY(0);
-                imageView.resize(800, 600); //incase map is not already scaled perfectly
                 root.getChildren().add(imageView); 
                 //add node buttons to the screen and populates the drop down menus
                 LocationOptions.clear();
@@ -206,17 +210,24 @@ public class GPSapp extends Application{
                 }
                 StartList.setItems(LocationOptions);      
                 DestList.setItems(LocationOptions);
-                //drawMapBorder(gc, root);
+                
                 graph = createGraph(graph, nodeList, edgeList);
-                drawNodes(nodeList, root, StartText, DestText);
+                Pane NodePane = new Pane();
+                gc.clearRect(0, 0, 800, 600);
+                drawNodes(nodeList, NodePane, StartText, DestText);
+                              
+                final Group group = new Group(imageView, canvas, NodePane);
+        	    Parent zoomPane = createZoomPane(group);
+        	    root.getChildren().add(zoomPane);
+        	    
             }
         });
         
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	root.getChildren().remove(canvas); //remove old path
-            	gc.clearRect(0, 0, 800, 600);
+            	root.getChildren().remove(zoomPane);
+            	gc.clearRect(0, 0, 800, 600); // Clears old path
             	
             	// Need to string compare from 
             	Node startPlace = new Node(0, 0, 0, "", false, false, "");
@@ -232,9 +243,6 @@ public class GPSapp extends Application{
             	System.out.println("start: " + startPlace.getName());
             	System.out.println("end: " + endPlace.getName());
             	
-            	// Call findRoute on 2 nodes, returns a LinkedList<AbsNode>
-            	//create graph and add nodes
-            	
                 LinkedList<Node> route = new LinkedList<Node>();
                 route = graph.findRoute(startPlace, endPlace); 
                 
@@ -244,9 +252,11 @@ public class GPSapp extends Application{
                 }
                 
                 drawRoute(gc, route);
-                root.getChildren().add(canvas);
                 
-                //for now, clear the route
+                final Group group = new Group(imageView, canvas, NodePane);
+        	    Parent zoomPane = createZoomPane(group);
+        	    root.getChildren().add(zoomPane);
+
                 route = new LinkedList<Node>();
             }
         });
@@ -308,18 +318,7 @@ public class GPSapp extends Application{
     			}
             });
     }  
-    
-   /* private void drawMapBorder(GraphicsContext gc, Pane root) {
-    	root.getChildren().remove(canvas);
-    	gc.setStroke(Color.BLACK);
-        gc.setLineWidth(4);
-        gc.strokeLine(2, 2, 2, 602);//left
-  		gc.strokeLine(2, 602, 798, 602);//bottom
-  		gc.strokeLine(798, 602, 798, 2);//right
-  		gc.strokeLine(2, 2, 798, 2);//top
-  		root.getChildren().add(canvas);
-		
-	}*/
+
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
@@ -503,5 +502,116 @@ public class GPSapp extends Application{
         		DestList.setOpacity(0);
         
     }
+    
+    private Parent createZoomPane(final Group group) {
+	    final double SCALE_DELTA = 1.1;
+	    final StackPane zoomPane = new StackPane();
+	    final ScrollPane scrollPane = new ScrollPane();
+
+	    zoomPane.getChildren().add(group);
+	
+
+	    final Group scrollContent = new Group(zoomPane);
+	    scrollPane.setContent(scrollContent);
+	    //Removes Scroll bars
+	    scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+	    scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+
+	    scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+	      @Override
+	      public void changed(ObservableValue<? extends Bounds> observable,
+	          Bounds oldValue, Bounds newValue) {
+	        zoomPane.setMinSize(newValue.getWidth(), newValue.getHeight());
+	      }
+	    });
+
+	    scrollPane.setPrefViewportWidth(800);
+	    scrollPane.setPrefViewportHeight(605);
+
+	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
+	      @Override
+	      public void handle(ScrollEvent event) {
+	        event.consume();
+
+	        if (event.getDeltaY() == 0) {
+	          return;
+	        }
+
+	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
+	            : 1 / SCALE_DELTA;
+
+	        // amount of scrolling in each direction in scrollContent coordinate
+	        // units
+	        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+
+	        group.setScaleX(group.getScaleX() * scaleFactor);
+	        group.setScaleY(group.getScaleY() * scaleFactor);
+
+	        // move viewport so that old center remains in the center after the
+	        // scaling
+	        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+
+	      }
+	    });
+
+	    // Panning via drag....
+	    final ObjectProperty<Point2D> lastMouseCoordinates = new SimpleObjectProperty<Point2D>();
+	    scrollContent.setOnMousePressed(new EventHandler<MouseEvent>() {
+	      @Override
+	      public void handle(MouseEvent event) {
+	        lastMouseCoordinates.set(new Point2D(event.getX(), event.getY()));
+	      }
+	    });
+
+	    scrollContent.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	      @Override
+	      public void handle(MouseEvent event) {
+	        double deltaX = event.getX() - lastMouseCoordinates.get().getX();
+	        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scrollPane.getViewportBounds().getWidth();
+	        double deltaH = deltaX * (scrollPane.getHmax() - scrollPane.getHmin()) / extraWidth;
+	        double desiredH = scrollPane.getHvalue() - deltaH;
+	        scrollPane.setHvalue(Math.max(0, Math.min(scrollPane.getHmax(), desiredH)));
+
+	        double deltaY = event.getY() - lastMouseCoordinates.get().getY();
+	        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scrollPane.getViewportBounds().getHeight();
+	        double deltaV = deltaY * (scrollPane.getHmax() - scrollPane.getHmin()) / extraHeight;
+	        double desiredV = scrollPane.getVvalue() - deltaV;
+	        scrollPane.setVvalue(Math.max(0, Math.min(scrollPane.getVmax(), desiredV)));
+	      }
+	    });
+
+	    return scrollPane;
+	}
+    
+    private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+        double scrollXOffset = scrollOffset.getX();
+        double scrollYOffset = scrollOffset.getY();
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        if (extraWidth > 0) {
+          double halfWidth = scroller.getViewportBounds().getWidth() / 2 ;
+          double newScrollXOffset = (scaleFactor - 1) *  halfWidth + scaleFactor * scrollXOffset;
+          scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
+        } else {
+          scroller.setHvalue(scroller.getHmin());
+        }
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        if (extraHeight > 0) {
+          double halfHeight = scroller.getViewportBounds().getHeight() / 2 ;
+          double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
+          scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
+        } else {
+          scroller.setHvalue(scroller.getHmin());
+        }
+      }
+    
+    private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
+        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
+        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
+        return new Point2D(scrollXOffset, scrollYOffset);
+      }
        
 }
