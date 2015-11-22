@@ -1,8 +1,10 @@
 package gps;
 
-import java.io.File;
-import java.util.LinkedList;
-
+import io.JsonParser;
+import TurnByTurn.stepIndicator;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,24 +14,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import node.AbsNode;
-import node.Edge;
-import node.EdgeDataConversion;
-import node.Place;
-import node.Graph;
-
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import node.*;
 
-import io.JsonParser;
+import java.io.File;
+import java.util.LinkedList;
 
 
 public class GPSapp extends Application{
@@ -211,15 +206,20 @@ public class GPSapp extends Application{
             	
                 LinkedList<AbsNode> route = new LinkedList<AbsNode>();
                 route = graph.findRoute(startPlace, endPlace); 
-                
+                //TODO add turn by turn insturctions right here
+
                 System.out.println(" " +route);
                 for(int i = 0; i < route.size(); i++){
                 	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                 }
-                
+
+				stepIndicator s = new stepIndicator(route);
+				LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
+
+
                 drawRoute(gc, route);
                 root.getChildren().add(canvas);
-                
+
                 //for now, clear the route
                 route = new LinkedList<AbsNode>();
             }
