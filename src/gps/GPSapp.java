@@ -197,11 +197,7 @@ public class GPSapp extends Application{
             	
             	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
             	Image mapImage = new Image(newMapFile.toURI().toString());
-                ImageView imageView = new ImageView();
                 imageView.setImage(mapImage);
-                imageView.setLayoutX(0);  
-                imageView.setLayoutY(0);
-                root.getChildren().add(imageView); 
                 //add node buttons to the screen and populates the drop down menus
                 LocationOptions.clear();
                 for(int i = 0; i < nodeList.size() - 1; i ++){ 
@@ -226,38 +222,44 @@ public class GPSapp extends Application{
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	root.getChildren().remove(zoomPane);
             	gc.clearRect(0, 0, 800, 600); // Clears old path
+            	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
+            		
+            	} else {
+            		root.getChildren().remove(zoomPane);
             	
-            	// Need to string compare from 
-            	Node startPlace = new Node(0, 0, 0, "", false, false, "");
-            	Node endPlace = new Node(0, 0, 0, "", false, false, "");
-            	for(int i = 0; i < nodeList.size(); i ++){ 
-                	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                		startPlace = (nodeList.get(i));
-                	}
-                	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                		endPlace = (nodeList.get(i));
-                	}
-                }
-            	System.out.println("start: " + startPlace.getName());
-            	System.out.println("end: " + endPlace.getName());
-            	
-                LinkedList<Node> route = new LinkedList<Node>();
-                route = graph.findRoute(startPlace, endPlace); 
-                
-                System.out.println(" " +route);
-                for(int i = 0; i < route.size(); i++){
-                	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                }
-                
-                drawRoute(gc, route);
-                
-                final Group group = new Group(imageView, canvas, NodePane);
-        	    Parent zoomPane = createZoomPane(group);
-        	    root.getChildren().add(zoomPane);
+                	// Need to string compare from 
+                	Node startPlace = new Node(0, 0, 0, "", false, false, "");
+                	Node endPlace = new Node(0, 0, 0, "", false, false, "");
+                	for(int i = 0; i < nodeList.size(); i ++){ 
+                    	if((nodeList.get(i)).getName().equals(StartText.getText())) {
+                    		startPlace = (nodeList.get(i));
+                    	}
+                    	if((nodeList.get(i)).getName().equals(DestText.getText())) {
+                    		endPlace = (nodeList.get(i));
+                    	}
+                    }
+                	System.out.println("start: " + startPlace.getName());
+                	System.out.println("end: " + endPlace.getName());
+                	
+                    LinkedList<Node> route = new LinkedList<Node>();
+                    route = graph.findRoute(startPlace, endPlace); 
+                    
+                    System.out.println(" " +route);
+                    for(int i = 0; i < route.size(); i++){
+                    	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                    }
+                    
+                    Pane NodePane = new Pane();
+                    drawNodes(nodeList, NodePane, StartText, DestText);
+                    drawRoute(gc, route);
+                    
+                    final Group group = new Group(imageView, canvas, NodePane);
+            	    Parent zoomPane = createZoomPane(group);
+            	    root.getChildren().add(zoomPane);
 
-                route = new LinkedList<Node>();
+                    route = new LinkedList<Node>();
+            	}
             }
         });
         
