@@ -14,8 +14,8 @@ public class EdgeTest {
 
 	@Test
 	public void testGetFrom() {
-		Node node1 = new Node(1, 2, 0, "", true, true, "");
-		Node node2 = new Node(2, 2, 0, "", true, true, "");
+		Node node1 = new Node(1, 2, 0, "", "", true, true, "");
+		Node node2 = new Node(2, 2, 0, "", "", true, true, "");
 		Edge edge1 = new Edge(node1, node2, getDistance(node1, node2));
 		
 		assertEquals(node1, edge1.getFrom());
@@ -23,8 +23,8 @@ public class EdgeTest {
 
 	@Test
 	public void testGetTo() {
-		Node node1 = new Node(1, 2, 0, "", true, true, "");
-		Node node2 = new Node(2, 2, 0, "", true, true, "");
+		Node node1 = new Node(1, 2, 0, "", "", true, true, "");
+		Node node2 = new Node(2, 2, 0, "", "", true, true, "");
 		Edge edge1 = new Edge(node1, node2, getDistance(node1, node2));
 		
 		assertEquals(node2, edge1.getTo());
@@ -32,8 +32,8 @@ public class EdgeTest {
 
 	@Test
 	public void testGetDistance() {
-		Node node1 = new Node(1, 2, 0, "", true, true, "");
-		Node node2 = new Node(2, 2, 0, "", true, true, "");
+		Node node1 = new Node(1, 2, 0, "", "", true, true, "");
+		Node node2 = new Node(2, 2, 0, "", "", true, true, "");
 		Edge edge1 = new Edge(node1, node2, getDistance(node1, node2));
 		
 		assertEquals(1, edge1.getDistance(), 0.001);

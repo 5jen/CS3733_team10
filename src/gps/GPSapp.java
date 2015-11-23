@@ -230,8 +230,8 @@ public class GPSapp extends Application{
             		root.getChildren().remove(zoomPane);
             	
                 	// Need to string compare from 
-                	Node startPlace = new Node(0, 0, 0, "", false, false, "");
-                	Node endPlace = new Node(0, 0, 0, "", false, false, "");
+                	Node startPlace = new Node(0, 0, 0, "", "", false, false, "");
+                	Node endPlace = new Node(0, 0, 0, "", "", false, false, "");
                 	for(int i = 0; i < nodeList.size(); i ++){ 
                     	if((nodeList.get(i)).getName().equals(StartText.getText())) {
                     		startPlace = (nodeList.get(i));
@@ -391,8 +391,8 @@ public class GPSapp extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", false, false, "");
+    	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
