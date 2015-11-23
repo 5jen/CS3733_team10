@@ -49,7 +49,6 @@ public class MapTool extends Application{
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	Boolean drawEdgeBool = true;
 	boolean start, end = false;
 	String startNode, endNode;
 	String nodeReference = "";
@@ -225,7 +224,7 @@ public class MapTool extends Application{
             	try{
             		x = Integer.parseInt(xField.getText());  
             		y = Integer.parseInt(yField.getText());
-            		z = Integer.parseInt(zField.getText());
+            		z = Integer.parseInt(yField.getText());
             	} catch (NumberFormatException e) {
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
@@ -445,7 +444,6 @@ public class MapTool extends Application{
                  line.setEndY(endY);
                  line.setStrokeWidth(3);
                  line.setStyle("-fx-background-color:  #F0F8FF; ");
-                 root.getChildren().add(line);
                  
                  line.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 	 public void handle(MouseEvent event){
@@ -457,6 +455,7 @@ public class MapTool extends Application{
                 		}
                 	 }
                  });
+                 root.getChildren().add(line);
             }
         });
        
@@ -495,52 +494,7 @@ public class MapTool extends Application{
            }
            
        });
-       
-       
-       if(drawEdgeBool){
-    	   int i;
-       	for( i = 0; i < edgeList.size(); i++){
-       		int j = i; //used for getting edge index inside method scope
-       		
-       		Line line = new Line();
-       		//Determine the offset we need to use for the tool graph FROM NODE
-       		if(edgeList.get(i).getFrom().getIsPlace()){
-       			line.setStartX(edgeList.get(i).getFrom().getX()+8);
-                line.setStartY(edgeList.get(i).getFrom().getY()+8);
-       		} else{
-       			line.setStartX(edgeList.get(i).getFrom().getX()+5);
-                line.setStartY(edgeList.get(i).getFrom().getY()+5);
-                
-       		}
-       		//Determine the offset we need to use for the tool graph TO NODE
-       		if(edgeList.get(i).getTo().getIsPlace()){
-       			line.setEndX(edgeList.get(i).getTo().getX()+8);
-                line.setEndY(edgeList.get(i).getTo().getY()+8);
-       		} else {
-       			line.setEndX(edgeList.get(i).getTo().getX()+5);
-                line.setEndY(edgeList.get(i).getTo().getY()+5);
-       		}
-       		
-          	
-            line.setStrokeWidth(3);
-            //line.setStyle("-fx-background-color:  #F0F8FF; ");
-            root.getChildren().add(line);
-            
-       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-              	public void handle(MouseEvent event){
-              		if(delete) {
-              			root.getChildren().remove(line);
-              			edgeList.remove(edgeList.get(j));
-              			System.out.println("Deleted edge");
-              			delete = false;
-              		}
-              	 }
-               });
-       		}
-       	System.out.println("Drew edges");
-       	drawEdgeBool = false;
-       }
-       
+             
         createNodeButton.setOnAction(CreateHandler);  
         
         primaryStage.setScene(scene);  
@@ -574,7 +528,7 @@ public class MapTool extends Application{
                 line.setEndY(edgeList.get(i).getTo().getY()+5);
        		}
        		line.setStrokeWidth(3);
-             root.getChildren().add(line);
+            
                
        		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
               	public void handle(MouseEvent event){
@@ -586,10 +540,9 @@ public class MapTool extends Application{
               		}
               	 }
                });
+       		root.getChildren().add(line);
        		}
        	System.out.println("Drew edges");
-       	drawEdgeBool = false;
-    	root.getChildren().add(canvas);
 
        	drawNodes(nodeList, root, fromField, toField);
 
@@ -735,7 +688,7 @@ public class MapTool extends Application{
 		}
     }
     
-    //NOT WORKING RIGHT NOW
+    /*//NOT WORKING RIGHT NOW
     private void loadMapMethod(){
     	//clear existing node list
     	root.getChildren().remove(canvas);
@@ -746,14 +699,14 @@ public class MapTool extends Application{
      	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
      	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
      	edgeList = convertEdgeData(edgeListConversion);
-     	System.out.println(mapSelector.getValue());
+     	System.out.println(mapSelector.getValue());*/
      	
      	/* ^^^^^^^^^
      	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
      	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
      	 * OVERRIDE THEM.
      	 */
-     	
+     	/*
     	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
     	ImageView imageView = new ImageView();
@@ -764,8 +717,8 @@ public class MapTool extends Application{
     	root.getChildren().add(imageView); 
           
     	root.getChildren().add(canvas);
-        drawEdges(edgeList, gc, root);
+        //drawEdges(edgeList, gc, root);
         
-    }
+    }*/
     
 }
