@@ -172,6 +172,7 @@ public class GPSapp extends Application{
 
         final Group group = new Group(imageView, canvas, NodePane);
 	    Parent zoomPane = createZoomPane(group);
+	    
 	    root.getChildren().add(zoomPane);
 
 	   
