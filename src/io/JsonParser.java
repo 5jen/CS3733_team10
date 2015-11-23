@@ -44,13 +44,18 @@ public class JsonParser {
 	    		int x = job.getInt("valx");
 	    		int y = job.getInt("valy");
 	    		int z = job.getInt("valz");
+	    		int globalX = job.getInt("globalX");
+	    		int globalY = job.getInt("globalY");
 	    		String name = job.getString("name");
+	    		String building = job.getString("building");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
 	    		String type = job.getString("type");
 	    		
-	    		Node newNode = new Node(x, y, z, name, isWalk, isPlace, type);
-				nodeList.add(newNode);
+	    		Node newNode = new Node(x, y, z, name, building, isWalk, isPlace, type);
+				newNode.setGlobalX(globalX);
+				newNode.setGlobalY(globalY);
+	    		nodeList.add(newNode);
 	    	}
 	    }
 	    
@@ -131,7 +136,10 @@ public class JsonParser {
     		json.put("valx", nodeList.get(i).getX());
         	json.put("valy", nodeList.get(i).getY());
         	json.put("valz", nodeList.get(i).getZ());
+        	json.put("globalX", nodeList.get(i).getGlobalX());
+        	json.put("globalY", nodeList.get(i).getGlobalY());
         	json.put("name", nodeList.get(i).getName());
+        	json.put("building", nodeList.get(i).getBuilding());
         	json.put("isWalkable", nodeList.get(i).getIsWalkable());
         	json.put("isPlace", nodeList.get(i).getIsPlace());
         	json.put("type", nodeList.get(i).getType());
@@ -171,10 +179,7 @@ public class JsonParser {
         out.println();  
    
 		fo.close();
-
         out.close();  
-
-
 
     }  
 }

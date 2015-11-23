@@ -69,6 +69,8 @@ public class MapTool extends Application{
     
     final Label fromField = new Label("");
     final Label toField = new Label("");
+    //final Label updateNodeLabel = new Label("");
+    
     
     final Pane root = new Pane();
 	
@@ -81,7 +83,7 @@ public class MapTool extends Application{
     @Override
     public void start(Stage primaryStage) {
     	
-    	final Pane root = new Pane();
+    	//final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
     	
@@ -103,8 +105,8 @@ public class MapTool extends Application{
     	final HBox warningBox = new HBox(0); 
     	final Label warningLabel = new Label("");
     	warningLabel.setTextFill(Color.WHITE);
-    	warningBox.setLayoutX(830);
-    	warningBox.setLayoutY(20);
+    	warningBox.setLayoutX(20);
+    	warningBox.setLayoutY(620);
     	warningBox.getChildren().addAll(warningLabel);  
 
     	
@@ -139,6 +141,15 @@ public class MapTool extends Application{
         isPlaceName.setTextFill(Color.WHITE);
         isPlaceName.setFont(Font.font ("manteka", 12));
         //final RadioButton isPlace = new RadioButton();
+        
+        
+        //final Label updateNodeLabel = new Label("");
+        //updateNodeLabel.setTextFill(Color.WHITE);
+        //updateNodeLabel.setFont(Font.font ("manteka", 12));
+        
+        
+        final HBox isPlaceUpdateLabelBox = new HBox(60);
+        isPlaceUpdateLabelBox.getChildren().addAll(isPlace);
          
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
@@ -148,7 +159,7 @@ public class MapTool extends Application{
         
         controlLabels.setLayoutX(830);
         controlLabels.setLayoutY(20);
-        controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox,deleteNodeButton);  
+        controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlaceUpdateLabelBox, NodeCreationBox,deleteNodeButton);  
 
         
         //create edge interface
@@ -176,7 +187,7 @@ public class MapTool extends Application{
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
         edgeControls.setLayoutX(830);
-        edgeControls.setLayoutY(460);
+        edgeControls.setLayoutY(480);
         edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, saveGraph);  
   
         imageView.setImage(mapImage);
@@ -255,7 +266,9 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x-7, y-7, z, nameField.getText(), true, isPlace.isSelected(), typeSelector.getValue());
+                	Node newPlace = new Node(x-7, y-7, z, (String) mapSelector.getValue()+nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
+                	newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
+                	newPlace.setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -298,7 +311,7 @@ public class MapTool extends Application{
                     		nodeReference = newPlace.getName(); //so we can referecne this node in other places
                     		updateNode = true;
                     		nodeButtonReference = newNodeButton;
-                    		
+                    		//updateNodeLabel.setText(newPlace.getName());
                         }
                     		
                     });
@@ -323,6 +336,8 @@ public class MapTool extends Application{
             	if(updateNode){
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
+                			nodeList.get(i).setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
+                			nodeList.get(i).setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
                 			//root.getChildren().remove(nodeButtonReference);
                 			nodeList.get(i).setX(x);
                 			nodeList.get(i).setY(y);
@@ -366,6 +381,8 @@ public class MapTool extends Application{
            		root.getChildren().add(imageView); 
                 
             	drawEdges(edgeList, gc, root);
+            	
+            	//updateNodeLabel.setText("");
             }
             
         });
@@ -405,8 +422,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, 0, "", false, false, "");
-            	Node toNode = new Node(0, 0, 0, "", false, false, "");
+            	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
+            	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -677,8 +694,8 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", false, false, "");
+    	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){

@@ -4,9 +4,17 @@ import java.util.LinkedList;
 
 public class Node {
 
+	/*
+	 * To add:
+	 * 	global x, y
+	 *  building name
+	 */
 	private int X;
 	private int Y;
 	private int Z;
+	private double globalX;
+	private double globalY;
+	private String building;
 	private String name;
 	private boolean isWalkable;
 	private boolean isPlace;
@@ -15,10 +23,11 @@ public class Node {
 	private double cost = 0;
 	private LinkedList<Edge> edges = new LinkedList<Edge>();
 	
-	public Node(int valX, int valY, int valZ, String n, boolean isWalk, boolean place, String t){
+	public Node(int valX, int valY, int valZ, String n, String b, boolean isWalk, boolean place, String t){
 		X = valX;
 		Y = valY;
 		Z = valZ;
+		building = b;
 		name = n;
 		isWalkable = isWalk;
 		isPlace = place;
@@ -36,6 +45,15 @@ public class Node {
 	
 	public int getZ(){ return Z; }
 	public void setZ(int z){ this.Z = z; }
+	
+	public double getGlobalX(){ return globalX; }
+	public void setGlobalX(double d){ this.globalX = d; }
+	
+	public double getGlobalY(){ return globalY; }
+	public void setGlobalY(double y){ this.globalY = y; }
+	
+	public String getBuilding(){ return this.building; }
+	public void setBuilding(String b){ this.building = b; }
 	
 	public boolean getIsWalkable(){	return isWalkable; }
 	public void setIsWalkable(boolean n){ this.isWalkable = n; }
