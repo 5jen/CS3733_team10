@@ -37,10 +37,10 @@ public class GraphTest {
 		testMultiple.addNode(node4);
 		
 		LinkedList<Node> linkList = new LinkedList<Node>();
-		linkList.add(node4);
-		linkList.add(node3);
-		linkList.add(node2);
 		linkList.add(node1);
+		linkList.add(node2);
+		linkList.add(node3);
+		linkList.add(node4);
 		
 		assertEquals(linkList, testMultiple.getNodes());
 		
@@ -53,8 +53,8 @@ public class GraphTest {
 		Node node1 = new Node(4,2, 0, "", "", true, true, "");
 		Node node2 = new Node(9,3, 0, "", "", true, true, "");
 		
-		addEdgeTest.addNode(node2);
 		addEdgeTest.addNode(node1);
+		addEdgeTest.addNode(node2);
 		
 		addEdgeTest.addEdge(node1, node2);
 		

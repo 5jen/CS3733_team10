@@ -82,6 +82,33 @@ public class NodeTest {
 		
 	}
 
+    @Test
+    public void testUpdateNode() throws Exception {
+        Node node1 = new Node(0, 0, 0, "", "", true, true, "");
+        Node node2 = new Node(0, 1, 0, "", "", true, true, "");
+        Node node3 = new Node(1, 1, 0, "", "", true, true, "");
+
+        LinkedList<Node> nodeList = new LinkedList<Node>();
+        nodeList.add(node1);
+        nodeList.add(node2);
+        nodeList.add(node3);
+
+        Graph graph = new Graph();
+        graph.setNodes(nodeList);
+
+        graph.addEdge(node1, node2);
+        graph.addEdge(node1, node3);
+        graph.addEdge(node2, node3);
+
+        node1.updateNode(node1.getX(), -1, node1.getIsWalkable(), node1.getIsPlace());
+
+        Edge edgeNode12 = node1.getEdges().getFirst();
+        Edge edgeNode21 = node2.getEdges().getFirst();
+
+        assertEquals(2, edgeNode12.getDistance(), .001);
+        assertEquals(2, edgeNode21.getDistance(), .001);
+    }
+
 	
 	public int getDistance(Node n1, Node n2){
 		return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
