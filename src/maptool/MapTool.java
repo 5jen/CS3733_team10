@@ -537,7 +537,7 @@ public class MapTool extends Application{
               	 }
                });
        		}
-       	System.out.println("Drew edges");
+       	//System.out.println("Drew edges");
        	drawEdgeBool = false;
        }
        
