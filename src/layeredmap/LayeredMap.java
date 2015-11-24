@@ -121,8 +121,6 @@ public class LayeredMap extends Application {
 	     root.getChildren().addAll(g1, g2, g3);
 	     root.getChildren().addAll(bigGroup);
 	     
-	     
-	     
 	     Button expand = new Button("Expand");
 	     expand.setLayoutX(400);
 	     root.getChildren().add(expand);
@@ -132,7 +130,6 @@ public class LayeredMap extends Application {
 	    		 bigGroup.setLayoutX(bigGroup.getLayoutX()+20);
 	    	 }
 
-			
 	     });
 	     
 	     //floorSelected
