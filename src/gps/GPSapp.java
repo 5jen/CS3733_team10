@@ -52,8 +52,8 @@ public class GPSapp extends Application{
 	
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
-	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -76,7 +76,7 @@ public class GPSapp extends Application{
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
+    	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
     	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
@@ -122,10 +122,23 @@ public class GPSapp extends Application{
         StartList.setOpacity(0);
         DestList.setOpacity(0);
         
+        
+        //Create building button
+        Button AKBuildingButton = new Button("Expand");
+        AKBuildingButton.setLayoutX(400);
+	     
+	     //Add button actions
+	     AKBuildingButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	    	 public void handle(MouseEvent event) {
+	    		 //bigGroup.setLayoutX(bigGroup.getLayoutX()+20);
+	    	 }
+
+	     });
+        
   
         //Create the map image
-        File mapFile = new File("CS3733_Graphics/AK1.png");
-        mapSelector.setValue("AK1"); // Default Map when App is opened
+        File mapFile = new File("CS3733_Graphics/CampusMap.png");
+        mapSelector.setValue("CampusMap"); // Default Map when App is opened
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
@@ -159,6 +172,8 @@ public class GPSapp extends Application{
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
         
+        
+        
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
         
@@ -173,6 +188,8 @@ public class GPSapp extends Application{
 	    Parent zoomPane = createZoomPane(group);
 	    
 	    root.getChildren().add(zoomPane);
+	    
+	    root.getChildren().add(AKBuildingButton);///TESTING
 
 	   
         

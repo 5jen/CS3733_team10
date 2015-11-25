@@ -69,7 +69,7 @@ public class MapTool extends Application{
     
     final Label fromField = new Label("");
     final Label toField = new Label("");
-    //final Label updateNodeLabel = new Label("");
+    final Label updateNodeLabel = new Label("");
     
     
     final Pane root = new Pane();
@@ -93,7 +93,6 @@ public class MapTool extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	mapSelectorLabel.setFont(Font.font ("manteka", 14));
     	final HBox mapSelectionBoxH = new HBox(5);
-    	
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelector.setValue("AK1");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
@@ -116,22 +115,18 @@ public class MapTool extends Application{
         final Label xFieldName = new Label("X Coordinate");
         xFieldName.setFont(Font.font ("manteka", 12));
         xFieldName.setTextFill(Color.WHITE);
-        //final TextField xField = new TextField("");  
         
         final Label yFieldName = new Label("Y Coordinate");
         yFieldName.setFont(Font.font ("manteka", 12));
         yFieldName.setTextFill(Color.WHITE);
-        //final TextField yField = new TextField("");
         
         final Label zFieldName = new Label("Z Coordinate");
         zFieldName.setTextFill(Color.WHITE);
         zFieldName.setFont(Font.font ("manteka", 12));
-        //final TextField zField = new TextField("");
         
         final Label nameFieldName = new Label("Name");
         nameFieldName.setTextFill(Color.WHITE);
         nameFieldName.setFont(Font.font ("manteka", 12));
-        //final TextField nameField = new TextField(""); 
         
         final Label nodeTypeName = new Label("Node Type");
         nodeTypeName.setTextFill(Color.WHITE);
@@ -140,16 +135,13 @@ public class MapTool extends Application{
     	final Label isPlaceName = new Label("Place?");
         isPlaceName.setTextFill(Color.WHITE);
         isPlaceName.setFont(Font.font ("manteka", 12));
-        //final RadioButton isPlace = new RadioButton();
         
-        
-        //final Label updateNodeLabel = new Label("");
-        //updateNodeLabel.setTextFill(Color.WHITE);
-        //updateNodeLabel.setFont(Font.font ("manteka", 12));
-        
+        //final Label updateNodeLabel = new Label("Node");
+        updateNodeLabel.setTextFill(Color.WHITE);
+        updateNodeLabel.setFont(Font.font ("manteka", 12));
         
         final HBox isPlaceUpdateLabelBox = new HBox(60);
-        isPlaceUpdateLabelBox.getChildren().addAll(isPlace);
+        isPlaceUpdateLabelBox.getChildren().addAll(isPlace, updateNodeLabel);
          
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
@@ -311,7 +303,7 @@ public class MapTool extends Application{
                     		nodeReference = newPlace.getName(); //so we can referecne this node in other places
                     		updateNode = true;
                     		nodeButtonReference = newNodeButton;
-                    		//updateNodeLabel.setText(newPlace.getName());
+                    		updateNodeLabel.setText(""+newPlace.getName());
                         }
                     		
                     });
