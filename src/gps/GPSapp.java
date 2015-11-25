@@ -65,6 +65,7 @@ public class GPSapp extends Application{
     ListView<String> DestList = new ListView<String>();
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
+	int k = 0; // Set Max zoom Variable
 	
     @Override
     public void start(Stage primaryStage) {
@@ -179,6 +180,7 @@ public class GPSapp extends Application{
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+            	k = 0; // Reset Zoom Variable
 
         	    root.getChildren().remove(zoomPane);
         	    root.getChildren().remove(canvas);
@@ -542,16 +544,33 @@ public class GPSapp extends Application{
 	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
 	            : 1 / SCALE_DELTA;
 
-	        // amount of scrolling in each direction in scrollContent coordinate
-	        // units
-	        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+	        if(scaleFactor < 1 && k > -1) {
+	        	k--;
+	        	System.out.println(k);
+		        // amount of scrolling in each direction in scrollContent coordinate
+		        // units
+		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        group.setScaleX(group.getScaleX() * scaleFactor);
+		        group.setScaleY(group.getScaleY() * scaleFactor);
 
-	        group.setScaleX(group.getScaleX() * scaleFactor);
-	        group.setScaleY(group.getScaleY() * scaleFactor);
+		        // move viewport so that old center remains in the center after the
+		        // scaling
+		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+	        }
+	        if(scaleFactor > 1 && k < 8) {
+	        	k++;
+		        // amount of scrolling in each direction in scrollContent coordinate
+		        // units
+		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        group.setScaleX(group.getScaleX() * scaleFactor);
+		        group.setScaleY(group.getScaleY() * scaleFactor);
 
-	        // move viewport so that old center remains in the center after the
-	        // scaling
-	        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+		        // move viewport so that old center remains in the center after the
+		        // scaling
+		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+	        }
 
 	      }
 	    });
