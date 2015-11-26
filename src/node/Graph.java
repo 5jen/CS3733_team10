@@ -2,6 +2,7 @@ package node;
 
 import java.util.LinkedList;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class Graph {
 	
@@ -28,9 +29,7 @@ public class Graph {
 	public void deleteNode(Node nodeToDelete){
 		LinkedList<Node> connectingNodeList = new LinkedList<>();
 		LinkedList<Edge> edgeList = nodeToDelete.getEdges();
-		for(Edge e : edgeList){
-			connectingNodeList.add(e.getTo());
-		}
+		connectingNodeList.addAll(edgeList.stream().map(Edge::getTo).collect(Collectors.toList()));
 		
 		nodes.remove(nodeToDelete); // Deletes the node from the graph
 		

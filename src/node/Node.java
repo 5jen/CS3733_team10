@@ -22,7 +22,6 @@ public class Node {
 	private String type;
 	private Node parent = null;
 	private double cost = 0;
-	@SuppressWarnings("CanBeFinal")
 	private LinkedList<Edge> edges = new LinkedList<>();
 	
 	public Node(int valX, int valY, int valZ, String n, String b, boolean isWalk, boolean place, String t){
@@ -104,7 +103,8 @@ public class Node {
 		}
 
 		// Update all edges where this node is the to node
-		LinkedList<Node> connectingNodeList = edges.stream().map(Edge::getTo).collect(Collectors.toCollection(LinkedList::new));
+		LinkedList<Node> connectingNodeList;
+		connectingNodeList = edges.stream().map(Edge::getTo).collect(Collectors.toCollection(LinkedList::new));
 
 		for (Node n : connectingNodeList){
 			n.getEdges().stream().filter(e -> e.getTo() == this).forEach(e -> e.setDistance(getDistance(this, n)));

@@ -1,6 +1,7 @@
 package node;
 
 public class EdgeDataConversion {
+
 	private String from;
 	private String to;
 	private int distance;
