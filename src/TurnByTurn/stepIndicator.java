@@ -143,8 +143,7 @@ public class stepIndicator {
         double cos = dot_product/(absMA*absMB);
 
         if (false) {System.out.println(cos);}
-        int result = (int) (180*Math.acos(cos)/(Math.PI));
-        return result;
+        return (int) (180*Math.acos(cos)/(Math.PI));
     }
 
     public double getSlope(int x1,int y1, int x2, int y2){
