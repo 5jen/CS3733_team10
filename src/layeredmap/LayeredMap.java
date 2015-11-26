@@ -112,6 +112,10 @@ public class LayeredMap extends Application {
 	     g1.setLayoutY(120);
 	     g2.setLayoutY(110);
 	     g3.setLayoutY(100);
+	     //Set initially offscreen
+	     g1.setLayoutY(-200);
+	     g2.setLayoutY(-200);
+	     g3.setLayoutY(-200);
 	      
 	     g1.getChildren().add(ak1Image);
 	     g2.getChildren().add(ak2Image);
@@ -127,7 +131,14 @@ public class LayeredMap extends Application {
 	     //Add button actions
 	     expand.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	    	 public void handle(MouseEvent event) {
-	    		 bigGroup.setLayoutX(bigGroup.getLayoutX()+20);
+	    		 //bigGroup.setLayoutX(bigGroup.getLayoutX()+20);
+	    		 //g3.setLayoutX(200);
+	    		 //g2.setLayoutX(200);
+	    		 //g1.setLayoutX(200);
+	    		 g1.setLayoutY(120);
+	    	     g2.setLayoutY(110);
+	    	     g3.setLayoutY(100);
+	    		 applyAnimation(); 
 	    	 }
 
 	     });
@@ -196,8 +207,7 @@ public class LayeredMap extends Application {
 	     
 	     primaryStage.setScene(new Scene(root, 800, 600));  
 	     primaryStage.show(); 
-	     applyAnimation();  
-	     
+	      
 	     
 	        
 	 }
