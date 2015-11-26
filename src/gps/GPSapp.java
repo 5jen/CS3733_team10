@@ -266,12 +266,17 @@ public class GPSapp extends Application{
                 	System.out.println("end: " + endPlace.getName());
                 	
                     LinkedList<Node> route = new LinkedList<Node>();
-                    route = graph.findRoute(startPlace, endPlace); 
+                    route = graph.findRoute(startPlace, endPlace);
+
+                    // TODO add turn by turn instructions right here
                     
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                     }
+
+                    stepIndicator s = new stepIndicator(route);
+                    LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
                     
                     Pane NodePane = new Pane();
                     drawNodes(nodeList, NodePane, StartText, DestText);
