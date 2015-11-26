@@ -74,7 +74,7 @@ public class NodeTest {
 		
 		node25.deleteEdge(anEdge);
 		
-		LinkedList<Edge> aResult = new LinkedList<Edge>();
+		LinkedList<Edge> aResult = new LinkedList<>();
 		
 		assertEquals(aResult, node25.getEdges());
 		
@@ -88,7 +88,7 @@ public class NodeTest {
         Node node2 = new Node(0, 1, 0, "", "", true, true, "");
         Node node3 = new Node(1, 1, 0, "", "", true, true, "");
 
-        LinkedList<Node> nodeList = new LinkedList<Node>();
+        LinkedList<Node> nodeList = new LinkedList<>();
         nodeList.add(node1);
         nodeList.add(node2);
         nodeList.add(node3);
@@ -110,8 +110,8 @@ public class NodeTest {
     }
 
 	
-	public int getDistance(Node n1, Node n2){
-		return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
+	private int getDistance(Node n1, Node n2){
+		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
 	}
 	
 }

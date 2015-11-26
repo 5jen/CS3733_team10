@@ -21,16 +21,8 @@ public class JsonParser {
 	public JsonParser(){
 		
 	}
-    
-	@Test
-    public void Test() throws JSONException, IOException{
-    	//System.out.println(testPrepareJSONObject());
-        //System.out.println(testGetJSONContent());
-        //getJsonContent();
-        //saveFile(jsonToString(),"testdata\\test2.json");        
-    }
-	
-    /**
+
+	/**
      * Get JSON object from a text file includes array of JSONs (for nodes and places!)
      * @return 
      */
@@ -90,7 +82,7 @@ public class JsonParser {
      * @param path is the path of the json file
      * @return a string contains json info.
      */
-    public static String loadFile(String path){
+    private static String loadFile(String path){
 		File file = new File(path);
         BufferedReader reader = null;
         String laststr = "";
@@ -145,10 +137,9 @@ public class JsonParser {
         	json.put("type", nodeList.get(i).getType());
         	array.put(json);
     	}
-    	
-    	
-    	String j2s = array.toString();
-    	return j2s;
+
+
+		return array.toString();
     }
     
     /**
@@ -167,9 +158,8 @@ public class JsonParser {
         	json.put("distance", edgeList.get(i).getDistance());
         	array.put(json);
     	}
-    	
-    	String j2s = array.toString();
-    	return j2s;
+
+		return array.toString();
     }
     
     public static void saveFile(String str, String path) throws IOException{

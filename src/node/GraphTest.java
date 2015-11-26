@@ -9,17 +9,12 @@ import org.junit.Test;
 public class GraphTest {
 
 	@Test
-	public void testGraph() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testAddNode() {
 		Graph testAdd = new Graph();
 		Node nodeAdd = new Node(5,6, 0, "", "", true, true, "");
 		testAdd.addNode(nodeAdd);
 		
-		LinkedList<Node> linkListNode = new LinkedList<Node>();
+		LinkedList<Node> linkListNode = new LinkedList<>();
 		linkListNode.add(nodeAdd);
 		
 		assertEquals(linkListNode, testAdd.getNodes());
@@ -36,7 +31,7 @@ public class GraphTest {
 		testMultiple.addNode(node3);
 		testMultiple.addNode(node4);
 		
-		LinkedList<Node> linkList = new LinkedList<Node>();
+		LinkedList<Node> linkList = new LinkedList<>();
 		linkList.add(node1);
 		linkList.add(node2);
 		linkList.add(node3);
@@ -133,7 +128,7 @@ public class GraphTest {
 		testGraph.addEdge(nodeG, nodeI);
 		testGraph.addEdge(nodeG, nodeJ);
 		
-		LinkedList<Node> expectedResult = new LinkedList<Node>();
+		LinkedList<Node> expectedResult = new LinkedList<>();
 		
 		expectedResult.add(nodeA);
 		expectedResult.add(nodeD);
@@ -187,7 +182,7 @@ public class GraphTest {
 		
 		LinkedList<Node> actualPath = dummyGraph.backtrack(node12);
 		
-		LinkedList<Node> expectedPath = new LinkedList<Node>();
+		LinkedList<Node> expectedPath = new LinkedList<>();
 		
 		expectedPath.add(node1);
 		expectedPath.add(node6);

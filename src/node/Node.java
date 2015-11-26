@@ -1,6 +1,7 @@
 package node;
 
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class Node {
 
@@ -21,7 +22,8 @@ public class Node {
 	private String type;
 	private Node parent = null;
 	private double cost = 0;
-	private LinkedList<Edge> edges = new LinkedList<Edge>();
+	@SuppressWarnings("CanBeFinal")
+	private LinkedList<Edge> edges = new LinkedList<>();
 	
 	public Node(int valX, int valY, int valZ, String n, String b, boolean isWalk, boolean place, String t){
 		X = valX;
@@ -102,17 +104,10 @@ public class Node {
 		}
 
 		// Update all edges where this node is the to node
-		LinkedList<Node> connectingNodeList = new LinkedList<Node>();
-		for (Edge e : edges){
-			connectingNodeList.add(e.getTo());
-		}
+		LinkedList<Node> connectingNodeList = edges.stream().map(Edge::getTo).collect(Collectors.toCollection(LinkedList::new));
 
 		for (Node n : connectingNodeList){
-			for (Edge e : n.getEdges()){
-				if (e.getTo() == this){
-					e.setDistance(getDistance(this, n));
-				}
-			}
+			n.getEdges().stream().filter(e -> e.getTo() == this).forEach(e -> e.setDistance(getDistance(this, n)));
 		}
 	}
 	
@@ -123,8 +118,8 @@ public class Node {
 		}
 	}
 
-	public int getDistance(Node n1, Node n2){
-		return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
+	private int getDistance(Node n1, Node n2){
+		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
 	}
 
 }

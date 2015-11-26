@@ -7,12 +7,6 @@ import org.junit.Test;
 public class EdgeTest {
 
 	@Test
-	public void testEdge() {
-
-		//Add a test for a case were it would fail
-	}
-
-	@Test
 	public void testGetFrom() {
 		Node node1 = new Node(1, 2, 0, "", "", true, true, "");
 		Node node2 = new Node(2, 2, 0, "", "", true, true, "");
@@ -39,8 +33,8 @@ public class EdgeTest {
 		assertEquals(1, edge1.getDistance(), 0.001);
 	}
 	
-	public int getDistance(Node n1, Node n2){
-    	return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
+	private int getDistance(Node n1, Node n2){
+    	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
     }
 
 }

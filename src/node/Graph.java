@@ -5,8 +5,8 @@ import java.util.TreeMap;
 
 public class Graph {
 	
-	private LinkedList<Node> nodes = new LinkedList<Node>();
-	private LinkedList<Edge> edges = new LinkedList<Edge>();
+	private LinkedList<Node> nodes = new LinkedList<>();
+	private LinkedList<Edge> edges = new LinkedList<>();
 	
 	public Graph(){
 		
@@ -26,7 +26,7 @@ public class Graph {
 	
 	
 	public void deleteNode(Node nodeToDelete){
-		LinkedList<Node> connectingNodeList = new LinkedList<Node>();
+		LinkedList<Node> connectingNodeList = new LinkedList<>();
 		LinkedList<Edge> edgeList = nodeToDelete.getEdges();
 		for(Edge e : edgeList){
 			connectingNodeList.add(e.getTo());
@@ -68,13 +68,13 @@ public class Graph {
 //		if (!to.getIsWalkable()){
 //			return null;
 //		}
-//		
+//
 //		if (!from.getIsWalkable()){
 //			return null;
 //		}
 
 		LinkedList<Node> path;
-		TreeMap<Double, Node> unknownFrontier = new TreeMap<Double, Node>();
+		TreeMap<Double, Node> unknownFrontier = new TreeMap<>();
 		from.setCost(0);
 		unknownFrontier.put((from.getCost() + d(from, to)), from);
 		
@@ -134,7 +134,7 @@ public class Graph {
 	}
 	
 	public LinkedList<Node> backtrack(Node current){
-		LinkedList <Node> path = new LinkedList<Node>();
+		LinkedList <Node> path = new LinkedList<>();
 		path.push(current);
 		while (current.getParent() != null){
 			String fs = String.format("Current Node Position, X:%d Y:%d", current.getParent().getX(), current.getParent().getY());
@@ -146,8 +146,8 @@ public class Graph {
 		return path;
 	}
 	
-	public int getDistance(Node n1, Node n2){
-    	return (int) Math.sqrt((Math.pow(((int)n1.getX() - (int)n2.getX()), 2)) + (Math.pow(((int)n1.getY() - (int)n2.getY()), 2)));
+	private int getDistance(Node n1, Node n2){
+    	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
     }
 }
 		
