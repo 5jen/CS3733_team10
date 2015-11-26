@@ -1,8 +1,10 @@
 package gps;
 
-import java.io.File;
-import java.util.LinkedList;
-
+import io.JsonParser;
+import TurnByTurn.stepIndicator;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -20,6 +22,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -31,18 +34,19 @@ import node.Node;
 import node.EdgeDataConversion;
 import node.Graph;
 
-import javafx.application.Application;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import io.JsonParser;
+
+
+import java.io.File;
+import java.util.LinkedList;
+
 
 
 public class GPSapp extends Application{
@@ -246,7 +250,7 @@ public class GPSapp extends Application{
             		
             	} else {
             		root.getChildren().remove(zoomPane);
-            	
+
                 	// Need to string compare from 
                 	Node startPlace = new Node(0, 0, 0, "","", false, false, "");
                 	Node endPlace = new Node(0, 0, 0, "","", false, false, "");
