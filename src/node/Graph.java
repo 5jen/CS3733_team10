@@ -129,7 +129,7 @@ public class Graph {
 	}
 	
 	public double d(Node from, Node to){
-		return Math.sqrt( Math.pow(from.getX() - to.getX(), 2.0) + Math.pow((from.getY()-to.getY()), 2.0));
+		return Math.sqrt( Math.pow(from.getX() - to.getX(), 2.0) + Math.pow((from.getY()-to.getY()), 2.0) + Math.pow(from.getZ() - to.getZ(),2.0));
 	}
 	
 	public LinkedList<Node> backtrack(Node current){
@@ -146,7 +146,7 @@ public class Graph {
 	}
 	
 	private int getDistance(Node n1, Node n2){
-    	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
+    	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)) + (Math.pow((n1.getZ()-n2.getZ()),2)));
     }
 }
 		
