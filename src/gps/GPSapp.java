@@ -276,11 +276,13 @@ public class GPSapp extends Application{
                     }
 
                     stepIndicator s = new stepIndicator(route);
-                    LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
                     
                     Pane NodePane = new Pane();
                     drawNodes(nodeList, NodePane, StartText, DestText);
                     drawRoute(gc, route);
+
+					LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
+					//for now, clear the route
                     
                     final Group group = new Group(imageView, canvas, NodePane);
             	    Parent zoomPane = createZoomPane(group);
