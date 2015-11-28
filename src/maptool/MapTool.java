@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import io.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,12 +18,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -30,6 +38,10 @@ import node.EdgeDataConversion;
 import node.Node;
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,18 +50,18 @@ public class MapTool extends Application{
 	boolean delete = false;
 	boolean startCoord, endCoord  = false;
 	double startX, startY, endX, endY = 0.0;
+	int k = 0; // Set Max zoom Variable
 
 	public static void main(String[] args) {
         launch(args);
     }
 	
 	JsonParser json = new JsonParser();
-	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/AK1.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/AK1Edges.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	Boolean drawEdgeBool = true;
 	boolean start, end = false;
 	String startNode, endNode;
 	String nodeReference = "";
@@ -64,7 +76,7 @@ public class MapTool extends Application{
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
     
-    ObservableList<String> mapOptions = FXCollections.observableArrayList("AK1", "AK2", "AK3");
+    ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     
     final Label fromField = new Label("");
@@ -75,7 +87,7 @@ public class MapTool extends Application{
     final Pane root = new Pane();
 	
     //create actual map
-    File mapFile = new File("CS3733_Graphics/AK1.png");
+    File mapFile = new File("CS3733_Graphics/CampusMap.png");
     Image mapImage = new Image(mapFile.toURI().toString());
     ImageView imageView = new ImageView();
     
@@ -83,7 +95,7 @@ public class MapTool extends Application{
     @Override
     public void start(Stage primaryStage) {
     	
-    	//final Pane root = new Pane();
+    	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
     	
@@ -94,7 +106,7 @@ public class MapTool extends Application{
     	mapSelectorLabel.setFont(Font.font ("manteka", 14));
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
-    	mapSelector.setValue("AK1");
+    	mapSelector.setValue("CampusMap");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(830);
     	mapSelectionBoxV.setLayoutY(620);
@@ -104,8 +116,8 @@ public class MapTool extends Application{
     	final HBox warningBox = new HBox(0); 
     	final Label warningLabel = new Label("");
     	warningLabel.setTextFill(Color.WHITE);
-    	warningBox.setLayoutX(20);
-    	warningBox.setLayoutY(620);
+    	warningBox.setLayoutX(830);
+    	warningBox.setLayoutY(20);
     	warningBox.getChildren().addAll(warningLabel);  
 
     	
@@ -142,6 +154,7 @@ public class MapTool extends Application{
         
         final HBox isPlaceUpdateLabelBox = new HBox(60);
         isPlaceUpdateLabelBox.getChildren().addAll(isPlace, updateNodeLabel);
+        //final RadioButton isPlace = new RadioButton();
          
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
@@ -151,7 +164,7 @@ public class MapTool extends Application{
         
         controlLabels.setLayoutX(830);
         controlLabels.setLayoutY(20);
-        controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlaceUpdateLabelBox, NodeCreationBox,deleteNodeButton);  
+        controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox,deleteNodeButton);  
 
         
         //create edge interface
@@ -179,7 +192,7 @@ public class MapTool extends Application{
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
         edgeControls.setLayoutX(830);
-        edgeControls.setLayoutY(480);
+        edgeControls.setLayoutY(460);
         edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, saveGraph);  
   
         imageView.setImage(mapImage);
@@ -196,16 +209,22 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);
-        root.getChildren().add(imageView);
+        //root.getChildren().add(imageView);
         
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
-        //root.getChildren().add(controls); 
         root.getChildren().add(controlLabels);
         
-        drawEdges(edgeList, gc, root); //from here we draw the nodes so that nodes are on top of the edges
-        //root.getChildren().add(canvas);
-        //drawNodes(nodeList, root, fromField, toField);
+
+        Pane NodePane = new Pane();
+        NodePane.setPrefSize(8000, 6000);
+        drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
+        
+
+        final Group group = new Group(imageView, NodePane);
+	    Parent zoomPane = createZoomPane(group);
+	    
+	    root.getChildren().add(zoomPane);
         
         final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
             @Override  
@@ -222,8 +241,8 @@ public class MapTool extends Application{
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
             	
-                //check to see if coordinates are within map bounds
-                if(!isInBounds(x, y)){
+                //check to see if coordinates are within map bounds, We dont care if it's campus map
+                if(!isInBounds(x, y) && !mapSelector.getValue().equals("CampusMap")){
                 	warningLabel.setText("Error, coordinates out of bounds");
                 	root.getChildren().add(warningBox); 
                 }
@@ -258,7 +277,7 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x-7, y-7, z, (String) mapSelector.getValue()+nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
+                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
                 	newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
                 	newPlace.setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
                 	nodeList.add(newPlace);
@@ -279,14 +298,14 @@ public class MapTool extends Application{
                             	delete = false;
                             }
                             else if(!startCoord){
-                            	startX = newNodeButton.getLayoutX()+8;
-                            	startY = newNodeButton.getLayoutY()+8;
+                            	startX = newNodeButton.getLayoutX()+7;
+                            	startY = newNodeButton.getLayoutY()+7;
                             	fromField.setText(newPlace.getName());
                             	startCoord = true;
                             }
                             else if(!endCoord){
-                            	endX = newNodeButton.getLayoutX()+8;
-                            	endY = newNodeButton.getLayoutY()+8;
+                            	endX = newNodeButton.getLayoutX()+7;
+                            	endY = newNodeButton.getLayoutY()+7;
                             	toField.setText(newPlace.getName());
                             	startCoord = false;
                             	endCoord = false;
@@ -300,15 +319,17 @@ public class MapTool extends Application{
                     		if(newPlace.getIsPlace())
                     			isPlace.setSelected(true);
                     		else { isPlace.setSelected(false); }
-                    		nodeReference = newPlace.getName(); //so we can referecne this node in other places
+                    		nodeReference = newPlace.getName(); //so we can reference this node in other places
                     		updateNode = true;
                     		nodeButtonReference = newNodeButton;
                     		updateNodeLabel.setText(""+newPlace.getName());
                         }
                     		
                     });
-                    root.getChildren().add(newNodeButton); //add to the screen
-                    newNodeButton.relocate(newX, newY);
+                    
+                    
+                    NodePane.getChildren().add(newNodeButton);
+                    newNodeButton.relocate(newX-7, newY-7);
                 }
             }  
         }; 
@@ -328,8 +349,6 @@ public class MapTool extends Application{
             	if(updateNode){
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
-                			nodeList.get(i).setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
-                			nodeList.get(i).setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
                 			//root.getChildren().remove(nodeButtonReference);
                 			nodeList.get(i).setX(x);
                 			nodeList.get(i).setY(y);
@@ -355,7 +374,6 @@ public class MapTool extends Application{
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
-            	System.out.println(mapSelector.getValue());
             	
             	/* ^^^^^^^^^
             	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
@@ -372,9 +390,7 @@ public class MapTool extends Application{
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
            		root.getChildren().add(imageView); 
                 
-            	drawEdges(edgeList, gc, root);
-            	
-            	//updateNodeLabel.setText("");
+            	drawEdges(edgeList, gc, NodePane);
             }
             
         });
@@ -394,7 +410,7 @@ public class MapTool extends Application{
             }
         });
         
-        scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//Set the location coordinates in the input boxes
             	xField.setText(Integer.toString((int)event.getX()));
@@ -437,18 +453,17 @@ public class MapTool extends Application{
                  line.setEndY(endY);
                  line.setStrokeWidth(3);
                  line.setStyle("-fx-background-color:  #F0F8FF; ");
-                 root.getChildren().add(line);
                  
                  line.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 	 public void handle(MouseEvent event){
                 		if(delete) {
-                			root.getChildren().remove(line);
+                			NodePane.getChildren().remove(line);
                 			edgeList.remove(newEdge);
-                			System.out.println(edgeList);
                 			delete = false;
                 		}
                 	 }
                  });
+                 NodePane.getChildren().add(line);
             }
         });
        
@@ -456,8 +471,11 @@ public class MapTool extends Application{
        //Add actions to the Load Map button
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
-               //clear existing node list
-        	   root.getChildren().remove(canvas);
+        	   	k = 0; // Reset Zoom Variable
+        	   	NodePane.getChildren().clear();
+        	   	//clear existing node list
+        	   	root.getChildren().remove(zoomPane);
+        	   	root.getChildren().remove(canvas);        	   	
            		root.getChildren().remove(imageView); //remove current map, then load new one
            		nodeList.clear(); 
            		edgeListConversion.clear();
@@ -465,7 +483,6 @@ public class MapTool extends Application{
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
             	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
             	edgeList = convertEdgeData(edgeListConversion);
-            	System.out.println(mapSelector.getValue());
             	
             	/* ^^^^^^^^^
             	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
@@ -480,59 +497,27 @@ public class MapTool extends Application{
            		imageView.setLayoutX(0);  
            		imageView.setLayoutY(0);
            		imageView.resize(800, 600); //incase map is not already scaled perfectly
-           		root.getChildren().add(imageView); 
                 
-           		root.getChildren().add(canvas);
-                drawEdges(edgeList, gc, root);
+           		//Pane NodePane = new Pane();
+                //NodePane.setPrefSize(800, 600);
+           		
+                drawEdges(edgeList, gc, NodePane);
+                
+                /*NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	//Set the location coordinates in the input boxes
+                    	xField.setText(Integer.toString((int)event.getX()));
+                    	yField.setText(Integer.toString((int)event.getY()));
+                    }
+                });*/
+                
+                final Group group = new Group(imageView, NodePane);
+        	    Parent zoomPane = createZoomPane(group);
+        	    root.getChildren().add(zoomPane);
            }
            
        });
-       
-       
-       if(drawEdgeBool){
-    	   int i;
-       	for( i = 0; i < edgeList.size(); i++){
-       		int j = i; //used for getting edge index inside method scope
-       		
-       		Line line = new Line();
-       		//Determine the offset we need to use for the tool graph FROM NODE
-       		if(edgeList.get(i).getFrom().getIsPlace()){
-       			line.setStartX(edgeList.get(i).getFrom().getX()+8);
-                line.setStartY(edgeList.get(i).getFrom().getY()+8);
-       		} else{
-       			line.setStartX(edgeList.get(i).getFrom().getX()+5);
-                line.setStartY(edgeList.get(i).getFrom().getY()+5);
-                
-       		}
-       		//Determine the offset we need to use for the tool graph TO NODE
-       		if(edgeList.get(i).getTo().getIsPlace()){
-       			line.setEndX(edgeList.get(i).getTo().getX()+8);
-                line.setEndY(edgeList.get(i).getTo().getY()+8);
-       		} else {
-       			line.setEndX(edgeList.get(i).getTo().getX()+5);
-                line.setEndY(edgeList.get(i).getTo().getY()+5);
-       		}
-       		
-          	
-            line.setStrokeWidth(3);
-            //line.setStyle("-fx-background-color:  #F0F8FF; ");
-            root.getChildren().add(line);
-            
-       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-              	public void handle(MouseEvent event){
-              		if(delete) {
-              			root.getChildren().remove(line);
-              			edgeList.remove(edgeList.get(j));
-              			System.out.println("Deleted edge");
-              			delete = false;
-              		}
-              	 }
-               });
-       		}
-       	//System.out.println("Drew edges");
-       	drawEdgeBool = false;
-       }
-       
+             
         createNodeButton.setOnAction(CreateHandler);  
         
         primaryStage.setScene(scene);  
@@ -541,49 +526,47 @@ public class MapTool extends Application{
     }  
     
     //Change where we call drawEdges to just change the drawEdgeBool to true;
-    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane root){
+    private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane nodePane){
     	root.getChildren().remove(canvas);
     	gc.clearRect(0, 0, 800, 600);
     	int i;
+    	
         for( i = 0; i < edgeList.size(); i++){
        		int j = i;
        		Line line = new Line();
        	//Determine the offset we need to use for the tool graph FROM NODE
        		if(edgeList.get(i).getFrom().getIsPlace()){
-       			line.setStartX(edgeList.get(i).getFrom().getX()+8);
-                line.setStartY(edgeList.get(i).getFrom().getY()+8);
+       			line.setStartX(edgeList.get(i).getFrom().getX());
+                line.setStartY(edgeList.get(i).getFrom().getY());
        		} else{
-       			line.setStartX(edgeList.get(i).getFrom().getX()+5);
-                line.setStartY(edgeList.get(i).getFrom().getY()+5);
+       			line.setStartX(edgeList.get(i).getFrom().getX());
+                line.setStartY(edgeList.get(i).getFrom().getY());
                 
        		}
        		//Determine the offset we need to use for the tool graph TO NODE
        		if(edgeList.get(i).getTo().getIsPlace()){
-       			line.setEndX(edgeList.get(i).getTo().getX()+8);
-                line.setEndY(edgeList.get(i).getTo().getY()+8);
+       			line.setEndX(edgeList.get(i).getTo().getX());
+                line.setEndY(edgeList.get(i).getTo().getY());
        		} else {
-       			line.setEndX(edgeList.get(i).getTo().getX()+5);
-                line.setEndY(edgeList.get(i).getTo().getY()+5);
+       			line.setEndX(edgeList.get(i).getTo().getX());
+                line.setEndY(edgeList.get(i).getTo().getY());
        		}
        		line.setStrokeWidth(3);
-             root.getChildren().add(line);
+            
                
        		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
               	public void handle(MouseEvent event){
               		if(delete) {
-              			root.getChildren().remove(line);
+              			nodePane.getChildren().remove(line);
               			edgeList.remove(edgeList.get(j));
-              			System.out.println("Deleted edge");
               			delete = false;
               		}
               	 }
                });
+       		nodePane.getChildren().add(line);
        		}
-       	System.out.println("Drew edges");
-       	drawEdgeBool = false;
-    	root.getChildren().add(canvas);
 
-       	drawNodes(nodeList, root, fromField, toField);
+       	drawNodes(nodeList, nodePane, fromField, toField);
 
 	}
   
@@ -637,7 +620,7 @@ public class MapTool extends Application{
                         "-fx-max-height: 10px;"
                 );
             }
-            newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
@@ -653,14 +636,14 @@ public class MapTool extends Application{
                     	delete = false;
                     }
                     else if(!startCoord){
-                    	startX = newNodeButton.getLayoutX()+8;
-                    	startY = newNodeButton.getLayoutY()+8;
+                    	startX = newNodeButton.getLayoutX()+7;
+                    	startY = newNodeButton.getLayoutY()+7;
                     	fromField.setText(newPlace.getName());
                     	startCoord = true;
                     }
                     else if(!endCoord){
-                    	endX = newNodeButton.getLayoutX()+8;
-                    	endY = newNodeButton.getLayoutY()+8;
+                    	endX = newNodeButton.getLayoutX()+7;
+                    	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
                     	startCoord = false;
                     	endCoord = false;
@@ -718,7 +701,6 @@ public class MapTool extends Application{
     	
     	//save edges
     	String edgeData = JsonParser.jsonToStringEdge(edgeList);
-    	System.out.println(edgeData);
     	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
     	try {
 			JsonParser.saveFile(edgeData, edgePath);
@@ -727,7 +709,134 @@ public class MapTool extends Application{
 		}
     }
     
-    //NOT WORKING RIGHT NOW
+    private Parent createZoomPane(final Group group) {
+	    final double SCALE_DELTA = 1.1;
+	    final StackPane zoomPane = new StackPane();
+	    final ScrollPane scrollPane = new ScrollPane();
+
+	    zoomPane.getChildren().add(group);
+	
+
+	    final Group scrollContent = new Group(zoomPane);
+	    scrollPane.setContent(scrollContent);
+	    //Removes Scroll bars
+	    scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+	    scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+
+	    scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+	      @Override
+	      public void changed(ObservableValue<? extends Bounds> observable,
+	          Bounds oldValue, Bounds newValue) {
+	        zoomPane.setMinSize(newValue.getWidth(), newValue.getHeight());
+	      }
+	    });
+
+	    scrollPane.setPrefViewportWidth(800);
+	    scrollPane.setPrefViewportHeight(605);
+
+	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
+	      @Override
+	      public void handle(ScrollEvent event) {
+	        event.consume();
+
+	        if (event.getDeltaY() == 0) {
+	          return;
+	        }
+
+	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
+	            : 1 / SCALE_DELTA;
+
+	        if(scaleFactor < 1 && k > -1) {
+	        	k--;
+		        // amount of scrolling in each direction in scrollContent coordinate
+		        // units
+		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        group.setScaleX(group.getScaleX() * scaleFactor);
+		        group.setScaleY(group.getScaleY() * scaleFactor);
+
+		        // move viewport so that old center remains in the center after the
+		        // scaling
+		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+	        }
+	        if(scaleFactor > 1 && k < 8) {
+	        	k++;
+		        // amount of scrolling in each direction in scrollContent coordinate
+		        // units
+		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        group.setScaleX(group.getScaleX() * scaleFactor);
+		        group.setScaleY(group.getScaleY() * scaleFactor);
+
+		        // move viewport so that old center remains in the center after the
+		        // scaling
+		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
+	        }
+
+	      }
+	    });
+
+	    // Panning via drag....
+	    final ObjectProperty<Point2D> lastMouseCoordinates = new SimpleObjectProperty<Point2D>();
+	    scrollContent.setOnMousePressed(new EventHandler<MouseEvent>() {
+	      @Override
+	      public void handle(MouseEvent event) {
+	        lastMouseCoordinates.set(new Point2D(event.getX(), event.getY()));
+	      }
+	    });
+
+	    scrollContent.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	      @Override
+	      public void handle(MouseEvent event) {
+	        double deltaX = event.getX() - lastMouseCoordinates.get().getX();
+	        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scrollPane.getViewportBounds().getWidth();
+	        double deltaH = deltaX * (scrollPane.getHmax() - scrollPane.getHmin()) / extraWidth;
+	        double desiredH = scrollPane.getHvalue() - deltaH;
+	        scrollPane.setHvalue(Math.max(0, Math.min(scrollPane.getHmax(), desiredH)));
+
+	        double deltaY = event.getY() - lastMouseCoordinates.get().getY();
+	        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scrollPane.getViewportBounds().getHeight();
+	        double deltaV = deltaY * (scrollPane.getHmax() - scrollPane.getHmin()) / extraHeight;
+	        double desiredV = scrollPane.getVvalue() - deltaV;
+	        scrollPane.setVvalue(Math.max(0, Math.min(scrollPane.getVmax(), desiredV)));
+	      }
+	    });
+
+	    return scrollPane;
+	}
+    
+    private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
+        double scrollXOffset = scrollOffset.getX();
+        double scrollYOffset = scrollOffset.getY();
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        if (extraWidth > 0) {
+          double halfWidth = scroller.getViewportBounds().getWidth() / 2 ;
+          double newScrollXOffset = (scaleFactor - 1) *  halfWidth + scaleFactor * scrollXOffset;
+          scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
+        } else {
+          scroller.setHvalue(scroller.getHmin());
+        }
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        if (extraHeight > 0) {
+          double halfHeight = scroller.getViewportBounds().getHeight() / 2 ;
+          double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
+          scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
+        } else {
+          scroller.setHvalue(scroller.getHmin());
+        }
+      }
+    
+    private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
+        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
+        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
+        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
+        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
+        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
+        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
+        return new Point2D(scrollXOffset, scrollYOffset);
+      }
+    
+    /*//NOT WORKING RIGHT NOW
     private void loadMapMethod(){
     	//clear existing node list
     	root.getChildren().remove(canvas);
@@ -738,14 +847,14 @@ public class MapTool extends Application{
      	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
      	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
      	edgeList = convertEdgeData(edgeListConversion);
-     	System.out.println(mapSelector.getValue());
+     	System.out.println(mapSelector.getValue());*/
      	
      	/* ^^^^^^^^^
      	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
      	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
      	 * OVERRIDE THEM.
      	 */
-     	
+     	/*
     	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
     	ImageView imageView = new ImageView();
@@ -756,8 +865,8 @@ public class MapTool extends Application{
     	root.getChildren().add(imageView); 
           
     	root.getChildren().add(canvas);
-        drawEdges(edgeList, gc, root);
+        //drawEdges(edgeList, gc, root);
         
-    }
+    }*/
     
 }
