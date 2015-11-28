@@ -259,7 +259,8 @@ public class MapTool extends Application{
                 	}
                 	
                 	Node newPlace = new Node(x-7, y-7, z, (String) mapSelector.getValue()+nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
-                	newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
+                	// TODO Update these to use coordinate transformations dependent on the current map that's selected
+					newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
                 	newPlace.setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
