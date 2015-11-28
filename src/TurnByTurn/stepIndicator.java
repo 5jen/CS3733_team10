@@ -81,8 +81,6 @@ public class stepIndicator {
             /**
              else if (i == route.size()-1) {
              message = "You are reaching your destination after ";
-
-
              }*/
         }
 
