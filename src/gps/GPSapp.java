@@ -1,10 +1,8 @@
 package gps;
 
-import io.JsonParser;
-import TurnByTurn.stepIndicator;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.io.File;
+import java.util.LinkedList;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -19,34 +17,41 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import node.Building;
 import node.Edge;
 import node.Node;
 import node.EdgeDataConversion;
 import node.Graph;
-
-
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-
-
-import java.io.File;
-import java.util.LinkedList;
-
+import io.JsonParser;
 
 
 public class GPSapp extends Application{
@@ -71,10 +76,53 @@ public class GPSapp extends Application{
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
 	
+	//Building Buttons
+	final Button AtwaterKentButton = new Button();
+	final Button CampusCenterButton = new Button();
+	final Button StrattonHallButton = new Button();
+	final Button BoyntonHallButton = new Button();
+	final Button GordonLibraryButton = new Button();
+	final Button HigginsHouseButton = new Button();
+	final Button ProjectCenterButton = new Button();
+	
+	//Groups to attach layered map 
+	//Group g1 = new Group(), g2 = new Group(), g3 = new Group();
+	
+	final Label buildingSelected = new Label();
+	
     @Override
     public void start(Stage primaryStage) {
     	
-    	final Pane root = new Pane(); 
+    	final Pane root = new Pane();
+    	
+    	
+    	
+    	//Building Buildings with their content
+    	Building AtwaterKent = new Building("AK", -75, 1548, 594, 10, 3);
+    	Building BoyntonHall = new Building("BH", -85, 1496, 991, 10, 3);
+    	Building CampusCenter = new Building("CC", -80, 1175, 670, 10, 3);
+    	Building GordonLibrary = new Building("GL", -100, 1668, 726, 10, 4);
+    	Building HigginsHouse = new Building("HH", -135, 1200, 451, 10, 2);
+    	Building ProjectCenter = new Building("PC", 175, 1228, 772, 10, 3);
+    	Building StrattonHall = new Building("CC", 85, 1364, 898, 10, 3);
+    	
+    	//Move building buttons to initial Locations (attach them to NodePane)
+    	AtwaterKentButton.setLayoutX(1548);
+    	AtwaterKentButton.setLayoutY(594);
+    	BoyntonHallButton.setLayoutX(1496);
+    	BoyntonHallButton.setLayoutY(991);
+    	CampusCenterButton.setLayoutX(1175);
+    	CampusCenterButton.setLayoutY(670);
+    	GordonLibraryButton.setLayoutX(1668);
+    	GordonLibraryButton.setLayoutY(726);
+    	HigginsHouseButton.setLayoutX(1200);
+    	HigginsHouseButton.setLayoutY(451);
+    	ProjectCenterButton.setLayoutX(1228);
+    	ProjectCenterButton.setLayoutY(772);
+    	StrattonHallButton.setLayoutX(1364);
+    	StrattonHallButton.setLayoutY(898);
+    	
+    	
     	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -128,18 +176,7 @@ public class GPSapp extends Application{
         DestList.setOpacity(0);
         
         
-        //Create building button
-        Button AKBuildingButton = new Button("Expand");
-        AKBuildingButton.setLayoutX(400);
-	     
-	     //Add button actions
-	     AKBuildingButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	    	 public void handle(MouseEvent event) {
-	    		 //bigGroup.setLayoutX(bigGroup.getLayoutX()+20);
-	    	 }
-
-	     });
-        
+      
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/CampusMap.png");
@@ -183,7 +220,6 @@ public class GPSapp extends Application{
         //primaryStage.initStyle(StageStyle.UNDECORATED);
         
         
-        
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
 
@@ -194,9 +230,26 @@ public class GPSapp extends Application{
 	    
 	    root.getChildren().add(zoomPane);
 	    
-	    root.getChildren().add(AKBuildingButton);///TESTING
+	    //Display building selected
+    	buildingSelected.setText("...");
+    	buildingSelected.setLayoutX(820);
+    	buildingSelected.setLayoutY(300);
+		root.getChildren().add(buildingSelected);
+	    
+	    NodePane.getChildren().addAll(AtwaterKentButton, BoyntonHallButton, CampusCenterButton, GordonLibraryButton, HigginsHouseButton, ProjectCenterButton, StrattonHallButton);
+	    
+	    //Add button actions to building buttons
+	    AtwaterKentButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	    	 public void handle(MouseEvent event) {
+	    		 buildingSelected.setText(AtwaterKent.getName());
+	    		 //Make event for layered maps
+	    		 getMapSelector(AtwaterKent, root, imageView);
+	    	 }
 
-	   
+	     });
+	    
+	    
+	    
         
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -250,7 +303,7 @@ public class GPSapp extends Application{
             		
             	} else {
             		root.getChildren().remove(zoomPane);
-
+            	
                 	// Need to string compare from 
                 	Node startPlace = new Node(0, 0, 0, "","", false, false, "");
                 	Node endPlace = new Node(0, 0, 0, "","", false, false, "");
@@ -266,23 +319,16 @@ public class GPSapp extends Application{
                 	System.out.println("end: " + endPlace.getName());
                 	
                     LinkedList<Node> route = new LinkedList<Node>();
-                    route = graph.findRoute(startPlace, endPlace);
-
-                    // TODO add turn by turn instructions right here
+                    route = graph.findRoute(startPlace, endPlace); 
                     
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                     }
-
-                    stepIndicator s = new stepIndicator(route);
                     
                     Pane NodePane = new Pane();
                     drawNodes(nodeList, NodePane, StartText, DestText);
                     drawRoute(gc, route);
-
-					LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
-					//for now, clear the route
                     
                     final Group group = new Group(imageView, canvas, NodePane);
             	    Parent zoomPane = createZoomPane(group);
@@ -350,6 +396,118 @@ public class GPSapp extends Application{
     			}
             });
     }  
+    
+    
+    private void getMapSelector(Building building, Pane root, ImageView imageView) {
+    	//root.getChildren().remove(zoomPane);
+	    root.getChildren().remove(canvas);
+	    //attach background over map
+	    File newMapFile = new File("CS3733_Graphics/white.png"); //MUST ADD png extension!
+     	Image mapImage = new Image(newMapFile.toURI().toString());
+         imageView.setImage(mapImage);
+   	     Pane NodePane = new Pane();
+         gc.clearRect(0, 0, 800, 600);
+         drawNodes(nodeList, NodePane, StartText, DestText);
+                       
+         final Group group = new Group(imageView, canvas, NodePane);
+ 	    Parent zoomPane = createZoomPane(group);
+ 	    root.getChildren().add(zoomPane);
+ 	    
+    	//root.toFront();
+    	
+    	double width = 80;
+	    double height = 60;
+    	//Load the layered Maps
+	    //convert to for loop
+	    int currentFloor = 0;
+    	for(int i = 0; i < building.getNumFloors(); i++){
+    		currentFloor = i+1;
+    		System.out.println("CS3733_Graphics/"+buildingSelected.getText()+currentFloor+".png");
+    		File ak1file = new File("CS3733_Graphics/"+buildingSelected.getText()+".png");
+    		Image ak1 = new Image(ak1file.toURI().toString());
+    		ImageView ak1Image = new ImageView();
+    		ak1Image.setImage(ak1);
+    		
+    		//set perspective transformations to all 3 groups
+    		PerspectiveTransform pt = new PerspectiveTransform();
+    		pt = setCorners(pt, width, height);
+   	     
+   	     	final DropShadow shadow = new DropShadow();
+   	     	shadow.setInput(pt);
+   	     	pt = setCorners(pt, width, height);
+   	     	Group g1 = new Group();
+   	     	//g1.setEffect(pt);
+   	     	
+   	     	//sets group g x and y
+   	     	g1.setLayoutX(100+i*10);
+   	     	g1.setLayoutY(200);
+   	      
+   	     	g1.getChildren().add(ak1Image);
+   	     	
+   	     	//Add actions to each of the layered map buttons
+   	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+   	     			public void handle(MouseEvent event) {
+   	     				buildingSelected.setText(building.getName());
+   	     			}
+   	     	});
+   	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
+   	     		public void handle(MouseEvent event) {
+   	     			buildingSelected.setText(building.getName());
+   	     			g1.setEffect(shadow);
+   	     		}
+   	     	});
+   	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
+   	     		public void handle(MouseEvent event) {
+   	     			buildingSelected.setText("...");
+   	     			PerspectiveTransform pt = new PerspectiveTransform();
+   	     			pt = setCorners(pt, width, height);
+   	     			g1.setEffect(pt);
+   	     		}
+   	     	});
+   	     g1.setLayoutX(120);
+   	     g1.setLayoutY(120);
+   	     	//g1.setLayoutY(100+i*10);
+   	     	//applyAnimation(g1, i); 
+   	     	root.getChildren().add(g1);
+   	     	
+    	}
+	}
+    
+    private void applyAnimation(Group g1, int i){
+   	 
+		 //FLOOR 1
+		 Path g1path = new Path();
+		 MoveTo g1moveTo = new MoveTo();
+		 g1moveTo.setX(400.0f);
+		 g1moveTo.setY(400.0f);
+		 LineTo g1lineTo = new LineTo();
+		 g1lineTo.setX(400.0f);
+		 g1lineTo.setY(310.0f + i*15);
+		 g1path.getElements().add(g1moveTo);
+		 g1path.getElements().add(g1lineTo);
+
+		 PathTransition g1pt = new PathTransition();
+		 g1pt.setDuration(Duration.millis(3000));
+		 g1pt.setPath(g1path);
+		 g1pt.setNode(g1);
+		 g1pt.setOrientation(PathTransition.OrientationType.NONE);
+		 g1pt.setCycleCount(Timeline.INDEFINITE);
+		 g1pt.setAutoReverse(true);
+		 g1pt.play();
+		 
+    }
+    
+    private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
+		 pt.setUlx(width + 80);//upper left
+	     pt.setUly(height + 0);
+	     pt.setUrx(width + 280);//upper right
+	     pt.setUry(height + 0);
+	     pt.setLrx(width + 200);//Lower right
+	     pt.setLry(height + 120);
+	     pt.setLlx(width + 0);//lower left
+	     pt.setLly(height + 120);
+	     return pt;
+	}
 
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
@@ -662,5 +820,6 @@ public class GPSapp extends Application{
         double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
         return new Point2D(scrollXOffset, scrollYOffset);
       }
-       
+      
+    
 }

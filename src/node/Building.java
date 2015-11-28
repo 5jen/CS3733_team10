@@ -5,14 +5,18 @@ public class Building {
 	private String name;
 	private int rotationalConstant;
 	//private int localNodePos;
-	private int globalToLocalOffset;
+	private int globalToLocalOffsetX;
+	private int globalToLocalOffsetY;
 	private int conversionRatio;
+	private int numFloors;
 	
-	public Building(String n, int rc, int gtlc, int cr){
+	public Building(String n, int rc, int gtlcX,  int gtlcY, int cr, int nf){
 		name = n;
 		rotationalConstant = rc;
-		globalToLocalOffset = gtlc;
+		globalToLocalOffsetX = gtlcX;
+		globalToLocalOffsetY = gtlcY;
 		conversionRatio = cr;
+		numFloors = nf;
 	}
 	
 	public String getName(){
@@ -26,11 +30,18 @@ public class Building {
 		this.rotationalConstant = x;
 	}
 	
-	public int getGlobalToLocalOffset(){
-		return globalToLocalOffset;
+	public int getGlobalToLocalOffsetX(){
+		return globalToLocalOffsetX;
 	}
 	public void setGlobalToLocalOffset(int x){
-		this.globalToLocalOffset = x;
+		this.globalToLocalOffsetX = x;
+	}
+	
+	public int getGlobalToLocalOffsetY(){
+		return globalToLocalOffsetY;
+	}
+	public void setGlobalToLocalOffsetY(int x){
+		this.globalToLocalOffsetY = x;
 	}
 	
 	public int getConversionRatio(){
@@ -38,6 +49,10 @@ public class Building {
 	}
 	public void setConversionRatio(int x){
 		this.conversionRatio = x;
+	}
+	
+	public int getNumFloors(){
+		return numFloors;
 	}
 	
 
