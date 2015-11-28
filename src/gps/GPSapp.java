@@ -214,13 +214,14 @@ public class GPSapp extends Application{
                 }
 
 				stepIndicator s = new stepIndicator(route);
-				LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
+
 
 
                 drawRoute(gc, route);
                 root.getChildren().add(canvas);
-
+				LinkedList<String> steps = new LinkedList<String>(s.lInstructions());
                 //for now, clear the route
+
                 route = new LinkedList<AbsNode>();
             }
         });
