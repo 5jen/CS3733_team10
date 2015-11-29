@@ -381,14 +381,14 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
-           		Image mapImage = new Image(newMapFile.toURI().toString());
-           		ImageView imageView = new ImageView();
-           		imageView.setImage(mapImage);
-           		imageView.setLayoutX(0);  
-           		imageView.setLayoutY(0);
-           		imageView.resize(800, 600); //incase map is not already scaled perfectly
-           		root.getChildren().add(imageView); 
+//           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+//           		Image mapImage = new Image(newMapFile.toURI().toString());
+//           		ImageView imageView = new ImageView();
+//           		imageView.setImage(mapImage);
+//           		imageView.setLayoutX(0);
+//           		imageView.setLayoutY(0);
+//           		imageView.resize(800, 600); //incase map is not already scaled perfectly
+//           		root.getChildren().add(imageView);
                 
             	drawEdges(edgeList, gc, NodePane);
             }
