@@ -243,7 +243,7 @@ public class GPSapp extends Application{
 	    	 public void handle(MouseEvent event) {
 	    		 buildingSelected.setText(AtwaterKent.getName());
 	    		 //Make event for layered maps
-	    		 getMapSelector(AtwaterKent, root, imageView);
+	    		 getMapSelector(AtwaterKent, root, zoomPane, imageView);
 	    	 }
 
 	     });
@@ -398,23 +398,20 @@ public class GPSapp extends Application{
     }  
     
     
-    private void getMapSelector(Building building, Pane root, ImageView imageView) {
-    	//root.getChildren().remove(zoomPane);
+    private void getMapSelector(Building building, Pane root, Parent zoomPane, ImageView imageView) {
+    	root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
 	    //attach background over map
 	    File newMapFile = new File("CS3733_Graphics/white.png"); //MUST ADD png extension!
      	Image mapImage = new Image(newMapFile.toURI().toString());
-         imageView.setImage(mapImage);
-   	     Pane NodePane = new Pane();
-         gc.clearRect(0, 0, 800, 600);
-         drawNodes(nodeList, NodePane, StartText, DestText);
-                       
-         final Group group = new Group(imageView, canvas, NodePane);
- 	    Parent zoomPane = createZoomPane(group);
- 	    root.getChildren().add(zoomPane);
- 	    
-    	//root.toFront();
-    	
+        imageView.setImage(mapImage);
+        // Need to rescale this image in photoshop later to avoid this
+        imageView.setScaleX(.95);
+        imageView.setScaleY(.95);
+        imageView.setLayoutX(-210);  
+        imageView.setLayoutY(-40);
+        root.getChildren().add(imageView);
+   	       	
     	double width = 80;
 	    double height = 60;
     	//Load the layered Maps
@@ -423,7 +420,7 @@ public class GPSapp extends Application{
     	for(int i = 0; i < building.getNumFloors(); i++){
     		currentFloor = i+1;
     		System.out.println("CS3733_Graphics/"+buildingSelected.getText()+currentFloor+".png");
-    		File ak1file = new File("CS3733_Graphics/"+buildingSelected.getText()+".png");
+    		File ak1file = new File("CS3733_Graphics/"+buildingSelected.getText()+currentFloor+".png");
     		Image ak1 = new Image(ak1file.toURI().toString());
     		ImageView ak1Image = new ImageView();
     		ak1Image.setImage(ak1);
@@ -436,7 +433,7 @@ public class GPSapp extends Application{
    	     	shadow.setInput(pt);
    	     	pt = setCorners(pt, width, height);
    	     	Group g1 = new Group();
-   	     	//g1.setEffect(pt);
+   	     	g1.setEffect(pt);
    	     	
    	     	//sets group g x and y
    	     	g1.setLayoutX(100+i*10);
@@ -444,16 +441,19 @@ public class GPSapp extends Application{
    	      
    	     	g1.getChildren().add(ak1Image);
    	     	
+   	     	
    	     	//Add actions to each of the layered map buttons
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
    	     				buildingSelected.setText(building.getName());
+   	     				System.out.println("In Click");
    	     			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
    	     			buildingSelected.setText(building.getName());
    	     			g1.setEffect(shadow);
+   	     		System.out.println("In Moved");
    	     		}
    	     	});
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -462,13 +462,14 @@ public class GPSapp extends Application{
    	     			PerspectiveTransform pt = new PerspectiveTransform();
    	     			pt = setCorners(pt, width, height);
    	     			g1.setEffect(pt);
+   	     		System.out.println("In Exit");
    	     		}
    	     	});
-   	     g1.setLayoutX(120);
-   	     g1.setLayoutY(120);
-   	     	//g1.setLayoutY(100+i*10);
-   	     	//applyAnimation(g1, i); 
-   	     	root.getChildren().add(g1);
+   	     //g1.setLayoutX(120);
+   	     //g1.setLayoutY(120);
+   	     //g1.setLayoutY(100+i*10);
+   	     applyAnimation(g1, i); 
+   	     root.getChildren().add(g1);
    	     	
     	}
 	}
