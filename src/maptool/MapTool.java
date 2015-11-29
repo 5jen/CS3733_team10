@@ -98,6 +98,8 @@ public class MapTool extends Application{
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
+    	//Set default Type
+    	typeSelector.setValue("Place");
     	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -154,7 +156,6 @@ public class MapTool extends Application{
         
         final HBox isPlaceUpdateLabelBox = new HBox(60);
         isPlaceUpdateLabelBox.getChildren().addAll(isPlace, updateNodeLabel);
-        //final RadioButton isPlace = new RadioButton();
          
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
@@ -208,9 +209,7 @@ public class MapTool extends Application{
         bgView.setLayoutY(0);  
         
         //Attach everything to the screen
-        root.getChildren().add(bgView);
-        //root.getChildren().add(imageView);
-        
+        root.getChildren().add(bgView);        
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
@@ -329,7 +328,10 @@ public class MapTool extends Application{
                     
                     
                     NodePane.getChildren().add(newNodeButton);
-                    newNodeButton.relocate(newX-7, newY-7);
+                    if(isPlace.isSelected())
+                    	newNodeButton.relocate(newX-7, newY-7);
+                    else
+                    	newNodeButton.relocate(newX-5, newY-5);
                 }
             }  
         }; 
@@ -365,7 +367,9 @@ public class MapTool extends Application{
             	}
             	
             	saveGraphMethod();
-            	
+
+        	   	NodePane.getChildren().clear();
+            	root.getChildren().remove(zoomPane);
             	root.getChildren().remove(canvas);
            		root.getChildren().remove(imageView); //remove current map, then load new one
            		nodeList.clear(); 
@@ -387,10 +391,12 @@ public class MapTool extends Application{
            		imageView.setImage(mapImage);
            		imageView.setLayoutX(0);  
            		imageView.setLayoutY(0);
-           		imageView.resize(800, 600); //incase map is not already scaled perfectly
-           		root.getChildren().add(imageView); 
                 
             	drawEdges(edgeList, gc, NodePane);
+            	
+                final Group group = new Group(imageView, NodePane);
+        	    Parent zoomPane = createZoomPane(group);
+        	    root.getChildren().add(zoomPane);
             }
             
         });
@@ -496,21 +502,9 @@ public class MapTool extends Application{
            		imageView.setImage(mapImage);
            		imageView.setLayoutX(0);  
            		imageView.setLayoutY(0);
-           		imageView.resize(800, 600); //incase map is not already scaled perfectly
-                
-           		//Pane NodePane = new Pane();
-                //NodePane.setPrefSize(800, 600);
            		
                 drawEdges(edgeList, gc, NodePane);
-                
-                /*NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    public void handle(MouseEvent event) {
-                    	//Set the location coordinates in the input boxes
-                    	xField.setText(Integer.toString((int)event.getX()));
-                    	yField.setText(Integer.toString((int)event.getY()));
-                    }
-                });*/
-                
+                             
                 final Group group = new Group(imageView, NodePane);
         	    Parent zoomPane = createZoomPane(group);
         	    root.getChildren().add(zoomPane);
@@ -609,6 +603,7 @@ public class MapTool extends Application{
                         "-fx-max-width: 15px; " +
                         "-fx-max-height: 15px;"
                 );
+            	newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
     		}
             else{
             	newNodeButton.setStyle(
@@ -619,8 +614,8 @@ public class MapTool extends Application{
                         "-fx-max-width: 10px; " +
                         "-fx-max-height: 10px;"
                 );
+            	newNodeButton.relocate(nodes.get(i).getX()-5, nodes.get(i).getY()-5);
             }
-            newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
