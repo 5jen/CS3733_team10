@@ -534,7 +534,7 @@ public class GPSapp extends Application{
                         "-fx-max-width: 15px; " +
                         "-fx-max-height: 15px;"
                 );
-            	newNodeButton.relocate(nodes.get(i).getX(), nodes.get(i).getY());
+            	newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
             	Node newNode = nodes.get(i);
             	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
@@ -568,11 +568,11 @@ public class GPSapp extends Application{
     		gc.setLineWidth(5);
     		
             gc.setStroke(Color.BLACK);
-	  		gc.strokeLine(route.get(i-1).getX()+8, route.get(i-1).getY()+8, route.get(i).getX()+8,route.get(i).getY()+8);
+	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
             gc.setLineWidth(3);
             
             gc.setStroke(customBlue);
-	  		gc.strokeLine(route.get(i-1).getX()+8, route.get(i-1).getY()+8, route.get(i).getX()+8,route.get(i).getY()+8);
+	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
 	  		
     	}
     }
