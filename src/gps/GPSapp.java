@@ -892,65 +892,7 @@ public class GPSapp extends Application{
 	    
     }
     
-    public void highLight(Pane root){
-//    	Rectangle testRec = new Rectangle(166,24,105,77);
-//        testRec.setFill(Color.TRANSPARENT);
-//       // testRec.setFill(new Color(1, 1, 0, 0.1));
-//        testRec.setStroke(Color.BLACK);
-//        testRec.setStrokeWidth(3.0);
-//       
-//        DropShadow ds = new DropShadow();
-//        ds.setOffsetY(0.0f);
-//        ds.setOffsetX(0.0f);
-//        ds.setColor(Color.BLACK);
-//        ds.setRadius(10);
-//        ds.setSpread(0.5);
-//        root.getChildren().add(testRec);
-//        testRec.setOnMouseEntered(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                //testRec.setStroke(Color.GOLD);
-//                testRec.setFill(new Color(1, 1, 0, 0.1));
-////                testRec.setEffect(ds);
-//        	}
-//        });
-//        testRec.setOnMouseExited(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                //testRec.setStroke(Color.BLACK);
-//                testRec.setFill(Color.TRANSPARENT);
-//
-//
-//        	}
-//        });
-//        
-//        
-//        //polygons
-//        Polygon ak106 = new Polygon();
-//        ak106.getPoints().addAll(new Double[]{
-//        	    271.0, 25.0,
-//        	    337.0, 25.0,
-//        	    337.0, 102.0,
-//        	    301.0, 101.0,
-//        	    301.0, 78.0,
-//        	    272.0, 78.0});
-//        
-//        ak106.setFill(Color.TRANSPARENT);
-//        
-//        ak106.setStroke(Color.BLACK);
-//        ak106.setStrokeWidth(1.0);
-//        ak106.setOnMouseEntered(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                ak106.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-//        		System.out.println("I'm here");
-//        	}
-//        });
-//        ak106.setOnMouseExited(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                ak106.setFill(Color.TRANSPARENT);
-//        	}
-//        });
-//        
-//        root.getChildren().add(ak106);
-        
+    public void highLight(Pane root){        
         Polygon cc = new Polygon();
         cc.getPoints().addAll(new Double[]{
         	    1261.0, 649.0,
