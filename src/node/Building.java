@@ -1,65 +1,33 @@
 package node;
 
-public class Building {
+import java.util.LinkedList;
 
-	private String name;
-	private String fullName;
-	private int rotationalConstant;
-	//private int localNodePos;
-	private int globalToLocalOffsetX;
-	private int globalToLocalOffsetY;
-	private int conversionRatio;
-	private int numFloors;
-	
-	public Building(String n, String fn, int rc, int gtlcX,  int gtlcY, int cr, int nf){
-		name = n;
-		fullName = fn;
-		rotationalConstant = rc;
-		globalToLocalOffsetX = gtlcX;
-		globalToLocalOffsetY = gtlcY;
-		conversionRatio = cr;
-		numFloors = nf;
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public String getfullName(){
-		return fullName;
-	}
-	
-	public int getRotationalConstant(){
-		return rotationalConstant;
-	}
-	public void setRotationalConstant(int x){
-		this.rotationalConstant = x;
-	}
-	
-	public int getGlobalToLocalOffsetX(){
-		return globalToLocalOffsetX;
-	}
-	public void setGlobalToLocalOffset(int x){
-		this.globalToLocalOffsetX = x;
-	}
-	
-	public int getGlobalToLocalOffsetY(){
-		return globalToLocalOffsetY;
-	}
-	public void setGlobalToLocalOffsetY(int x){
-		this.globalToLocalOffsetY = x;
-	}
-	
-	public int getConversionRatio(){
-		return conversionRatio;
-	}
-	public void setConversionRatio(int x){
-		this.conversionRatio = x;
-	}
-	
-	public int getNumFloors(){
-		return numFloors;
-	}
-	
+/**
+ * Created by felicemancini on 11/29/15.
+ */
+public class Building {
+    private String mName;
+    private LinkedList<Map> mMaps = new LinkedList<>();
+
+    public Building(String name){
+        mName = name;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public LinkedList<Map> getMaps() {
+        return mMaps;
+    }
+
+    public void addMap(Map map){
+        map.setBuildingName(mName);
+        mMaps.add(map);
+    }
+
+    public int getNumMaps(){
+        return mMaps.size();
+    }
 
 }

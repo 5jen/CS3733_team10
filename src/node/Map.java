@@ -1,4 +1,3 @@
-
 package node;
 
 public class Map {
