@@ -104,10 +104,24 @@ public class GPSapp extends Application{
 	
 	final Label buildingSelected = new Label();
 	
+	//set perspective transformations to all 3 groups
+	PerspectiveTransform pt = new PerspectiveTransform();
+	final DropShadow shadow = new DropShadow();
+	
+	Path g1path = new Path();
+	 MoveTo g1moveTo = new MoveTo();
+	 LineTo g1lineTo = new LineTo();
+	
     @Override
     public void start(Stage primaryStage) {
     	
     	final Pane root = new Pane();
+    	
+    	//
+    	double width = 80;
+	    double height = 60;
+    	pt = setCorners(pt, width, height);
+    	shadow.setInput(pt);
     	
     	//Move building buttons to initial Locations (attach them to NodePane)
     	AtwaterKentButton.setLayoutX(1548);
@@ -387,27 +401,18 @@ public class GPSapp extends Application{
     	
     	
  	    
-    	double width = 80;
-	    double height = 60;
-	    
     	//Load the layered Maps
 	    //convert to for loop
 	    int currentFloor = 0;
     	for(int i = 1; i <= building.getNumFloors(); i++){
     		currentFloor = i;
     		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
-    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");//Change back to above
+    		File mapFile = new File("CS3733_Graphics/"+building.getName()+currentFloor+".png");//Change back to above
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
     		
-    		//set perspective transformations to all 3 groups
-    		PerspectiveTransform pt = new PerspectiveTransform();
-    		pt = setCorners(pt, width, height);
-   	     
-   	     	final DropShadow shadow = new DropShadow();
-   	     	shadow.setInput(pt);
-   	     	pt = setCorners(pt, width, height);
+    		
    	     	
    	     	Group g1 = new Group();
    	     	g1.setEffect(pt);
@@ -438,8 +443,8 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
    	     			buildingSelected.setText("...");
-   	     			PerspectiveTransform pt = new PerspectiveTransform();
-   	     			pt = setCorners(pt, width, height);
+   	     			//PerspectiveTransform pt = new PerspectiveTransform();
+   	     			//pt = setCorners(pt, 80, 60);
    	     			g1.setEffect(pt);
    	     		}
    	     	});
@@ -862,7 +867,7 @@ public class GPSapp extends Application{
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
     	edgeList = convertEdgeData(edgeListConversion);
     	
-    	graph = createGraph(new Graph(), nodeList, edgeList);
+    	//graph = createGraph(new Graph(), nodeList, edgeList);
     	
     	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
