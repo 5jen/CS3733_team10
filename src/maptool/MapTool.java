@@ -110,6 +110,9 @@ public class MapTool extends Application{
 
     ObservableList<Map> mapOptions = FXCollections.observableArrayList();
 	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
+
+    // Variable to store map that is currently displayed
+    Map currentlySelectedMap;
     
     final Label fromField = new Label("");
     final Label toField = new Label("");
@@ -193,6 +196,8 @@ public class MapTool extends Application{
 
 
     	mapSelector.setValue(mapSelector.getItems().get(0));
+        // Assign Campus map as currently selected map
+        currentlySelectedMap = mapSelector.getValue();
 
         // Shows Name of Map Object in ComboBox dropdown
         mapSelector.setCellFactory(new Callback<ListView<Map>, ListCell<Map>>() {
@@ -357,7 +362,7 @@ public class MapTool extends Application{
             	} 
             	
                 //check to see if coordinates are within map bounds, We dont care if it's campus map
-                if(!isInBounds(x, y) && !mapSelector.getValue().equals("CampusMap")){
+                if(!isInBounds(x, y) && !currentlySelectedMap.getName().equals("Campus Map")){
                 	warningLabel.setText("Error, coordinates out of bounds");
                 	root.getChildren().add(warningBox); 
                 }
@@ -392,17 +397,17 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue().getBuildingName(), mapSelector.getValue().getName(), true, isPlace.isSelected(), typeSelector.getValue());
+                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
 
                     // Set the Global X and Global Y.
-                    newPlace.setGlobalX((int)((x*Math.cos(mapSelector.getValue().getRotationalConstant())
-                            + y*Math.sin(mapSelector.getValue().getRotationalConstant()) +
-                            mapSelector.getValue().getGlobalToLocalOffsetX()) *
-                            (mapSelector.getValue().getConversionRatio())));
-                	newPlace.setGlobalY((int)((-x*Math.sin(mapSelector.getValue().getRotationalConstant())
-                            + y*Math.cos(mapSelector.getValue().getRotationalConstant())
-                            + mapSelector.getValue().getGlobalToLocalOffsetY()) *
-                            (mapSelector.getValue().getConversionRatio())));
+                    newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
+                            + y*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                            currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                            (currentlySelectedMap.getConversionRatio())));
+                	newPlace.setGlobalY((int)((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
+                            + y*Math.cos(currentlySelectedMap.getRotationalConstant())
+                            + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                            (currentlySelectedMap.getConversionRatio())));
                     // TODO This should also add to the global map nodes
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
@@ -501,8 +506,8 @@ public class MapTool extends Application{
            		edgeListConversion.clear();
            		edgeList.clear();
                 // TODO load the nodes and edges only on the currently selected map
-            	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
-            	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
+            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -511,7 +516,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File(mapSelector.getValue().getMapPath()); //MUST ADD png extension!
+           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -615,8 +620,9 @@ public class MapTool extends Application{
            		edgeListConversion.clear();
            		edgeList.clear();
                // TODO only load the selected map content
-            	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
-            	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
+               currentlySelectedMap = mapSelector.getValue();
+            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -625,7 +631,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File(mapSelector.getValue().getMapPath()); //MUST ADD png extension!
+           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -817,7 +823,7 @@ public class MapTool extends Application{
     
     private void saveGraphMethod(){
     	String nodeData = JsonParser.jsonToString(nodeList);
-    	String path = mapSelector.getValue().getNodesPath();
+    	String path = currentlySelectedMap.getNodesPath();
     	try {
 			JsonParser.saveFile(nodeData, path);
 		} catch (IOException e) {
@@ -826,7 +832,7 @@ public class MapTool extends Application{
     	
     	//save edges
     	String edgeData = JsonParser.jsonToStringEdge(edgeList);
-    	String edgePath = mapSelector.getValue().getEdgesPath();
+    	String edgePath = currentlySelectedMap.getEdgesPath();
     	try {
 			JsonParser.saveFile(edgeData, edgePath);
 		} catch (IOException e) {
