@@ -24,11 +24,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import node.Building;
 import node.Edge;
@@ -49,6 +47,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.input.MouseEvent;
@@ -229,6 +228,8 @@ public class GPSapp extends Application{
 
         final Group group = new Group(imageView, canvas, NodePane);
 	    Parent zoomPane = createZoomPane(group);
+	    
+	    highLight(NodePane);
 	    
 	    root.getChildren().add(zoomPane);
 	    
@@ -885,6 +886,351 @@ public class GPSapp extends Application{
 	    root.getChildren().add(zoomPane);
 	    
     }
-      
     
+    public void highLight(Pane root){
+//    	Rectangle testRec = new Rectangle(166,24,105,77);
+//        testRec.setFill(Color.TRANSPARENT);
+//       // testRec.setFill(new Color(1, 1, 0, 0.1));
+//        testRec.setStroke(Color.BLACK);
+//        testRec.setStrokeWidth(3.0);
+//       
+//        DropShadow ds = new DropShadow();
+//        ds.setOffsetY(0.0f);
+//        ds.setOffsetX(0.0f);
+//        ds.setColor(Color.BLACK);
+//        ds.setRadius(10);
+//        ds.setSpread(0.5);
+//        root.getChildren().add(testRec);
+//        testRec.setOnMouseEntered(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                //testRec.setStroke(Color.GOLD);
+//                testRec.setFill(new Color(1, 1, 0, 0.1));
+////                testRec.setEffect(ds);
+//        	}
+//        });
+//        testRec.setOnMouseExited(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                //testRec.setStroke(Color.BLACK);
+//                testRec.setFill(Color.TRANSPARENT);
+//
+//
+//        	}
+//        });
+//        
+//        
+//        //polygons
+//        Polygon ak106 = new Polygon();
+//        ak106.getPoints().addAll(new Double[]{
+//        	    271.0, 25.0,
+//        	    337.0, 25.0,
+//        	    337.0, 102.0,
+//        	    301.0, 101.0,
+//        	    301.0, 78.0,
+//        	    272.0, 78.0});
+//        
+//        ak106.setFill(Color.TRANSPARENT);
+//        
+//        ak106.setStroke(Color.BLACK);
+//        ak106.setStrokeWidth(1.0);
+//        ak106.setOnMouseEntered(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                ak106.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+//        		System.out.println("I'm here");
+//        	}
+//        });
+//        ak106.setOnMouseExited(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                ak106.setFill(Color.TRANSPARENT);
+//        	}
+//        });
+//        
+//        root.getChildren().add(ak106);
+        
+        Polygon cc = new Polygon();
+        cc.getPoints().addAll(new Double[]{
+        	    1261.0, 649.0,
+        	    1272.0, 656.0,
+        	    1273.0, 668.0,
+        	    1267.0, 677.0,
+        	    1254.0, 680.0,
+        	    1245.0, 673.0,
+        	    1242.0, 662.0,
+        	    1239.0, 677.0,
+        	    1175.0, 667.0,
+        	    1184.0, 617.0,
+        	    1197.0, 620.0,
+        	    1213.0, 630.0,
+        	    1220.0, 623.0,
+        	    1214.0, 617.0,
+        	    1223.0, 604.0,
+        	    1219.0, 601.0,
+        	    1218.0, 591.0,
+        	    1222.0, 582.0,
+        	    1234.0, 580.0,
+        	    1238.0, 584.0,
+        	    1248.0, 573.0,
+        	    1235.0, 565.0,
+        	    1249.0, 543.0,
+        	    1252.0, 537.0,
+        	    1302.0, 546.0,
+        	    1285.0, 652.0});
+        
+        cc.setFill(Color.TRANSPARENT);
+        
+        cc.setStroke(Color.TRANSPARENT);
+        cc.setStrokeWidth(1.0);
+        cc.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                cc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        cc.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                cc.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(cc);
+        
+        
+        Polygon olin = new Polygon();
+        olin.getPoints().addAll(new Double[]{
+        	    
+        	    1334.0, 510.0,
+        	    1373.0, 516.0,
+        	    1350.0, 662.0,
+        	    1311.0, 656.0});
+        
+        olin.setFill(Color.TRANSPARENT);
+        
+        olin.setStroke(Color.TRANSPARENT);
+        olin.setStrokeWidth(1.0);
+        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                olin.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(olin);
+
+        Polygon stratton = new Polygon();
+        stratton.getPoints().addAll(new Double[]{
+        	    
+        	    1377.0, 813.0,
+        	    1416.0, 820.0,
+        	    1403.0, 903.0,
+        	    1363.0, 896.0});
+        
+        stratton.setFill(Color.TRANSPARENT);
+        
+        stratton.setStroke(Color.TRANSPARENT);
+        stratton.setStrokeWidth(1.0);
+        stratton.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		stratton.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		stratton.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(stratton);
+        
+        Polygon library = new Polygon();
+        library.getPoints().addAll(new Double[]{
+        	    
+        	    1607.0, 712.0,
+        	    1667.0, 725.0,
+        	    1664.0, 742.0,
+        	    1661.0, 742.0,
+        	    1660.0, 769.0,
+        	    1658.0, 782.0,
+        	    1655.0, 799.0,
+        	    1645.0, 824.0,
+        	    1648.0, 825.0,
+        	    1644.0, 841.0,
+        	    1584.0, 829.0,
+        	    1585.0, 794.0,
+        	    1588.0, 773.0,
+        	    1593.0, 750.0
+        	    });
+        
+        library.setFill(Color.TRANSPARENT);
+        
+        library.setStroke(Color.TRANSPARENT);
+        library.setStrokeWidth(1.0);
+        library.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        library.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		library.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(library);
+        
+        
+        Polygon ak = new Polygon();
+        ak.getPoints().addAll(new Double[]{
+        	    
+        	    1471.0, 439.0,
+        	    1508.0, 460.0,
+        	    1491.0, 490.0,
+        	    1540.0, 518.0,
+        	    1557.0, 489.0,
+        	    1594.0, 510.0,
+        	    1553.0, 581.0,
+        	    1530.0, 569.0,
+        	    1522.0, 582.0,
+        	    1445.0, 537.0,
+        	    1452.0, 537.0,
+        	    1452.0, 525.0,
+        	    1429.0, 512.0
+        	    });
+        
+        ak.setFill(Color.TRANSPARENT);
+        
+        ak.setStroke(Color.TRANSPARENT);
+        ak.setStrokeWidth(1.0);
+        ak.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        ak.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		ak.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(ak);
+        
+        Polygon cdc = new Polygon();
+        cdc.getPoints().addAll(new Double[]{
+        	   
+        	    1391.0, 732.0,
+        	    1430.0, 738.0,
+        	    1420.0, 804.0,
+        	    1380.0, 797.0
+        	    });
+        
+        cdc.setFill(Color.TRANSPARENT);
+        
+        cdc.setStroke(Color.TRANSPARENT);
+        cdc.setStrokeWidth(1.0);
+        cdc.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		cdc.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(cdc);
+        
+        Polygon higginsHouse = new Polygon();
+        higginsHouse.getPoints().addAll(new Double[]{
+        	    
+        	    1130.0, 435.0,
+        	    1154.0, 451.0,
+        	    1159.0, 443.0,
+        	    1165.0, 446.0,
+        	    1161.0, 441.0,
+        	    1165.0, 435.0,
+        	    1172.0, 435.0,
+        	    1176.0, 433.0,
+        	    1197.0, 448.0,
+        	    1209.0, 431.0,
+        	    1225.0, 441.0,
+        	    1212.0, 459.0,
+        	    1200.0, 452.0,
+        	    1192.0, 464.0,
+        	    1196.0, 466.0,
+        	    1189.0, 476.0,
+        	    1185.0, 473.0,
+        	    1163.0, 505.0,
+        	    1137.0, 487.0,
+        	    1149.0, 471.0,
+        	    1120.0, 450.0
+        	    
+        	    
+        	    });
+        
+        higginsHouse.setFill(Color.TRANSPARENT);
+        
+        higginsHouse.setStroke(Color.TRANSPARENT);
+        higginsHouse.setStrokeWidth(1.0);
+        higginsHouse.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		higginsHouse.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(higginsHouse);
+        
+        
+        
+        Polygon boyntonHall = new Polygon();
+        boyntonHall.getPoints().addAll(new Double[]{
+        	    
+        	    1406.0, 932.0,
+        	    1435.0, 937.0,
+        	    1434.0, 943.0,
+        	    1501.0, 954.0,
+        	    1497.0, 984.0,
+        	    1492.0, 984.0,
+        	    1491.0, 988.0,
+        	    1480.0, 987.0,
+        	    1480.0, 981.0,
+        	    1429.0, 973.0,
+        	    1428.0, 980.0,
+        	    1399.0, 975.0
+        	    });
+        
+        boyntonHall.setFill(Color.TRANSPARENT);
+        
+        boyntonHall.setStroke(Color.TRANSPARENT);
+        boyntonHall.setStrokeWidth(1.0);
+        boyntonHall.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		boyntonHall.setFill(Color.TRANSPARENT);
+        	}
+        });
+        
+        root.getChildren().add(boyntonHall);
+    }
+    
+
+
 }
