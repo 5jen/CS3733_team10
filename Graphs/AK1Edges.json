@@ -1,1 +1,1 @@
-[{"distance":33,"from":"AKHall:104","to":"AK104Door"},{"distance":22,"from":"AKHall:105","to":"AKHall:104"},{"distance":33,"from":"AKHall:105","to":"AK105Door"},{"distance":46,"from":"AKHall:103","to":"AKHall:104"},{"distance":42,"from":"AK105Door","to":"AK105"},{"distance":41,"from":"AK104Door","to":"AK104"},{"distance":33,"from":"AK103Door","to":"AKHall:103"},{"distance":42,"from":"AK103","to":"AK103Door"},{"distance":33,"from":"AKHall:102","to":"AK102Door"},{"distance":0,"from":"AKHall:102","to":"AKHall:102"},{"distance":21,"from":"AKHall:103","to":"AKHall:102"}]
+[]

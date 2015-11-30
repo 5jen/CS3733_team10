@@ -11,7 +11,7 @@ public class BuildingTest {
 
     @Test
     public void testAddMap() throws Exception {
-        Map map =  new Map("This is a map", "", "", "", 0, 0 , 0, 0,0);
+        Map map =  new Map("This is a map", "", "", "", "", 0, 0 , 0, 0,0);
         Building building = new Building("Building");
         building.addMap(map);
 
