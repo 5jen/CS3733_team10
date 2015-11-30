@@ -3,6 +3,7 @@ package node;
 public class Building {
 
 	private String name;
+	private String fullName;
 	private int rotationalConstant;
 	//private int localNodePos;
 	private int globalToLocalOffsetX;
@@ -10,8 +11,9 @@ public class Building {
 	private int conversionRatio;
 	private int numFloors;
 	
-	public Building(String n, int rc, int gtlcX,  int gtlcY, int cr, int nf){
+	public Building(String n, String fn, int rc, int gtlcX,  int gtlcY, int cr, int nf){
 		name = n;
+		fullName = fn;
 		rotationalConstant = rc;
 		globalToLocalOffsetX = gtlcX;
 		globalToLocalOffsetY = gtlcY;
@@ -21,6 +23,10 @@ public class Building {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public String getfullName(){
+		return fullName;
 	}
 	
 	public int getRotationalConstant(){

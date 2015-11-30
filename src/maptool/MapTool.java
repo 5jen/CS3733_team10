@@ -210,6 +210,7 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);        
+
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
@@ -219,7 +220,6 @@ public class MapTool extends Application{
         NodePane.setPrefSize(8000, 6000);
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
-
         final Group group = new Group(imageView, NodePane);
 	    Parent zoomPane = createZoomPane(group);
 	    
@@ -325,8 +325,6 @@ public class MapTool extends Application{
                         }
                     		
                     });
-                    
-                    
                     NodePane.getChildren().add(newNodeButton);
                     if(isPlace.isSelected())
                     	newNodeButton.relocate(newX-7, newY-7);
@@ -369,6 +367,7 @@ public class MapTool extends Application{
             	saveGraphMethod();
 
         	   	NodePane.getChildren().clear();
+
             	root.getChildren().remove(zoomPane);
             	root.getChildren().remove(canvas);
            		root.getChildren().remove(imageView); //remove current map, then load new one
@@ -615,6 +614,7 @@ public class MapTool extends Application{
                         "-fx-max-height: 10px;"
                 );
             	newNodeButton.relocate(nodes.get(i).getX()-5, nodes.get(i).getY()-5);
+
             }
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
