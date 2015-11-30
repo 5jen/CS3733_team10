@@ -408,7 +408,8 @@ public class GPSapp extends Application{
  	    root.getChildren().add(zoomPane);
  	    
  	   //Attach 3D image of building
- 		File buildingFile = new File("CS3733_Graphics/"+building.getMaps().get(0).getInitials()+".png");
+ 	    //BUILDING UST HAVE MAPS IN IT OTHERWISE ERRORS
+ 		File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
  		final Image b = new Image(buildingFile.toURI().toString());
 		final ImageView bImage = new ImageView();
 		bImage.setImage(b);
