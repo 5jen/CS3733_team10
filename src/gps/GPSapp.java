@@ -242,44 +242,8 @@ public class GPSapp extends Application{
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	//loadMap( root,  zoomPane,  imageView);
-            	k = 0; // Reset Zoom Variable
-
-        	    root.getChildren().remove(zoomPane);
-        	    root.getChildren().remove(canvas);
-   
-            	nodeList.clear();
-           		edgeList.clear();
-           		StartText.clear();
-           		DestText.clear();
-                StartList.setOpacity(0);
-                DestList.setOpacity(0);
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-            	edgeList = convertEdgeData(edgeListConversion);
+            	loadMap( root,  zoomPane,  imageView);
             	
-            	graph = createGraph(new Graph(), nodeList, edgeList);
-            	
-            	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
-            	Image mapImage = new Image(newMapFile.toURI().toString());
-                imageView.setImage(mapImage);
-                //add node buttons to the screen and populates the drop down menus
-                LocationOptions.clear();
-                for(int i = 0; i < nodeList.size() - 1; i ++){ 
-                	if(nodeList.get(i).getIsPlace())
-                		LocationOptions.add(nodeList.get(i).getName());
-                }
-                StartList.setItems(LocationOptions);      
-                DestList.setItems(LocationOptions);
-                
-                graph = createGraph(graph, nodeList, edgeList);
-                Pane NodePane = new Pane();
-                gc.clearRect(0, 0, 800, 600);
-                drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                              
-                final Group group = new Group(imageView, canvas, NodePane);
-        	    Parent zoomPane = createZoomPane(group);
-        	    root.getChildren().add(zoomPane);
         	    
             }
         });
@@ -430,8 +394,8 @@ public class GPSapp extends Application{
 	    int currentFloor = 0;
     	for(int i = 1; i <= building.getNumFloors(); i++){
     		currentFloor = i;
-    		System.out.println("CS3733_Graphics/"+building.getName()+currentFloor+".png");
-    		File mapFile = new File("CS3733_Graphics/"+building.getName()+currentFloor+".png");//Change back to above
+    		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
+    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");//Change back to above
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
@@ -482,8 +446,22 @@ public class GPSapp extends Application{
    	     	g1.setLayoutY(100-i*50);
    	     	applyAnimation(g1, i); 
    	     	root.getChildren().add(g1);
-   	     	
     	}
+    	
+    	//Attach Building label
+	    	final Button BackButton = new Button("Back");
+	    	BackButton.setTextFill(Color.BLACK);
+	    	BackButton.setFont(Font.font ("manteka", 30));
+	    	BackButton.setLayoutX(650);
+	    	BackButton.setLayoutY(530);
+	    	root.getChildren().addAll(BackButton);
+	    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	    			public void handle(MouseEvent event) {
+	    				root.getChildren().remove(BackButton);
+	    				loadMap(root, zoomPane, imageView);
+	    				
+	    			}
+	    	});
 	}
     
     private void applyAnimation(Group g1, int i){
@@ -491,11 +469,11 @@ public class GPSapp extends Application{
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
-		 g1moveTo.setX(400.0f);
-		 g1moveTo.setY(400.0f);
+		 g1moveTo.setX(600.0f);
+		 g1moveTo.setY(600.0f);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX(400.0f);
-		 g1lineTo.setY(370.0f - i*10);
+		 g1lineTo.setX(600.0f);
+		 g1lineTo.setY(570.0f - i*10);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
@@ -870,7 +848,6 @@ public class GPSapp extends Application{
     
     private void loadMap(Pane root, Parent zoomPane, ImageView imageView){
     	k = 0; // Reset Zoom Variable
-
 	    root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
 
