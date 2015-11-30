@@ -43,7 +43,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Font;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import io.JsonParser;
@@ -72,69 +74,101 @@ public class GPSapp extends Application{
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
-
-	//Map Buttons
-	final Button AtwaterKentButton = new Button();
-	final Button CampusCenterButton = new Button();
-	final Button StrattonHallButton = new Button();
-	final Button BoyntonHallButton = new Button();
-	final Button GordonLibraryButton = new Button();
-	final Button HigginsHouseButton = new Button();
-	final Button ProjectCenterButton = new Button();
-
-	//Groups to attach layered map
+	
+	//Groups to attach layered map 
 	//Group g1 = new Group(), g2 = new Group(), g3 = new Group();
+	
+	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
+	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
 
+	//Building Buildings with their content
+  	Building AtwaterKent = new Building("Atwater Kent");
+  	Building BoyntonHall = new Building("Boynton Hall");
+  	Building CampusCenter = new Building("Campus Center");
+  	Building GordonLibrary = new Building("Gordon Library");
+  	Building HigginsHouse = new Building("Higgins House");
+  	Building ProjectCenter = new Building("Project Center");
+  	Building StrattonHall = new Building("Stratton Hall");
+	
+	//Map Buildings with their content
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+  
+	Map GordonLibrary1 = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
+	Map GordonLibrary2 = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
+	Map GordonLibrary3 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
+	
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+	
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
+	
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
+
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
+	Map StrattonHall4 = new Map("Stratton Hall 4", "SH", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+
+	
 	final Label buildingSelected = new Label();
+	
+	//set perspective transformations to all 3 groups
+	PerspectiveTransform pt = new PerspectiveTransform();
+	final DropShadow shadow = new DropShadow();
+	
+	Path g1path = new Path();
+	 MoveTo g1moveTo = new MoveTo();
+	 LineTo g1lineTo = new LineTo();
 
     @Override
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
+    	
+    	//Add Maps to buildings
+    	AtwaterKent.addMap(AtwaterKent1);
+    	AtwaterKent.addMap(AtwaterKent2);
+    	AtwaterKent.addMap(AtwaterKent3);
+    	
+    	GordonLibrary.addMap(GordonLibrary1);
+    	GordonLibrary.addMap(GordonLibrary2);
+    	GordonLibrary.addMap(GordonLibrary3);
+    	
+    	//BoyntonHall.addMap(BoyntonHall1);
+    	
+    	CampusCenter.addMap(CampusCenter1);
+    	CampusCenter.addMap(CampusCenter2);
+    	
+    	HigginsHouse.addMap(HigginsHouse1);
+    	HigginsHouse.addMap(HigginsHouse2);
+    	
+    	StrattonHall.addMap(StrattonHall1);
+    	StrattonHall.addMap(StrattonHall2);
+    	StrattonHall.addMap(StrattonHall3);
+    	StrattonHall.addMap(StrattonHall4);
+    	
+    	ProjectCenter.addMap(ProjectCenter1);
+    	ProjectCenter.addMap(ProjectCenter2);
 
-    	//Map Buildings with their content
-    	Map AtwaterKent1 = new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png",
-                "Graphs/AK1.json", "Graphs/AK1Edges.json",
-                -1.308, 1548, 594, 1, 1);
-        Map AtwaterKent2 = new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png",
-                "Graphs/AK2.json", "Graphs/AK2Edges.json",
-                -1.308, 1548, 594, 1, 2);
-        Map AtwaterKent3 = new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png",
-                "Graphs/AK3.json", "Graphs/AK3Edges.json",
-                -1.308, 1548, 594, 1, 3);
-
-//    	Map BoyntonHall = new Map("BH", -85, 1496, 991, 10, 3);
-//    	Map CampusCenter = new Map("CC", -80, 1175, 670, 10, 3);
-//    	Map GordonLibrary = new Map("GL", -100, 1668, 726, 10, 4);
-//    	Map HigginsHouse = new Map("HH", -135, 1200, 451, 10, 2);
-//    	Map ProjectCenter = new Map("PC", 175, 1228, 772, 10, 3);
-//    	Map StrattonHall = new Map("CC", 85, 1364, 898, 10, 3);
-
-    	//Move building buttons to initial Locations (attach them to NodePane)
-    	AtwaterKentButton.setLayoutX(1548);
-    	AtwaterKentButton.setLayoutY(594);
-    	BoyntonHallButton.setLayoutX(1496);
-    	BoyntonHallButton.setLayoutY(991);
-    	CampusCenterButton.setLayoutX(1175);
-    	CampusCenterButton.setLayoutY(670);
-    	GordonLibraryButton.setLayoutX(1668);
-    	GordonLibraryButton.setLayoutY(726);
-    	HigginsHouseButton.setLayoutX(1200);
-    	HigginsHouseButton.setLayoutY(451);
-    	ProjectCenterButton.setLayoutX(1228);
-    	ProjectCenterButton.setLayoutY(772);
-    	StrattonHallButton.setLayoutX(1364);
-    	StrattonHallButton.setLayoutY(898);
-
-
+    	
+    	//
+    	double width = 80;
+	    double height = 60;
+    	pt = setCorners(pt, width, height);
+    	shadow.setInput(pt);
+    	
 
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
-    	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
-    	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
@@ -160,8 +194,6 @@ public class GPSapp extends Application{
     	//Find Route Button
     	final Button findRouteButton = new Button("Find Route");
     	findRouteButton.relocate(650, 610);
-
-
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -227,10 +259,13 @@ public class GPSapp extends Application{
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
 
-	    drawNodes(nodeList, NodePane, StartText, DestText);
+	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 
         final Group group = new Group(imageView, canvas, NodePane);
 	    Parent zoomPane = createZoomPane(group);
+	    
+	    //add to load map...
+	    highLight(NodePane, imageView, root);
 
 	    root.getChildren().add(zoomPane);
 
@@ -240,65 +275,11 @@ public class GPSapp extends Application{
     	buildingSelected.setLayoutY(300);
 		root.getChildren().add(buildingSelected);
 
-	    NodePane.getChildren().addAll(AtwaterKentButton, BoyntonHallButton, CampusCenterButton, GordonLibraryButton, HigginsHouseButton, ProjectCenterButton, StrattonHallButton);
-
-	    //Add button actions to building buttons
-	    AtwaterKentButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	    	 public void handle(MouseEvent event) {
-                 // TODO reimplement, as it breaks layered map
-//	    		 buildingSelected.setText(AtwaterKent.getName());
-	    		 //Make event for layered maps
-//	    		 getMapSelector(AtwaterKent, root, zoomPane, imageView);
-	    	 }
-
-	     });
-
-
-
-
+	    
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	k = 0; // Reset Zoom Variable
-
-        	    root.getChildren().remove(zoomPane);
-        	    root.getChildren().remove(canvas);
-
-            	nodeList.clear();
-           		edgeList.clear();
-           		StartText.clear();
-           		DestText.clear();
-                StartList.setOpacity(0);
-                DestList.setOpacity(0);
-                // FIXME Loading a new map should not overwrite the global map node list
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	// FIXME Same as above
-                edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-                edgeList = convertEdgeData(edgeListConversion);
-
-            	graph = createGraph(new Graph(), nodeList, edgeList);
-
-            	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
-            	Image mapImage = new Image(newMapFile.toURI().toString());
-                imageView.setImage(mapImage);
-                //add node buttons to the screen and populates the drop down menus
-                LocationOptions.clear();
-                for(int i = 0; i < nodeList.size() - 1; i ++){
-                	if(nodeList.get(i).getIsPlace())
-                		LocationOptions.add(nodeList.get(i).getName());
-                }
-                StartList.setItems(LocationOptions);
-                DestList.setItems(LocationOptions);
-
-                graph = createGraph(graph, nodeList, edgeList);
-                Pane NodePane = new Pane();
-                gc.clearRect(0, 0, 800, 600);
-                drawNodes(nodeList, NodePane, StartText, DestText);
-
-                final Group group = new Group(imageView, canvas, NodePane);
-        	    Parent zoomPane = createZoomPane(group);
-        	    root.getChildren().add(zoomPane);
-
+            	loadMap( root,  zoomPane,  imageView);
             }
         });
 
@@ -334,7 +315,7 @@ public class GPSapp extends Application{
                     }
 
                     Pane NodePane = new Pane();
-                    drawNodes(nodeList, NodePane, StartText, DestText);
+                    drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                     drawRoute(gc, route);
 
                     final Group group = new Group(imageView, canvas, NodePane);
@@ -402,84 +383,114 @@ public class GPSapp extends Application{
 
     			}
             });
-    }
-
-
-    // FIXME THIS DOES NOT WORK AT THE MOMENT BECAUSE OF CHANGES TO MAP CLASS
-    private void getMapSelector(Map map, Pane root, Parent zoomPane, ImageView imageView) {
-    	root.getChildren().remove(zoomPane);
+    }  
+    
+    
+    private void getMapSelector(Building building, Pane root, ImageView imageView) {
 	    root.getChildren().remove(canvas);
+	    
 	    //attach background over map
-	    File newMapFile = new File("CS3733_Graphics/white.png"); //MUST ADD png extension!
-     	Image mapImage = new Image(newMapFile.toURI().toString());
-        imageView.setImage(mapImage);
-        // Need to rescale this image in photoshop later to avoid this
-        imageView.setScaleX(.95);
-        imageView.setScaleY(.95);
-        imageView.setLayoutX(-210);
-        imageView.setLayoutY(-40);
-        root.getChildren().add(imageView);
-
-    	double width = 80;
-	    double height = 60;
+	    File newBackground = new File("CS3733_Graphics/white.png");
+     	final Image backgroundImage = new Image(newBackground.toURI().toString());
+         imageView.setImage(backgroundImage);
+   	     Pane NodePane = new Pane();
+         gc.clearRect(0, 0, 800, 600);
+         drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+         
+                       
+         final Group group = new Group(imageView, canvas, NodePane);
+ 	    Parent zoomPane = createZoomPane(group);
+ 	    root.getChildren().add(zoomPane);
+ 	    
+ 	   //Attach 3D image of building
+ 		File buildingFile = new File("CS3733_Graphics/"+building.getMaps().get(0).getInitials()+".png");
+ 		final Image b = new Image(buildingFile.toURI().toString());
+		final ImageView bImage = new ImageView();
+		bImage.setImage(b);
+		bImage.setLayoutX(400);
+		bImage.setLayoutY(150);
+		root.getChildren().add(bImage);
+		
+		//Attach Building label
+		final Label BuildingNameLabel = new Label(building.getName());
+		BuildingNameLabel.setTextFill(Color.BLACK);
+		BuildingNameLabel.setFont(Font.font ("manteka", 30));
+		BuildingNameLabel.setLayoutX(20);
+		BuildingNameLabel.setLayoutY(560);
+    	root.getChildren().addAll(BuildingNameLabel);
+    	
+//Attach Building label
+    	
+    	final Button BackButton = new Button("Back");
+    	BackButton.setTextFill(Color.BLACK);
+    	BackButton.setFont(Font.font ("manteka", 30));
+    	BackButton.setLayoutX(650);
+    	BackButton.setLayoutY(530);
+    	root.getChildren().addAll(BackButton);
+    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    			public void handle(MouseEvent event) {
+    				//b = null;
+    	    		//bImage = null;
+    	    		//backgroundImage = null;
+    				root.getChildren().remove(BackButton);
+    				loadMap(root, zoomPane, imageView);
+    				
+    			}
+    	});
+    	
+ 	    
     	//Load the layered Maps
 	    //convert to for loop
 	    int currentFloor = 0;
+    	for(int i = 1; i <= building.getNumMaps(); i++){
+    		currentFloor = i-1;
+    		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
+    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials()+i+"L.png");//Change back to above
+    		Image image = new Image(mapFile.toURI().toString());
+    		ImageView mapImageView = new ImageView();
+    		mapImageView.setImage(image);
 
-        // FIXME code below is incorrect
-    	for(int i = 0; i < map.getFloor(); i++){
-    		currentFloor = i+1;
-    		System.out.println("CS3733_Graphics/"+buildingSelected.getText()+currentFloor+".png");
-    		File ak1file = new File("CS3733_Graphics/"+buildingSelected.getText()+currentFloor+".png");
-    		Image ak1 = new Image(ak1file.toURI().toString());
-    		ImageView ak1Image = new ImageView();
-    		ak1Image.setImage(ak1);
-
-    		//set perspective transformations to all 3 groups
-    		PerspectiveTransform pt = new PerspectiveTransform();
-    		pt = setCorners(pt, width, height);
-
-   	     	final DropShadow shadow = new DropShadow();
-   	     	shadow.setInput(pt);
-   	     	pt = setCorners(pt, width, height);
+    		
    	     	Group g1 = new Group();
    	     	g1.setEffect(pt);
-
-   	     	//sets group g x and y
-   	     	g1.setLayoutX(100+i*10);
-   	     	g1.setLayoutY(200);
-
-   	     	g1.getChildren().add(ak1Image);
-
-
+   	     	g1.getChildren().add(mapImageView);
+   	     	
+   	     	//used inside action scope
+   	     	int floor = currentFloor;
    	     	//Add actions to each of the layered map buttons
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
-   	     				buildingSelected.setText(map.getName());
-   	     				System.out.println("In Click");
+   	     				BuildingNameLabel.setText(building.getName()+" " + floor);
+   	     				//call load building here...
+   	     				///
    	     			}
+   	     	});
+   	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
+     			public void handle(MouseEvent event) {
+     				BuildingNameLabel.setText(building.getName());
+     				
+     			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
-   	     			buildingSelected.setText(map.getName());
+
+   	     			BuildingNameLabel.setText(building.getName()+" " + floor);
    	     			g1.setEffect(shadow);
-   	     		System.out.println("In Moved");
    	     		}
    	     	});
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
    	     			buildingSelected.setText("...");
-   	     			PerspectiveTransform pt = new PerspectiveTransform();
-   	     			pt = setCorners(pt, width, height);
+   	     			//PerspectiveTransform pt = new PerspectiveTransform();
+   	     			//pt = setCorners(pt, 80, 60);
    	     			g1.setEffect(pt);
-   	     		System.out.println("In Exit");
    	     		}
    	     	});
-   	     //g1.setLayoutX(120);
-   	     //g1.setLayoutY(120);
-   	     //g1.setLayoutY(100+i*10);
-   	     applyAnimation(g1, i);
-   	     root.getChildren().add(g1);
+
+   	     	g1.setLayoutX(120);
+   	     	g1.setLayoutY(100-i*45);
+   	     	applyAnimation(g1, i); 
+   	     	root.getChildren().add(g1);
 
     	}
 	}
@@ -489,16 +500,16 @@ public class GPSapp extends Application{
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
-		 g1moveTo.setX(400.0f);
-		 g1moveTo.setY(400.0f);
+		 g1moveTo.setX(500.0f);
+		 g1moveTo.setY(600.0f);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX(400.0f);
-		 g1lineTo.setY(310.0f + i*15);
+		 g1lineTo.setX(500.0f);
+		 g1lineTo.setY(560.0f - i*10);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
 		 PathTransition g1pt = new PathTransition();
-		 g1pt.setDuration(Duration.millis(3000));
+		 g1pt.setDuration(Duration.millis(5000));
 		 g1pt.setPath(g1path);
 		 g1pt.setNode(g1);
 		 g1pt.setOrientation(PathTransition.OrientationType.NONE);
@@ -523,17 +534,17 @@ public class GPSapp extends Application{
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-
+    	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
     		g.addEdge(edges.get(i).getFrom(), edges.get(i).getTo());
     	}
-
     	return g;
     }
-
-
-    private void drawNodes(LinkedList<Node> nodes, Pane root, TextField startText, TextField destText){
+    
+    
+    private void drawNodes(LinkedList<Node> nodes, Pane NodePane, Pane root, TextField startText, TextField destText, ImageView imageView){
     	int i;
+    	
     	for(i = 0; i < nodes.size(); i ++){
     		if(nodes.get(i).getIsPlace()){
         		Button newNodeButton = new Button("");
@@ -561,7 +572,7 @@ public class GPSapp extends Application{
                     	}
                     }
                 });
-            	root.getChildren().add(newNodeButton);
+            	NodePane.getChildren().add(newNodeButton);
     		} else if(!nodes.get(i).getIsPlace()){
     			//Do nothing
     		}
@@ -831,6 +842,376 @@ public class GPSapp extends Application{
         double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
         return new Point2D(scrollXOffset, scrollYOffset);
       }
+    
+    private void loadMap(Pane root, Parent zoomPane, ImageView imageView){
+    	k = 0; // Reset Zoom Variable
+	    root.getChildren().remove(zoomPane);
+	    root.getChildren().remove(canvas);
+
+    	nodeList.clear();
+   		edgeList.clear();
+   		StartText.clear();
+   		DestText.clear();
+        StartList.setOpacity(0);
+        DestList.setOpacity(0);
+    	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+    	edgeList = convertEdgeData(edgeListConversion);
+    	
+    	//graph = createGraph(new Graph(), nodeList, edgeList);
+    	
+    	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+    	Image mapImage = new Image(newMapFile.toURI().toString());
+        imageView.setImage(mapImage);
+        //add node buttons to the screen and populates the drop down menus
+        LocationOptions.clear();
+        for(int i = 0; i < nodeList.size() - 1; i ++){ 
+        	if(nodeList.get(i).getIsPlace())
+        		LocationOptions.add(nodeList.get(i).getName());
+        }
+        StartList.setItems(LocationOptions);      
+        DestList.setItems(LocationOptions);
+        
+        graph = createGraph(graph, nodeList, edgeList);
+        Pane NodePane = new Pane();
+        gc.clearRect(0, 0, 800, 600);
+        drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
+                      
+        final Group group = new Group(imageView, canvas, NodePane);
+	    zoomPane = createZoomPane(group);
+	    root.getChildren().add(zoomPane);
+	    highLight(NodePane, imageView, root);
+	    
+    }
+    
+    public void highLight(Pane NodePane, ImageView imageView, Pane root){        
+        Polygon cc = new Polygon();
+        cc.getPoints().addAll(new Double[]{
+        	    1261.0, 649.0,
+        	    1272.0, 656.0,
+        	    1273.0, 668.0,
+        	    1267.0, 677.0,
+        	    1254.0, 680.0,
+        	    1245.0, 673.0,
+        	    1242.0, 662.0,
+        	    1239.0, 677.0,
+        	    1175.0, 667.0,
+        	    1184.0, 617.0,
+        	    1197.0, 620.0,
+        	    1213.0, 630.0,
+        	    1220.0, 623.0,
+        	    1214.0, 617.0,
+        	    1223.0, 604.0,
+        	    1219.0, 601.0,
+        	    1218.0, 591.0,
+        	    1222.0, 582.0,
+        	    1234.0, 580.0,
+        	    1238.0, 584.0,
+        	    1248.0, 573.0,
+        	    1235.0, 565.0,
+        	    1249.0, 543.0,
+        	    1252.0, 537.0,
+        	    1302.0, 546.0,
+        	    1285.0, 652.0});
+        
+        cc.setFill(Color.TRANSPARENT);
+        
+        cc.setStroke(Color.TRANSPARENT);
+        cc.setStrokeWidth(1.0);
+        cc.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                cc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        cc.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                cc.setFill(Color.TRANSPARENT);
+        	}
+        });
+        cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(CampusCenter, root, imageView);
+        	}
+        });
+        
+        NodePane.getChildren().add(cc);
+        
+        
+        Polygon olin = new Polygon();
+        olin.getPoints().addAll(new Double[]{
+        	    
+        	    1334.0, 510.0,
+        	    1373.0, 516.0,
+        	    1350.0, 662.0,
+        	    1311.0, 656.0});
+        
+        olin.setFill(Color.TRANSPARENT);
+        
+        olin.setStroke(Color.TRANSPARENT);
+        olin.setStrokeWidth(1.0);
+        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                olin.setFill(Color.TRANSPARENT);
+        	}
+        });
+        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		//getMapSelector(OlinHall, root, imageView);
+        	}
+        });
+        
+        NodePane.getChildren().add(olin);
+
+        Polygon stratton = new Polygon();
+        stratton.getPoints().addAll(new Double[]{
+        	    
+        	    1377.0, 813.0,
+        	    1416.0, 820.0,
+        	    1403.0, 903.0,
+        	    1363.0, 896.0});
+        
+        stratton.setFill(Color.TRANSPARENT);
+        
+        stratton.setStroke(Color.TRANSPARENT);
+        stratton.setStrokeWidth(1.0);
+        stratton.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		stratton.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		stratton.setFill(Color.TRANSPARENT);
+        	}
+        });
+        stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(StrattonHall, root, imageView);
+        	}
+        });
+        
+        NodePane.getChildren().add(stratton);
+        
+        Polygon library = new Polygon();
+        library.getPoints().addAll(new Double[]{
+        	    
+        	    1607.0, 712.0,
+        	    1667.0, 725.0,
+        	    1664.0, 742.0,
+        	    1661.0, 742.0,
+        	    1660.0, 769.0,
+        	    1658.0, 782.0,
+        	    1655.0, 799.0,
+        	    1645.0, 824.0,
+        	    1648.0, 825.0,
+        	    1644.0, 841.0,
+        	    1584.0, 829.0,
+        	    1585.0, 794.0,
+        	    1588.0, 773.0,
+        	    1593.0, 750.0
+        	    });
+        
+        library.setFill(Color.TRANSPARENT);
+        
+        library.setStroke(Color.TRANSPARENT);
+        library.setStrokeWidth(1.0);
+        library.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        library.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		library.setFill(Color.TRANSPARENT);
+        	}
+        });
+        library.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(GordonLibrary, root, imageView);
+        	}
+        });
+        
+        
+        NodePane.getChildren().add(library);
+        
+        
+        Polygon ak = new Polygon();
+        ak.getPoints().addAll(new Double[]{
+        	    
+        	    1471.0, 439.0,
+        	    1508.0, 460.0,
+        	    1491.0, 490.0,
+        	    1540.0, 518.0,
+        	    1557.0, 489.0,
+        	    1594.0, 510.0,
+        	    1553.0, 581.0,
+        	    1530.0, 569.0,
+        	    1522.0, 582.0,
+        	    1445.0, 537.0,
+        	    1452.0, 537.0,
+        	    1452.0, 525.0,
+        	    1429.0, 512.0
+        	    });
+        
+        ak.setFill(Color.TRANSPARENT);
+        
+        ak.setStroke(Color.TRANSPARENT);
+        ak.setStrokeWidth(1.0);
+        ak.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        ak.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		ak.setFill(Color.TRANSPARENT);
+        	}
+        });
+        ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(AtwaterKent, root, imageView);
+        	}
+        });
+        
+        
+        NodePane.getChildren().add(ak);
+        
+        Polygon cdc = new Polygon();
+        cdc.getPoints().addAll(new Double[]{
+        	   
+        	    1391.0, 732.0,
+        	    1430.0, 738.0,
+        	    1420.0, 804.0,
+        	    1380.0, 797.0
+        	    });
+        
+        cdc.setFill(Color.TRANSPARENT);
+        
+        cdc.setStroke(Color.TRANSPARENT);
+        cdc.setStrokeWidth(1.0);
+        cdc.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		cdc.setFill(Color.TRANSPARENT);
+        	}
+        });
+        cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(ProjectCenter, root, imageView);
+        	}
+        });
+        
+        NodePane.getChildren().add(cdc);
+        
+        Polygon higginsHouse = new Polygon();
+        higginsHouse.getPoints().addAll(new Double[]{
+        	    
+        	    1130.0, 435.0,
+        	    1154.0, 451.0,
+        	    1159.0, 443.0,
+        	    1165.0, 446.0,
+        	    1161.0, 441.0,
+        	    1165.0, 435.0,
+        	    1172.0, 435.0,
+        	    1176.0, 433.0,
+        	    1197.0, 448.0,
+        	    1209.0, 431.0,
+        	    1225.0, 441.0,
+        	    1212.0, 459.0,
+        	    1200.0, 452.0,
+        	    1192.0, 464.0,
+        	    1196.0, 466.0,
+        	    1189.0, 476.0,
+        	    1185.0, 473.0,
+        	    1163.0, 505.0,
+        	    1137.0, 487.0,
+        	    1149.0, 471.0,
+        	    1120.0, 450.0
+        	    
+        	    
+        	    });
+        
+        higginsHouse.setFill(Color.TRANSPARENT);
+        
+        higginsHouse.setStroke(Color.TRANSPARENT);
+        higginsHouse.setStrokeWidth(1.0);
+        higginsHouse.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		higginsHouse.setFill(Color.TRANSPARENT);
+        	}
+        });
+        higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(HigginsHouse, root, imageView);
+        	}
+        });
+        
+        
+        NodePane.getChildren().add(higginsHouse);
+        
+        
+        
+        Polygon boyntonHall = new Polygon();
+        boyntonHall.getPoints().addAll(new Double[]{
+        	    
+        	    1406.0, 932.0,
+        	    1435.0, 937.0,
+        	    1434.0, 943.0,
+        	    1501.0, 954.0,
+        	    1497.0, 984.0,
+        	    1492.0, 984.0,
+        	    1491.0, 988.0,
+        	    1480.0, 987.0,
+        	    1480.0, 981.0,
+        	    1429.0, 973.0,
+        	    1428.0, 980.0,
+        	    1399.0, 975.0
+        	    });
+        
+        boyntonHall.setFill(Color.TRANSPARENT);
+        
+        boyntonHall.setStroke(Color.TRANSPARENT);
+        boyntonHall.setStrokeWidth(1.0);
+        boyntonHall.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		System.out.println("I'm here");
+        	}
+        });
+        boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		boyntonHall.setFill(Color.TRANSPARENT);
+        	}
+        });
+        boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(BoyntonHall, root, imageView);
+        	}
+        });
+        
+        NodePane.getChildren().add(boyntonHall);
+    }
 
 
 }

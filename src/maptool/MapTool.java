@@ -95,16 +95,16 @@ public class MapTool extends Application{
 
         // Create maps and add them to their respective buildings
 		// TODO Add more buildings and maps
-        Campus.addMap(new Map("Campus Map", "CS3733_Graphics/CampusMap.png",
+        Campus.addMap(new Map("Campus Map", "CM", "CS3733_Graphics/CampusMap.png",
                     "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json",
                     0, 0, 0, 1, 1));
-        AtwaterKent.addMap(new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png",
+        AtwaterKent.addMap(new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png",
                     "Graphs/AK1.json", "Graphs/AK1Edges.json",
                     -1.308, 1548, 594, 1, 1));
-        AtwaterKent.addMap(new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png",
+        AtwaterKent.addMap(new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png",
                     "Graphs/AK2.json", "Graphs/AK2Edges.json",
                     -1.308, 1548, 594, 1, 2));
-        AtwaterKent.addMap(new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png",
+        AtwaterKent.addMap(new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png",
                     "Graphs/AK3.json", "Graphs/AK3Edges.json",
                     -1.308, 1548, 594, 1, 3));
 
@@ -272,6 +272,7 @@ public class MapTool extends Application{
         
         //Attach everything to the screen
         root.getChildren().add(bgView);        
+
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
@@ -281,7 +282,6 @@ public class MapTool extends Application{
         NodePane.setPrefSize(8000, 6000);
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
-
         final Group group = new Group(imageView, NodePane);
 	    Parent zoomPane = createZoomPane(group);
 	    
@@ -396,8 +396,6 @@ public class MapTool extends Application{
                         }
                     		
                     });
-                    
-                    
                     NodePane.getChildren().add(newNodeButton);
                     if(isPlace.isSelected())
                     	newNodeButton.relocate(newX-7, newY-7);
@@ -441,6 +439,7 @@ public class MapTool extends Application{
             	saveGraphMethod();
 
         	   	NodePane.getChildren().clear();
+
             	root.getChildren().remove(zoomPane);
             	root.getChildren().remove(canvas);
            		root.getChildren().remove(imageView); //remove current map, then load new one
@@ -691,6 +690,7 @@ public class MapTool extends Application{
                         "-fx-max-height: 10px;"
                 );
             	newNodeButton.relocate(nodes.get(i).getX()-5, nodes.get(i).getY()-5);
+
             }
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
