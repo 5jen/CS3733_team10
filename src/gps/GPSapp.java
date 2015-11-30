@@ -370,7 +370,7 @@ public class GPSapp extends Application{
 	    
 	    //attach background over map
 	    File newBackground = new File("CS3733_Graphics/white.png");
-     	Image backgroundImage = new Image(newBackground.toURI().toString());
+     	final Image backgroundImage = new Image(newBackground.toURI().toString());
          imageView.setImage(backgroundImage);
    	     Pane NodePane = new Pane();
          gc.clearRect(0, 0, 800, 600);
@@ -383,8 +383,8 @@ public class GPSapp extends Application{
  	    
  	   //Attach 3D image of building
  		File buildingFile = new File("CS3733_Graphics/"+building.getName()+".png");
- 		Image b = new Image(buildingFile.toURI().toString());
-		ImageView bImage = new ImageView();
+ 		final Image b = new Image(buildingFile.toURI().toString());
+		final ImageView bImage = new ImageView();
 		bImage.setImage(b);
 		bImage.setLayoutX(400);
 		bImage.setLayoutY(150);
@@ -398,6 +398,24 @@ public class GPSapp extends Application{
 		BuildingNameLabel.setLayoutY(560);
     	root.getChildren().addAll(BuildingNameLabel);
     	
+//Attach Building label
+    	
+    	final Button BackButton = new Button("Back");
+    	BackButton.setTextFill(Color.BLACK);
+    	BackButton.setFont(Font.font ("manteka", 30));
+    	BackButton.setLayoutX(650);
+    	BackButton.setLayoutY(530);
+    	root.getChildren().addAll(BackButton);
+    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    			public void handle(MouseEvent event) {
+    				//b = null;
+    	    		//bImage = null;
+    	    		//backgroundImage = null;
+    				root.getChildren().remove(BackButton);
+    				loadMap(root, zoomPane, imageView);
+    				
+    			}
+    	});
     	
  	    
     	//Load the layered Maps
@@ -406,13 +424,12 @@ public class GPSapp extends Application{
     	for(int i = 1; i <= building.getNumFloors(); i++){
     		currentFloor = i;
     		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
-    		File mapFile = new File("CS3733_Graphics/"+building.getName()+currentFloor+".png");//Change back to above
+    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");//Change back to above
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
+
     		
-    		
-   	     	
    	     	Group g1 = new Group();
    	     	g1.setEffect(pt);
    	     	g1.getChildren().add(mapImageView);
@@ -448,25 +465,11 @@ public class GPSapp extends Application{
    	     		}
    	     	});
    	     	g1.setLayoutX(120);
-   	     	g1.setLayoutY(100-i*50);
+   	     	g1.setLayoutY(100-i*45);
    	     	applyAnimation(g1, i); 
    	     	root.getChildren().add(g1);
+   	     	
     	}
-    	
-    	//Attach Building label
-	    	final Button BackButton = new Button("Back");
-	    	BackButton.setTextFill(Color.BLACK);
-	    	BackButton.setFont(Font.font ("manteka", 30));
-	    	BackButton.setLayoutX(650);
-	    	BackButton.setLayoutY(530);
-	    	root.getChildren().addAll(BackButton);
-	    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	    			public void handle(MouseEvent event) {
-	    				root.getChildren().remove(BackButton);
-	    				loadMap(root, zoomPane, imageView);
-	    				
-	    			}
-	    	});
 	}
     
     private void applyAnimation(Group g1, int i){
@@ -474,11 +477,11 @@ public class GPSapp extends Application{
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
-		 g1moveTo.setX(600.0f);
+		 g1moveTo.setX(500.0f);
 		 g1moveTo.setY(600.0f);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX(600.0f);
-		 g1lineTo.setY(570.0f - i*10);
+		 g1lineTo.setX(500.0f);
+		 g1lineTo.setY(560.0f - i*10);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
