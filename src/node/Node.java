@@ -13,8 +13,8 @@ public class Node {
 	private int X;
 	private int Y;
 	private int Z;
-	private double globalX;
-	private double globalY;
+	private int globalX;
+	private int globalY;
 	private String building;
 	private String name;
 	private boolean isWalkable;
@@ -47,11 +47,11 @@ public class Node {
 	public int getZ(){ return Z; }
 	public void setZ(int z){ this.Z = z; }
 	
-	public double getGlobalX(){ return globalX; }
-	public void setGlobalX(double d){ this.globalX = d; }
+	public int getGlobalX(){ return globalX; }
+	public void setGlobalX(int d){ this.globalX = d; }
 	
-	public double getGlobalY(){ return globalY; }
-	public void setGlobalY(double y){ this.globalY = y; }
+	public int getGlobalY(){ return globalY; }
+	public void setGlobalY(int y){ this.globalY = y; }
 	
 	public String getBuilding(){ return this.building; }
 	public void setBuilding(String b){ this.building = b; }

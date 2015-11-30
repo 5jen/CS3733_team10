@@ -14,12 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,8 +28,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import node.Edge;
 import node.EdgeDataConversion;
+import node.Map;
 import node.Node;
 
 import javafx.application.Application;
@@ -76,8 +73,22 @@ public class MapTool extends Application{
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
     
-    ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
-	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
+    ObservableList<Map> mapOptions = FXCollections.observableArrayList(
+            // TODO THE CONVERSION RATIOS NEED TO BE CHANGED
+            new Map("Campus Map", "CS3733_Graphics/CampusMap.png",
+                    "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json",
+                    0, 0, 0, 1, 1),
+            new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png",
+                    "Graphs/AK1.json", "Graphs/AK1Edges.json",
+                    -1.308, 1548, 594, 1, 1),
+            new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png",
+                    "Graphs/AK2.json", "Graphs/AK2Edges.json",
+                    -1.308, 1548, 594, 1, 2),
+            new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png",
+                    "Graphs/AK3.json", "Graphs/AK3Edges.json",
+                    -1.308, 1548, 594, 1, 3)
+    );
+	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
     
     final Label fromField = new Label("");
     final Label toField = new Label("");
@@ -108,7 +119,39 @@ public class MapTool extends Application{
     	mapSelectorLabel.setFont(Font.font ("manteka", 14));
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
-    	mapSelector.setValue("CampusMap");
+    	mapSelector.setValue(mapSelector.getItems().get(0));
+
+        // Shows Name of Map Objext in ComboBox dropdown
+        mapSelector.setCellFactory(new Callback<ListView<Map>, ListCell<Map>>() {
+            @Override
+            public ListCell<Map> call(ListView<Map> param) {
+                ListCell cell= new ListCell<Map>(){
+                    @Override
+                    protected void updateItem(Map map, boolean empty){
+                        super.updateItem(map, empty);
+                        if (empty){
+                            setText("");
+                        } else {
+                            setText(map.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        // Shows name in ComboBox
+        mapSelector.setButtonCell(new ListCell<Map>(){
+            @Override
+            protected void updateItem(Map map, boolean bln){
+                super.updateItem(map, bln);
+                if (bln){
+                    setText("");
+                } else {
+                    setText(map.getName());
+                }
+            }
+        });
+
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(830);
     	mapSelectionBoxV.setLayoutY(620);
@@ -276,9 +319,18 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
-                	newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
-                	newPlace.setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
+                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue().getName(), true, isPlace.isSelected(), typeSelector.getValue());
+
+                    // TODO update to implement various factors
+
+                    newPlace.setGlobalX((int)((x*Math.cos(mapSelector.getValue().getRotationalConstant())
+                            + y*Math.sin(mapSelector.getValue().getRotationalConstant()) +
+                            mapSelector.getValue().getGlobalToLocalOffsetX()) *
+                            (mapSelector.getValue().getConversionRatio())));
+                	newPlace.setGlobalY((int)((-x*Math.sin(mapSelector.getValue().getRotationalConstant())
+                            + y*Math.cos(mapSelector.getValue().getRotationalConstant())
+                            + mapSelector.getValue().getGlobalToLocalOffsetY()) *
+                            (mapSelector.getValue().getConversionRatio())));
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -375,8 +427,8 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -385,7 +437,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+           		File newMapFile = new File(mapSelector.getValue().getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -486,8 +538,8 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+            	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -496,7 +548,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+           		File newMapFile = new File(mapSelector.getValue().getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -687,7 +739,7 @@ public class MapTool extends Application{
     
     private void saveGraphMethod(){
     	String nodeData = JsonParser.jsonToString(nodeList);
-    	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
+    	String path = mapSelector.getValue().getNodesPath();
     	try {
 			JsonParser.saveFile(nodeData, path);
 		} catch (IOException e) {
@@ -696,7 +748,7 @@ public class MapTool extends Application{
     	
     	//save edges
     	String edgeData = JsonParser.jsonToStringEdge(edgeList);
-    	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
+    	String edgePath = mapSelector.getValue().getEdgesPath();
     	try {
 			JsonParser.saveFile(edgeData, edgePath);
 		} catch (IOException e) {
