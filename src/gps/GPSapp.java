@@ -28,11 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import node.Building;
-import node.Edge;
-import node.Node;
-import node.EdgeDataConversion;
-import node.Graph;
+import node.*;
 import node.Map;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -59,12 +55,14 @@ public class GPSapp extends Application{
 	public static void main(String[] args) {
         launch(args);
     }
-	
+
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
+	//Load Global Campus Nodes
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
+    //Load Global Campus Edges
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false;
@@ -76,7 +74,6 @@ public class GPSapp extends Application{
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
-	
 	
 	//Groups to attach layered map 
 	//Group g1 = new Group(), g2 = new Group(), g3 = new Group();
@@ -128,10 +125,10 @@ public class GPSapp extends Application{
 	Path g1path = new Path();
 	 MoveTo g1moveTo = new MoveTo();
 	 LineTo g1lineTo = new LineTo();
-	
+
     @Override
     public void start(Stage primaryStage) {
-    	
+
     	final Pane root = new Pane();
     	
     	//Add Maps to buildings
@@ -166,7 +163,7 @@ public class GPSapp extends Application{
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
     	
-    	
+
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
@@ -177,23 +174,23 @@ public class GPSapp extends Application{
     	mapSelectionBoxV.setLayoutX(820);
     	mapSelectionBoxV.setLayoutY(20);
     	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
-    	
-    	
+
+
     	//Create a label and box for warnings, ie when the coordinates are outside the name
-    	final HBox warningBox = new HBox(0); 
+    	final HBox warningBox = new HBox(0);
     	final Label warningLabel = new Label("");
     	warningLabel.setTextFill(Color.WHITE);
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
-    	warningBox.getChildren().addAll(warningLabel); 
-    	
-    	
+    	warningBox.getChildren().addAll(warningLabel);
+
+
     	//Initialize the Drop down menu for initial Map
-    	for(int i = 0; i < nodeList.size() ; i ++){ 
+    	for(int i = 0; i < nodeList.size() ; i ++){
     		if(nodeList.get(i).getIsPlace())
     			LocationOptions.add((nodeList.get(i)).getName());
         }
-    	
+
     	//Find Route Button
     	final Button findRouteButton = new Button("Find Route");
     	findRouteButton.relocate(650, 610);
@@ -202,10 +199,10 @@ public class GPSapp extends Application{
     	VBox StartSearch = new VBox();
         VBox DestSearch = new VBox();
         StartText.setPromptText("Start");
-        DestText.setPromptText("Destination");        
+        DestText.setPromptText("Destination");
         StartList.setMaxHeight(75);
         DestList.setMaxHeight(75);
-        StartList.setItems(LocationOptions);      
+        StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
         StartSearch.relocate(300, 610);
         StartSearch.getChildren().addAll(DestText, DestList);
@@ -213,37 +210,37 @@ public class GPSapp extends Application{
         DestSearch.getChildren().addAll(StartText, StartList);
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-        
-        
-      
-  
+
+
+
+
         //Create the map image
         File mapFile = new File("CS3733_Graphics/CampusMap.png");
         mapSelector.setValue("CampusMap"); // Default Map when App is opened
         Image mapImage = new Image(mapFile.toURI().toString());
         ImageView imageView = new ImageView();
         imageView.setImage(mapImage);
-        imageView.setLayoutX(0);  
+        imageView.setLayoutX(0);
         imageView.setLayoutY(0);
-        
+
         //create background
         File backgroundFile = new File("CS3733_Graphics/BlueBackground.jpg");
         Image bgImage = new Image(backgroundFile.toURI().toString());
         ImageView bgView = new ImageView();
         bgView.setImage(bgImage);
-        bgView.setLayoutX(0);  
+        bgView.setLayoutX(0);
         bgView.setLayoutY(0);
-        
+
         //Create a keyimage to place the map key on screen
     	File keyFile = new File("CS3733_Graphics/Key.png");
         Image keyImage = new Image(keyFile.toURI().toString());
-        
+
         ImageView imageViewKey = new ImageView();
         imageViewKey.setImage(keyImage);
-        
-        imageViewKey.setLayoutX(830);  
+
+        imageViewKey.setLayoutX(830);
         imageViewKey.setLayoutY(530);
-        
+
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
         root.getChildren().add(mapSelectionBoxV);
@@ -252,13 +249,13 @@ public class GPSapp extends Application{
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
-        
-        
-        
+
+
+
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
-        
-        
+
+
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
 
@@ -269,38 +266,36 @@ public class GPSapp extends Application{
 	    
 	    //add to load map...
 	    highLight(NodePane, imageView, root);
-	    
+
 	    root.getChildren().add(zoomPane);
-	    
+
 	    //Display building selected
     	buildingSelected.setText("...");
     	buildingSelected.setLayoutX(820);
     	buildingSelected.setLayoutY(300);
 		root.getChildren().add(buildingSelected);
-	    
+
 	    
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	loadMap( root,  zoomPane,  imageView);
-            	
-        	    
             }
         });
-        
+
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	gc.clearRect(0, 0, 800, 600); // Clears old path
             	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
-            		
+
             	} else {
             		root.getChildren().remove(zoomPane);
-            	
-                	// Need to string compare from 
-                	Node startPlace = new Node(0, 0, 0, "","", false, false, "");
-                	Node endPlace = new Node(0, 0, 0, "","", false, false, "");
-                	for(int i = 0; i < nodeList.size(); i ++){ 
+
+                	// Need to string compare from
+                	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
+                	Node endPlace = new Node(0, 0, 0, "","", "", false, false, "");
+                	for(int i = 0; i < nodeList.size(); i ++){
                     	if((nodeList.get(i)).getName().equals(StartText.getText())) {
                     		startPlace = (nodeList.get(i));
                     	}
@@ -310,19 +305,19 @@ public class GPSapp extends Application{
                     }
                 	System.out.println("start: " + startPlace.getName());
                 	System.out.println("end: " + endPlace.getName());
-                	
+
                     LinkedList<Node> route = new LinkedList<Node>();
-                    route = graph.findRoute(startPlace, endPlace); 
-                    
+                    route = graph.findRoute(startPlace, endPlace);
+
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                     }
-                    
+
                     Pane NodePane = new Pane();
                     drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                     drawRoute(gc, route);
-                    
+
                     final Group group = new Group(imageView, canvas, NodePane);
             	    Parent zoomPane = createZoomPane(group);
             	    root.getChildren().add(zoomPane);
@@ -331,27 +326,27 @@ public class GPSapp extends Application{
             	}
             }
         });
-        
-  
-        primaryStage.setScene(new Scene(root, 1050, 700));  
+
+
+        primaryStage.setScene(new Scene(root, 1050, 700));
         primaryStage.show();
-        
+
         DestText.textProperty().addListener(
                 new ChangeListener<Object>() {
-                    public void changed(ObservableValue<?> observable2, 
+                    public void changed(ObservableValue<?> observable2,
                                         Object oldVal2, Object newVal2) {
                         handleSearchByKeyDest((String)oldVal2, (String)newVal2);
                     }
                 });
-            
+
             StartText.textProperty().addListener(
                     new ChangeListener<Object>() {
-                        public void changed(ObservableValue<?> observable, 
+                        public void changed(ObservableValue<?> observable,
                                             Object oldVal, Object newVal) {
                             handleSearchByKeyStart((String)oldVal, (String)newVal);
                         }
                     });
-            
+
             DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
             	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
             		if (newPropertyValue) {
@@ -362,7 +357,7 @@ public class GPSapp extends Application{
                     }
             	}
             });
-            
+
             StartText.focusedProperty().addListener(new ChangeListener<Boolean>() {
             	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
             		if (newPropertyValue) {
@@ -373,19 +368,19 @@ public class GPSapp extends Application{
                     }
             	}
             });
-                    
+
             StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
     			public void handle(MouseEvent arg0) {
     				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
-    				
+
     			}
             });
             DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
     			public void handle(MouseEvent arg0) {
     				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
-    				
+
     			}
             });
     }  
@@ -479,6 +474,7 @@ public class GPSapp extends Application{
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
+
    	     			BuildingNameLabel.setText(building.getName()+" " + floor);
    	     			g1.setEffect(shadow);
    	     		}
@@ -491,16 +487,17 @@ public class GPSapp extends Application{
    	     			g1.setEffect(pt);
    	     		}
    	     	});
+
    	     	g1.setLayoutX(120);
    	     	g1.setLayoutY(100-i*45);
    	     	applyAnimation(g1, i); 
    	     	root.getChildren().add(g1);
-   	     	
+
     	}
 	}
-    
+
     private void applyAnimation(Group g1, int i){
-   	 
+
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
@@ -520,9 +517,9 @@ public class GPSapp extends Application{
 		 g1pt.setCycleCount(Timeline.INDEFINITE);
 		 g1pt.setAutoReverse(true);
 		 g1pt.play();
-		 
+
     }
-    
+
     private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
 		 pt.setUlx(width + 80);//upper left
 	     pt.setUly(height + 0);
@@ -549,7 +546,7 @@ public class GPSapp extends Application{
     private void drawNodes(LinkedList<Node> nodes, Pane NodePane, Pane root, TextField startText, TextField destText, ImageView imageView){
     	int i;
     	
-    	for(i = 0; i < nodes.size(); i ++){ 
+    	for(i = 0; i < nodes.size(); i ++){
     		if(nodes.get(i).getIsPlace()){
         		Button newNodeButton = new Button("");
             	newNodeButton.setStyle(
@@ -580,34 +577,34 @@ public class GPSapp extends Application{
     		} else if(!nodes.get(i).getIsPlace()){
     			//Do nothing
     		}
-	  		
+
     	}
     }
-    
+
     private void drawRoute(GraphicsContext gc, LinkedList<Node> route) {
-    	 Color customBlue = Color.web("0x00b3fd"); 
-    	 
+    	 Color customBlue = Color.web("0x00b3fd");
+
     	 gc.setLineCap(StrokeLineCap.ROUND);
     	//iterate through the route drawing a connection between nodes
     	for(int i = 1; i < route.size(); i ++){
     		gc.setLineWidth(5);
-    		
+
             gc.setStroke(Color.BLACK);
 	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
             gc.setLineWidth(3);
-            
+
             gc.setStroke(customBlue);
 	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
-	  		
+
     	}
     }
-    
+
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "","", false, false, "");
-    	
-    	//iterate through the edges 
+    	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "","", "", false, false, "");
+
+    	//iterate through the edges
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
@@ -620,30 +617,30 @@ public class GPSapp extends Application{
 				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
 					toNode = nodeList.get(j);
 				}
-    			
+
     		}
     		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
-    	
+
     	return edgeList;
     }
-    
+
     public void handleSearchByKeyStart(String oldVal, String newVal) {
     	// If the number of characters in the text box is less than last time
         // it must be because the user pressed delete
         if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
-            // Restore the lists original set of entries 
+            // Restore the lists original set of entries
             // and start from the beginning
         	StartList.setItems(LocationOptions);
         }
         StartList.setOpacity(100);
-        
- 
-        // Break out all of the parts of the search text 
+
+
+        // Break out all of the parts of the search text
         // by splitting on white space
         String[] parts = newVal.toUpperCase().split(" ");
- 
+
         // Filter out the entries that don't contain the entered text
         ObservableList<String> subentries = FXCollections.observableArrayList();
         for ( Object entry: StartList.getItems() ) {
@@ -657,7 +654,7 @@ public class GPSapp extends Application{
                     break;
                 }
             }
- 
+
             if ( match ) {
                 subentries.add(entryText);
             }
@@ -667,27 +664,27 @@ public class GPSapp extends Application{
             	StartList.setMaxHeight(75);
         }
         StartList.setItems(subentries);
-        
+
         	if(subentries.isEmpty() || subentries.get(0).equals(StartText.getText()))
         		StartList.setOpacity(0);
-        
+
     }
- 
+
     public void handleSearchByKeyDest(String oldVal, String newVal) {
         // If the number of characters in the text box is less than last time
         // it must be because the user pressed delete
         if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
-            // Restore the lists original set of entries 
+            // Restore the lists original set of entries
             // and start from the beginning
         	DestList.setItems(LocationOptions);
         }
         DestList.setOpacity(100);
-        
- 
-        // Break out all of the parts of the search text 
+
+
+        // Break out all of the parts of the search text
         // by splitting on white space
         String[] parts = newVal.toUpperCase().split(" ");
- 
+
         // Filter out the entries that don't contain the entered text
         ObservableList<String> subentries = FXCollections.observableArrayList();
         String entryText = "";
@@ -702,7 +699,7 @@ public class GPSapp extends Application{
                     break;
                 }
             }
- 
+
             if ( match ) {
                 subentries.add(entryText);
             }
@@ -713,19 +710,19 @@ public class GPSapp extends Application{
         }
         DestList.setItems(subentries);
 
-        
+
         	if(subentries.isEmpty() || subentries.get(0).equals(DestText.getText()))
         		DestList.setOpacity(0);
-        
+
     }
-    
+
     private Parent createZoomPane(final Group group) {
 	    final double SCALE_DELTA = 1.1;
 	    final StackPane zoomPane = new StackPane();
 	    final ScrollPane scrollPane = new ScrollPane();
 
 	    zoomPane.getChildren().add(group);
-	
+
 
 	    final Group scrollContent = new Group(zoomPane);
 	    scrollPane.setContent(scrollContent);
@@ -762,7 +759,7 @@ public class GPSapp extends Application{
 		        // amount of scrolling in each direction in scrollContent coordinate
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-		        
+
 		        group.setScaleX(group.getScaleX() * scaleFactor);
 		        group.setScaleY(group.getScaleY() * scaleFactor);
 
@@ -775,7 +772,7 @@ public class GPSapp extends Application{
 		        // amount of scrolling in each direction in scrollContent coordinate
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-		        
+
 		        group.setScaleX(group.getScaleX() * scaleFactor);
 		        group.setScaleY(group.getScaleY() * scaleFactor);
 
@@ -815,7 +812,7 @@ public class GPSapp extends Application{
 
 	    return scrollPane;
 	}
-    
+
     private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
         double scrollXOffset = scrollOffset.getX();
         double scrollYOffset = scrollOffset.getY();
@@ -836,7 +833,7 @@ public class GPSapp extends Application{
           scroller.setHvalue(scroller.getHmin());
         }
       }
-    
+
     private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
         double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
         double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
@@ -1216,7 +1213,6 @@ public class GPSapp extends Application{
         
         NodePane.getChildren().add(boyntonHall);
     }
-    
 
 
 }

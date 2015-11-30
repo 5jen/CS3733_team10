@@ -29,5 +29,5 @@ public class Building {
     public int getNumMaps(){
         return mMaps.size();
     }
-
 }
+

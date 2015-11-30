@@ -13,9 +13,10 @@ public class Node {
 	private int X;
 	private int Y;
 	private int Z;
-	private double globalX;
-	private double globalY;
+	private int globalX;
+	private int globalY;
 	private String building;
+	private String floorMap;
 	private String name;
 	private boolean isWalkable;
 	private boolean isPlace;
@@ -24,18 +25,27 @@ public class Node {
 	private double cost = 0;
 	private LinkedList<Edge> edges = new LinkedList<>();
 	
-	public Node(int valX, int valY, int valZ, String n, String b, boolean isWalk, boolean place, String t){
+	public Node(int valX, int valY, int valZ, String n, String b, String fM, boolean isWalk, boolean place, String t){
 		X = valX;
 		Y = valY;
 		Z = valZ;
 		building = b;
 		name = n;
+        floorMap = fM;
 		isWalkable = isWalk;
 		isPlace = place;
 		type = t;
 	}
-	
-	public String getName(){ return this.name; }
+
+    public String getFloorMap() {
+        return floorMap;
+    }
+
+    public void setFloorMap(String floorMap) {
+        this.floorMap = floorMap;
+    }
+
+    public String getName(){ return this.name; }
 	public void setName(String n){ this.name = n; }
 	
 	public int getX(){ return X; }
@@ -47,11 +57,11 @@ public class Node {
 	public int getZ(){ return Z; }
 	public void setZ(int z){ this.Z = z; }
 	
-	public double getGlobalX(){ return globalX; }
-	public void setGlobalX(double d){ this.globalX = d; }
+	public int getGlobalX(){ return globalX; }
+	public void setGlobalX(int d){ this.globalX = d; }
 	
-	public double getGlobalY(){ return globalY; }
-	public void setGlobalY(double y){ this.globalY = y; }
+	public int getGlobalY(){ return globalY; }
+	public void setGlobalY(int y){ this.globalY = y; }
 	
 	public String getBuilding(){ return this.building; }
 	public void setBuilding(String b){ this.building = b; }
@@ -119,7 +129,7 @@ public class Node {
 	}
 
 	private int getDistance(Node n1, Node n2){
-		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
+		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)) + (Math.pow(n1.getZ() - n2.getZ(), 2)));
 	}
 
 }

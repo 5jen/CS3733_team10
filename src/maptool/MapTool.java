@@ -14,12 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,9 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import node.Edge;
-import node.EdgeDataConversion;
-import node.Node;
+import javafx.util.Callback;
+import node.*;
 
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -52,9 +46,46 @@ public class MapTool extends Application{
 	double startX, startY, startZ, endX, endY, endZ = 0.0;
 	int k = 0; // Set Max zoom Variable
 
-	public static void main(String[] args) {
-        launch(args);
-    }
+    // Buildings
+	// TODO Add more buildings
+    Building Campus = new Building("Campus");
+    Building AtwaterKent = new Building("Atwater Kent");
+    Building BoyntonHall = new Building("Boynton Hall");
+    Building CampusCenter = new Building("Campus Center");
+    Building GordonLibrary = new Building("Gordon Library");
+    Building HigginsHouse = new Building("Higgins House");
+    Building ProjectCenter = new Building("Project Center");
+    Building StrattonHall = new Building("Stratton Hall");
+
+    // Maps
+    // TODO Add more maps
+    Map CampusMap = new Map("Campus Map", "CM", "CS3733_Graphics/CampusMap.png", "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json", 0, 0, 0, 1, 1);
+
+    Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
+    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
+    Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+
+    Map GordonLibrary1 = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
+    Map GordonLibrary2 = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
+    Map GordonLibrary3 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
+
+    Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+
+    Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
+    Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+
+    Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
+    Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
+
+    Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
+    Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
+
+    Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
+    Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
+    Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
+    Map StrattonHall4 = new Map("Stratton Hall 4", "SH", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+
+	public static void main(String[] args) {launch(args);}
 	
 	JsonParser json = new JsonParser();
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
@@ -75,9 +106,13 @@ public class MapTool extends Application{
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Place", "Transition Point", "Staircase", "Vending Machine", "Water Fountain");
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
-    
-    ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
-	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
+
+
+    ObservableList<Map> mapOptions = FXCollections.observableArrayList();
+	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
+
+    // Variable to store map that is currently displayed
+    Map currentlySelectedMap;
     
     final Label fromField = new Label("");
     final Label toField = new Label("");
@@ -94,7 +129,57 @@ public class MapTool extends Application{
  
     @Override
     public void start(Stage primaryStage) {
-    	
+
+
+        // Create maps and add them to their respective buildings
+		// TODO Add more buildings and maps
+        //Add Maps to buildings
+        Campus.addMap(CampusMap);
+
+        AtwaterKent.addMap(AtwaterKent1);
+        AtwaterKent.addMap(AtwaterKent2);
+        AtwaterKent.addMap(AtwaterKent3);
+
+        GordonLibrary.addMap(GordonLibrary1);
+        GordonLibrary.addMap(GordonLibrary2);
+        GordonLibrary.addMap(GordonLibrary3);
+
+        //BoyntonHall.addMap(BoyntonHall1);
+
+        CampusCenter.addMap(CampusCenter1);
+        CampusCenter.addMap(CampusCenter2);
+
+        HigginsHouse.addMap(HigginsHouse1);
+        HigginsHouse.addMap(HigginsHouse2);
+
+        StrattonHall.addMap(StrattonHall1);
+        StrattonHall.addMap(StrattonHall2);
+        StrattonHall.addMap(StrattonHall3);
+        StrattonHall.addMap(StrattonHall4);
+
+        ProjectCenter.addMap(ProjectCenter1);
+        ProjectCenter.addMap(ProjectCenter2);
+
+        // Store the Buildings in a list
+        // TODO Add more buildings to this list
+        LinkedList<Building> buildings = new LinkedList<>();
+        buildings.add(Campus);
+        buildings.add(AtwaterKent);
+        buildings.add(GordonLibrary);
+        buildings.add(CampusCenter);
+        buildings.add(HigginsHouse);
+        buildings.add(StrattonHall);
+        buildings.add(ProjectCenter);
+
+        // Iterate over the list of buildings and add their maps to another list
+        LinkedList<Map> maps = new LinkedList<>();
+        for (Building b : buildings){
+             maps.addAll(b.getMaps());
+        }
+
+        mapOptions.addAll(maps);
+
+
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
@@ -108,7 +193,43 @@ public class MapTool extends Application{
     	mapSelectorLabel.setFont(Font.font ("manteka", 14));
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
-    	mapSelector.setValue("CampusMap");
+
+
+    	mapSelector.setValue(mapSelector.getItems().get(0));
+        // Assign Campus map as currently selected map
+        currentlySelectedMap = mapSelector.getValue();
+
+        // Shows Name of Map Object in ComboBox dropdown
+        mapSelector.setCellFactory(new Callback<ListView<Map>, ListCell<Map>>() {
+            @Override
+            public ListCell<Map> call(ListView<Map> param) {
+                ListCell cell= new ListCell<Map>(){
+                    @Override
+                    protected void updateItem(Map map, boolean empty){
+                        super.updateItem(map, empty);
+                        if (empty){
+                            setText("");
+                        } else {
+                            setText(map.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        // Shows name in ComboBox
+        mapSelector.setButtonCell(new ListCell<Map>(){
+            @Override
+            protected void updateItem(Map map, boolean bln){
+                super.updateItem(map, bln);
+                if (bln){
+                    setText("");
+                } else {
+                    setText(map.getName());
+                }
+            }
+        });
+
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(830);
     	mapSelectionBoxV.setLayoutY(620);
@@ -241,7 +362,7 @@ public class MapTool extends Application{
             	} 
             	
                 //check to see if coordinates are within map bounds, We dont care if it's campus map
-                if(!isInBounds(x, y) && !mapSelector.getValue().equals("CampusMap")){
+                if(!isInBounds(x, y) && !currentlySelectedMap.getName().equals("Campus Map")){
                 	warningLabel.setText("Error, coordinates out of bounds");
                 	root.getChildren().add(warningBox); 
                 }
@@ -276,9 +397,18 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue(), true, isPlace.isSelected(), typeSelector.getValue());
-                	newPlace.setGlobalX(x*Math.cos(0)+y*Math.sin(0) + 200);
-                	newPlace.setGlobalY(x*Math.cos(0)+y*Math.sin(0) + 200);
+                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
+
+                    // Set the Global X and Global Y.
+                    newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
+                            + y*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                            currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                            (currentlySelectedMap.getConversionRatio())));
+                	newPlace.setGlobalY((int)((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
+                            + y*Math.cos(currentlySelectedMap.getRotationalConstant())
+                            + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                            (currentlySelectedMap.getConversionRatio())));
+                    // TODO This should also add to the global map nodes
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -350,6 +480,7 @@ public class MapTool extends Application{
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
                 			//root.getChildren().remove(nodeButtonReference);
+                            // TODO If a node is updated the edges also have to be updated
                 			nodeList.get(i).setX(x);
                 			nodeList.get(i).setY(y);
                 			nodeList.get(i).setZ(z);
@@ -374,8 +505,9 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+                // TODO load the nodes and edges only on the currently selected map
+            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -384,7 +516,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -435,8 +567,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
-            	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
+            	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+            	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -450,6 +582,7 @@ public class MapTool extends Application{
             	}
             	
             	Edge newEdge = new Edge(fromNode, toNode, getDistance());
+                // TODO also add edge on global map
             	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
@@ -463,6 +596,7 @@ public class MapTool extends Application{
                 	 public void handle(MouseEvent event){
                 		if(delete) {
                 			NodePane.getChildren().remove(line);
+                            // TODO also remove from the global edge list
                 			edgeList.remove(newEdge);
                 			delete = false;
                 		}
@@ -485,8 +619,10 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
-            	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+               // TODO only load the selected map content
+               currentlySelectedMap = mapSelector.getValue();
+            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
+            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
             	
             	/* ^^^^^^^^^
@@ -495,7 +631,7 @@ public class MapTool extends Application{
             	 * OVERRIDE THEM.
             	 */
             	
-           		File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
@@ -524,7 +660,7 @@ public class MapTool extends Application{
     	gc.clearRect(0, 0, 800, 600);
     	int i;
     	
-        for( i = 0; i < edgeList.size(); i++){
+        for( i = 0; i < edgeList.size(); i++){ // TODO Iterate over local edge list
        		int j = i;
        		Line line = new Line();
        	//Determine the offset we need to use for the tool graph FROM NODE
@@ -586,7 +722,6 @@ public class MapTool extends Application{
     // Returns the distance between the two nodes, in pixels
     public int getDistance(){
     	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)) + (Math.pow(startZ - endZ, 2)));
-
     }
     
     // Draws the Places and Nodes on to the map
@@ -665,8 +800,8 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
+    	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
@@ -688,7 +823,7 @@ public class MapTool extends Application{
     
     private void saveGraphMethod(){
     	String nodeData = JsonParser.jsonToString(nodeList);
-    	String path = "Graphs/" + (String) mapSelector.getValue() + ".json";
+    	String path = currentlySelectedMap.getNodesPath();
     	try {
 			JsonParser.saveFile(nodeData, path);
 		} catch (IOException e) {
@@ -697,7 +832,7 @@ public class MapTool extends Application{
     	
     	//save edges
     	String edgeData = JsonParser.jsonToStringEdge(edgeList);
-    	String edgePath = "Graphs/" + (String) mapSelector.getValue() + "Edges.json";
+    	String edgePath = currentlySelectedMap.getEdgesPath();
     	try {
 			JsonParser.saveFile(edgeData, edgePath);
 		} catch (IOException e) {
