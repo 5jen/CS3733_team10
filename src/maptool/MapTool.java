@@ -43,7 +43,7 @@ import javafx.collections.ObservableList;
 public class MapTool extends Application{
 	boolean delete = false;
 	boolean startCoord, endCoord  = false;
-	double startX, startY, endX, endY = 0.0;
+	double startX, startY, startZ, endX, endY, endZ = 0.0;
 	int k = 0; // Set Max zoom Variable
 
     //Buildings
@@ -655,7 +655,7 @@ public class MapTool extends Application{
     
     // Returns the distance between the two nodes, in pixels
     public int getDistance(){
-    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
+    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)) + (Math.pow(startZ - endZ, 2)));
     }
     
     // Draws the Places and Nodes on to the map

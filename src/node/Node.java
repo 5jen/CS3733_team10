@@ -129,7 +129,7 @@ public class Node {
 	}
 
 	private int getDistance(Node n1, Node n2){
-		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
+		return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)) + (Math.pow(n1.getZ() - n2.getZ(), 2)));
 	}
 
 }
