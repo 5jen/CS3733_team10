@@ -3,6 +3,7 @@ package node;
 public class Map {
 
 	private String name;
+	private String initials; 
 	private String buildingName;
 	private String mapPath;
 	private String nodesPath;
@@ -13,8 +14,9 @@ public class Map {
 	private double conversionRatio;
 	private int floor;
 	
-	public Map(String n, String mP, String nP, String eP, double rc, int gtlcX, int gtlcY, double cr, int nf){
+	public Map(String n,String i, String mP, String nP, String eP, double rc, int gtlcX, int gtlcY, double cr, int nf){
 		name = n;
+		initials  = i;
         mapPath = mP;
         nodesPath = nP;
         edgesPath = eP;
@@ -29,6 +31,11 @@ public class Map {
         return buildingName;
     }
 
+    public String getInitials() {
+        return initials;
+    }
+
+    
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
     }
