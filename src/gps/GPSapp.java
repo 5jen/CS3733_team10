@@ -33,7 +33,7 @@ import node.Edge;
 import node.Node;
 import node.EdgeDataConversion;
 import node.Graph;
-
+import node.Map;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -93,14 +93,39 @@ public class GPSapp extends Application{
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
 
 	//Building Buildings with their content
-	Building AtwaterKent = new Building("AK", "Atwater Kent", -75, 1548, 594, 10, 3);
-	Building BoyntonHall = new Building("BH", "Boynton Hall", -85, 1496, 991, 10, 3);
-	Building CampusCenter = new Building("CC", "Campus Center", -80, 1175, 670, 10, 3);
-	Building GordonLibrary = new Building("GL", "Gordon Library", -100, 1668, 726, 10, 4);
-	Building HigginsHouse = new Building("HH", "Higgins House", -135, 1200, 451, 10, 2);
-	Building ProjectCenter = new Building("PC", "Project Center", 175, 1228, 772, 10, 3);
-	Building StrattonHall = new Building("SH", "Stratton Hall", 85, 1364, 898, 10, 4);
+  	Building AtwaterKent = new Building("Atwater Kent");
+  	Building BoyntonHall = new Building("Boynton Hall");
+  	Building CampusCenter = new Building("Campus Center");
+  	Building GordonLibrary = new Building("Gordon Library");
+  	Building HigginsHouse = new Building("Higgins House");
+  	Building ProjectCenter = new Building("Project Center");
+  	Building StrattonHall = new Building("Stratton Hall");
 	
+	//Map Buildings with their content
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+  
+	Map GordonLibrary1 = new Map("Gordon Library SB", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
+	Map GordonLibrary2 = new Map("Gordon Library B", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
+	Map GordonLibrary3 = new Map("Gordon Library 1", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
+	
+	Map BoyntonHall1 = new Map("Boynton Hall 1","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+	
+	Map CampusCenter1 = new Map("Campus Center 1", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
+	Map CampusCenter2 = new Map("Campus Center 2", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+
+	Map HigginsHouse1 = new Map("Higgins House 1", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
+	Map HigginsHouse2 = new Map("Higgins House 2", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
+	
+	Map ProjectCenter1 = new Map("Project Center 1", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
+	Map ProjectCenter2 = new Map("Project Center 2", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
+
+	Map StrattonHall1 = new Map("Stratton Hall 1", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
+	Map StrattonHall2 = new Map("Stratton Hall 2", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
+	Map StrattonHall3 = new Map("Stratton Hall 3", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
+	Map StrattonHall4 = new Map("Stratton Hall 4", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+
 	
 	final Label buildingSelected = new Label();
 	
@@ -116,6 +141,32 @@ public class GPSapp extends Application{
     public void start(Stage primaryStage) {
     	
     	final Pane root = new Pane();
+    	
+    	//Add Maps to buildings
+    	AtwaterKent.addMap(AtwaterKent1);
+    	AtwaterKent.addMap(AtwaterKent2);
+    	AtwaterKent.addMap(AtwaterKent3);
+    	
+    	GordonLibrary.addMap(GordonLibrary1);
+    	GordonLibrary.addMap(GordonLibrary2);
+    	GordonLibrary.addMap(GordonLibrary3);
+    	
+    	//BoyntonHall.addMap(BoyntonHall1);
+    	
+    	CampusCenter.addMap(CampusCenter1);
+    	CampusCenter.addMap(CampusCenter2);
+    	
+    	HigginsHouse.addMap(HigginsHouse1);
+    	HigginsHouse.addMap(HigginsHouse2);
+    	
+    	StrattonHall.addMap(StrattonHall1);
+    	StrattonHall.addMap(StrattonHall2);
+    	StrattonHall.addMap(StrattonHall3);
+    	StrattonHall.addMap(StrattonHall4);
+    	
+    	ProjectCenter.addMap(ProjectCenter1);
+    	ProjectCenter.addMap(ProjectCenter2);
+
     	
     	//
     	double width = 80;
@@ -392,7 +443,7 @@ public class GPSapp extends Application{
 		root.getChildren().add(bImage);
 		
 		//Attach Building label
-		final Label BuildingNameLabel = new Label(building.getfullName());
+		final Label BuildingNameLabel = new Label(building.getName());
 		BuildingNameLabel.setTextFill(Color.BLACK);
 		BuildingNameLabel.setFont(Font.font ("manteka", 30));
 		BuildingNameLabel.setLayoutX(20);
@@ -422,7 +473,7 @@ public class GPSapp extends Application{
     	//Load the layered Maps
 	    //convert to for loop
 	    int currentFloor = 0;
-    	for(int i = 1; i <= building.getNumFloors(); i++){
+    	for(int i = 1; i <= building.getNumMaps(); i++){
     		currentFloor = i;
     		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
     		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");//Change back to above
@@ -440,20 +491,20 @@ public class GPSapp extends Application{
    	     	//Add actions to each of the layered map buttons
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
-   	     				BuildingNameLabel.setText(building.getfullName()+" " + floor);
+   	     				BuildingNameLabel.setText(building.getName()+" " + floor);
    	     				//call load building here...
    	     				///
    	     			}
    	     	});
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
      			public void handle(MouseEvent event) {
-     				BuildingNameLabel.setText(building.getfullName());
+     				BuildingNameLabel.setText(building.getName());
      				
      			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
-   	     			BuildingNameLabel.setText(building.getfullName()+" " + floor);
+   	     			BuildingNameLabel.setText(building.getName()+" " + floor);
    	     			g1.setEffect(shadow);
    	     		}
    	     	});
