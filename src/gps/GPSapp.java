@@ -77,14 +77,6 @@ public class GPSapp extends Application{
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
 	
-	//Building Buttons
-	final Button AtwaterKentButton = new Button();
-	final Button CampusCenterButton = new Button();
-	final Button StrattonHallButton = new Button();
-	final Button BoyntonHallButton = new Button();
-	final Button GordonLibraryButton = new Button();
-	final Button HigginsHouseButton = new Button();
-	final Button ProjectCenterButton = new Button();
 	
 	//Groups to attach layered map 
 	//Group g1 = new Group(), g2 = new Group(), g3 = new Group();
@@ -123,23 +115,6 @@ public class GPSapp extends Application{
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
     	
-    	//Move building buttons to initial Locations (attach them to NodePane)
-    	AtwaterKentButton.setLayoutX(1548);
-    	AtwaterKentButton.setLayoutY(594);
-    	BoyntonHallButton.setLayoutX(1496);
-    	BoyntonHallButton.setLayoutY(991);
-    	CampusCenterButton.setLayoutX(1175);
-    	CampusCenterButton.setLayoutY(670);
-    	GordonLibraryButton.setLayoutX(1668);
-    	GordonLibraryButton.setLayoutY(726);
-    	HigginsHouseButton.setLayoutX(1200);
-    	HigginsHouseButton.setLayoutY(451);
-    	ProjectCenterButton.setLayoutX(1228);
-    	ProjectCenterButton.setLayoutY(772);
-    	StrattonHallButton.setLayoutX(1364);
-    	StrattonHallButton.setLayoutY(898);
-    	
-    	
     	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -172,8 +147,6 @@ public class GPSapp extends Application{
     	final Button findRouteButton = new Button("Find Route");
     	findRouteButton.relocate(650, 610);
 
-    	
-    	
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
         VBox DestSearch = new VBox();
@@ -243,7 +216,8 @@ public class GPSapp extends Application{
         final Group group = new Group(imageView, canvas, NodePane);
 	    Parent zoomPane = createZoomPane(group);
 	    
-	    highLight(NodePane);
+	    //add to load map...
+	    highLight(NodePane, imageView, root);
 	    
 	    root.getChildren().add(zoomPane);
 	    
@@ -522,41 +496,7 @@ public class GPSapp extends Application{
     
     private void drawNodes(LinkedList<Node> nodes, Pane NodePane, Pane root, TextField startText, TextField destText, ImageView imageView){
     	int i;
-    	if(mapSelector.getValue().equals("CampusMap")){
-    		NodePane.getChildren().addAll(AtwaterKentButton, BoyntonHallButton, CampusCenterButton, GordonLibraryButton, HigginsHouseButton, ProjectCenterButton, StrattonHallButton);
-    	    
-    	    //Add button actions to building buttons
-    	    AtwaterKentButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    	    	 public void handle(MouseEvent event) {
-    	    		 buildingSelected.setText(AtwaterKent.getName());
-    	    		 getMapSelector(AtwaterKent, root, imageView);
-    	    	 }
-    	     });
-    	    CampusCenterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    	    	 public void handle(MouseEvent event) {
-    	    		 buildingSelected.setText(CampusCenter.getName());
-    	    		 getMapSelector(CampusCenter, root, imageView);
-    	    	 }
-    	     });
-    	    GordonLibraryButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    	    	 public void handle(MouseEvent event) {
-    	    		 buildingSelected.setText(GordonLibrary.getName());
-    	    		 getMapSelector(GordonLibrary, root, imageView);
-    	    	 }
-    	     });
-    	    StrattonHallButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    	    	 public void handle(MouseEvent event) {
-    	    		 buildingSelected.setText(StrattonHall.getName());
-    	    		 getMapSelector(StrattonHall, root, imageView);
-    	    	 }
-    	     });
-    	    HigginsHouseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    	    	 public void handle(MouseEvent event) {
-    	    		 buildingSelected.setText(HigginsHouse.getName());
-    	    		 getMapSelector(HigginsHouse, root, imageView);
-    	    	 }
-    	     });
-    	}
+    	
     	for(i = 0; i < nodes.size(); i ++){ 
     		if(nodes.get(i).getIsPlace()){
         		Button newNodeButton = new Button("");
@@ -892,10 +832,11 @@ public class GPSapp extends Application{
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
+	    highLight(NodePane, imageView, root);
 	    
     }
     
-    public void highLight(Pane root){        
+    public void highLight(Pane NodePane, ImageView imageView, Pane root){        
         Polygon cc = new Polygon();
         cc.getPoints().addAll(new Double[]{
         	    1261.0, 649.0,
@@ -940,8 +881,13 @@ public class GPSapp extends Application{
                 cc.setFill(Color.TRANSPARENT);
         	}
         });
+        cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(CampusCenter, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(cc);
+        NodePane.getChildren().add(cc);
         
         
         Polygon olin = new Polygon();
@@ -967,8 +913,13 @@ public class GPSapp extends Application{
                 olin.setFill(Color.TRANSPARENT);
         	}
         });
+        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		//getMapSelector(OlinHall, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(olin);
+        NodePane.getChildren().add(olin);
 
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
@@ -993,8 +944,13 @@ public class GPSapp extends Application{
         		stratton.setFill(Color.TRANSPARENT);
         	}
         });
+        stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(StrattonHall, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(stratton);
+        NodePane.getChildren().add(stratton);
         
         Polygon library = new Polygon();
         library.getPoints().addAll(new Double[]{
@@ -1030,8 +986,14 @@ public class GPSapp extends Application{
         		library.setFill(Color.TRANSPARENT);
         	}
         });
+        library.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(GordonLibrary, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(library);
+        
+        NodePane.getChildren().add(library);
         
         
         Polygon ak = new Polygon();
@@ -1067,8 +1029,14 @@ public class GPSapp extends Application{
         		ak.setFill(Color.TRANSPARENT);
         	}
         });
+        ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(AtwaterKent, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(ak);
+        
+        NodePane.getChildren().add(ak);
         
         Polygon cdc = new Polygon();
         cdc.getPoints().addAll(new Double[]{
@@ -1094,8 +1062,13 @@ public class GPSapp extends Application{
         		cdc.setFill(Color.TRANSPARENT);
         	}
         });
+        cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(ProjectCenter, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(cdc);
+        NodePane.getChildren().add(cdc);
         
         Polygon higginsHouse = new Polygon();
         higginsHouse.getPoints().addAll(new Double[]{
@@ -1140,8 +1113,14 @@ public class GPSapp extends Application{
         		higginsHouse.setFill(Color.TRANSPARENT);
         	}
         });
+        higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(HigginsHouse, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(higginsHouse);
+        
+        NodePane.getChildren().add(higginsHouse);
         
         
         
@@ -1177,8 +1156,13 @@ public class GPSapp extends Application{
         		boyntonHall.setFill(Color.TRANSPARENT);
         	}
         });
+        boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		getMapSelector(BoyntonHall, root, imageView);
+        	}
+        });
         
-        root.getChildren().add(boyntonHall);
+        NodePane.getChildren().add(boyntonHall);
     }
     
 
