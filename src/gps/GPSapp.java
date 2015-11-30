@@ -56,7 +56,9 @@ public class GPSapp extends Application{
 
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
+	//Load Global Campus Nodes
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
+    //Load Global Campus Edges
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 650);
@@ -268,9 +270,11 @@ public class GPSapp extends Application{
            		DestText.clear();
                 StartList.setOpacity(0);
                 DestList.setOpacity(0);
+                // FIXME Loading a new map should not overwrite the global map node list
             	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-            	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-            	edgeList = convertEdgeData(edgeListConversion);
+            	// FIXME Same as above
+                edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+                edgeList = convertEdgeData(edgeListConversion);
 
             	graph = createGraph(new Graph(), nodeList, edgeList);
 

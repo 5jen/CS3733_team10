@@ -94,6 +94,7 @@ public class MapTool extends Application{
 
 
         // Create maps and add them to their respective buildings
+		// TODO Add more buildings and maps
         Campus.addMap(new Map("Campus Map", "CS3733_Graphics/CampusMap.png",
                     "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json",
                     0, 0, 0, 1, 1));
@@ -108,6 +109,7 @@ public class MapTool extends Application{
                     -1.308, 1548, 594, 1, 3));
 
         // Store the Buildings in a list
+        // TODO Add more buildings to this list
         LinkedList<Building> buildings = new LinkedList<>();
         buildings.add(Campus);
         buildings.add(AtwaterKent);
@@ -138,7 +140,7 @@ public class MapTool extends Application{
 
     	mapSelector.setValue(mapSelector.getItems().get(0));
 
-        // Shows Name of Map Objext in ComboBox dropdown
+        // Shows Name of Map Object in ComboBox dropdown
         mapSelector.setCellFactory(new Callback<ListView<Map>, ListCell<Map>>() {
             @Override
             public ListCell<Map> call(ListView<Map> param) {
@@ -338,8 +340,7 @@ public class MapTool extends Application{
                 	
                 	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue().getBuildingName(), mapSelector.getValue().getName(), true, isPlace.isSelected(), typeSelector.getValue());
 
-                    // TODO update to implement various factors
-
+                    // Set the Global X and Global Y.
                     newPlace.setGlobalX((int)((x*Math.cos(mapSelector.getValue().getRotationalConstant())
                             + y*Math.sin(mapSelector.getValue().getRotationalConstant()) +
                             mapSelector.getValue().getGlobalToLocalOffsetX()) *
@@ -348,6 +349,7 @@ public class MapTool extends Application{
                             + y*Math.cos(mapSelector.getValue().getRotationalConstant())
                             + mapSelector.getValue().getGlobalToLocalOffsetY()) *
                             (mapSelector.getValue().getConversionRatio())));
+                    // TODO This should also add to the global map nodes
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -421,6 +423,7 @@ public class MapTool extends Application{
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
                 			//root.getChildren().remove(nodeButtonReference);
+                            // TODO If a node is updated the edges also have to be updated
                 			nodeList.get(i).setX(x);
                 			nodeList.get(i).setY(y);
                 			nodeList.get(i).setZ(z);
@@ -444,6 +447,7 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
+                // TODO load the nodes and edges only on the currently selected map
             	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
             	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
@@ -520,6 +524,7 @@ public class MapTool extends Application{
             	}
             	
             	Edge newEdge = new Edge(fromNode, toNode, getDistance());
+                // TODO also add edge on global map
             	edgeList.add(newEdge);
             	Line line = new Line();
             	 line.setStartX(startX);
@@ -533,6 +538,7 @@ public class MapTool extends Application{
                 	 public void handle(MouseEvent event){
                 		if(delete) {
                 			NodePane.getChildren().remove(line);
+                            // TODO also remove from the global edge list
                 			edgeList.remove(newEdge);
                 			delete = false;
                 		}
@@ -555,6 +561,7 @@ public class MapTool extends Application{
            		nodeList.clear(); 
            		edgeListConversion.clear();
            		edgeList.clear();
+               // TODO only load the selected map content
             	nodeList = JsonParser.getJsonContent(mapSelector.getValue().getNodesPath());
             	edgeListConversion = JsonParser.getJsonContentEdge(mapSelector.getValue().getEdgesPath());
             	edgeList = convertEdgeData(edgeListConversion);
@@ -594,7 +601,7 @@ public class MapTool extends Application{
     	gc.clearRect(0, 0, 800, 600);
     	int i;
     	
-        for( i = 0; i < edgeList.size(); i++){
+        for( i = 0; i < edgeList.size(); i++){ // TODO Iterate over local edge list
        		int j = i;
        		Line line = new Line();
        	//Determine the offset we need to use for the tool graph FROM NODE
