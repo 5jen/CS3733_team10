@@ -40,11 +40,12 @@ public class JsonParser {
 	    		int globalY = job.getInt("globalY");
 	    		String name = job.getString("name");
 	    		String building = job.getString("building");
+				String floor = job.getString("floorMap");
 	    		boolean isWalk = job.getBoolean("isWalkable");
 	    		boolean isPlace = job.getBoolean("isPlace");
 	    		String type = job.getString("type");
 	    		
-	    		Node newNode = new Node(x, y, z, name, building, isWalk, isPlace, type);
+	    		Node newNode = new Node(x, y, z, name, building, floor, isWalk, isPlace, type);
 				newNode.setGlobalX(globalX);
 				newNode.setGlobalY(globalY);
 	    		nodeList.add(newNode);
@@ -132,6 +133,7 @@ public class JsonParser {
         	json.put("globalY", nodeList.get(i).getGlobalY());
         	json.put("name", nodeList.get(i).getName());
         	json.put("building", nodeList.get(i).getBuilding());
+            json.put("floorMap", nodeList.get(i).getFloorMap());
         	json.put("isWalkable", nodeList.get(i).getIsWalkable());
         	json.put("isPlace", nodeList.get(i).getIsPlace());
         	json.put("type", nodeList.get(i).getType());

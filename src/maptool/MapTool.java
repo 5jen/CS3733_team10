@@ -29,10 +29,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import node.Edge;
-import node.EdgeDataConversion;
-import node.Map;
-import node.Node;
+import node.*;
 
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -49,9 +46,11 @@ public class MapTool extends Application{
 	double startX, startY, endX, endY = 0.0;
 	int k = 0; // Set Max zoom Variable
 
-	public static void main(String[] args) {
-        launch(args);
-    }
+    //Buildings
+    Building Campus = new Building("Campus");
+    Building AtwaterKent = new Building("Atwater Kent");
+
+	public static void main(String[] args) {launch(args);}
 	
 	JsonParser json = new JsonParser();
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
@@ -72,22 +71,9 @@ public class MapTool extends Application{
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Place", "Transition Point", "Staircase", "Vending Machine", "Water Fountain");
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
-    
-    ObservableList<Map> mapOptions = FXCollections.observableArrayList(
-            // TODO THE CONVERSION RATIOS NEED TO BE CHANGED
-            new Map("Campus Map", "CS3733_Graphics/CampusMap.png",
-                    "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json",
-                    0, 0, 0, 1, 1),
-            new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png",
-                    "Graphs/AK1.json", "Graphs/AK1Edges.json",
-                    -1.308, 1548, 594, 1, 1),
-            new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png",
-                    "Graphs/AK2.json", "Graphs/AK2Edges.json",
-                    -1.308, 1548, 594, 1, 2),
-            new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png",
-                    "Graphs/AK3.json", "Graphs/AK3Edges.json",
-                    -1.308, 1548, 594, 1, 3)
-    );
+
+
+    ObservableList<Map> mapOptions = FXCollections.observableArrayList();
 	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
     
     final Label fromField = new Label("");
@@ -105,7 +91,36 @@ public class MapTool extends Application{
  
     @Override
     public void start(Stage primaryStage) {
-    	
+
+
+        // Create maps and add them to their respective buildings
+        Campus.addMap(new Map("Campus Map", "CS3733_Graphics/CampusMap.png",
+                    "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json",
+                    0, 0, 0, 1, 1));
+        AtwaterKent.addMap(new Map("Atwater Kent 1", "CS3733_Graphics/AK1.png",
+                    "Graphs/AK1.json", "Graphs/AK1Edges.json",
+                    -1.308, 1548, 594, 1, 1));
+        AtwaterKent.addMap(new Map("Atwater Kent 2", "CS3733_Graphics/AK2.png",
+                    "Graphs/AK2.json", "Graphs/AK2Edges.json",
+                    -1.308, 1548, 594, 1, 2));
+        AtwaterKent.addMap(new Map("Atwater Kent 3", "CS3733_Graphics/AK3.png",
+                    "Graphs/AK3.json", "Graphs/AK3Edges.json",
+                    -1.308, 1548, 594, 1, 3));
+
+        // Store the Buildings in a list
+        LinkedList<Building> buildings = new LinkedList<>();
+        buildings.add(Campus);
+        buildings.add(AtwaterKent);
+
+        // Iterate over the list of buildings and add their maps to another list
+        LinkedList<Map> maps = new LinkedList<>();
+        for (Building b : buildings){
+             maps.addAll(b.getMaps());
+        }
+
+        mapOptions.addAll(maps);
+
+
     	final Pane root = new Pane();
     	final Scene scene = new Scene(root, 1050, 700);//set size of scene
     	
@@ -119,6 +134,8 @@ public class MapTool extends Application{
     	mapSelectorLabel.setFont(Font.font ("manteka", 14));
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
+
+
     	mapSelector.setValue(mapSelector.getItems().get(0));
 
         // Shows Name of Map Objext in ComboBox dropdown
@@ -319,7 +336,7 @@ public class MapTool extends Application{
                         );
                 	}
                 	
-                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue().getName(), true, isPlace.isSelected(), typeSelector.getValue());
+                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) mapSelector.getValue().getBuildingName(), mapSelector.getValue().getName(), true, isPlace.isSelected(), typeSelector.getValue());
 
                     // TODO update to implement various factors
 
@@ -488,8 +505,8 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
-            	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
+            	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+            	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -716,8 +733,8 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", "", false, false, "");
+    	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){

@@ -16,6 +16,7 @@ public class Node {
 	private int globalX;
 	private int globalY;
 	private String building;
+	private String floorMap;
 	private String name;
 	private boolean isWalkable;
 	private boolean isPlace;
@@ -24,18 +25,27 @@ public class Node {
 	private double cost = 0;
 	private LinkedList<Edge> edges = new LinkedList<>();
 	
-	public Node(int valX, int valY, int valZ, String n, String b, boolean isWalk, boolean place, String t){
+	public Node(int valX, int valY, int valZ, String n, String b, String fM, boolean isWalk, boolean place, String t){
 		X = valX;
 		Y = valY;
 		Z = valZ;
 		building = b;
 		name = n;
+        floorMap = fM;
 		isWalkable = isWalk;
 		isPlace = place;
 		type = t;
 	}
-	
-	public String getName(){ return this.name; }
+
+    public String getFloorMap() {
+        return floorMap;
+    }
+
+    public void setFloorMap(String floorMap) {
+        this.floorMap = floorMap;
+    }
+
+    public String getName(){ return this.name; }
 	public void setName(String n){ this.name = n; }
 	
 	public int getX(){ return X; }

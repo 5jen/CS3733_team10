@@ -21,12 +21,12 @@ public class Building {
         return mMaps;
     }
 
-    private void addMap(Map map){
+    public void addMap(Map map){
         map.setBuildingName(mName);
         mMaps.add(map);
     }
 
-    private int getNumMaps(){
+    public int getNumMaps(){
         return mMaps.size();
     }
 
