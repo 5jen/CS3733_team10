@@ -98,7 +98,7 @@ public class MapTool extends Application{
 	String nodeReference = "";
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
-	
+	Button startButton = null, endButton = null;
     final TextField xField = new TextField("");  
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
@@ -128,8 +128,8 @@ public class MapTool extends Application{
     File mapFile = new File("CS3733_Graphics/CampusMap.png");
     Image mapImage = new Image(mapFile.toURI().toString());
     ImageView imageView = new ImageView();
-    
- 
+
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -184,9 +184,17 @@ public class MapTool extends Application{
 
 
     	final Pane root = new Pane();
-    	final Scene scene = new Scene(root, 1050, 700);//set size of scene
-    	
-    	//Set default Type
+    	 Scene scene = new Scene(root, 1050, 700);//set size of scene
+       // Scene scene = new Scene(root, 1050, 700);
+        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+
+        //add the cross image
+        File crossFile = new File("CS3733_Graphics/cross.png");
+        Image crossImage = new Image(crossFile.toURI().toString());
+        ImageView cross = new ImageView();
+        cross.setImage(crossImage);
+
+          	//Set default Type
     	typeSelector.setValue("Place");
     	
     	//Create a map selection drop down menu
@@ -357,6 +365,7 @@ public class MapTool extends Application{
             @Override  
             public void handle(ActionEvent event) {  
                 root.getChildren().remove(warningBox);
+                NodePane.getChildren().remove(cross);
             	int x = -1, y = -1, z = -1;
             	
             	/************************************************/
@@ -434,6 +443,7 @@ public class MapTool extends Application{
                             	delete = false;
                             }
                             else if(!startCoord){
+                                startButton = newNodeButton;
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
                             	fromField.setText(newPlace.getName());
@@ -449,6 +459,7 @@ public class MapTool extends Application{
                             	startCoord = true;
                             }
                             else if(!endCoord){
+                                endButton = newNodeButton;
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
                             	toField.setText(newPlace.getName());
@@ -576,10 +587,18 @@ public class MapTool extends Application{
             public void handle(MouseEvent event) {
             	//Set the location coordinates in the input boxes
             	xField.setText(Integer.toString((int)event.getX()));
-            	yField.setText(Integer.toString((int)event.getY()));
+            	yField.setText(Integer.toString((int) event.getY()));
+
+                if (NodePane.getChildren().contains(cross)) {
+                    NodePane.getChildren().remove(cross);
+                }
+                NodePane.getChildren().add(cross);
+                cross.relocate(event.getX() - 39, event.getY() - 40);
+
             }
         });
-        
+        //add a cross when click on the canvas
+
         deleteNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	delete = true;
@@ -614,6 +633,8 @@ public class MapTool extends Application{
                             }
                         }
                     });
+                    startButton.setId("round-red");
+                    endButton.setId("round-red");
                     NodePane.getChildren().add(line);
                 }
             }
@@ -992,6 +1013,7 @@ public class MapTool extends Application{
                     	delete = false;
                     }
                     else if(!startCoord){
+                        startButton = newNodeButton;
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
                     	fromField.setText(newPlace.getName());
@@ -1007,6 +1029,7 @@ public class MapTool extends Application{
                     	startCoord = true;
                     }
                     else if(!endCoord){
+                        endButton = newNodeButton;
                     	endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
