@@ -3,6 +3,7 @@ package maptool;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import io.JsonParser;
 import javafx.event.ActionEvent;
@@ -107,6 +108,9 @@ public class MapTool extends Application{
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
 
+    // Variables to store to and from nodes
+    Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
 
     ObservableList<Map> mapOptions = FXCollections.observableArrayList();
 	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
@@ -430,12 +434,14 @@ public class MapTool extends Application{
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
                             	fromField.setText(newPlace.getName());
+                                fromNode = newPlace;
                             	startCoord = true;
                             }
                             else if(!endCoord){
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
                             	toField.setText(newPlace.getName());
+                                toNode = newPlace;
                             	startCoord = false;
                             	endCoord = false;
                            	}
@@ -567,43 +573,30 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
-            	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
-                // FIXME Change this so that it can properly save the edge across different maps
-            	for(int i = 0; i < nodeList.size(); i ++){
 
-        			//check difference between place and node..
-        			if(nodeList.get(i).getName().equals(fromField.getText())){
-        				fromNode = nodeList.get(i);
-        			}
-        			if(nodeList.get(i).getName().equals(toField.getText())){
-        				toNode = nodeList.get(i);
-        			}
-        			
-            	}
-            	
-            	Edge newEdge = new Edge(fromNode, toNode, getDistance());
-                // TODO also add edge on global map
+            	Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
+                System.out.println(fromNode.getName());
+                System.out.println(toNode.getName());
             	edgeList.add(newEdge);
-            	Line line = new Line();
-            	 line.setStartX(startX);
-                 line.setStartY(startY);
-                 line.setEndX(endX);
-                 line.setEndY(endY);
-                 line.setStrokeWidth(3);
-                 line.setStyle("-fx-background-color:  #F0F8FF; ");
-                 
-                 line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-                	 public void handle(MouseEvent event){
-                		if(delete) {
-                			NodePane.getChildren().remove(line);
-                            // TODO also remove from the global edge list
-                			edgeList.remove(newEdge);
-                			delete = false;
-                		}
-                	 }
-                 });
-                 NodePane.getChildren().add(line);
+                if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
+                    Line line = new Line();
+                    line.setStartX(startX);
+                    line.setStartY(startY);
+                    line.setEndX(endX);
+                    line.setEndY(endY);
+                    line.setStrokeWidth(3);
+                    line.setStyle("-fx-background-color:  #F0F8FF; ");
+                    line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        public void handle(MouseEvent event) {
+                            if (delete) {
+                                NodePane.getChildren().remove(line);
+                                edgeList.remove(newEdge);
+                                delete = false;
+                            }
+                        }
+                    });
+                    NodePane.getChildren().add(line);
+                }
             }
         });
        
@@ -723,7 +716,11 @@ public class MapTool extends Application{
     // Returns the distance between the two nodes, in pixels
     // FIXME needs to be updated to calculate distance based on global coordinates and not local
     public int getDistance(){
-    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)) + (Math.pow(startZ - endZ, 2)));
+    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
+    }
+
+    public int getDistanceNodeFlat(Node n1, Node n2){
+        return (int) Math.sqrt((Math.pow((n1.getGlobalX() - n2.getGlobalX()), 2)) + (Math.pow((n1.getGlobalY() - n2.getGlobalY()), 2)));
     }
     
     // Draws the Places and Nodes on to the map
@@ -802,21 +799,21 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    	
+    	Node fromEdgeNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    	Node toEdgeNode = new Node(0, 0, 0, "", "", "", false, false, "");
+
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
 				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-					fromNode = nodeList.get(j);
+					fromEdgeNode = nodeList.get(j);
 				}
 				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
-					toNode = nodeList.get(j);
+					toEdgeNode = nodeList.get(j);
 				}
     		}
-    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+    		Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, getDistanceNodeFlat(fromEdgeNode, toEdgeNode));
 			edgeList.add(newEdge);
     	}
     	
