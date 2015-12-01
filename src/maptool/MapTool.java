@@ -434,15 +434,31 @@ public class MapTool extends Application{
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
                             	fromField.setText(newPlace.getName());
-                                fromNode = newPlace;
+                                fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                                fromNode.setGlobalX((int)((fromNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + fromNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                fromNode.setGlobalY((int)((-fromNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                        + fromNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                        (currentlySelectedMap.getConversionRatio())));
                             	startCoord = true;
                             }
                             else if(!endCoord){
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
                             	toField.setText(newPlace.getName());
-                                toNode = newPlace;
-                            	startCoord = false;
+                                toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                                toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                        + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                startCoord = false;
                             	endCoord = false;
                            	}
                     		//no matter what fill in this nodes data into the input box fields
@@ -654,40 +670,43 @@ public class MapTool extends Application{
     	gc.clearRect(0, 0, 800, 600);
     	int i;
     	
-        for( i = 0; i < edgeList.size(); i++){ // TODO Iterate over local edge list
+        for( i = 0; i < edgeList.size(); i++){
        		int j = i;
        		Line line = new Line();
-       	//Determine the offset we need to use for the tool graph FROM NODE
-       		if(edgeList.get(i).getFrom().getIsPlace()){
-       			line.setStartX(edgeList.get(i).getFrom().getX());
-                line.setStartY(edgeList.get(i).getFrom().getY());
-       		} else{
-       			line.setStartX(edgeList.get(i).getFrom().getX());
-                line.setStartY(edgeList.get(i).getFrom().getY());
-                
-       		}
-       		//Determine the offset we need to use for the tool graph TO NODE
-       		if(edgeList.get(i).getTo().getIsPlace()){
-       			line.setEndX(edgeList.get(i).getTo().getX());
-                line.setEndY(edgeList.get(i).getTo().getY());
-       		} else {
-       			line.setEndX(edgeList.get(i).getTo().getX());
-                line.setEndY(edgeList.get(i).getTo().getY());
-       		}
-       		line.setStrokeWidth(3);
-            
-               
-       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-              	public void handle(MouseEvent event){
-              		if(delete) {
-              			nodePane.getChildren().remove(line);
-              			edgeList.remove(edgeList.get(j));
-              			delete = false;
-              		}
-              	 }
-               });
-       		nodePane.getChildren().add(line);
-       		}
+
+            if (Objects.equals(edgeList.get(i).getFrom().getFloorMap(), edgeList.get(i).getTo().getFloorMap())) {
+                //Determine the offset we need to use for the tool graph FROM NODE
+                if (edgeList.get(i).getFrom().getIsPlace()) {
+                    line.setStartX(edgeList.get(i).getFrom().getX());
+                    line.setStartY(edgeList.get(i).getFrom().getY());
+                } else {
+                    line.setStartX(edgeList.get(i).getFrom().getX());
+                    line.setStartY(edgeList.get(i).getFrom().getY());
+
+                }
+                //Determine the offset we need to use for the tool graph TO NODE
+                if (edgeList.get(i).getTo().getIsPlace()) {
+                    line.setEndX(edgeList.get(i).getTo().getX());
+                    line.setEndY(edgeList.get(i).getTo().getY());
+                } else {
+                    line.setEndX(edgeList.get(i).getTo().getX());
+                    line.setEndY(edgeList.get(i).getTo().getY());
+                }
+                line.setStrokeWidth(3);
+
+
+                line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                        if (delete) {
+                            nodePane.getChildren().remove(line);
+                            edgeList.remove(edgeList.get(j));
+                            delete = false;
+                        }
+                    }
+                });
+                nodePane.getChildren().add(line);
+            }
+        }
 
        	drawNodes(nodeList, nodePane, fromField, toField);
 
@@ -769,12 +788,30 @@ public class MapTool extends Application{
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
                     	fromField.setText(newPlace.getName());
+                        fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                        fromNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                (currentlySelectedMap.getConversionRatio())));
+                        fromNode.setGlobalY((int)((-newPlace.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                + newPlace.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                (currentlySelectedMap.getConversionRatio())));
                     	startCoord = true;
                     }
                     else if(!endCoord){
                     	endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
+                        toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                        toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                (currentlySelectedMap.getConversionRatio())));
+                        toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                (currentlySelectedMap.getConversionRatio())));
                     	startCoord = false;
                     	endCoord = false;
                    	}
@@ -799,13 +836,13 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromEdgeNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    	Node toEdgeNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    	Node fromEdgeNode = null;
+    	Node toEdgeNode = null;
 
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < nodeList.size(); j ++){
+            for(int j = 0; j < nodeList.size(); j ++){
 				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
 					fromEdgeNode = nodeList.get(j);
 				}
@@ -813,7 +850,15 @@ public class MapTool extends Application{
 					toEdgeNode = nodeList.get(j);
 				}
     		}
-    		Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, getDistanceNodeFlat(fromEdgeNode, toEdgeNode));
+
+            if (fromEdgeNode == null){
+                fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
+            }
+            if (toEdgeNode == null){
+                toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+
+            }
+    		Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
     	
