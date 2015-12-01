@@ -1,1 +1,1 @@
-[]
+[{"valx":755,"globalY":655,"isWalkable":true,"globalX":755,"floorMap":"Campus Map","name":"qwe","isPlace":true,"type":"Place","valz":1,"building":"Campus","valy":655},{"valx":1011,"globalY":534,"isWalkable":true,"globalX":1011,"floorMap":"Campus Map","name":"qwe3","isPlace":false,"type":"Place","valz":1,"building":"Campus","valy":534},{"valx":1113,"globalY":420,"isWalkable":true,"globalX":1113,"floorMap":"Campus Map","name":"AKE","isPlace":false,"type":"Transition Point","valz":1,"building":"Campus","valy":420}]
