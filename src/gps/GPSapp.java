@@ -64,8 +64,8 @@ public class GPSapp extends Application{
 	
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
-	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -281,7 +281,6 @@ public class GPSapp extends Application{
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
-        
         
         
         //Removes top bar!! Maybe implement a custom one to look better
@@ -589,8 +588,8 @@ public class GPSapp extends Application{
 	}
     
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
-    	LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
-    	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
+    	LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
+    	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	LinkedList<Edge> TEMPedgeList = convertEdgeData(TEMPedgeListData);	
     	
     	//iterate through all of the Node json files and add them to the global graph
@@ -944,8 +943,8 @@ public class GPSapp extends Application{
    		DestText.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-    	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
+    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + (String) mapSelector.getValue() + ".json");
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + (String) mapSelector.getValue() + "Edges.json");
     	edgeList = convertEdgeData(edgeListConversion);
     	
     	//graph = createGraph(new Graph(), nodeList, edgeList);
