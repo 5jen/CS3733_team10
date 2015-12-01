@@ -88,8 +88,8 @@ public class MapTool extends Application{
 	public static void main(String[] args) {launch(args);}
 	
 	JsonParser json = new JsonParser();
-	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
