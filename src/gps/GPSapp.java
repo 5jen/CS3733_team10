@@ -74,10 +74,12 @@ public class GPSapp extends Application{
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
-	
-	//Groups to attach layered map 
-	//Group g1 = new Group(), g2 = new Group(), g3 = new Group();
-	
+	Parent zoomPane;
+	Label BuildingNameLabel = new Label();
+
+	//Groups to attach layered map
+	Group LayerGroup = new Group();
+
 	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AK1", "AK2", "AK3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
 
@@ -89,39 +91,39 @@ public class GPSapp extends Application{
   	Building HigginsHouse = new Building("Higgins House");
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
-	
+
 	//Map Buildings with their content
-	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 0.1312, 1);
 	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
 	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
-  
-	Map GordonLibrary1 = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
-	Map GordonLibrary2 = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
-	Map GordonLibrary3 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
-	
+
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 0.1187, -1);
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 0.1251, 0);
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 0.1194, 1);
+
 	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
-	
-	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
-	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 0.1695, 1);
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 0.166, 2);
 
 	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
 	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
-	
+
 	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
 	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
 
-	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
-	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
-	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
-	Map StrattonHall4 = new Map("Stratton Hall 4", "SH", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/SHB.json", "Graphs/SHB.json", 1.483, 1364, 898, 0.0804, 0);
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 0.0813, 1);
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 0.0766, 2);
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 0.0749, 3);
 
-	
+
 	final Label buildingSelected = new Label();
-	
+
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
 	final DropShadow shadow = new DropShadow();
-	
+
 	Path g1path = new Path();
 	 MoveTo g1moveTo = new MoveTo();
 	 LineTo g1lineTo = new LineTo();
@@ -130,39 +132,39 @@ public class GPSapp extends Application{
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
-    	
+
     	//Add Maps to buildings
     	AtwaterKent.addMap(AtwaterKent1);
     	AtwaterKent.addMap(AtwaterKent2);
     	AtwaterKent.addMap(AtwaterKent3);
-    	
+
+    	GordonLibrary.addMap(GordonLibrarySB);
+    	GordonLibrary.addMap(GordonLibraryB);
     	GordonLibrary.addMap(GordonLibrary1);
-    	GordonLibrary.addMap(GordonLibrary2);
-    	GordonLibrary.addMap(GordonLibrary3);
-    	
-    	//BoyntonHall.addMap(BoyntonHall1);
-    	
+
+    	BoyntonHall.addMap(BoyntonHall1);
+
     	CampusCenter.addMap(CampusCenter1);
     	CampusCenter.addMap(CampusCenter2);
-    	
+
     	HigginsHouse.addMap(HigginsHouse1);
     	HigginsHouse.addMap(HigginsHouse2);
-    	
+
+    	StrattonHall.addMap(StrattonHallB);
     	StrattonHall.addMap(StrattonHall1);
     	StrattonHall.addMap(StrattonHall2);
     	StrattonHall.addMap(StrattonHall3);
-    	StrattonHall.addMap(StrattonHall4);
-    	
+
     	ProjectCenter.addMap(ProjectCenter1);
     	ProjectCenter.addMap(ProjectCenter2);
 
-    	
+
     	//
     	double width = 80;
 	    double height = 60;
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
-    	
+
 
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -259,11 +261,20 @@ public class GPSapp extends Application{
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
 
+        imageView.setScaleX(0.75);
+		imageView.setScaleY(0.75);
+		imageView.relocate(-1000, -600);
+	    highLight(NodePane, imageView, root);
+		NodePane.setScaleX(0.75);
+		NodePane.setScaleY(0.75);
+		NodePane.relocate(-800, -518);
+
 	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 
         final Group group = new Group(imageView, canvas, NodePane);
-	    Parent zoomPane = createZoomPane(group);
+	    zoomPane = createZoomPane(group);
 	    
+
 	    //add to load map...
 	    highLight(NodePane, imageView, root);
 
@@ -275,11 +286,11 @@ public class GPSapp extends Application{
     	buildingSelected.setLayoutY(300);
 		root.getChildren().add(buildingSelected);
 
-	    
+
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	loadMap( root,  zoomPane,  imageView);
+            	loadMap( root,  imageView);
             }
         });
 
@@ -319,7 +330,7 @@ public class GPSapp extends Application{
                     drawRoute(gc, route);
 
                     final Group group = new Group(imageView, canvas, NodePane);
-            	    Parent zoomPane = createZoomPane(group);
+            	    zoomPane = createZoomPane(group);
             	    root.getChildren().add(zoomPane);
 
                     route = new LinkedList<Node>();
@@ -383,26 +394,28 @@ public class GPSapp extends Application{
 
     			}
             });
-    }  
-    
-    
+    }
+
+
     private void getMapSelector(Building building, Pane root, ImageView imageView) {
 	    root.getChildren().remove(canvas);
-	    
+	    root.getChildren().remove(zoomPane);
 	    //attach background over map
 	    File newBackground = new File("CS3733_Graphics/white.png");
      	final Image backgroundImage = new Image(newBackground.toURI().toString());
-         imageView.setImage(backgroundImage);
-   	     Pane NodePane = new Pane();
-         gc.clearRect(0, 0, 800, 600);
-         drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-         
-                       
-         final Group group = new Group(imageView, canvas, NodePane);
- 	    Parent zoomPane = createZoomPane(group);
- 	    root.getChildren().add(zoomPane);
+        imageView.setImage(backgroundImage);
+ 	    root.getChildren().add(imageView);
  	    
- 	   //Attach 3D image of building
+        gc.clearRect(0, 0, 800, 600);
+        //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+
+        Pane NodePane = new Pane();
+        final Group group = new Group(imageView, canvas, NodePane);
+        zoomPane = createZoomPane(group);
+
+
+ 	    //Attach 3D image of building
+ 	    
  		File buildingFile = new File("CS3733_Graphics/"+building.getMaps().get(0).getInitials()+".png");
  		final Image b = new Image(buildingFile.toURI().toString());
 		final ImageView bImage = new ImageView();
@@ -410,17 +423,17 @@ public class GPSapp extends Application{
 		bImage.setLayoutX(400);
 		bImage.setLayoutY(150);
 		root.getChildren().add(bImage);
-		
+
 		//Attach Building label
-		final Label BuildingNameLabel = new Label(building.getName());
+		BuildingNameLabel.setText(building.getName());
 		BuildingNameLabel.setTextFill(Color.BLACK);
 		BuildingNameLabel.setFont(Font.font ("manteka", 30));
 		BuildingNameLabel.setLayoutX(20);
 		BuildingNameLabel.setLayoutY(560);
-    	root.getChildren().addAll(BuildingNameLabel);
-    	
-//Attach Building label
-    	
+		root.getChildren().remove(BuildingNameLabel);
+    	root.getChildren().add(BuildingNameLabel);
+
+    	//Attach Building label
     	final Button BackButton = new Button("Back");
     	BackButton.setTextFill(Color.BLACK);
     	BackButton.setFont(Font.font ("manteka", 30));
@@ -432,16 +445,20 @@ public class GPSapp extends Application{
     				//b = null;
     	    		//bImage = null;
     	    		//backgroundImage = null;
+    				root.getChildren().remove(bImage);
     				root.getChildren().remove(BackButton);
-    				loadMap(root, zoomPane, imageView);
-    				
+    				loadMap(root, imageView);
+
     			}
     	});
-    	
- 	    
+
+
     	//Load the layered Maps
 	    //convert to for loop
 	    int currentFloor = 0;
+	    root.getChildren().remove(LayerGroup);
+	    LayerGroup.getChildren().clear();
+	    
     	for(int i = 1; i <= building.getNumMaps(); i++){
     		currentFloor = i-1;
     		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
@@ -450,11 +467,11 @@ public class GPSapp extends Application{
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
 
-    		
+
    	     	Group g1 = new Group();
    	     	g1.setEffect(pt);
    	     	g1.getChildren().add(mapImageView);
-   	     	
+
    	     	//used inside action scope
    	     	int floor = currentFloor;
    	     	//Add actions to each of the layered map buttons
@@ -468,7 +485,7 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
      			public void handle(MouseEvent event) {
      				BuildingNameLabel.setText(building.getName());
-     				
+
      			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -489,10 +506,10 @@ public class GPSapp extends Application{
 
    	     	g1.setLayoutX(120);
    	     	g1.setLayoutY(100-i*45);
-   	     	applyAnimation(g1, i); 
-   	     	root.getChildren().add(g1);
-
+   	     	applyAnimation(g1, i);
+   	     	LayerGroup.getChildren().add(g1);
     	}
+	    root.getChildren().add(LayerGroup);
 	}
 
     private void applyAnimation(Group g1, int i){
@@ -540,11 +557,11 @@ public class GPSapp extends Application{
     	}
     	return g;
     }
-    
-    
+
+
     private void drawNodes(LinkedList<Node> nodes, Pane NodePane, Pane root, TextField startText, TextField destText, ImageView imageView){
     	int i;
-    	
+
     	for(i = 0; i < nodes.size(); i ++){
     		if(nodes.get(i).getIsPlace()){
         		Button newNodeButton = new Button("");
@@ -842,8 +859,8 @@ public class GPSapp extends Application{
         double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
         return new Point2D(scrollXOffset, scrollYOffset);
       }
-    
-    private void loadMap(Pane root, Parent zoomPane, ImageView imageView){
+
+    private void loadMap(Pane root, ImageView imageView){
     	k = 0; // Reset Zoom Variable
 	    root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
@@ -857,34 +874,237 @@ public class GPSapp extends Application{
     	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
     	edgeList = convertEdgeData(edgeListConversion);
-    	
+
     	//graph = createGraph(new Graph(), nodeList, edgeList);
-    	
+
     	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
         imageView.setImage(mapImage);
+
         //add node buttons to the screen and populates the drop down menus
         LocationOptions.clear();
-        for(int i = 0; i < nodeList.size() - 1; i ++){ 
+        for(int i = 0; i < nodeList.size() - 1; i ++){
         	if(nodeList.get(i).getIsPlace())
         		LocationOptions.add(nodeList.get(i).getName());
         }
-        StartList.setItems(LocationOptions);      
+        StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
-        
+
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
+        switch (mapSelector.getValue()) {
+    	case "CampusMap": 	highLight(NodePane, imageView, root);
+							NodePane.setScaleX(0.75);
+							NodePane.setScaleY(0.75);
+							NodePane.relocate(-800, -518);
+							break;
+    	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "AK1":			imageView.setScaleX(0.5161);
+							imageView.setScaleY(0.5161);
+							imageView.relocate(-400, -300);
+							//NodePane.setScaleX(0.5161);
+							//NodePane.setScaleY(0.5161);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161);
+							//NodePane.setScaleY(0.5161);
+							//NodePane.relocate(-613, -441);
+							break;
+    	case "BHB":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH1":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "CC1":			imageView.setScaleX(0.6107);
+							imageView.setScaleY(0.6107);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.6107);
+							//NodePane.setScaleY(0.6107);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "CC2":			imageView.setScaleX(0.6127);
+							imageView.setScaleY(0.6127);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.6127);
+							//NodePane.setScaleY(0.6127);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "CC3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "GLSB":		imageView.setScaleX(0.5686);
+							imageView.setScaleY(0.5686);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5686);
+							//NodePane.setScaleY(0.5686);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "GLB":			imageView.setScaleX(0.5409);
+							imageView.setScaleY(0.5409);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5409);
+							//NodePane.setScaleY(0.5409);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "GL1":			imageView.setScaleX(0.5678);
+							imageView.setScaleY(0.5678);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5678);
+							//NodePane.setScaleY(0.5678);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
+    						imageView.setScaleY(0.5161); //Not Final Values
+    						imageView.relocate(-1000, -600); //Not Final Values
+    						//NodePane.setScaleX(0.5161); //Not Final Values
+    						//NodePane.setScaleY(0.5161); //Not Final Values
+    						//NodePane.relocate(-613, -441); //Not Final Values
+    						break;
+    	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "PC1":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "PC2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5161); //Not Final Values
+							//NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "SHB":			imageView.setScaleX(0.5464);
+							imageView.setScaleY(0.5464);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5464);
+							//NodePane.setScaleY(0.5464);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "SH1":			imageView.setScaleX(0.5583);
+							imageView.setScaleY(0.5583);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5583);
+							//NodePane.setScaleY(0.5583);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "SH2":			imageView.setScaleX(0.5556);
+							imageView.setScaleY(0.5556);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5556);
+							//NodePane.setScaleY(0.5556);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "SH3":			imageView.setScaleX(0.5544);
+							imageView.setScaleY(0.5544);
+							imageView.relocate(-1000, -600); //Not Final Values
+							//NodePane.setScaleX(0.5544);
+							//NodePane.setScaleY(0.5544);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+		}
         gc.clearRect(0, 0, 800, 600);
         drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
-                      
+
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
-	    highLight(NodePane, imageView, root);
-	    
+
     }
-    
-    public void highLight(Pane NodePane, ImageView imageView, Pane root){        
+
+    public void highLight(Pane NodePane, ImageView imageView, Pane root){
         Polygon cc = new Polygon();
         cc.getPoints().addAll(new Double[]{
         	    1261.0, 649.0,
@@ -913,9 +1133,9 @@ public class GPSapp extends Application{
         	    1252.0, 537.0,
         	    1302.0, 546.0,
         	    1285.0, 652.0});
-        
+
         cc.setFill(Color.TRANSPARENT);
-        
+
         cc.setStroke(Color.TRANSPARENT);
         cc.setStrokeWidth(1.0);
         cc.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -934,20 +1154,20 @@ public class GPSapp extends Application{
         		getMapSelector(CampusCenter, root, imageView);
         	}
         });
-        
+
         NodePane.getChildren().add(cc);
-        
-        
+
+
         Polygon olin = new Polygon();
         olin.getPoints().addAll(new Double[]{
-        	    
+
         	    1334.0, 510.0,
         	    1373.0, 516.0,
         	    1350.0, 662.0,
         	    1311.0, 656.0});
-        
+
         olin.setFill(Color.TRANSPARENT);
-        
+
         olin.setStroke(Color.TRANSPARENT);
         olin.setStrokeWidth(1.0);
         olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -963,22 +1183,22 @@ public class GPSapp extends Application{
         });
         olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		//getMapSelector(OlinHall, root, imageView);
+        		//getMapSelector(OlinHall, root, zoomPane, imageView);
         	}
         });
-        
+
         NodePane.getChildren().add(olin);
 
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
-        	    
+
         	    1377.0, 813.0,
         	    1416.0, 820.0,
         	    1403.0, 903.0,
         	    1363.0, 896.0});
-        
+
         stratton.setFill(Color.TRANSPARENT);
-        
+
         stratton.setStroke(Color.TRANSPARENT);
         stratton.setStrokeWidth(1.0);
         stratton.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -997,12 +1217,12 @@ public class GPSapp extends Application{
         		getMapSelector(StrattonHall, root, imageView);
         	}
         });
-        
+
         NodePane.getChildren().add(stratton);
-        
+
         Polygon library = new Polygon();
         library.getPoints().addAll(new Double[]{
-        	    
+
         	    1607.0, 712.0,
         	    1667.0, 725.0,
         	    1664.0, 742.0,
@@ -1018,9 +1238,9 @@ public class GPSapp extends Application{
         	    1588.0, 773.0,
         	    1593.0, 750.0
         	    });
-        
+
         library.setFill(Color.TRANSPARENT);
-        
+
         library.setStroke(Color.TRANSPARENT);
         library.setStrokeWidth(1.0);
         library.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -1039,14 +1259,14 @@ public class GPSapp extends Application{
         		getMapSelector(GordonLibrary, root, imageView);
         	}
         });
-        
-        
+
+
         NodePane.getChildren().add(library);
-        
-        
+
+
         Polygon ak = new Polygon();
         ak.getPoints().addAll(new Double[]{
-        	    
+
         	    1471.0, 439.0,
         	    1508.0, 460.0,
         	    1491.0, 490.0,
@@ -1061,9 +1281,9 @@ public class GPSapp extends Application{
         	    1452.0, 525.0,
         	    1429.0, 512.0
         	    });
-        
+
         ak.setFill(Color.TRANSPARENT);
-        
+
         ak.setStroke(Color.TRANSPARENT);
         ak.setStrokeWidth(1.0);
         ak.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -1082,21 +1302,21 @@ public class GPSapp extends Application{
         		getMapSelector(AtwaterKent, root, imageView);
         	}
         });
-        
-        
+
+
         NodePane.getChildren().add(ak);
-        
+
         Polygon cdc = new Polygon();
         cdc.getPoints().addAll(new Double[]{
-        	   
+
         	    1391.0, 732.0,
         	    1430.0, 738.0,
         	    1420.0, 804.0,
         	    1380.0, 797.0
         	    });
-        
+
         cdc.setFill(Color.TRANSPARENT);
-        
+
         cdc.setStroke(Color.TRANSPARENT);
         cdc.setStrokeWidth(1.0);
         cdc.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -1115,12 +1335,12 @@ public class GPSapp extends Application{
         		getMapSelector(ProjectCenter, root, imageView);
         	}
         });
-        
+
         NodePane.getChildren().add(cdc);
-        
+
         Polygon higginsHouse = new Polygon();
         higginsHouse.getPoints().addAll(new Double[]{
-        	    
+
         	    1130.0, 435.0,
         	    1154.0, 451.0,
         	    1159.0, 443.0,
@@ -1142,12 +1362,12 @@ public class GPSapp extends Application{
         	    1137.0, 487.0,
         	    1149.0, 471.0,
         	    1120.0, 450.0
-        	    
-        	    
+
+
         	    });
-        
+
         higginsHouse.setFill(Color.TRANSPARENT);
-        
+
         higginsHouse.setStroke(Color.TRANSPARENT);
         higginsHouse.setStrokeWidth(1.0);
         higginsHouse.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -1166,15 +1386,15 @@ public class GPSapp extends Application{
         		getMapSelector(HigginsHouse, root, imageView);
         	}
         });
-        
-        
+
+
         NodePane.getChildren().add(higginsHouse);
-        
-        
-        
+
+
+
         Polygon boyntonHall = new Polygon();
         boyntonHall.getPoints().addAll(new Double[]{
-        	    
+
         	    1406.0, 932.0,
         	    1435.0, 937.0,
         	    1434.0, 943.0,
@@ -1188,9 +1408,9 @@ public class GPSapp extends Application{
         	    1428.0, 980.0,
         	    1399.0, 975.0
         	    });
-        
+
         boyntonHall.setFill(Color.TRANSPARENT);
-        
+
         boyntonHall.setStroke(Color.TRANSPARENT);
         boyntonHall.setStrokeWidth(1.0);
         boyntonHall.setOnMouseEntered(new EventHandler <MouseEvent>(){
@@ -1209,7 +1429,7 @@ public class GPSapp extends Application{
         		getMapSelector(BoyntonHall, root, imageView);
         	}
         });
-        
+
         NodePane.getChildren().add(boyntonHall);
     }
 
