@@ -316,7 +316,7 @@ public class GPSapp extends Application{
         //Add button actions
         findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	gc.clearRect(0, 0, 800, 600); // Clears old path
+            	gc.clearRect(0, 0, 8000, 6000); // Clears old path
             	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
             		//TEMP TO TEST WITH HARDCODED INSTRUCTIONS!!!
             		//Display the directions on the side
@@ -498,7 +498,7 @@ public class GPSapp extends Application{
         imageView.setImage(backgroundImage);
  	    root.getChildren().add(imageView);
  	    
-        gc.clearRect(0, 0, 800, 600);
+        gc.clearRect(0, 0, 8000, 6000);
         //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 
         Pane NodePane = new Pane();
@@ -1219,7 +1219,7 @@ public class GPSapp extends Application{
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
 		}
-        gc.clearRect(0, 0, 800, 600);
+        gc.clearRect(0, 0, 8000, 6000);
         drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
 
         final Group group = new Group(imageView, canvas, NodePane);
