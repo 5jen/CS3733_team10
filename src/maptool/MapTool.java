@@ -57,39 +57,38 @@ public class MapTool extends Application{
     Building ProjectCenter = new Building("Project Center");
     Building StrattonHall = new Building("Stratton Hall");
 
-    // Maps
-    // TODO Add more maps
-    Map CampusMap = new Map("Campus Map", "CM", "CS3733_Graphics/CampusMap.png", "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json", 0, 0, 0, 1, 1);
+    //Map Buildings with their content
+  	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 1, "");
+  	
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK1", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
+    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK2", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -1.308, 1548, 594, 1, "2");
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK3", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -1.308, 1548, 594, 1, "3");
+//FIXME INITIALS
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
 
-    Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
-    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
-    Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 1, "1");
 
-    Map GordonLibrary1 = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
-    Map GordonLibrary2 = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
-    Map GordonLibrary3 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/C1.json", 1.396, 1175, 670, 0.1695, "1");
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2.json", 1.396, 1175, 670, 0.166, "2");
 
-    Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1.json", -2.355, 1200, 451, 1, "1");
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2.json", -2.355, 1200, 451, 1, "2");
 
-    Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
-    Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1.json", 3.053, 1228, 772, 1, "1");
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2.json", 3.053, 1228, 772, 1, "2");
 
-    Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
-    Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
-
-    Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
-    Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
-
-    Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
-    Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
-    Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
-    Map StrattonHall4 = new Map("Stratton Hall 4", "SH", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHB.json", 1.483, 1364, 898, 0.0804, "B");
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1.json", 1.483, 1364, 898, 0.0813, "1");
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2.json", 1.483, 1364, 898, 0.0766, "2");
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3.json", 1.483, 1364, 898, 0.0749, "3");
 
 	public static void main(String[] args) {launch(args);}
 	
 	JsonParser json = new JsonParser();
-	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/CampusMap.json");
-	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/CampusMapEdges.json");
+	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
+	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -133,32 +132,32 @@ public class MapTool extends Application{
 
         // Create maps and add them to their respective buildings
 		// TODO Add more buildings and maps
-        //Add Maps to buildings
-        Campus.addMap(CampusMap);
+    	//Add Maps to buildings
+    	Campus.addMap(CampusMap);
+    	
+    	AtwaterKent.addMap(AtwaterKent1);
+    	AtwaterKent.addMap(AtwaterKent2);
+    	AtwaterKent.addMap(AtwaterKent3);
 
-        AtwaterKent.addMap(AtwaterKent1);
-        AtwaterKent.addMap(AtwaterKent2);
-        AtwaterKent.addMap(AtwaterKent3);
+    	GordonLibrary.addMap(GordonLibrarySB);
+    	GordonLibrary.addMap(GordonLibraryB);
+    	GordonLibrary.addMap(GordonLibrary1);
 
-        GordonLibrary.addMap(GordonLibrary1);
-        GordonLibrary.addMap(GordonLibrary2);
-        GordonLibrary.addMap(GordonLibrary3);
+    	BoyntonHall.addMap(BoyntonHall1);
 
-        //BoyntonHall.addMap(BoyntonHall1);
+    	CampusCenter.addMap(CampusCenter1);
+    	CampusCenter.addMap(CampusCenter2);
 
-        CampusCenter.addMap(CampusCenter1);
-        CampusCenter.addMap(CampusCenter2);
+    	HigginsHouse.addMap(HigginsHouse1);
+    	HigginsHouse.addMap(HigginsHouse2);
 
-        HigginsHouse.addMap(HigginsHouse1);
-        HigginsHouse.addMap(HigginsHouse2);
+    	StrattonHall.addMap(StrattonHallB);
+    	StrattonHall.addMap(StrattonHall1);
+    	StrattonHall.addMap(StrattonHall2);
+    	StrattonHall.addMap(StrattonHall3);
 
-        StrattonHall.addMap(StrattonHall1);
-        StrattonHall.addMap(StrattonHall2);
-        StrattonHall.addMap(StrattonHall3);
-        StrattonHall.addMap(StrattonHall4);
-
-        ProjectCenter.addMap(ProjectCenter1);
-        ProjectCenter.addMap(ProjectCenter2);
+    	ProjectCenter.addMap(ProjectCenter1);
+    	ProjectCenter.addMap(ProjectCenter2);
 
         // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -338,7 +337,11 @@ public class MapTool extends Application{
         
 
         Pane NodePane = new Pane();
-        NodePane.setPrefSize(8000, 6000);
+        imageView.setScaleX(0.75);
+		imageView.setScaleY(0.75);
+		imageView.relocate(-1000, -600);
+        NodePane.setPrefSize(2450, 1250);
+        NodePane.relocate(-591, -394);
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
         final Group group = new Group(imageView, NodePane);
@@ -612,6 +615,7 @@ public class MapTool extends Application{
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
         	   	k = 0; // Reset Zoom Variable
+        	   	
         	   	NodePane.getChildren().clear();
         	   	//clear existing node list
         	   	root.getChildren().remove(zoomPane);
@@ -636,8 +640,211 @@ public class MapTool extends Application{
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
-           		imageView.setLayoutX(0);  
-           		imageView.setLayoutY(0);
+        	    NodePane.relocate(0, 0);
+           		
+           		switch (mapSelector.getValue().getInitials()) {
+            	case "CampusMap": 	imageView.setScaleX(0.75);
+        							imageView.setScaleY(0.75);
+        							imageView.relocate(-1000, -600);
+        							NodePane.relocate(-591, -394);
+        							break;
+            	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "AK1":			imageView.setScaleX(0.5161);
+        							imageView.setScaleY(0.5161);
+        							imageView.relocate(-400, -300);
+        							//NodePane.setScaleX(0.5161);
+        							//NodePane.setScaleY(0.5161);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161);
+        							//NodePane.setScaleY(0.5161);
+        							//NodePane.relocate(-613, -441);
+        							break;
+            	case "BHB":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH1":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "CC1":			imageView.setScaleX(0.6107);
+        							imageView.setScaleY(0.6107);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.6107);
+        							//NodePane.setScaleY(0.6107);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "CC2":			imageView.setScaleX(0.6127);
+        							imageView.setScaleY(0.6127);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.6127);
+        							//NodePane.setScaleY(0.6127);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "CC3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "GLSB":		imageView.setScaleX(0.5686);
+        							imageView.setScaleY(0.5686);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5686);
+        							//NodePane.setScaleY(0.5686);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "GLB":			imageView.setScaleX(0.5409);
+        							imageView.setScaleY(0.5409);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5409);
+        							//NodePane.setScaleY(0.5409);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "GL1":			imageView.setScaleX(0.5678);
+        							imageView.setScaleY(0.5678);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5678);
+        							//NodePane.setScaleY(0.5678);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+        		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
+            						imageView.setScaleY(0.5161); //Not Final Values
+            						imageView.relocate(-1000, -600); //Not Final Values
+            						//NodePane.setScaleX(0.5161); //Not Final Values
+            						//NodePane.setScaleY(0.5161); //Not Final Values
+            						//NodePane.relocate(-613, -441); //Not Final Values
+            						break;
+            	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "PC1":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "PC2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5161); //Not Final Values
+        							//NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "SHB":			imageView.setScaleX(0.5464);
+        							imageView.setScaleY(0.5464);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5464);
+        							//NodePane.setScaleY(0.5464);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "SH1":			imageView.setScaleX(0.5583);
+        							imageView.setScaleY(0.5583);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5583);
+        							//NodePane.setScaleY(0.5583);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "SH2":			imageView.setScaleX(0.5556);
+        							imageView.setScaleY(0.5556);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5556);
+        							//NodePane.setScaleY(0.5556);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "SH3":			imageView.setScaleX(0.5544);
+        							imageView.setScaleY(0.5544);
+        							imageView.relocate(-1000, -600); //Not Final Values
+        							//NodePane.setScaleX(0.5544);
+        							//NodePane.setScaleY(0.5544);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+        		}
            		
                 drawEdges(edgeList, gc, NodePane);
                              
@@ -714,7 +921,7 @@ public class MapTool extends Application{
     
     //check to see if node coordinates are within map bounds
     public boolean isInBounds(int x, int y){
-    	if(x > 800 || y > 600 || x < 0 || y < 0){
+    	if(x < 0 || y < 0){
     		return false;
         }
     	return true;

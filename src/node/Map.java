@@ -12,9 +12,9 @@ public class Map {
 	private int globalToLocalOffsetX;
 	private int globalToLocalOffsetY;
 	private double conversionRatio;
-	private int floor;
+	private String floor;
 
-	public Map(String n, String i, String mP, String nP, String eP, double rc, int gtlcX, int gtlcY, double cr, int nf) {
+	public Map(String n, String i, String mP, String nP, String eP, double rc, int gtlcX, int gtlcY, double cr, String nf) {
 		name = n;
 		initials = i;
 		mapPath = mP;
@@ -99,7 +99,7 @@ public class Map {
 		this.conversionRatio = x;
 	}
 
-	public int getFloor() {
+	public String getFloor() {
 		return floor;
 	}
 }
