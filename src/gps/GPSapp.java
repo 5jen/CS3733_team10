@@ -47,6 +47,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -191,14 +192,22 @@ public class GPSapp extends Application{
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
+    	mapSelectorLabel.setFont(Font.font ("manteka", 20));
+    	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
-    	mapSelectionBoxV.setLayoutY(20);
+    	mapSelectionBoxV.setLayoutY(10);
     	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
     	
-    	
+    	//create Label for directions
+		Label directionsTitle = new Label("Directions");
+		directionsTitle.setTextFill(Color.WHITE);
+		directionsTitle.setFont(Font.font ("manteka", 20));
+		directionsTitle.setLayoutX(820);
+    	directionsTitle.setLayoutY(80);
+		
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0); 
     	final Label warningLabel = new Label("");
@@ -206,7 +215,6 @@ public class GPSapp extends Application{
     	warningBox.setLayoutX(10);
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel); 
-    	
     	
     	//Initialize the Drop down menu for initial Map
     	for(int i = 0; i < nodeList.size() ; i ++){ 
@@ -216,7 +224,7 @@ public class GPSapp extends Application{
     	
     	//Find Route Button
     	final Button findRouteButton = new Button("Find Route");
-    	findRouteButton.relocate(650, 610);
+    	findRouteButton.relocate(640, 640);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -227,17 +235,27 @@ public class GPSapp extends Application{
         DestList.setMaxHeight(75);
         StartList.setItems(LocationOptions);      
         DestList.setItems(LocationOptions);
-        StartSearch.relocate(300, 610);
-        StartSearch.getChildren().addAll(DestText, DestList);
-        DestSearch.relocate(20, 610);
-        DestSearch.getChildren().addAll(StartText, StartList);
+        StartSearch.relocate(20, 640);
+        StartSearch.getChildren().addAll(StartText, StartList);
+        DestSearch.relocate(300, 640);
+        DestSearch.getChildren().addAll(DestText, DestList);
         StartList.setOpacity(0);
         DestList.setOpacity(0);
         
+        //create Label for Start and Destination 
+        Label StartLabel = new Label("Start");
+        StartLabel.setTextFill(Color.WHITE);
+        StartLabel.setFont(Font.font ("manteka", 20));
+        StartLabel.setLayoutX(20);
+        StartLabel.setLayoutY(610);
+        Label DestLabel = new Label("Destination");
+        DestLabel.setTextFill(Color.WHITE);
+        DestLabel.setFont(Font.font ("manteka", 20));
+        DestLabel.setLayoutX(300);
+        DestLabel.setLayoutY(610);
         
         //Labels for the direction
         //MOVE TO METHOD AND USE FOR LOOP ONCE WE HAVE THE ROUTE CALCULATED
-      
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/CampusMap.png");
@@ -272,6 +290,7 @@ public class GPSapp extends Application{
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
+        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
         
         
         //Removes top bar!! Maybe implement a custom one to look better
@@ -302,9 +321,6 @@ public class GPSapp extends Application{
 	    highLight(NodePane, imageView, root);
 	    
 	    root.getChildren().add(zoomPane);
-	    	
-
-
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -428,14 +444,15 @@ public class GPSapp extends Application{
     	VBox directionBox = new VBox(2);
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
-		Label directionsTitle = new Label("Directions:");
-		directionsTitle.setTextFill(Color.WHITE);
-		directionsTitle.setFont(Font.font ("manteka", 20));
-		directionsTitle.underlineProperty();
-		directionBox.getChildren().add(directionsTitle);
+    	
+		
 
     	//add a possible scroll box for long routes..
-		
+		ScrollPane s1 = new ScrollPane();
+		 s1.setPrefSize(220, 400);
+		 s1.setLayoutX(820);
+		 s1.setLayoutY(110);
+		 
 		
     	//or eventually break up into multiple sections of instructions based
     	//on current map displayed
@@ -448,30 +465,44 @@ public class GPSapp extends Application{
     	
     	 /** TABLE TO ID THE IMAGE TO ADD
          * icon_id               icon
-         *  1                  up_stair
-         *  2                  down_stair
-         *  3                  turn left
-         *  4                  turn right
-         *  33                 sharp left
-         *  44                 sharp right
-         *  39                 slight left
-         *  52                 slight right
-         *  0                  straight
-         *  5                  switch map(for transition point)
+         *  1                  -up_stair
+         *  2                  -down_stair
+         *  3                  -turn left
+         *  4                  -turn right
+         *  33                 -sharp left
+         *  44                 -sharp right
+         *  39                 -slight left
+         *  52                 -slight right
+         *  0                  -straight
+         *  5                  -switch map(for transition point)
          */
     	//Hard Coded Example to see how the UI looks
     	LinkedList<Step> directions = new LinkedList<Step>();
-    	Step step1 = new Step(3, "Turn Left  ", 10);
-    	Step step2 = new Step(39, "Slight Left  ", 20);
-    	Step step3 = new Step(52, "Slight Right  ", 5);
+    	Step step1 = new Step(1, "up staris  ", 10);
+    	Step step2 = new Step(2, "down stiar ", 20);
+    	Step step3 = new Step(3, "turn left  ", 5);
+    	Step step4 = new Step(4, "turn right  ", 10);
+    	Step step5 = new Step(33, "sharp left  ", 20);
+    	Step step6 = new Step(44, "sharp Right  ", 5);
+    	Step step7 = new Step(39, "slight Left  ", 10);
+    	Step step8 = new Step(52, "slight right  ", 20);
+    	Step step9 = new Step(0, "straight  ", 5);
+    	Step step10 = new Step(5, "switch map  ", 5);
     	directions.add(step1);
     	directions.add(step2);
     	directions.add(step3);
+    	directions.add(step4);
+    	directions.add(step5);
+    	directions.add(step6);
+    	directions.add(step7);
+    	directions.add(step8);
+    	directions.add(step9);
+    	directions.add(step10);
 
-    	
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
     		HBox StepBox = new HBox(2);
+    		//StepBox.setStyle("-fx-border-color: black;");
     		
     		Label newDirection = new Label(directions.get(i).getMessage() +directions.get(i).getDistance());
     		
@@ -479,11 +510,13 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
+            Line breakLine = new Line(0, 0, 200, 0);
+            breakLine.setLayoutX(10);
     		StepBox.getChildren().addAll(arrowView, newDirection);
-    		directionBox.getChildren().add(StepBox);
+    		directionBox.getChildren().addAll(StepBox, breakLine);
     	}
-    	
-    	root.getChildren().add(directionBox);
+    	s1.setContent(directionBox);
+    	root.getChildren().add(s1);
     	return;
     	
     }
@@ -1231,6 +1264,26 @@ public class GPSapp extends Application{
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
+	    
+	    //add back button to graph
+	    if(!mapSelector.getValue().equals("CampusMap")){
+	    	
+	    	//Attach Building label
+	    	final Button BackButton = new Button("Back");
+	    	BackButton.setTextFill(Color.BLACK);
+	    	BackButton.setFont(Font.font ("manteka", 30));
+	    	BackButton.setLayoutX(650);
+	    	BackButton.setLayoutY(530);
+	    	root.getChildren().addAll(BackButton);
+	    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	    			public void handle(MouseEvent event) {
+	    				root.getChildren().remove(BackButton);
+	    				//make global building to store what building were looking at
+	    				getMapSelector(CampusCenter, root, imageView);
+
+	    			}
+	    	});
+	    }
 
     }
 
