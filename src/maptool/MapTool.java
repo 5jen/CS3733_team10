@@ -569,6 +569,7 @@ public class MapTool extends Application{
             public void handle(MouseEvent event) {
             	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
             	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
+                // FIXME Change this so that it can properly save the edge across different maps
             	for(int i = 0; i < nodeList.size(); i ++){
 
         			//check difference between place and node..
@@ -720,6 +721,7 @@ public class MapTool extends Application{
     }
     
     // Returns the distance between the two nodes, in pixels
+    // FIXME needs to be updated to calculate distance based on global coordinates and not local
     public int getDistance(){
     	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)) + (Math.pow(startZ - endZ, 2)));
     }
