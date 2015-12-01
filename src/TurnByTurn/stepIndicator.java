@@ -1,5 +1,5 @@
-package TurnByTurn;
 
+package TurnByTurn;
 
 import node.Node;
 
@@ -22,18 +22,19 @@ public class stepIndicator {
     }
 
 
-    public LinkedList<String> lInstructions(){
+    public LinkedList<Step> lInstructions(){
 
         //Current static indicator;
-        LinkedList<String> result = new LinkedList<>();
-        result.addFirst("Strating nevigation.");
+        LinkedList<Step> result = new LinkedList<>();
+        //TODO add starting case
 
         int i = 1;
-        while (i<route.size()-1){
+        while (i<route.size()- 1){
             int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
-            //System.out.println(angle);
-            //String name = route.get(i).getName();
             String message;
+            String maneuver;
+            //the type for a node
+            String type = route.get(i).getType();
 
             int x1;//previous x
             int y1;//previous y
@@ -42,15 +43,59 @@ public class stepIndicator {
             int x3;//next x
             int y3;//next y
 
+            int icon_id=0;//the icon_id for the instruction
+
             x1 = route.get(i-1).getX();
             y1 = route.get(i-1).getY();
             x2 = route.get(i).getX();
             y2 = route.get(i).getY();
             x3 = route.get(i+1).getX();
             y3 = route.get(i+1).getY();
-
-
-            //TODO Add distance between points and left turn case
+            // Transition point between maps
+            if (type.compareTo("Transition Point")==0) {
+                i++;//skip transition points in pairs
+                String map = route.get(i).getFloorMap();
+                //TODO convert map name to actual name
+                maneuver = "Go to ";//need to add building floor name
+                icon_id = 5;
+                message = maneuver + map;
+            }
+            else {
+                if (type.compareTo("Staircase") == 0){
+                    int z1 = route.get(i-1).getZ();
+                    int z2 = route.get(i+1).getZ();
+                    i++;//skip staircase in pairs
+                    if (z1>z2) {maneuver = "up stair"; icon_id=1;}
+                    else {maneuver = "down stair";icon_id =2;}
+                    message = "Go "+ maneuver;
+                }
+                else {
+                    if (getTurnDirection(x1,y1,x2,y2,x3,y3) == 1 ) {
+                        maneuver = "left";
+                        icon_id = 3;
+                    }
+                    else if (getTurnDirection(x1,y1,x2,y2,x3,y3) == -1 ){
+                        maneuver = "right";
+                        icon_id = 4;
+                    }
+                    else maneuver = "straight";
+                    // Determine the strength
+                    if ((0 < angle) && (angle < 45)) {
+                        maneuver = "sharp "+ maneuver;
+                        icon_id = icon_id*11;
+                    }
+                    else if ((120 < angle) && (angle < 160)) {
+                        maneuver = "slight "+ maneuver;
+                        icon_id = icon_id*13;
+                    }
+                    else {
+                        maneuver = "straight";
+                    }
+                    if (maneuver.compareTo("straight")==0) message = "Keep "+maneuver;
+                    else message = "Turn "+maneuver;
+                }
+            }
+            /** IGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNORE
             if (getTurnDirection(x1,y1,x2,y2,x3,y3)==1) {
                 if ((0 < angle) && (angle < 45)) {
                     message = "Turn sharp right";
@@ -73,28 +118,28 @@ public class stepIndicator {
                     message = "Keep straight";
                 }
             }
-            //TODO revise this
-            else message = "Go straight";
-
-            result.addLast(message);
-            i++;
+             IGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNORE*/
+            //TODO create a class for instructions
             /**
-             else if (i == route.size()-1) {
-             message = "You are reaching your destination after ";
-             }*/
-        }
+             * icon_id               icon
+             *  1                  up_stair
+             *  2                  down_stair
+             *  3                  turn left
+             *  4                  turn right
+             *  33                 sharp left
+             *  44                 sharp right
+             *  39                 slight left
+             *  52                 slight right
+             *  0                  straight
+             *  5                  switch map(for transition point)
+             */
 
-        // Print out the result
-        for (i=0;i<route.size()-1;i++){
-            System.out.println(result.get(i));
+             result.addLast(new Step(icon_id,message,getDistanceInFeet(1,1)));
+
+             i++;
         }
 
         return result;
-    }
-
-    public String nextStep(int px, int py, int cx, int cy){
-        return "";
-
     }
 
     /**
@@ -119,14 +164,6 @@ public class stepIndicator {
         x3 = c.getX();
         y3 = c.getY();
 
-
-        if (false) {
-            System.out.println(x1);
-            System.out.println(y1);
-            System.out.println(x2);
-            System.out.println(y2);
-        }
-
         int ba_x = x1 - x2;
         int ba_y = y1 - y2;
         int bc_x = x3 - x2;
@@ -140,10 +177,17 @@ public class stepIndicator {
 
         double cos = dot_product/(absMA*absMB);
 
-        if (false) {System.out.println(cos);}
         return (int) (180*Math.acos(cos)/(Math.PI));
     }
 
+    /**
+     * Get slope of the line between two node
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return the slope of the line connecting these two points
+     */
     public double getSlope(int x1,int y1, int x2, int y2){
         double result;
         result = (double)(y2-y1)/(x2-x1);
@@ -169,7 +213,7 @@ public class stepIndicator {
      * @return
      */
     public int getTurnDirection(int x1,int y1,int x2,int y2,int x3,int y3){
-        int result = 0 ;
+        int result;
         double tempSlope1;
         double tempSlope2;
         tempSlope1 = getSlope(x1,y1,x3,y3);
@@ -194,5 +238,18 @@ public class stepIndicator {
         }
         return result;
     }
+
+    /**
+     * Return the actual distance when given the scaling of the map
+     * @param scale is the scaling of the map
+     * @param px is the # of pixle calculated by nodes
+     * @return
+     */
+    public int getDistanceInFeet(int scale,int px){
+        return px*scale;
+    }
+
+
+
 
 }

@@ -3,7 +3,8 @@ package gps;
 import java.io.File;
 import java.util.LinkedList;
 
-
+import TurnByTurn.Step;
+import TurnByTurn.stepIndicator;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -324,7 +325,9 @@ public class GPSapp extends Application{
             public void handle(MouseEvent event) {
             	gc.clearRect(0, 0, 800, 600); // Clears old path
             	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
-            		
+            		//TEMP TO TEST WITH HARDCODED INSTRUCTIONS!!!
+            		//Display the directions on the side
+                    displayInstructions(null, root);
             	} else {
             		root.getChildren().remove(zoomPane);
             	
@@ -344,6 +347,9 @@ public class GPSapp extends Application{
                 	
                     LinkedList<Node> route = new LinkedList<Node>();
                     route = graph.findRoute(startPlace, endPlace); 
+                    
+                    //Display the directions on the side
+                    displayInstructions(route, root);
                     
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
@@ -421,6 +427,74 @@ public class GPSapp extends Application{
             });
     }  
     
+    //Display all of the instructions on screen
+    private void displayInstructions(LinkedList<Node> route, Pane root){
+    	
+    	//create vertical box to add labels too
+    	VBox directionBox = new VBox(2);
+    	directionBox.setLayoutX(820);
+    	directionBox.setLayoutY(100);
+		Label directionsTitle = new Label("Directions:");
+		directionsTitle.setTextFill(Color.WHITE);
+		directionsTitle.setFont(Font.font ("manteka", 20));
+		directionsTitle.underlineProperty();
+		directionBox.getChildren().add(directionsTitle);
+
+    	//add a possible scroll box for long routes..
+		
+		
+    	//or eventually break up into multiple sections of instructions based
+    	//on current map displayed
+    	
+    	//convert the route to a list of string instructions
+    	stepIndicator steps = new stepIndicator(route);
+    	
+    	//!!!!uncomment when we have a global map to test on!!!!!!
+    	//LinkedList<String> directions = steps.lInstructions();
+    	
+    	 /** TABLE TO ID THE IMAGE TO ADD
+         * icon_id               icon
+         *  1                  up_stair
+         *  2                  down_stair
+         *  3                  turn left
+         *  4                  turn right
+         *  33                 sharp left
+         *  44                 sharp right
+         *  39                 slight left
+         *  52                 slight right
+         *  0                  straight
+         *  5                  switch map(for transition point)
+         */
+    	//Hard Coded Example to see how the UI looks
+    	LinkedList<Step> directions = new LinkedList<Step>();
+    	Step step1 = new Step(3, "Turn Left  ", 10);
+    	Step step2 = new Step(39, "Slight Left  ", 20);
+    	Step step3 = new Step(52, "Slight Right  ", 5);
+    	directions.add(step1);
+    	directions.add(step2);
+    	directions.add(step3);
+
+    	
+    	//iterate through the list of instructions and create labels for each one and attach to the root
+    	for(int i = 0; i < directions.size(); i++){
+    		HBox StepBox = new HBox(2);
+    		
+    		Label newDirection = new Label(directions.get(i).getMessage() +directions.get(i).getDistance());
+    		
+    		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
+            Image arrowImage = new Image(arrowFile.toURI().toString());
+            ImageView arrowView = new ImageView();
+            arrowView.setImage(arrowImage);
+    		StepBox.getChildren().addAll(arrowView, newDirection);
+    		directionBox.getChildren().add(StepBox);
+    	}
+    	
+    	root.getChildren().add(directionBox);
+    	return;
+    	
+    }
+    
+    
 	private void getMapSelector(Building building, Pane root, ImageView imageView) {
 	    root.getChildren().remove(canvas);
 	    
@@ -431,13 +505,12 @@ public class GPSapp extends Application{
    	     Pane NodePane = new Pane();
          gc.clearRect(0, 0, 800, 600);
          drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-         
-                       
+                
          final Group group = new Group(imageView, canvas, NodePane);
  	    Parent zoomPane = createZoomPane(group);
  	    root.getChildren().add(zoomPane);
  	    
- 	   //Attach 3D image of building
+ 	    //Attach 3D image of building
  	    //BUILDING UST HAVE MAPS IN IT OTHERWISE ERRORS
  		File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
  		final Image b = new Image(buildingFile.toURI().toString());
@@ -1302,6 +1375,4 @@ public class GPSapp extends Application{
         NodePane.getChildren().add(boyntonHall);
     }
     
-
-
 }
