@@ -3,6 +3,7 @@ package maptool;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import io.JsonParser;
 import javafx.event.ActionEvent;
@@ -57,33 +58,43 @@ public class MapTool extends Application{
     Building ProjectCenter = new Building("Project Center");
     Building StrattonHall = new Building("Stratton Hall");
 
-    // Maps
-    // TODO Add more maps
-    Map CampusMap = new Map("Campus Map", "CM", "CS3733_Graphics/CampusMap.png", "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json", 0, 0, 0, 1, 1);
+    //Map Buildings with their content
+    Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 1, "");
 
-    Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 1, 1);
-    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
-    Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -1.308, 1548, 594, 1, "B");
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -1.308, 1548, 594, 1, "2");
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -1.308, 1548, 594, 1, "3");
 
-    Map GordonLibrary1 = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 1, -1);
-    Map GordonLibrary2 = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 1, 0);
-    Map GordonLibrary3 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 1, 1);
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
+	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 1, "2");
+	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 1, "3");
 
-    Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", -1.483, 1496, 991, 0.0956, "B");
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 0.0973, "1");
+	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 1, "2");
+	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 1, "3");
 
-    Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 1, 1);
-    Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 1, 2);
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", 1.396, 1175, 670, 0.1695, "1");
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", 1.396, 1175, 670, 0.166, "2");
+	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", 1.396, 1175, 670, 0.1689, "3");
 
-    Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
-    Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
+	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.355, 1200, 451, 1, "B");
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.355, 1200, 451, 1, "1");
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.355, 1200, 451, 1, "2");
+	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.355, 1200, 451, 1, "3");
+	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -2.355, 1200, 451, 1, "APT");
+	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -2.355, 1200, 451, 1, "GAR");
 
-    Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
-    Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 3.053, 1228, 772, 0.0701, "1");
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 3.053, 1228, 772, 0.1016, "2");
 
-    Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 1, 1);
-    Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 1, 2);
-    Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 1, 3);
-    Map StrattonHall4 = new Map("Stratton Hall 4", "SH", "CS3733_Graphics/SH4.png", "Graphs/SH4.json", "Graphs/SH4.json", 1.483, 1364, 898, 1, 4);
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.483, 1364, 898, 0.0804, "B");
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.483, 1364, 898, 0.0813, "1");
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.483, 1364, 898, 0.0766, "2");
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.483, 1364, 898, 0.0749, "3");
 
 	public static void main(String[] args) {launch(args);}
 	
@@ -98,7 +109,7 @@ public class MapTool extends Application{
 	String nodeReference = "";
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
-	
+	Button startButton = null, endButton = null;
     final TextField xField = new TextField("");  
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
@@ -107,6 +118,9 @@ public class MapTool extends Application{
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
 
+    // Variables to store to and from nodes
+    Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
 
     ObservableList<Map> mapOptions = FXCollections.observableArrayList();
 	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
@@ -125,40 +139,48 @@ public class MapTool extends Application{
     File mapFile = new File("CS3733_Graphics/CampusMap.png");
     Image mapImage = new Image(mapFile.toURI().toString());
     ImageView imageView = new ImageView();
-    
- 
+
+
     @Override
     public void start(Stage primaryStage) {
+        
+    	//Add Maps to buildings
+    	Campus.addMap(CampusMap);
+    	
+    	AtwaterKent.addMap(AtwaterKentB);
+    	AtwaterKent.addMap(AtwaterKent1);
+    	AtwaterKent.addMap(AtwaterKent2);
+    	AtwaterKent.addMap(AtwaterKent3);
 
+    	GordonLibrary.addMap(GordonLibrarySB);
+    	GordonLibrary.addMap(GordonLibraryB);
+    	GordonLibrary.addMap(GordonLibrary1);
+    	GordonLibrary.addMap(GordonLibrary2);
+    	GordonLibrary.addMap(GordonLibrary3);
+    	
+    	BoyntonHall.addMap(BoyntonHallB);
+    	BoyntonHall.addMap(BoyntonHall1);
+    	BoyntonHall.addMap(BoyntonHall2);
+    	BoyntonHall.addMap(BoyntonHall3);
+    
+    	CampusCenter.addMap(CampusCenter1);
+    	CampusCenter.addMap(CampusCenter2);
+    	CampusCenter.addMap(CampusCenter3);
 
-        // Create maps and add them to their respective buildings
-		// TODO Add more buildings and maps
-        //Add Maps to buildings
-        Campus.addMap(CampusMap);
+    	HigginsHouse.addMap(HigginsHouseB);
+    	HigginsHouse.addMap(HigginsHouse1);
+    	HigginsHouse.addMap(HigginsHouse2);
+    	HigginsHouse.addMap(HigginsHouse3);
+    	HigginsHouse.addMap(HigginsHouseAPT);
+    	HigginsHouse.addMap(HigginsHouseGAR);
 
-        AtwaterKent.addMap(AtwaterKent1);
-        AtwaterKent.addMap(AtwaterKent2);
-        AtwaterKent.addMap(AtwaterKent3);
+    	StrattonHall.addMap(StrattonHallB);
+    	StrattonHall.addMap(StrattonHall1);
+    	StrattonHall.addMap(StrattonHall2);
+    	StrattonHall.addMap(StrattonHall3);
 
-        GordonLibrary.addMap(GordonLibrary1);
-        GordonLibrary.addMap(GordonLibrary2);
-        GordonLibrary.addMap(GordonLibrary3);
-
-        //BoyntonHall.addMap(BoyntonHall1);
-
-        CampusCenter.addMap(CampusCenter1);
-        CampusCenter.addMap(CampusCenter2);
-
-        HigginsHouse.addMap(HigginsHouse1);
-        HigginsHouse.addMap(HigginsHouse2);
-
-        StrattonHall.addMap(StrattonHall1);
-        StrattonHall.addMap(StrattonHall2);
-        StrattonHall.addMap(StrattonHall3);
-        StrattonHall.addMap(StrattonHall4);
-
-        ProjectCenter.addMap(ProjectCenter1);
-        ProjectCenter.addMap(ProjectCenter2);
+    	ProjectCenter.addMap(ProjectCenter1);
+    	ProjectCenter.addMap(ProjectCenter2);
 
         // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -170,6 +192,7 @@ public class MapTool extends Application{
         buildings.add(HigginsHouse);
         buildings.add(StrattonHall);
         buildings.add(ProjectCenter);
+        buildings.add(BoyntonHall);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -181,9 +204,17 @@ public class MapTool extends Application{
 
 
     	final Pane root = new Pane();
-    	final Scene scene = new Scene(root, 1050, 700);//set size of scene
-    	
-    	//Set default Type
+    	 Scene scene = new Scene(root, 1100, 700);//set size of scene
+       // Scene scene = new Scene(root, 1050, 700);
+        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+
+        //add the cross image
+        File crossFile = new File("CS3733_Graphics/cross.png");
+        Image crossImage = new Image(crossFile.toURI().toString());
+        ImageView cross = new ImageView();
+        cross.setImage(crossImage);
+
+          	//Set default Type
     	typeSelector.setValue("Place");
     	
     	//Create a map selection drop down menu
@@ -338,7 +369,11 @@ public class MapTool extends Application{
         
 
         Pane NodePane = new Pane();
-        NodePane.setPrefSize(8000, 6000);
+        imageView.setScaleX(0.75);
+		imageView.setScaleY(0.75);
+		imageView.relocate(-1000, -600);
+        NodePane.setPrefSize(2450, 1250);
+        NodePane.relocate(-591, -394);
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
         final Group group = new Group(imageView, NodePane);
@@ -350,6 +385,7 @@ public class MapTool extends Application{
             @Override  
             public void handle(ActionEvent event) {  
                 root.getChildren().remove(warningBox);
+                NodePane.getChildren().remove(cross);
             	int x = -1, y = -1, z = -1;
             	
             	/************************************************/
@@ -427,16 +463,36 @@ public class MapTool extends Application{
                             	delete = false;
                             }
                             else if(!startCoord){
+                                startButton = newNodeButton;
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
                             	fromField.setText(newPlace.getName());
+                                fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                                fromNode.setGlobalX((int)((fromNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + fromNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                fromNode.setGlobalY((int)((-fromNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                        + fromNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                        (currentlySelectedMap.getConversionRatio())));
                             	startCoord = true;
                             }
                             else if(!endCoord){
+                                endButton = newNodeButton;
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
                             	toField.setText(newPlace.getName());
-                            	startCoord = false;
+                                toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                                toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                        + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                        (currentlySelectedMap.getConversionRatio())));
+                                startCoord = false;
                             	endCoord = false;
                            	}
                     		//no matter what fill in this nodes data into the input box fields
@@ -547,14 +603,25 @@ public class MapTool extends Application{
             }
         });
         
+        
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//Set the location coordinates in the input boxes
             	xField.setText(Integer.toString((int)event.getX()));
-            	yField.setText(Integer.toString((int)event.getY()));
+            	yField.setText(Integer.toString((int) event.getY()));
+            	/*
+            	//add a cross when click on the canvas
+                if (NodePane.getChildren().contains(cross)) {
+                    NodePane.getChildren().remove(cross);
+                }
+                NodePane.getChildren().add(cross);
+                cross.relocate(event.getX() - 39, event.getY() - 40);
+                */
+
             }
         });
         
+
         deleteNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	delete = true;
@@ -567,43 +634,32 @@ public class MapTool extends Application{
         });
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
-            	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
-                // FIXME Change this so that it can properly save the edge across different maps
-            	for(int i = 0; i < nodeList.size(); i ++){
 
-        			//check difference between place and node..
-        			if(nodeList.get(i).getName().equals(fromField.getText())){
-        				fromNode = nodeList.get(i);
-        			}
-        			if(nodeList.get(i).getName().equals(toField.getText())){
-        				toNode = nodeList.get(i);
-        			}
-        			
-            	}
-            	
-            	Edge newEdge = new Edge(fromNode, toNode, getDistance());
-                // TODO also add edge on global map
+            	Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
+                System.out.println(fromNode.getName());
+                System.out.println(toNode.getName());
             	edgeList.add(newEdge);
-            	Line line = new Line();
-            	 line.setStartX(startX);
-                 line.setStartY(startY);
-                 line.setEndX(endX);
-                 line.setEndY(endY);
-                 line.setStrokeWidth(3);
-                 line.setStyle("-fx-background-color:  #F0F8FF; ");
-                 
-                 line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-                	 public void handle(MouseEvent event){
-                		if(delete) {
-                			NodePane.getChildren().remove(line);
-                            // TODO also remove from the global edge list
-                			edgeList.remove(newEdge);
-                			delete = false;
-                		}
-                	 }
-                 });
-                 NodePane.getChildren().add(line);
+                if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
+                    Line line = new Line();
+                    line.setStartX(startX);
+                    line.setStartY(startY);
+                    line.setEndX(endX);
+                    line.setEndY(endY);
+                    line.setStrokeWidth(3);
+                    line.setStyle("-fx-background-color:  #F0F8FF; ");
+                    line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        public void handle(MouseEvent event) {
+                            if (delete) {
+                                NodePane.getChildren().remove(line);
+                                edgeList.remove(newEdge);
+                                delete = false;
+                            }
+                        }
+                    });
+                    startButton.setId("round-red");
+                    endButton.setId("round-red");
+                    NodePane.getChildren().add(line);
+                }
             }
         });
        
@@ -612,6 +668,7 @@ public class MapTool extends Application{
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
         	   	k = 0; // Reset Zoom Variable
+        	   	
         	   	NodePane.getChildren().clear();
         	   	//clear existing node list
         	   	root.getChildren().remove(zoomPane);
@@ -636,8 +693,213 @@ public class MapTool extends Application{
            		Image mapImage = new Image(newMapFile.toURI().toString());
            		ImageView imageView = new ImageView();
            		imageView.setImage(mapImage);
-           		imageView.setLayoutX(0);  
-           		imageView.setLayoutY(0);
+        	    NodePane.relocate(0, 0);
+           		
+           		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
+            	case "CampusMap": 	imageView.setScaleX(0.75);
+        							imageView.setScaleY(0.75);
+            						imageView.relocate(-1000, -600);
+            						NodePane.setScaleX(0.75);
+            						NodePane.setScaleY(0.75);
+        							NodePane.relocate(-800, -518);
+        							break;
+            	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "AK1":			imageView.setScaleX(0.5161);
+        							imageView.setScaleY(0.5161);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5161);
+        							NodePane.setScaleY(0.5161);
+        							NodePane.relocate(-218, -22);
+        							break;
+            	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161);
+        							NodePane.setScaleY(0.5161);
+        							//NodePane.relocate(-613, -441);
+        							break;
+            	case "BHB":			imageView.setScaleX(0.5427);
+        							imageView.setScaleY(0.5427);
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5427);
+        							NodePane.setScaleY(0.5427);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH1":			imageView.setScaleX(0.5476);
+        							imageView.setScaleY(0.5476);
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5476);
+        							NodePane.setScaleY(0.5476);
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "CC1":			imageView.setScaleX(0.6107);
+        							imageView.setScaleY(0.6107);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.6107);
+        							NodePane.setScaleY(0.6107);
+        							NodePane.relocate(-222, -59);
+        							break;
+            	case "CC2":			imageView.setScaleX(0.6127);
+        							imageView.setScaleY(0.6127);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.6127);
+        							NodePane.setScaleY(0.6127);
+        							NodePane.relocate(-222, -59);
+        							break;
+            	case "CC3":			imageView.setScaleX(0.6061); 
+        							imageView.setScaleY(0.6061); 
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.6061);
+        							NodePane.setScaleY(0.6061);
+        							NodePane.relocate(-222, -59);
+        							break;
+            	case "GLSB":		imageView.setScaleX(0.5686);
+        							imageView.setScaleY(0.5686);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5686);
+        							NodePane.setScaleY(0.5686);
+        							NodePane.relocate(-225, -42);
+        							break;
+            	case "GLB":			imageView.setScaleX(0.5409);
+        							imageView.setScaleY(0.5409);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5409);
+        							NodePane.setScaleY(0.5409);
+        							NodePane.relocate(-225, -42);
+        							break;
+            	case "GL1":			imageView.setScaleX(0.5678);
+        							imageView.setScaleY(0.5678);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5678);
+        							NodePane.setScaleY(0.5678);
+        							NodePane.relocate(-225, -42);
+        							break;
+            	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(-0, 0);
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							NodePane.relocate(-225, -42);
+        							break;
+        		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							NodePane.relocate(-225, -42);
+        							break;
+            	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
+            						imageView.setScaleY(0.5161); //Not Final Values
+            						imageView.relocate(0, 0); //Not Final Values
+            						NodePane.setScaleX(0.5161); //Not Final Values
+            						NodePane.setScaleY(0.5161); //Not Final Values
+            						//NodePane.relocate(-613, -441); //Not Final Values
+            						break;
+            	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
+        							imageView.setScaleY(0.5161); //Not Final Values
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5161); //Not Final Values
+        							NodePane.setScaleY(0.5161); //Not Final Values
+        							//NodePane.relocate(-613, -441); //Not Final Values
+        							break;
+            	case "PC1":			imageView.setScaleX(0.6764);
+        							imageView.setScaleY(0.6764);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.6764);
+        							NodePane.setScaleY(0.6764);
+        							NodePane.relocate(-208, -58);
+        							break;
+            	case "PC2":			imageView.setScaleX(0.6006);
+        							imageView.setScaleY(0.6006); 
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.6006);
+        							NodePane.setScaleY(0.6006); 
+        							NodePane.relocate(-222, -48);
+        							break;
+            	case "SHB":			imageView.setScaleX(0.5464);
+        							imageView.setScaleY(0.5464);
+        							imageView.relocate(0, 0);
+        							NodePane.setScaleX(0.5464);
+        							NodePane.setScaleY(0.5464);
+        							NodePane.relocate(-224, -88);
+        							break;
+            	case "SH1":			imageView.setScaleX(0.5583);
+        							imageView.setScaleY(0.5583);
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5583);
+        							NodePane.setScaleY(0.5583);
+        							NodePane.relocate(-224, -82); //Not Final Values
+        							break;
+            	case "SH2":			imageView.setScaleX(0.5556);
+        							imageView.setScaleY(0.5556);
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5556);
+        							NodePane.setScaleY(0.5556);
+        							NodePane.relocate(-224, -86); //Not Final Values
+        							break;
+            	case "SH3":			imageView.setScaleX(0.5544);
+        							imageView.setScaleY(0.5544);
+        							imageView.relocate(0, 0); //Not Final Values
+        							NodePane.setScaleX(0.5544);
+        							NodePane.setScaleY(0.5544);
+        							NodePane.relocate(-224, -83); //Not Final Values
+        							break;
+        		}
            		
                 drawEdges(edgeList, gc, NodePane);
                              
@@ -661,40 +923,43 @@ public class MapTool extends Application{
     	gc.clearRect(0, 0, 800, 600);
     	int i;
     	
-        for( i = 0; i < edgeList.size(); i++){ // TODO Iterate over local edge list
+        for( i = 0; i < edgeList.size(); i++){
        		int j = i;
        		Line line = new Line();
-       	//Determine the offset we need to use for the tool graph FROM NODE
-       		if(edgeList.get(i).getFrom().getIsPlace()){
-       			line.setStartX(edgeList.get(i).getFrom().getX());
-                line.setStartY(edgeList.get(i).getFrom().getY());
-       		} else{
-       			line.setStartX(edgeList.get(i).getFrom().getX());
-                line.setStartY(edgeList.get(i).getFrom().getY());
-                
-       		}
-       		//Determine the offset we need to use for the tool graph TO NODE
-       		if(edgeList.get(i).getTo().getIsPlace()){
-       			line.setEndX(edgeList.get(i).getTo().getX());
-                line.setEndY(edgeList.get(i).getTo().getY());
-       		} else {
-       			line.setEndX(edgeList.get(i).getTo().getX());
-                line.setEndY(edgeList.get(i).getTo().getY());
-       		}
-       		line.setStrokeWidth(3);
-            
-               
-       		line.setOnMouseClicked(new EventHandler<MouseEvent>(){
-              	public void handle(MouseEvent event){
-              		if(delete) {
-              			nodePane.getChildren().remove(line);
-              			edgeList.remove(edgeList.get(j));
-              			delete = false;
-              		}
-              	 }
-               });
-       		nodePane.getChildren().add(line);
-       		}
+
+            if (Objects.equals(edgeList.get(i).getFrom().getFloorMap(), edgeList.get(i).getTo().getFloorMap())) {
+                //Determine the offset we need to use for the tool graph FROM NODE
+                if (edgeList.get(i).getFrom().getIsPlace()) {
+                    line.setStartX(edgeList.get(i).getFrom().getX());
+                    line.setStartY(edgeList.get(i).getFrom().getY());
+                } else {
+                    line.setStartX(edgeList.get(i).getFrom().getX());
+                    line.setStartY(edgeList.get(i).getFrom().getY());
+
+                }
+                //Determine the offset we need to use for the tool graph TO NODE
+                if (edgeList.get(i).getTo().getIsPlace()) {
+                    line.setEndX(edgeList.get(i).getTo().getX());
+                    line.setEndY(edgeList.get(i).getTo().getY());
+                } else {
+                    line.setEndX(edgeList.get(i).getTo().getX());
+                    line.setEndY(edgeList.get(i).getTo().getY());
+                }
+                line.setStrokeWidth(3);
+
+
+                line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                        if (delete) {
+                            nodePane.getChildren().remove(line);
+                            edgeList.remove(edgeList.get(j));
+                            delete = false;
+                        }
+                    }
+                });
+                nodePane.getChildren().add(line);
+            }
+        }
 
        	drawNodes(nodeList, nodePane, fromField, toField);
 
@@ -714,7 +979,7 @@ public class MapTool extends Application{
     
     //check to see if node coordinates are within map bounds
     public boolean isInBounds(int x, int y){
-    	if(x > 800 || y > 600 || x < 0 || y < 0){
+    	if(x < 0 || y < 0){
     		return false;
         }
     	return true;
@@ -723,7 +988,11 @@ public class MapTool extends Application{
     // Returns the distance between the two nodes, in pixels
     // FIXME needs to be updated to calculate distance based on global coordinates and not local
     public int getDistance(){
-    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)) + (Math.pow(startZ - endZ, 2)));
+    	return (int) Math.sqrt((Math.pow(((int)startX - (int)endX), 2)) + (Math.pow(((int)startY - (int)endY), 2)));
+    }
+
+    public int getDistanceNodeFlat(Node n1, Node n2){
+        return (int) Math.sqrt((Math.pow((n1.getGlobalX() - n2.getGlobalX()), 2)) + (Math.pow((n1.getGlobalY() - n2.getGlobalY()), 2)));
     }
     
     // Draws the Places and Nodes on to the map
@@ -769,15 +1038,35 @@ public class MapTool extends Application{
                     	delete = false;
                     }
                     else if(!startCoord){
+                        startButton = newNodeButton;
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
                     	fromField.setText(newPlace.getName());
+                        fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                        fromNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                (currentlySelectedMap.getConversionRatio())));
+                        fromNode.setGlobalY((int)((-newPlace.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                + newPlace.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                (currentlySelectedMap.getConversionRatio())));
                     	startCoord = true;
                     }
                     else if(!endCoord){
+                        endButton = newNodeButton;
                     	endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
+                        toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                        toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                (currentlySelectedMap.getConversionRatio())));
+                        toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                (currentlySelectedMap.getConversionRatio())));
                     	startCoord = false;
                     	endCoord = false;
                    	}
@@ -802,21 +1091,29 @@ public class MapTool extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    	
+    	Node fromEdgeNode = null;
+    	Node toEdgeNode = null;
+
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < nodeList.size(); j ++){
+            for(int j = 0; j < nodeList.size(); j ++){
 				if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-					fromNode = nodeList.get(j);
+					fromEdgeNode = nodeList.get(j);
 				}
 				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
-					toNode = nodeList.get(j);
+					toEdgeNode = nodeList.get(j);
 				}
     		}
-    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+
+            if (fromEdgeNode == null){
+                fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
+            }
+            if (toEdgeNode == null){
+                toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+
+            }
+    		Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
     	

@@ -99,33 +99,43 @@ public class GPSapp extends Application{
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
-	//Map Buildings with their content
-  	Map CampusMap = new Map("Campus Map", "CM", "CS3733_Graphics/CampusMap.png", "Graphs/CampusMap.json", "Graphs/CampusMapEdges.json", 0, 0, 0, 1, 1);
-  	
-	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/AK1.json", "Graphs/AK1Edges.json", -1.308, 1548, 594, 0.1312, 1);
-    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/AK2.json", "Graphs/AK2Edges.json", -1.308, 1548, 594, 1, 2);
-	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/AK3.json", "Graphs/AK3Edges.json", -1.308, 1548, 594, 1, 3);
+  //Map Buildings with their content
+    Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 1, "");
 
-	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/GLSB.json", "Graphs/GLSBEdges.json", -1.744, 1668, 726, 0.1187, -1);
-	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/GLB.json", "Graphs/GLBEdges.json", -1.744, 1668, 726, 0.1251, 0);
-	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/GL1.json", "Graphs/GL1Edges.json", -1.744, 1668, 726, 0.1194, 1);
+	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -1.308, 1548, 594, 1, "B");
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -1.308, 1548, 594, 1, "2");
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -1.308, 1548, 594, 1, "3");
 
-	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/BH1.json","Graphs/BH1Edges.json", -1.483, 1496, 991, 1, 1);
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
+	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 1, "2");
+	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 1, "3");
 
-	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/CC1.json", "Graphs/CC1.json", 1.396, 1175, 670, 0.1695, 1);
-	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/CC2.json", "Graphs/CC2.json", 1.396, 1175, 670, 0.166, 2);
+	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", -1.483, 1496, 991, 0.0956, "B");
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 0.0973, "1");
+	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 1, "2");
+	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 1, "3");
 
-	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/HH1.json", "Graphs/HH1.json", -2.355, 1200, 451, 1, 1);
-	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/HH2.json", "Graphs/HH2.json", -2.355, 1200, 451, 1, 2);
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", 1.396, 1175, 670, 0.1695, "1");
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", 1.396, 1175, 670, 0.166, "2");
+	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", 1.396, 1175, 670, 0.1689, "3");
 
-	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/PC1.json", "Graphs/PC1.json", 3.053, 1228, 772, 1, 1);
-	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/PC2.json", "Graphs/PC2.json", 3.053, 1228, 772, 1, 2);
+	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.355, 1200, 451, 1, "B");
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.355, 1200, 451, 1, "1");
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.355, 1200, 451, 1, "2");
+	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.355, 1200, 451, 1, "3");
+	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -2.355, 1200, 451, 1, "APT");
+	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -2.355, 1200, 451, 1, "GAR");
 
-	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/SHB.json", "Graphs/SHB.json", 1.483, 1364, 898, 0.0804, 0);
-	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/SH1.json", "Graphs/SH1.json", 1.483, 1364, 898, 0.0813, 1);
-	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/SH2.json", "Graphs/SH2.json", 1.483, 1364, 898, 0.0766, 2);
-	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/SH3.json", "Graphs/SH3.json", 1.483, 1364, 898, 0.0749, 3);
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 3.053, 1228, 772, 0.0701, "1");
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 3.053, 1228, 772, 0.1016, "2");
 
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.483, 1364, 898, 0.0804, "B");
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.483, 1364, 898, 0.0813, "1");
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.483, 1364, 898, 0.0766, "2");
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.483, 1364, 898, 0.0749, "3");
 
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
@@ -140,6 +150,8 @@ public class GPSapp extends Application{
 	Graph globalGraph = new Graph();
 	LinkedList<Building> buildings = new LinkedList<>();
 	LinkedList<Map> maps = new LinkedList<>();
+
+	final Button BackButton = new Button("Back");
 	
 	
     @Override
@@ -148,6 +160,9 @@ public class GPSapp extends Application{
     	final Pane root = new Pane();
 
     	//Add Maps to buildings
+    	Campus.addMap(CampusMap);
+    	
+    	AtwaterKent.addMap(AtwaterKentB);
     	AtwaterKent.addMap(AtwaterKent1);
     	AtwaterKent.addMap(AtwaterKent2);
     	AtwaterKent.addMap(AtwaterKent3);
@@ -155,14 +170,24 @@ public class GPSapp extends Application{
     	GordonLibrary.addMap(GordonLibrarySB);
     	GordonLibrary.addMap(GordonLibraryB);
     	GordonLibrary.addMap(GordonLibrary1);
-
+    	GordonLibrary.addMap(GordonLibrary2);
+    	GordonLibrary.addMap(GordonLibrary3);
+    	
+    	BoyntonHall.addMap(BoyntonHallB);
     	BoyntonHall.addMap(BoyntonHall1);
-
+    	BoyntonHall.addMap(BoyntonHall2);
+    	BoyntonHall.addMap(BoyntonHall3);
+    
     	CampusCenter.addMap(CampusCenter1);
     	CampusCenter.addMap(CampusCenter2);
+    	CampusCenter.addMap(CampusCenter3);
 
+    	HigginsHouse.addMap(HigginsHouseB);
     	HigginsHouse.addMap(HigginsHouse1);
     	HigginsHouse.addMap(HigginsHouse2);
+    	HigginsHouse.addMap(HigginsHouse3);
+    	HigginsHouse.addMap(HigginsHouseAPT);
+    	HigginsHouse.addMap(HigginsHouseGAR);
 
     	StrattonHall.addMap(StrattonHallB);
     	StrattonHall.addMap(StrattonHall1);
@@ -181,6 +206,7 @@ public class GPSapp extends Application{
         buildings.add(HigginsHouse);
         buildings.add(StrattonHall);
         buildings.add(ProjectCenter);
+        buildings.add(BoyntonHall);
         
     	//
     	double width = 80;
@@ -321,7 +347,6 @@ public class GPSapp extends Application{
 	    highLight(NodePane, imageView, root);
 	    
 	    root.getChildren().add(zoomPane);
-	    
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -541,7 +566,7 @@ public class GPSapp extends Application{
 
 
  	    //Attach 3D image of building
- 	    
+ 	    System.out.println(building.getMaps().get(0).getInitials());
  		File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
 
  		final Image b = new Image(buildingFile.toURI().toString());
@@ -561,7 +586,6 @@ public class GPSapp extends Application{
     	root.getChildren().add(BuildingNameLabel);
     	
     	//Attach Building label
-    	final Button BackButton = new Button("Back");
     	BackButton.setTextFill(Color.BLACK);
     	BackButton.setFont(Font.font ("manteka", 30));
     	BackButton.setLayoutX(650);
@@ -588,8 +612,8 @@ public class GPSapp extends Application{
 	    
     	for(int i = 1; i <= building.getNumMaps(); i++){
     		currentFloor = i-1;
-    		System.out.println("CS3733_Graphics/LayerMap/"+building.getName()+currentFloor+"L.png");
-    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials()+i+"L.png");//Change back to above
+    		System.out.println("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials() + building.getMaps().get(currentFloor).getFloor() + "L.png");
+    		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials() + building.getMaps().get(currentFloor).getFloor() + "L.png");//Change back to above
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
@@ -604,9 +628,10 @@ public class GPSapp extends Application{
    	     	//Add actions to each of the layered map buttons
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
-   	     				BuildingNameLabel.setText(building.getName()+" " + floor);
-   	     				//call load building here...
-   	     				mapSelector.setValue(building.getMaps().get(floor).getInitials()+floor);
+   	     				System.out.println(floor);
+   	     				root.getChildren().remove(BackButton);
+   	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
+   	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
    	     				loadMap(root, imageView);
    	     			}
    	     	});
@@ -618,7 +643,7 @@ public class GPSapp extends Application{
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
-   	     			BuildingNameLabel.setText(building.getName()+" " + floor);
+   	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     			g1.setEffect(shadow);
    	     		}
    	     	});
@@ -690,6 +715,8 @@ public class GPSapp extends Application{
         		GLOBALGRAPH.addNode(TEMPnodeList.get(i));
         	}
         }
+        
+        System.out.println(GLOBALGRAPH.getNodes() + " Global");
     	//iterate through all of the Edge json files and add them to the global graph
         String edgePath = "Graphs/Edges/";
     	File efile = new File(edgePath);
@@ -700,6 +727,8 @@ public class GPSapp extends Application{
         	for(int i = 0; i < TEMPedgeListData.size(); i++){
         		TEMPedgeList = convertEdgeData(TEMPedgeListData);
         		for(int k = 0; k < TEMPedgeList.size(); k++){
+        			System.out.println(TEMPedgeList.get(k).getFrom());
+        			System.out.println(TEMPedgeList.get(k).getTo());
         			GLOBALGRAPH.addEdge(TEMPedgeList.get(k).getFrom(), TEMPedgeList.get(k).getTo());
             	}
         	}
@@ -1021,8 +1050,11 @@ public class GPSapp extends Application{
 
     private void loadMap(Pane root, ImageView imageView){
     	k = 0; // Reset Zoom Variable
+    	root.getChildren().remove(BackButton);
 	    root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
+	    imageView.setScaleX(1);
+	    imageView.setScaleY(1);
 
     	nodeList.clear();
    		edgeList.clear();
@@ -1030,8 +1062,8 @@ public class GPSapp extends Application{
    		DestText.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + (String) mapSelector.getValue() + ".json");
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + (String) mapSelector.getValue() + "Edges.json");
+    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
     	edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
@@ -1052,205 +1084,208 @@ public class GPSapp extends Application{
         graph = createGraph(graph, nodeList, edgeList);
         Pane NodePane = new Pane();
         switch (mapSelector.getValue()) {
-    	case "CampusMap": 	highLight(NodePane, imageView, root);
-							NodePane.setScaleX(0.75);
-							NodePane.setScaleY(0.75);
+    	case "CampusMap": 	imageView.setScaleX(0.75);
+							imageView.setScaleY(0.75);
+    						imageView.relocate(-1000, -600);
+    						highLight(NodePane, imageView, root);
+    						NodePane.setScaleX(0.75);
+    						NodePane.setScaleY(0.75);
 							NodePane.relocate(-800, -518);
 							break;
     	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "AK1":			imageView.setScaleX(0.5161);
 							imageView.setScaleY(0.5161);
 							imageView.relocate(-400, -300);
-							//NodePane.setScaleX(0.5161);
-							//NodePane.setScaleY(0.5161);
+							NodePane.setScaleX(0.5161);
+							NodePane.setScaleY(0.5161);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161);
-							//NodePane.setScaleY(0.5161);
+							NodePane.setScaleX(0.5161);
+							NodePane.setScaleY(0.5161);
 							//NodePane.relocate(-613, -441);
 							break;
-    	case "BHB":			imageView.setScaleX(0.5161); //Not Final Values
-							imageView.setScaleY(0.5161); //Not Final Values
+    	case "BHB":			imageView.setScaleX(0.5427);
+							imageView.setScaleY(0.5427);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5427);
+							NodePane.setScaleY(0.5427);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
-    	case "BH1":			imageView.setScaleX(0.5161); //Not Final Values
-							imageView.setScaleY(0.5161); //Not Final Values
+    	case "BH1":			imageView.setScaleX(0.5476);
+							imageView.setScaleY(0.5476);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5476);
+							NodePane.setScaleY(0.5476);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
 							imageView.setScaleY(0.6107);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.6107);
-							//NodePane.setScaleY(0.6107);
+							NodePane.setScaleX(0.6107);
+							NodePane.setScaleY(0.6107);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "CC2":			imageView.setScaleX(0.6127);
 							imageView.setScaleY(0.6127);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.6127);
-							//NodePane.setScaleY(0.6127);
+							NodePane.setScaleX(0.6127);
+							NodePane.setScaleY(0.6127);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
-    	case "CC3":			imageView.setScaleX(0.5161); //Not Final Values
-							imageView.setScaleY(0.5161); //Not Final Values
+    	case "CC3":			imageView.setScaleX(0.6061); 
+							imageView.setScaleY(0.6061); 
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.6061);
+							NodePane.setScaleY(0.6061);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "GLSB":		imageView.setScaleX(0.5686);
 							imageView.setScaleY(0.5686);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5686);
-							//NodePane.setScaleY(0.5686);
+							NodePane.setScaleX(0.5686);
+							NodePane.setScaleY(0.5686);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "GLB":			imageView.setScaleX(0.5409);
 							imageView.setScaleY(0.5409);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5409);
-							//NodePane.setScaleY(0.5409);
+							NodePane.setScaleX(0.5409);
+							NodePane.setScaleY(0.5409);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "GL1":			imageView.setScaleX(0.5678);
 							imageView.setScaleY(0.5678);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5678);
-							//NodePane.setScaleY(0.5678);
+							NodePane.setScaleX(0.5678);
+							NodePane.setScaleY(0.5678);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
 		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
     						imageView.setScaleY(0.5161); //Not Final Values
     						imageView.relocate(-1000, -600); //Not Final Values
-    						//NodePane.setScaleX(0.5161); //Not Final Values
-    						//NodePane.setScaleY(0.5161); //Not Final Values
+    						NodePane.setScaleX(0.5161); //Not Final Values
+    						NodePane.setScaleY(0.5161); //Not Final Values
     						//NodePane.relocate(-613, -441); //Not Final Values
     						break;
     	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
-    	case "PC1":			imageView.setScaleX(0.5161); //Not Final Values
-							imageView.setScaleY(0.5161); //Not Final Values
+    	case "PC1":			imageView.setScaleX(0.6764);
+							imageView.setScaleY(0.6764);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.6764);
+							NodePane.setScaleY(0.6764);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
-    	case "PC2":			imageView.setScaleX(0.5161); //Not Final Values
-							imageView.setScaleY(0.5161); //Not Final Values
+    	case "PC2":			imageView.setScaleX(0.6006);
+							imageView.setScaleY(0.6006); 
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5161); //Not Final Values
-							//NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.setScaleX(0.6006);
+							NodePane.setScaleY(0.6006); 
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "SHB":			imageView.setScaleX(0.5464);
 							imageView.setScaleY(0.5464);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5464);
-							//NodePane.setScaleY(0.5464);
+							NodePane.setScaleX(0.5464);
+							NodePane.setScaleY(0.5464);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "SH1":			imageView.setScaleX(0.5583);
 							imageView.setScaleY(0.5583);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5583);
-							//NodePane.setScaleY(0.5583);
+							NodePane.setScaleX(0.5583);
+							NodePane.setScaleY(0.5583);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "SH2":			imageView.setScaleX(0.5556);
 							imageView.setScaleY(0.5556);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5556);
-							//NodePane.setScaleY(0.5556);
+							NodePane.setScaleX(0.5556);
+							NodePane.setScaleY(0.5556);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
     	case "SH3":			imageView.setScaleX(0.5544);
 							imageView.setScaleY(0.5544);
 							imageView.relocate(-1000, -600); //Not Final Values
-							//NodePane.setScaleX(0.5544);
-							//NodePane.setScaleY(0.5544);
+							NodePane.setScaleX(0.5544);
+							NodePane.setScaleY(0.5544);
 							//NodePane.relocate(-613, -441); //Not Final Values
 							break;
 		}
@@ -1261,26 +1296,6 @@ public class GPSapp extends Application{
 	    zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
 	    
-	    //add back button to graph
-	    if(!mapSelector.getValue().equals("CampusMap")){
-	    	
-	    	//Attach Building label
-	    	final Button BackButton = new Button("Back");
-	    	BackButton.setTextFill(Color.BLACK);
-	    	BackButton.setFont(Font.font ("manteka", 30));
-	    	BackButton.setLayoutX(650);
-	    	BackButton.setLayoutY(530);
-	    	root.getChildren().addAll(BackButton);
-	    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	    			public void handle(MouseEvent event) {
-	    				root.getChildren().remove(BackButton);
-	    				//make global building to store what building were looking at
-	    				getMapSelector(CampusCenter, root, imageView);
-
-	    			}
-	    	});
-	    }
-
     }
 
     public void highLight(Pane NodePane, ImageView imageView, Pane root){
