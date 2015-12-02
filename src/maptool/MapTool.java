@@ -59,7 +59,7 @@ public class MapTool extends Application{
     Building StrattonHall = new Building("Stratton Hall");
 
     //Map Buildings with their content
-    Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 1, "");
+    Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
 	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -1.308, 1548, 594, 1, "B");
 	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
@@ -69,13 +69,13 @@ public class MapTool extends Application{
 	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
 	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
 	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
-	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 1, "2");
-	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 1, "3");
+	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 0.1223, "2");
+	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 0.1387, "3");
 
 	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", -1.483, 1496, 991, 0.0956, "B");
 	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 0.0973, "1");
-	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 1, "2");
-	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 1, "3");
+	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 0.0981, "2");
+	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 0.1003, "3");
 
 	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", 1.396, 1175, 670, 0.1695, "1");
 	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", 1.396, 1175, 670, 0.166, "2");
@@ -109,7 +109,8 @@ public class MapTool extends Application{
 	String nodeReference = "";
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
-	Button startButton = null, endButton = null;
+	Button startButton = null, endButton = null, currentButton = null;
+    ;
     final TextField xField = new TextField("");  
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
@@ -143,7 +144,6 @@ public class MapTool extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
     	
@@ -205,7 +205,6 @@ public class MapTool extends Application{
 
     	final Pane root = new Pane();
     	 Scene scene = new Scene(root, 1100, 700);//set size of scene
-       // Scene scene = new Scene(root, 1050, 700);
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
 
         //add the cross image
@@ -450,9 +449,10 @@ public class MapTool extends Application{
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
                     	public void handle(MouseEvent event) {
                         	//check to see if we are just editting an exiting node
-                    		
+
                     		if(delete){
                     			root.getChildren().remove(newNodeButton);
                             	nodeList.remove(newPlace);
@@ -465,6 +465,8 @@ public class MapTool extends Application{
                             	delete = false;
                             }
                             else if(!startCoord){
+                                if(startButton != null && endButton != startButton)startButton.setId(null);
+                                newNodeButton.setId("green");
                                 startButton = newNodeButton;
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
@@ -481,6 +483,8 @@ public class MapTool extends Application{
                             	startCoord = true;
                             }
                             else if(!endCoord){
+                                if(endButton != null && endButton != startButton)endButton.setId(null);
+                                endButton.setId("green");
                                 endButton = newNodeButton;
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
@@ -628,8 +632,7 @@ public class MapTool extends Application{
                             }
                         }
                     });
-                    startButton.setId("round-red");
-                    endButton.setId("round-red");
+
                     NodePane.getChildren().add(line);
                 }
             }
@@ -760,6 +763,7 @@ public class MapTool extends Application{
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
+
             		if(delete){
             			root.getChildren().remove(newNodeButton);
                     	nodeList.remove(newPlace);
@@ -772,6 +776,8 @@ public class MapTool extends Application{
                     	delete = false;
                     }
                     else if(!startCoord){
+                        if(startButton != null && endButton != startButton)startButton.setId(null);
+                        newNodeButton.setId("green");
                         startButton = newNodeButton;
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
@@ -788,8 +794,10 @@ public class MapTool extends Application{
                     	startCoord = true;
                     }
                     else if(!endCoord){
+                        if(endButton != null && endButton != startButton)endButton.setId(null);
+                        newNodeButton.setId("green");
                         endButton = newNodeButton;
-                    	endX = newNodeButton.getLayoutX()+7;
+                        endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
                         toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
@@ -1067,31 +1075,31 @@ public class MapTool extends Application{
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
 							imageView.setScaleY(0.5427);
-							imageView.relocate(0, 0); //Not Final Values
+							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5427);
 							NodePane.setScaleY(0.5427);
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90);
 							break;
     	case "BH1":			imageView.setScaleX(0.5476);
 							imageView.setScaleY(0.5476);
-							imageView.relocate(0, 0); //Not Final Values
+							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5476);
 							NodePane.setScaleY(0.5476);
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-220, -86);
 							break;
     	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(0, 0); //Not Final Values
 							NodePane.setScaleX(0.5161); //Not Final Values
 							NodePane.setScaleY(0.5161); //Not Final Values
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90); //Not Final Values
 							break;
     	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(0, 0); //Not Final Values
 							NodePane.setScaleX(0.5161); //Not Final Values
 							NodePane.setScaleY(0.5161); //Not Final Values
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90); //Not Final Values
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
 							imageView.setScaleY(0.6107);
