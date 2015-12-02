@@ -451,6 +451,7 @@ public class GPSapp extends Application{
                 	System.out.println("start: " + startPlace.getName());
                 	System.out.println("end: " + endPlace.getName());
 
+
                     LinkedList<Node> route = new LinkedList<Node>();
                     route = graph.findRoute(startPlace, endPlace);
 
@@ -464,11 +465,11 @@ public class GPSapp extends Application{
                     if(currMaps == 1 || route.size() <= 1)
                     	displayInstructions(route, root);
                     else{
-                    	//otherwise just put the first map on 
+                    	//otherwise just put the first map on
                     	displayInstructions(multiMap.get(currRoute), root);
                     	root.getChildren().add(NextInstruction); //attach next button
                     }
-                    
+
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -571,11 +572,11 @@ public class GPSapp extends Application{
                         if(currMaps == 1 || route.size() <= 1)
                         	displayInstructions(route, root);
                         else{
-                        	//otherwise just put the first map on 
+                        	//otherwise just put the first map on
                         	displayInstructions(multiMap.get(currRoute), root);
                         	root.getChildren().add(NextInstruction); //attach next button
                         }
-                        
+
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -633,11 +634,11 @@ public class GPSapp extends Application{
                         if(currMaps == 1 || route.size() <= 1)
                         	displayInstructions(route, root);
                         else{
-                        	//otherwise just put the first map on 
+                        	//otherwise just put the first map on
                         	displayInstructions(multiMap.get(currRoute), root);
                         	root.getChildren().add(NextInstruction); //attach next button
                         }
-                        
+
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -872,7 +873,7 @@ public class GPSapp extends Application{
     	//change this.. or check if it before splitorator
     	if(route.size() == 0)
     		return null;
-    	
+
     	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
     	String aBuilding = route.get(0).getBuilding();
     	int newBuildingIndex = 0;
@@ -1034,6 +1035,12 @@ public class GPSapp extends Application{
                             }
                         	System.out.println("start: " + startPlace.getName());
                         	System.out.println("end: " + endPlace.getName());
+							for(int i = 0; i < startPlace.getEdges().size(); i++){
+								System.out.println("!!!!!start node edge list from: " + startPlace.getEdges().get(i).getFrom());
+								System.out.println("!!!!!start node edge list to: " + startPlace.getEdges().get(i).getTo());
+
+
+							}
 
                             LinkedList<Node> route = new LinkedList<Node>();
                             route = graph.findRoute(startPlace, endPlace);
@@ -1048,15 +1055,12 @@ public class GPSapp extends Application{
                             if(currMaps == 1 || route.size() <= 1)
                             	displayInstructions(route, root);
                             else{
-                            	//otherwise just put the first map on 
+                            	//otherwise just put the first map on
                             	displayInstructions(multiMap.get(currRoute), root);
                             	root.getChildren().add(NextInstruction); //attach next button
                             }
-                            
+
                             System.out.println(" " +route);
-                            for(int i = 0; i < route.size(); i++){
-                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                            }
 
 
                             drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
