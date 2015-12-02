@@ -111,16 +111,17 @@ public class stepIndicator {
 
              //check duplicate go straight
              if ((icon_id==0) && (icon_id==pstep_id)) {
-                 result.getLast().updateDistance(getDistanceInFeet(1,dis));
+                 result.getLast().updateDistance(getDistanceInFeet(2.6053,dis));
              }
              else {
-                 result.addLast(new Step(icon_id, message, getDistanceInFeet(1,dis)));
+                 result.addLast(new Step(icon_id, message, getDistanceInFeet(2.6053,dis)));
              }
              pstep_id = icon_id;
 
              i++;
         }
 
+        result.addFirst(new Step(0,"Walk Straight",0));
         result.addFirst(new Step(7,"Starting nevigation",0));
         result.addLast(new Step(8,"reach destination",0));
 
@@ -237,7 +238,7 @@ public class stepIndicator {
      * @param distance is the # of pixle calculated by nodes
      * @return ditance in feet
      */
-    public double getDistanceInFeet(int scale,int distance){
+    public double getDistanceInFeet(double scale,int distance){
         return distance*scale;
     }
 
