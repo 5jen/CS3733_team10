@@ -487,7 +487,7 @@ public class MapTool extends Application{
                             }
                             else if(!endCoord){
                                 if(endButton != null && endButton != startButton)endButton.setId(null);
-                                endButton.setId("green");
+                                newNodeButton.setId("green");
                                 endButton = newNodeButton;
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
