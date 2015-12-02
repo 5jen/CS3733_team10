@@ -74,7 +74,7 @@ public class GPSapp extends Application{
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
-	boolean start, end = false, toggle = true, startBool = false, destBool = false;
+	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
 	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
@@ -548,6 +548,8 @@ public class GPSapp extends Application{
     				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
     				startBool = true;
     				if(destBool && startBool) {
+    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
+
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
@@ -609,6 +611,7 @@ public class GPSapp extends Application{
     				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
     				destBool = true;
     				if(destBool && startBool) {
+    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
@@ -1010,13 +1013,74 @@ public class GPSapp extends Application{
                     		if(newNode.getIsPlace()) startNode = newNode.getName();
                     		startText.setText(startNode);
                     		start = true;
+                    		startButtonBool = true;
                     	}
                     	else if(!end){
                     		if(newNode.getIsPlace()) endNode = newNode.getName();
                     		DestText.setText(endNode);
                     		start = false;
                     		end = false;
+                    		destButtonBool = true;
                     	}
+                    	
+                    	if(startButtonBool && destButtonBool) {
+                    		destButtonBool = false;
+                    		startButtonBool = false;
+                    		gc.clearRect(0, 0, 8000, 6000); // Clears old path
+        					root.getChildren().remove(zoomPane);
+
+                        	// Need to string compare from
+                        	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
+                        	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
+                        	for(int i = 0; i < nodeList.size(); i ++){
+                            	if((nodeList.get(i)).getName().equals(StartText.getText())) {
+                            		startPlace = (nodeList.get(i));
+                            	}
+                            	if((nodeList.get(i)).getName().equals(DestText.getText())) {
+                            		endPlace = (nodeList.get(i));
+                            	}
+                            }
+                        	System.out.println("start: " + startPlace.getName());
+                        	System.out.println("end: " + endPlace.getName());
+
+                            LinkedList<Node> route = new LinkedList<Node>();
+                            route = graph.findRoute(startPlace, endPlace);
+
+                            //Display the directions on the side
+                            System.out.println("Route = " + route);
+                            if(!(route.size() <= 1)){
+                            	multiMap = splitRoute(route);//is endlessly looping or suttin
+
+                            }
+                            //if the entire route is only on 1 map, display all instruction at once
+                            if(currMaps == 1 || route.size() <= 1)
+                            	displayInstructions(route, root);
+                            else{
+                            	//otherwise just put the first map on 
+                            	displayInstructions(multiMap.get(currRoute), root);
+                            	root.getChildren().add(NextInstruction); //attach next button
+                            }
+                            
+                            System.out.println(" " +route);
+                            for(int i = 0; i < route.size(); i++){
+                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                            }
+
+
+                            drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                            drawRoute(gc, route);
+
+                            final Group group = new Group(imageView, canvas, NodePane);
+                    	    zoomPane = createZoomPane(group);
+                    	    root.getChildren().add(zoomPane);
+                            //drawRoute(gc, route);
+                    	    //loadMap(root, imageView, NodePane);
+
+
+                            route = new LinkedList<Node>();
+                    	}
+                    	
+                    	
                     }
                 });
             	NodePane.getChildren().add(newNodeButton);
@@ -1301,8 +1365,6 @@ public class GPSapp extends Application{
 
     	nodeList.clear();
    		edgeList.clear();
-   		StartText.clear();
-   		DestText.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
