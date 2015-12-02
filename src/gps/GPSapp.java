@@ -993,7 +993,7 @@ public class GPSapp extends Application{
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");*/
-    	//globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
 //		for(int i =0; i < globalEdgeList.size(); i ++ ){
