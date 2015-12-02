@@ -316,11 +316,9 @@ public class GPSapp extends Application{
 
         //hide key
         keyText.setFill(new Color(1, 1, 1, 0.5));
-        keyText.setFont(new Font(20));
         keyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-                keyText.setFont(new Font(30));
 
                 keyText.setFill(new Color(1, 1, 1, 1));
 
@@ -329,7 +327,6 @@ public class GPSapp extends Application{
         keyText.setOnMouseExited(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-                keyText.setFont(new Font(20));
                 keyText.setFill(new Color(1, 1, 1, 0.5));
 
             }
