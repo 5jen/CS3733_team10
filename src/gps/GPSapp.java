@@ -541,6 +541,7 @@ public class GPSapp extends Application{
     				startBool = true;
     				if(destBool && startBool) {
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
+
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
