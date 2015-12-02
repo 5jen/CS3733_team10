@@ -427,11 +427,14 @@ public class MapTool extends Application{
                     	newNodeButton.setStyle(
                                 "-fx-background-radius: 5em; " +  "-fx-min-width: 15px; " + "-fx-min-height: 15px; " + "-fx-max-width: 15px; " + "-fx-max-height: 15px;"
                         );
+                		newNodeButton.setId("shiny-orange");
+
                 	}
                 	else{
                 		newNodeButton.setStyle(
-                    			"-fx-background-color: #000000; " + "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
+                    			   "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
                         );
+                		newNodeButton.setId("dark-blue");
                 	}
                 	
                 	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
@@ -747,16 +750,19 @@ public class MapTool extends Application{
                         "-fx-max-height: 15px;"
                 );
             	newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
+        		newNodeButton.setId("shiny-orange");
+
     		}
             else{
             	newNodeButton.setStyle(
-            			"-fx-background-color: #000000; " +
+            			  
                         "-fx-background-radius: 5em; " +
                         "-fx-min-width: 10px; " +
                         "-fx-min-height: 10px; " +
                         "-fx-max-width: 10px; " +
                         "-fx-max-height: 10px;"
                 );
+        		newNodeButton.setId("dark-blue");
             	newNodeButton.relocate(nodes.get(i).getX()-5, nodes.get(i).getY()-5);
 
             }
@@ -1071,7 +1077,7 @@ public class MapTool extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
-							NodePane.relocate(-212, -70);
+							NodePane.relocate(-212, -0);
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
 							imageView.setScaleY(0.5427);
