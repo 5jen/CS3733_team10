@@ -1067,31 +1067,31 @@ public class MapTool extends Application{
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
 							imageView.setScaleY(0.5427);
-							imageView.relocate(0, 0); //Not Final Values
+							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5427);
 							NodePane.setScaleY(0.5427);
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90);
 							break;
     	case "BH1":			imageView.setScaleX(0.5476);
 							imageView.setScaleY(0.5476);
-							imageView.relocate(0, 0); //Not Final Values
+							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5476);
 							NodePane.setScaleY(0.5476);
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-220, -86);
 							break;
     	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(0, 0); //Not Final Values
 							NodePane.setScaleX(0.5161); //Not Final Values
 							NodePane.setScaleY(0.5161); //Not Final Values
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90); //Not Final Values
 							break;
     	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
 							imageView.relocate(0, 0); //Not Final Values
 							NodePane.setScaleX(0.5161); //Not Final Values
 							NodePane.setScaleY(0.5161); //Not Final Values
-							//NodePane.relocate(-613, -441); //Not Final Values
+							NodePane.relocate(-200, -90); //Not Final Values
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
 							imageView.setScaleY(0.6107);
