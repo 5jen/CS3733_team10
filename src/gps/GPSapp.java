@@ -363,7 +363,8 @@ public class GPSapp extends Application{
 				displayInstructions(multiMap.get(currRoute), root);
 				currRoute++;
 				//if we are on the last page of instructions, remove next button
-				root.getChildren().remove(NextInstruction);
+				if(currRoute == currMaps)
+					root.getChildren().remove(NextInstruction);
 			}
 	    });
 	    
@@ -405,23 +406,17 @@ public class GPSapp extends Application{
                     route = graph.findRoute(startPlace, endPlace); 
                     
                     //Display the directions on the side
-                    if(route.size() <= 1){
-                    	
-                    }
-                    else{
-                    	System.out.println("1******************");
+                    if(!(route.size() <= 1)){
                     	multiMap = splitRoute(route);//is endlessly looping or suttin
-                    	System.out.println("2******************");
+
                     }
                     //if the entire route is only on 1 map, display all instruction at once
                     if(currMaps == 1 || route.size() <= 1)
                     	displayInstructions(route, root);
                     else{
-                    	System.out.println("3******************");
                     	//otherwise just put the first map on 
                     	displayInstructions(multiMap.get(currRoute), root);
-                    	root.getChildren().add(NextInstruction);
-                    	System.out.println("4******************");
+                    	root.getChildren().add(NextInstruction); //attach next button
                     }
                     
                     System.out.println(" " +route);
@@ -514,6 +509,7 @@ public class GPSapp extends Application{
     	//add a possible scroll box for long routes..
 		ScrollPane s1 = new ScrollPane();
 		 s1.setPrefSize(220, 360);
+		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
 		 
@@ -539,7 +535,7 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 200, 0);
+            Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
             
     		StepBox.getChildren().addAll(arrowView, newDirection);
