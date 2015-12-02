@@ -205,7 +205,6 @@ public class MapTool extends Application{
 
     	final Pane root = new Pane();
     	 Scene scene = new Scene(root, 1100, 700);//set size of scene
-       // Scene scene = new Scene(root, 1050, 700);
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
 
         //add the cross image
@@ -467,7 +466,7 @@ public class MapTool extends Application{
                             }
                             else if(!startCoord){
                                 if(startButton != null && endButton != startButton)startButton.setId(null);
-                                newNodeButton.setId("round-red");
+                                newNodeButton.setId("green");
                                 startButton = newNodeButton;
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
@@ -778,7 +777,7 @@ public class MapTool extends Application{
                     }
                     else if(!startCoord){
                         if(startButton != null && endButton != startButton)startButton.setId(null);
-                        newNodeButton.setId("round-red");
+                        newNodeButton.setId("green");
                         startButton = newNodeButton;
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;

@@ -73,7 +73,7 @@ public class GPSapp extends Application{
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(800, 650);
     GraphicsContext gc = canvas.getGraphicsContext2D();
-	boolean start, end = false;
+	boolean start, end = false, toggle = true;
 	String startNode, endNode;
 	Graph graph = new Graph();
 	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
@@ -156,7 +156,8 @@ public class GPSapp extends Application{
 
 	final Button BackButton = new Button("Back");
 
-    Text keyText = new Text( 850, 650,"Show Key");
+    Text keyText = new Text(995, 690,"Show Key");
+    
 
 
     @Override
@@ -213,7 +214,11 @@ public class GPSapp extends Application{
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
 
-    	//
+    	        
+        keyText.setFont(Font.font ("manteka", 10));
+        
+        
+        
     	double width = 80;
 	    double height = 60;
     	pt = setCorners(pt, width, height);
@@ -311,9 +316,9 @@ public class GPSapp extends Application{
         ImageView imageViewKey = new ImageView();
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(830);
-        imageViewKey.setLayoutY(530);
+        imageViewKey.setLayoutY(520);
 
-
+        
         //hide key
         keyText.setFill(new Color(1, 1, 1, 0.5));
         keyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -334,17 +339,18 @@ public class GPSapp extends Application{
 
         keyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                root.getChildren().add(imageViewKey);
+               	if(toggle) {
+            		root.getChildren().add(imageViewKey);
+            		toggle = false;
+            	}
+            	else {
+            		root.getChildren().remove(imageViewKey);
+            		toggle = true;
+            	}
 
             }
         });
 
-        imageViewKey.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                root.getChildren().remove(imageViewKey);
-
-            }
-        });
 
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
