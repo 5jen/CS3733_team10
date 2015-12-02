@@ -157,7 +157,8 @@ public class GPSapp extends Application{
 
 	final Button BackButton = new Button("Back");
 
-    Text keyText = new Text(995, 690,"Show Key");
+    Text keyText = new Text(600, 640,"");
+    Text toggleKeyText = new Text(995, 690,"Show Key");
 	
 	//Vars used for displaying Multiple maps after finding the route
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
@@ -223,10 +224,11 @@ public class GPSapp extends Application{
         buildings.add(BoyntonHall);
 
     	        
-        keyText.setFont(Font.font ("manteka", 10));
+        toggleKeyText.setFont(Font.font ("manteka", 10));
+        keyText.setFont(Font.font ("manteka", 20));
         
      // Iterate over the list of buildings and add their maps to another list
-        LinkedList<Map> maps = new LinkedList<>();
+        //LinkedList<Map> maps = new LinkedList<>();
         for (Building b : buildings){
              maps.addAll(b.getMaps());
         }
@@ -266,7 +268,6 @@ public class GPSapp extends Application{
     	warningBox.getChildren().addAll(warningLabel);
 
     	
-
     	//Find Route Button
     	//final Button findRouteButton = new Button("Find Route");
     	//findRouteButton.relocate(640, 640);
@@ -334,24 +335,24 @@ public class GPSapp extends Application{
 
         
         //hide key
-        keyText.setFill(new Color(1, 1, 1, 0.5));
-        keyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
+        toggleKeyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
 
-                keyText.setFill(new Color(1, 1, 1, 1));
+            	toggleKeyText.setFill(new Color(1, 1, 1, 1));
 
             }
         });
-        keyText.setOnMouseExited(new EventHandler<MouseEvent>() {
+        toggleKeyText.setOnMouseExited(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-                keyText.setFill(new Color(1, 1, 1, 0.5));
+            	toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
 
             }
         });
 
-        keyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        toggleKeyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                	if(toggle) {
             		root.getChildren().add(imageViewKey);
@@ -371,12 +372,11 @@ public class GPSapp extends Application{
         root.getChildren().add(mapSelectionBoxV);
         //root.getChildren().add(imageView);
         root.getChildren().add(keyText);
+        root.getChildren().add(toggleKeyText);
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
-        //root.getChildren().add(nextInstructionButton);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
 
-        //root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -411,6 +411,7 @@ public class GPSapp extends Application{
 		NodePane.relocate(-800, -518);
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
+	    
 
 
 	    //add to load map...
@@ -423,7 +424,7 @@ public class GPSapp extends Application{
 				currRoute++;
 				displayInstructions(multiMap.get(currRoute), root);
 				
-				displayInstructions(multiMap.get(currRoute), root);
+				//displayInstructions(multiMap.get(currRoute), root);
             	//root.getChildren().add(NextInstruction); //attach next button
             	String initials = "";
 				
@@ -443,12 +444,16 @@ public class GPSapp extends Application{
 				
 				
 				//if we are on the last page of instructions, remove next button
-				if(currRoute == currMaps-1)
+				if(currRoute == currMaps-1){
 					root.getChildren().remove(NextInstruction);
+					
+				}
 			}
 	    });
 
 	    root.getChildren().add(zoomPane);
+	    
+	    
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -509,18 +514,17 @@ public class GPSapp extends Application{
     				startBool = true;
     				if(destBool && startBool) {
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
-
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                     	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < nodeList.size(); i ++){
-                        	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (nodeList.get(i));
+                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
+                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
+                        		startPlace = (globalGraph.getNodes().get(i));
                         	}
-                        	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (nodeList.get(i));
+                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
+                        		endPlace = (globalGraph.getNodes().get(i));
                         	}
                         }
                     	System.out.println("start: " + startPlace.getName());
@@ -534,10 +538,11 @@ public class GPSapp extends Application{
                         System.out.println("Route = " + route);
                         //if(!(route.size() <= 1)){
                         multiMap = splitRoute(route);//is endlessly looping or suttin
-
+                        currRoute = 0;
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
                         displayInstructions(multiMap.get(currRoute), root);
+                        root.getChildren().remove(NextInstruction);
                     	root.getChildren().add(NextInstruction); //attach next button
                     	String initials = "";
         				
@@ -547,10 +552,23 @@ public class GPSapp extends Application{
                     		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                     			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
                     	}
+                    	System.out.println("INITIALS: "+ initials);
+                    	gc.clearRect(0, 0, 6000, 3000);
+
                     	mapSelector.setValue(initials);
                     	loadMap(root, imageView);
                     	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                         drawRoute(gc, multiMap.get(currRoute));
+                    	
+                        
+                        System.out.println(" " +route);
+                        for(int i = 0; i < route.size(); i++){
+                        	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                        }
+
+
+                        //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        //drawRoute(gc, route);
 
                         final Group group = new Group(imageView, canvas, NodePane);
                 	    zoomPane = createZoomPane(group);
@@ -595,12 +613,11 @@ public class GPSapp extends Application{
                         System.out.println("Route = " + route);
                         //if(!(route.size() <= 1)){
                         multiMap = splitRoute(route);//is endlessly looping or suttin
-
+                        currRoute = 0;
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
-                        
-                        //otherwise just put the first map on 
-                    	displayInstructions(multiMap.get(currRoute), root);
+                        displayInstructions(multiMap.get(currRoute), root);
+                        root.getChildren().remove(NextInstruction);
                     	root.getChildren().add(NextInstruction); //attach next button
                     	String initials = "";
         				
@@ -610,11 +627,13 @@ public class GPSapp extends Application{
                     		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                     			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
                     	}
+                    	System.out.println("INITIALS: "+ initials);
+                    	gc.clearRect(0, 0, 6000, 3000);
+
                     	mapSelector.setValue(initials);
                     	loadMap(root, imageView);
                     	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                         drawRoute(gc, multiMap.get(currRoute));
-                        System.out.println("currRoute = " + multiMap.get(currRoute));
                     	
                         
                         System.out.println(" " +route);
@@ -1081,25 +1100,40 @@ public class GPSapp extends Application{
                             System.out.println("Route = " + route);
                             //if(!(route.size() <= 1)){
                             multiMap = splitRoute(route);//is endlessly looping or suttin
-
+                            currRoute = 0;
                             //}
                             //if the entire route is only on 1 map, display all instruction at once
-                            if(currMaps == 1 || route.size() <= 1)
-                            	displayInstructions(route, root);
-                            else{
-                            	//otherwise just put the first map on 
-                            	displayInstructions(multiMap.get(currRoute), root);
-                            	root.getChildren().add(NextInstruction); //attach next button
-                            }
+                            displayInstructions(multiMap.get(currRoute), root);
+                            root.getChildren().remove(NextInstruction);
+                        	root.getChildren().add(NextInstruction); //attach next button
+                        	String initials = "";
+            				System.out.println("MAPSIZE: "+ maps.size());
+                        	for(int i = 0; i < maps.size(); i++){
+                        		System.out.println("MAP!!!!!: "+ maps.get(i).getName());
+                        		System.out.println("CURRENT ROUTE: "+ currRoute);
+                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                        			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                        	}
+                        	
+
+                        	System.out.println("MAP!!!!!: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        	gc.clearRect(0, 0, 6000, 3000);
+
+                        	mapSelector.setValue(initials);
+                        	System.out.println("initials = "+initials);
+                        	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
+
+                        	loadMap(root, imageView);
+                        	for(int h = 0; h < nodeList.size(); h++){
+                        		
+                            	System.out.println("NodeList!!! = "+ nodeList.get(h).getIsPlace());
+
+                        	}
+                        	System.out.println("NodeList Size = "+ nodeList.size());
+                        	drawRoute(gc, multiMap.get(currRoute));
+                        	//drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                             
-                            System.out.println(" " +route);
-                            for(int i = 0; i < route.size(); i++){
-                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                            }
-
-
-                            drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                            drawRoute(gc, route);
 
                             final Group group = new Group(imageView, canvas, NodePane);
                     	    zoomPane = createZoomPane(group);
@@ -1427,7 +1461,7 @@ public class GPSapp extends Application{
         DestList.setItems(LocationOptions);*/
 
         //graph = createGraph(graph, nodeList, edgeList);
-        NodePane = new Pane();
+        NodePane.getChildren().clear();
         NodePane.setPrefSize(2450, 1250);
 
         switch (mapSelector.getValue()) {
@@ -1747,7 +1781,7 @@ public class GPSapp extends Application{
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
         	}
@@ -1783,7 +1817,7 @@ public class GPSapp extends Application{
         });
         olin.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
                 olin.setFill(Color.TRANSPARENT);
         	}
@@ -1818,7 +1852,7 @@ public class GPSapp extends Application{
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		stratton.setFill(Color.TRANSPARENT);
         	}
@@ -1863,7 +1897,7 @@ public class GPSapp extends Application{
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		library.setFill(Color.TRANSPARENT);
         	}
@@ -1909,7 +1943,7 @@ public class GPSapp extends Application{
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		ak.setFill(Color.TRANSPARENT);
         	}
@@ -1945,7 +1979,7 @@ public class GPSapp extends Application{
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		cdc.setFill(Color.TRANSPARENT);
         	}
@@ -1997,7 +2031,7 @@ public class GPSapp extends Application{
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		higginsHouse.setFill(Color.TRANSPARENT);
         	}
@@ -2046,7 +2080,7 @@ public class GPSapp extends Application{
 
             public void handle (MouseEvent event){
 
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.relocate(850,650);
                 root.getChildren().remove(keyText);
                 root.getChildren().add(keyText);
