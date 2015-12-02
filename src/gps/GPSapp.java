@@ -71,7 +71,7 @@ public class GPSapp extends Application{
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
@@ -164,8 +164,11 @@ public class GPSapp extends Application{
 	int currMaps = 0;
 	int currRoute = 0;
 	Button NextInstruction = new Button("Next");
-	
-    @Override
+
+	LinkedList<Node> globalNodeList = new LinkedList<Node>();
+
+
+	@Override
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
@@ -915,7 +918,6 @@ public class GPSapp extends Application{
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
 
     	//create Global nodes and edges list to pass to other createGraph method
-    	LinkedList<Node> globalNodeList = new LinkedList<Node>();
     	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
     	LinkedList<EdgeDataConversion> globalEdgeListConversion = new LinkedList<EdgeDataConversion>();
 
@@ -964,7 +966,18 @@ public class GPSapp extends Application{
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));*/
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
+
+		for(int i =0; i < globalEdgeListConversion.size(); i ++ ){
+			System.out.println("!!!@#$ FROM: " + globalEdgeListConversion.get(i).getFrom());
+			System.out.println("!!!@#$ FROM: " + globalEdgeListConversion.get(i).getTo());
+
+		}
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+		for(int i =0; i < globalEdgeList.size(); i ++ ){
+			System.out.println("Edge!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
+			System.out.println("Edge!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
+
+		}
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLBEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL1Edges.json");
@@ -980,10 +993,14 @@ public class GPSapp extends Application{
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");*/
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	//globalEdgeList.addAll(convertEdgeData(edgeListConversion));
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-
+//		for(int i =0; i < globalEdgeList.size(); i ++ ){
+//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
+//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
+//
+//		}
     	return GLOBALGRAPH;
 
     	
@@ -1171,18 +1188,18 @@ public class GPSapp extends Application{
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < nodeList.size(); j ++){
+    		for(int j = 0; j < globalNodeList.size(); j ++){
     			//System.out.println("NodeSize: "+nodeList.size());
     			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
-    			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    			if(edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())){
 					from = j;
 				}
-				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
+				if(edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())){
 					to = j;
 				}
 
     		}
-    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
+    		Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
 
@@ -1419,12 +1436,12 @@ public class GPSapp extends Application{
 	   // NodePane.setScaleY(1);
 
     	nodeList.clear();
-   		edgeList.clear();
+   		//edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
-    	edgeList = convertEdgeData(edgeListConversion);
+    	//edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
@@ -1441,7 +1458,7 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
 
-        graph = createGraph(graph, nodeList, edgeList);
+        //graph = createGraph(graph, nodeList, edgeList);
         NodePane = new Pane();
         NodePane.setPrefSize(2450, 1250);
 
