@@ -49,12 +49,12 @@ public class stepIndicator {
 
             int icon_id=0;//the icon_id for the instruction
 
-            x1 = route.get(i-1).getX();
-            y1 = route.get(i-1).getY();
-            x2 = route.get(i).getX();
-            y2 = route.get(i).getY();
-            x3 = route.get(i+1).getX();
-            y3 = route.get(i+1).getY();
+            x1 = route.get(i-1).getGlobalX();
+            y1 = route.get(i-1).getGlobalY();
+            x2 = route.get(i).getGlobalX();
+            y2 = route.get(i).getGlobalY();
+            x3 = route.get(i+1).getGlobalX();
+            y3 = route.get(i+1).getGlobalY();
 
             int dis = getDistance(x1,x2,y1,y2);
 

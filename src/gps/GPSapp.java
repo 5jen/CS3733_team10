@@ -539,6 +539,7 @@ public class GPSapp extends Application{
                         //if(!(route.size() <= 1)){
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
+
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
                         displayInstructions(multiMap.get(currRoute), root);
@@ -614,6 +615,7 @@ public class GPSapp extends Application{
                         //if(!(route.size() <= 1)){
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
+
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
                         displayInstructions(multiMap.get(currRoute), root);
