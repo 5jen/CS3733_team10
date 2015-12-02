@@ -32,12 +32,13 @@ public class stepIndicator {
 
         int i = 1;
         while (i<route.size()- 1){
-            int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
+           // int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
             String message;
             String maneuver;
             //the type for a node
             String type = route.get(i).getType();
-
+            String name = route.get(i).getName();
+            System.out.println(name);
             int x1;//previous x
             int y1;//previous y
             int x2;//current x
@@ -76,31 +77,7 @@ public class stepIndicator {
                     message = "Go "+ maneuver;
                 }
                 else {
-                    /**
-                    if (getTurnDirection(x1,y1,x2,y2,x3,y3) == 1 ) {
-                        maneuver = "left";
-                        icon_id = 3;
-                    }
-                    else if (getTurnDirection(x1,y1,x2,y2,x3,y3) == -1 ){
-                        maneuver = "right";
-                        icon_id = 4;
-                    }
-                    else maneuver = "straight";
-                    // Determine the strength
-                    if ((0 < angle) && (angle < 45)) {
-                        maneuver = "sharp "+ maneuver;
-                        icon_id = icon_id*11;
-                    }
-                    else if ((120 < angle) && (angle < 160)) {
-                        maneuver = "slight "+ maneuver;
-                        icon_id = icon_id*13;
-                    }
-                    else {
-                        maneuver = "straight";
-                    }
-                    if (maneuver.compareTo("straight")==0) message = "Keep "+maneuver;
-                    else message = "Turn "+maneuver;
-                    */
+
                     message = generateMessage(x1,y1,x2,y2,x3,y3);
 
                     if (message.compareTo("straight") == 0) {icon_id = 0;}
@@ -113,30 +90,7 @@ public class stepIndicator {
                 }
 
             }
-            /** IGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNORE
-            if (getTurnDirection(x1,y1,x2,y2,x3,y3)==1) {
-                if ((0 < angle) && (angle < 45)) {
-                    message = "Turn sharp right";
-                } else if ((45 < angle) && (angle < 120)) {
-                    message = "Turn right";
-                } else if ((120 < angle) && (angle < 160)) {
-                    message = "Turn slight right";
-                } else {
-                    message = "Keep straight";
-                }
-            }
-            else if (getTurnDirection(x1,y1,x2,y2,x3,y3)==-1){
-                if ((0 < angle) && (angle < 45)) {
-                    message = "Turn sharp left";
-                } else if ((45 < angle) && (angle < 120)) {
-                    message = "Turn left";
-                } else if ((120 < angle) && (angle < 160)) {
-                    message = "Turn slight left";
-                } else {
-                    message = "Keep straight";
-                }
-            }
-             IGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNORE*/
+
             //TODO create a class for instructions
             /**
              * icon_id               icon
@@ -150,6 +104,9 @@ public class stepIndicator {
              *  52                 slight right
              *  0                  straight
              *  5                  switch map(for transition point)
+             *  6                  U turn
+             *  7                  starting route
+             *  8                  reach destination
              */
 
              //check duplicate go straight
@@ -163,6 +120,9 @@ public class stepIndicator {
 
              i++;
         }
+
+        result.addFirst(new Step(7,"Starting nevigation",0));
+        result.addLast(new Step(8,"reach destination",0));
 
         return result;
     }
@@ -284,15 +244,20 @@ public class stepIndicator {
 
 
     public String generateMessage(int x1, int y1, int x2, int y2, int x3, int y3){
-        vector ab = new vector(x2-x1,y2-y1);
-        vector bc = new vector(x3-x2,y3-y2);
+        vector ab = new vector(x2-x1,y1-y2);
+        vector bc = new vector(x3-x2,y2-y3);
 
         int angleDifference = bc.getXPlusDegree()-ab.getXPlusDegree();
+
+        if (angleDifference<0) angleDifference+=360;
+
+       // System.out.println(angleDifference);
+
 
         if ((angleDifference > 20)&&(angleDifference <= 45)) return "slight left";
         else if ((angleDifference >45) && (angleDifference<=120)) return "left";
         else if ((angleDifference>120) && (angleDifference<=160)) return "sharp left";
-        else if ((angleDifference>160) && (angleDifference<=200)) return "back";
+        else if ((angleDifference>160) && (angleDifference<=200)) return "U turn";
         else if ((angleDifference>200) && (angleDifference<=240)) return "sharp right";
         else if ((angleDifference>240) && (angleDifference<=315)) return "right";
         else if ((angleDifference>315) && (angleDifference<=340)) return "slight right";
