@@ -540,6 +540,7 @@ public class GPSapp extends Application{
     				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
     				startBool = true;
     				if(destBool && startBool) {
+    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
@@ -601,6 +602,7 @@ public class GPSapp extends Application{
     				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
     				destBool = true;
     				if(destBool && startBool) {
+    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
