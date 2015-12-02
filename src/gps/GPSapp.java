@@ -362,7 +362,7 @@ public class GPSapp extends Application{
             	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
             		//TEMP TO TEST WITH HARDCODED INSTRUCTIONS!!!
             		//Display the directions on the side
-                    displayInstructions(null, root);
+                    //displayInstructions(null, root);
             	} else {
             		root.getChildren().remove(zoomPane);
             	
@@ -472,7 +472,6 @@ public class GPSapp extends Application{
     	directionBox.setLayoutY(100);
     	
 		
-
     	//add a possible scroll box for long routes..
 		ScrollPane s1 = new ScrollPane();
 		 s1.setPrefSize(220, 400);
@@ -487,7 +486,7 @@ public class GPSapp extends Application{
     	stepIndicator steps = new stepIndicator(route);
     	
     	//!!!!uncomment when we have a global map to test on!!!!!!
-    	//LinkedList<String> directions = steps.lInstructions();
+    	LinkedList<Step> directions = steps.lInstructions();
     	
     	 /** TABLE TO ID THE IMAGE TO ADD
          * icon_id               icon
@@ -503,7 +502,7 @@ public class GPSapp extends Application{
          *  5                  -switch map(for transition point)
          */
     	//Hard Coded Example to see how the UI looks
-    	LinkedList<Step> directions = new LinkedList<Step>();
+    	/*LinkedList<Step> directions = new LinkedList<Step>();
     	Step step1 = new Step(1, "up staris  ", 10);
     	Step step2 = new Step(2, "down stiar ", 20);
     	Step step3 = new Step(3, "turn left  ", 5);
@@ -523,14 +522,14 @@ public class GPSapp extends Application{
     	directions.add(step7);
     	directions.add(step8);
     	directions.add(step9);
-    	directions.add(step10);
+    	directions.add(step10);*/
 
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
     		HBox StepBox = new HBox(2);
     		//StepBox.setStyle("-fx-border-color: black;");
     		
-    		Label newDirection = new Label(directions.get(i).getMessage() +directions.get(i).getDistance());
+    		Label newDirection = new Label(directions.get(i).getMessage() + directions.get(i).getDistance());
     		
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
@@ -538,6 +537,7 @@ public class GPSapp extends Application{
             arrowView.setImage(arrowImage);
             Line breakLine = new Line(0, 0, 200, 0);
             breakLine.setLayoutX(10);
+            
     		StepBox.getChildren().addAll(arrowView, newDirection);
     		directionBox.getChildren().addAll(StepBox, breakLine);
     	}

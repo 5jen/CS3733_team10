@@ -90,6 +90,7 @@ public class stepIndicator {
                     }
                     else {
                         maneuver = "straight";
+                        icon_id = 0;
                     }
                     if (maneuver.compareTo("straight")==0) message = "Keep "+maneuver;
                     else message = "Turn "+maneuver;
