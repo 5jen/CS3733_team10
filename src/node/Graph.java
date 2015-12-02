@@ -46,11 +46,40 @@ public class Graph {
 			}
 		}
 	}
+	public void addEdgeByString(String node1, String node2) {
+		int index1 = nodes.indexOf(node1);
+		int index2 = nodes.indexOf(node2);
+		for(int i = 0; i < nodes.size(); i++){
+			if(nodes.get(i).getName().equals(node1))
+				index1 = i;
+			if(nodes.get(i).getName().equals(node2))
+				index2 = i;
+			
+		}	
+		int dist = getDistance(nodes.get(index1), nodes.get(index2));
+		
+		System.out.println("Nodes: "+nodes);
+		System.out.println("Index1: "+index1);
+		
+		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
+		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
+
+		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2), dist);
+		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1), dist);
+		
+		nodes.get(index1).setEdges(newEdge1);
+		nodes.get(index2).setEdges(newEdge2);
+		
+		
+	}
 	
 	public void addEdge(Node node1, Node node2){
 		int index1 = nodes.indexOf(node1);
 		int index2 = nodes.indexOf(node2);
 		int dist = getDistance(node1, node2);
+		
+		System.out.println("Nodes: "+nodes);
+		System.out.println("Index1: "+index1);
 		
 		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
 		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
@@ -148,5 +177,7 @@ public class Graph {
 	private int getDistance(Node n1, Node n2){
     	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)) + (Math.pow((n1.getZ()-n2.getZ()),2)));
     }
+
+	
 }
 		

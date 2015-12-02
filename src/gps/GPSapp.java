@@ -700,7 +700,31 @@ public class GPSapp extends Application{
 	}
     
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
-    	LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
+    	
+    	//create Global nodes and edges list to pass to other createGraph method
+    	LinkedList<Node> globalNodeList = new LinkedList<Node>();
+    	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
+    	
+    	//Manually add all of the Nodes...
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
+
+
+    	//Manually add all of the Edges
+    	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	
+    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
+    	
+    	return GLOBALGRAPH;
+    	
+    	
+    	/*LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	LinkedList<Edge> TEMPedgeList = convertEdgeData(TEMPedgeListData);	
     	
@@ -734,14 +758,17 @@ public class GPSapp extends Application{
         	}
         }
     	
-		return GLOBALGRAPH;
+		return GLOBALGRAPH;*/
 	}
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
+    	System.out.print("Nodes: "+nodes);
+    	System.out.println();
+    	System.out.print("Edges: "+edges);
     	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
-    		g.addEdge(edges.get(i).getFrom(), edges.get(i).getTo());
+    		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
     	}
     	return g;
     }
@@ -805,25 +832,23 @@ public class GPSapp extends Application{
     
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
     	LinkedList<Edge> edgeList = new LinkedList<Edge>();
-    	Node fromNode = new Node(0, 0, 0, "", "","", false, false, "");
-    	Node toNode = new Node(0, 0, 0, "","","", false, false, "");
+    	int from = 0, to = 0;
     	
     	//iterate through the edges 
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
-        		//System.out.println("Node Iterator: " + j + ", x valFrom: " + nodeList.get(j).getX() + " =? " + nodeList.get(j).getName());
 
     			if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
-					fromNode = nodeList.get(j);
+					from = j;
 				}
 				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
-					toNode = nodeList.get(j);
+					to = j;
 				}
     			
     		}
-    		Edge newEdge = new Edge(fromNode, toNode, edgeListConversion.get(i).getDistance());
+    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeListConversion.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
     	
