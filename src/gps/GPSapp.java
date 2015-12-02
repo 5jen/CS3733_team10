@@ -69,7 +69,7 @@ public class GPSapp extends Application{
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
-	Canvas canvas = new Canvas(800, 650);
+	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false;
 	String startNode, endNode;
@@ -152,6 +152,13 @@ public class GPSapp extends Application{
 	LinkedList<Map> maps = new LinkedList<>();
 
 	final Button BackButton = new Button("Back");
+	
+	//Vars used for displaying Multiple maps after finding the route
+	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
+	int currMaps = 0;
+	int currRoute = 0;
+	Button NextInstruction = new Button("Next");
+	
 	
 	
     @Override
@@ -251,6 +258,11 @@ public class GPSapp extends Application{
     	//Find Route Button
     	final Button findRouteButton = new Button("Find Route");
     	findRouteButton.relocate(640, 640);
+    	
+    	//Next button (and previous)
+    	NextInstruction.setTextFill(Color.WHITE);
+    	NextInstruction.setLayoutX(820);
+    	NextInstruction.setLayoutY(470);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -279,9 +291,6 @@ public class GPSapp extends Application{
         DestLabel.setFont(Font.font ("manteka", 20));
         DestLabel.setLayoutX(300);
         DestLabel.setLayoutY(610);
-        
-        //Labels for the direction
-        //MOVE TO METHOD AND USE FOR LOOP ONCE WE HAVE THE ROUTE CALCULATED
   
         //Create the map image
         File mapFile = new File("CS3733_Graphics/CampusMap.png");
@@ -317,7 +326,8 @@ public class GPSapp extends Application{
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
-        
+        root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
+
         
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -345,6 +355,15 @@ public class GPSapp extends Application{
 
 	    //add to load map...
 	    highLight(NodePane, imageView, root);
+	    
+	    //Next instruction button actions
+	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				
+				displayInstructions(multiMap.get(currRoute), root);
+				currRoute++;
+			}
+	    });
 	    
 	    root.getChildren().add(zoomPane);
         //Add actions to the Load Map button
@@ -384,7 +403,23 @@ public class GPSapp extends Application{
                     route = graph.findRoute(startPlace, endPlace); 
                     
                     //Display the directions on the side
-                    displayInstructions(route, root);
+                    if(route.size() <= 1){
+                    	
+                    }
+                    else{
+                    	System.out.println("1******************");
+                    	multiMap = splitRoute(route);//is endlessly looping or suttin
+                    	System.out.println("2******************");
+                    }
+                    //if the entire route is only on 1 map, display all instruction at once
+                    if(currMaps == 1 || route.size() <= 1)
+                    	displayInstructions(route, root);
+                    else{
+                    	System.out.println("3******************");
+                    	//otherwise just put the first map on 
+                    	displayInstructions(multiMap.get(currRoute), root);
+                    	System.out.println("4******************");
+                    }
                     
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
@@ -465,64 +500,30 @@ public class GPSapp extends Application{
     
     //Display all of the instructions on screen
     private void displayInstructions(LinkedList<Node> route, Pane root){
+    	//what if we move this in here..???
+    	//multiMap = splitRoute(route);
     	
     	//create vertical box to add labels too
     	VBox directionBox = new VBox(2);
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
     	
-		
     	//add a possible scroll box for long routes..
 		ScrollPane s1 = new ScrollPane();
-		 s1.setPrefSize(220, 400);
+		 s1.setPrefSize(220, 360);
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
 		 
-		
     	//or eventually break up into multiple sections of instructions based
     	//on current map displayed
-    	
+    	//for(int k = 0; k < multiMap.size(); k++){
+    		
+    	//}
+    		
     	//convert the route to a list of string instructions
     	stepIndicator steps = new stepIndicator(route);
     	
-    	//!!!!uncomment when we have a global map to test on!!!!!!
     	LinkedList<Step> directions = steps.lInstructions();
-    	
-    	 /** TABLE TO ID THE IMAGE TO ADD
-         * icon_id               icon
-         *  1                  -up_stair
-         *  2                  -down_stair
-         *  3                  -turn left
-         *  4                  -turn right
-         *  33                 -sharp left
-         *  44                 -sharp right
-         *  39                 -slight left
-         *  52                 -slight right
-         *  0                  -straight
-         *  5                  -switch map(for transition point)
-         */
-    	//Hard Coded Example to see how the UI looks
-    	/*LinkedList<Step> directions = new LinkedList<Step>();
-    	Step step1 = new Step(1, "up staris  ", 10);
-    	Step step2 = new Step(2, "down stiar ", 20);
-    	Step step3 = new Step(3, "turn left  ", 5);
-    	Step step4 = new Step(4, "turn right  ", 10);
-    	Step step5 = new Step(33, "sharp left  ", 20);
-    	Step step6 = new Step(44, "sharp Right  ", 5);
-    	Step step7 = new Step(39, "slight Left  ", 10);
-    	Step step8 = new Step(52, "slight right  ", 20);
-    	Step step9 = new Step(0, "straight  ", 5);
-    	Step step10 = new Step(5, "switch map  ", 5);
-    	directions.add(step1);
-    	directions.add(step2);
-    	directions.add(step3);
-    	directions.add(step4);
-    	directions.add(step5);
-    	directions.add(step6);
-    	directions.add(step7);
-    	directions.add(step8);
-    	directions.add(step9);
-    	directions.add(step10);*/
 
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
@@ -541,6 +542,7 @@ public class GPSapp extends Application{
     		StepBox.getChildren().addAll(arrowView, newDirection);
     		directionBox.getChildren().addAll(StepBox, breakLine);
     	}
+    	
     	s1.setContent(directionBox);
     	root.getChildren().add(s1);
     	return;
@@ -699,6 +701,43 @@ public class GPSapp extends Application{
 	     return pt;
 	}
     
+    //If the route is across multiple maps we want to break it up
+    private LinkedList<LinkedList<Node>> splitRoute(LinkedList<Node> route){
+    	
+    	//change this.. or check if it before splitorator
+    	if(route.size() == 0)
+    		return null;
+    	
+    	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
+    	String aBuilding = route.get(0).getBuilding();
+    	int newBuildingIndex = 0;
+    	
+    	for(int i = 0; i < route.size(); i++){
+    		//if the current node is in a different building, chop off the stuff before and place it in its own list
+    		if(!aBuilding.equals(route.get(i).getBuilding())){
+    			//add from newBuildingIndex to i-1
+    			LinkedList<Node> tempRoute = new LinkedList<Node>();
+    			for(int k = newBuildingIndex; k < i; i++){
+    				tempRoute.add(route.get(k));
+    			}
+    			newBuildingIndex = i;
+    			aBuilding = route.get(i).getBuilding(); //since i is the new building
+    			splitRoutes.add(tempRoute);
+    		}
+    		//if we haven't added any yet, route is all on 1 map
+    		if(splitRoutes.size() == 0){
+    			LinkedList<Node> tempRoute = new LinkedList<Node>();
+    			for(int k = newBuildingIndex; k < i; i++){
+    				tempRoute.add(route.get(k));
+    			}
+    			splitRoutes.add(tempRoute);
+    		}
+    				
+    	}
+    	currMaps = splitRoutes.size();
+    	return splitRoutes;
+    }
+    
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
     	
     	//create Global nodes and edges list to pass to other createGraph method
@@ -723,7 +762,7 @@ public class GPSapp extends Application{
     	
     	return GLOBALGRAPH;
     	
-    	
+    	//ITERATE THROUGH DIRS AND ATTACH INSTEAD OF HARDCODE, COULDNT GET WORKING
     	/*LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	LinkedList<Edge> TEMPedgeList = convertEdgeData(TEMPedgeListData);	
@@ -739,7 +778,6 @@ public class GPSapp extends Application{
         		GLOBALGRAPH.addNode(TEMPnodeList.get(i));
         	}
         }
-        
         System.out.println(GLOBALGRAPH.getNodes() + " Global");
     	//iterate through all of the Edge json files and add them to the global graph
         String edgePath = "Graphs/Edges/";
@@ -757,7 +795,6 @@ public class GPSapp extends Application{
             	}
         	}
         }
-    	
 		return GLOBALGRAPH;*/
 	}
 
