@@ -65,13 +65,13 @@ public class GPSapp extends Application{
 	public static void main(String[] args) {
         launch(args);
     }
-
+	int o = 0;
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+	
 	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
@@ -169,7 +169,7 @@ public class GPSapp extends Application{
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
-
+    	o = 1;
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
 
@@ -1034,12 +1034,16 @@ public class GPSapp extends Application{
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
     	//System.out.print("Nodes: " + nodes);
-    	System.out.println();
+    	//System.out.println();
     	//System.out.print("Edges: " + edges);
     	System.out.println("///***&&&");
     	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
-    		System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
+    		if(o == 1){
+    			System.out.print("From: " + edges.get(i).getFrom().getName());
+    			System.out.println(", To: " + edges.get(i).getTo().getName());
+
+    		}
     		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
     	}
     	return g;
@@ -1171,19 +1175,37 @@ public class GPSapp extends Application{
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < nodeList.size(); j ++){
-    			//System.out.println("NodeSize: "+nodeList.size());
-    			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
-    			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
-					from = j;
-				}
-				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
-					to = j;
-				}
+    		if(o == 0){
+    			for(int j = 0; j < nodeList.size(); j ++){
+        			//System.out.println("NodeSize: "+nodeList.size());
+        			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+        			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    					from = j;
+    				}
+    				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
+    					to = j;
+    				}
 
+        		}
+        		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
+    			edgeList.add(newEdge);
     		}
-    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
-			edgeList.add(newEdge);
+    		else{
+    			for(int j = 0; j < globalGraph.getNodes().size(); j ++){
+        			//System.out.println("NodeSize: "+nodeList.size());
+        			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+        			if(edgeData.get(i).getFrom().equals((globalGraph.getNodes().get(j)).getName())){
+    					from = j;
+    				}
+    				if(edgeData.get(i).getTo().equals((globalGraph.getNodes().get(j)).getName())){
+    					to = j;
+    				}
+
+        		}
+        		Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
+    			edgeList.add(newEdge);
+    		}
+    		
     	}
 
     	return edgeList;
