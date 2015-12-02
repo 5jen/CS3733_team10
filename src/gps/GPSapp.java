@@ -71,7 +71,7 @@ public class GPSapp extends Application{
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
@@ -157,15 +157,19 @@ public class GPSapp extends Application{
 
 	final Button BackButton = new Button("Back");
 
-    Text keyText = new Text(995, 690,"Show Key");
+    Text keyText = new Text(600, 640,"");
+    Text toggleKeyText = new Text(995, 690,"Show Key");
 	
 	//Vars used for displaying Multiple maps after finding the route
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
 	int currMaps = 0;
 	int currRoute = 0;
 	Button NextInstruction = new Button("Next");
-	
-    @Override
+
+	LinkedList<Node> globalNodeList = new LinkedList<Node>();
+
+
+	@Override
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
@@ -220,8 +224,14 @@ public class GPSapp extends Application{
         buildings.add(BoyntonHall);
 
     	        
-        keyText.setFont(Font.font ("manteka", 10));
+        toggleKeyText.setFont(Font.font ("manteka", 10));
+        keyText.setFont(Font.font ("manteka", 20));
         
+     // Iterate over the list of buildings and add their maps to another list
+        //LinkedList<Map> maps = new LinkedList<>();
+        for (Building b : buildings){
+             maps.addAll(b.getMaps());
+        }
         
         
     	double width = 80;
@@ -257,15 +267,10 @@ public class GPSapp extends Application{
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel);
 
-    	//Initialize the Drop down menu for initial Map
-    	for(int i = 0; i < nodeList.size() ; i ++){
-    		if(nodeList.get(i).getIsPlace())
-    			LocationOptions.add((nodeList.get(i)).getName());
-        }
-
+    	
     	//Find Route Button
-    	final Button findRouteButton = new Button("Find Route");
-    	findRouteButton.relocate(640, 640);
+    	//final Button findRouteButton = new Button("Find Route");
+    	//findRouteButton.relocate(640, 640);
     	
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.WHITE);
@@ -330,24 +335,24 @@ public class GPSapp extends Application{
 
         
         //hide key
-        keyText.setFill(new Color(1, 1, 1, 0.5));
-        keyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
+        toggleKeyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
 
-                keyText.setFill(new Color(1, 1, 1, 1));
+            	toggleKeyText.setFill(new Color(1, 1, 1, 1));
 
             }
         });
-        keyText.setOnMouseExited(new EventHandler<MouseEvent>() {
+        toggleKeyText.setOnMouseExited(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-                keyText.setFill(new Color(1, 1, 1, 0.5));
+            	toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
 
             }
         });
 
-        keyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        toggleKeyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                	if(toggle) {
             		root.getChildren().add(imageViewKey);
@@ -367,21 +372,28 @@ public class GPSapp extends Application{
         root.getChildren().add(mapSelectionBoxV);
         //root.getChildren().add(imageView);
         root.getChildren().add(keyText);
+        root.getChildren().add(toggleKeyText);
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
-        root.getChildren().add(findRouteButton);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
 
-        //root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
 
         //Generate the Global map graph
         globalGraph = createGlobalGraph(globalGraph);
+        
+        //now we can create the local edge connections
+        LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 
         //generate the local map graph
-        graph = createGraph(graph, nodeList, edgeList);
+        //graph = createGraph(graph, nodeList, edgeList);
+      //Initialize the Drop down menu for initial Map
+    	for(int i = 0; i < globalNodeList.size() ; i ++){
+    		if(globalNodeList.get(i).getIsPlace())
+    			LocationOptions.add((globalNodeList.get(i)).getName());
+        }
 
 
 
@@ -399,6 +411,7 @@ public class GPSapp extends Application{
 		NodePane.relocate(-800, -518);
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
+	    
 
 
 	    //add to load map...
@@ -408,16 +421,39 @@ public class GPSapp extends Application{
 	    //Next instruction button actions
 	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				
-				displayInstructions(multiMap.get(currRoute), root);
 				currRoute++;
+				displayInstructions(multiMap.get(currRoute), root);
+				
+				//displayInstructions(multiMap.get(currRoute), root);
+            	//root.getChildren().add(NextInstruction); //attach next button
+            	String initials = "";
+				
+            	for(int i = 0; i < maps.size(); i++){
+            		System.out.println("CURRENT ROUTE: "+ currRoute);
+            		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+            		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+            			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+            	}
+            	gc.clearRect(0, 0, 6000, 3000);
+            	mapSelector.setValue(initials);
+            	loadMap(root, imageView);
+            	
+            	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                drawRoute(gc, multiMap.get(currRoute));
+				
+				
+				
 				//if we are on the last page of instructions, remove next button
-				if(currRoute == currMaps)
+				if(currRoute == currMaps-1){
 					root.getChildren().remove(NextInstruction);
+					
+				}
 			}
 	    });
 
 	    root.getChildren().add(zoomPane);
+	    
+	    
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -426,71 +462,7 @@ public class GPSapp extends Application{
             }
         });
 
-        //Add button actions
-        findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-            	gc.clearRect(0, 0, 8000, 6000); // Clears old path
-            	if (StartText.getText().equals("")|| DestText.getText().equals("")) {
-            		//TEMP TO TEST WITH HARDCODED INSTRUCTIONS!!!
-            		//Display the directions on the side
-                    //displayInstructions(null, root);
-            	} else {
-            		root.getChildren().remove(zoomPane);
-
-                	// Need to string compare from
-                	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
-                	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                	for(int i = 0; i < nodeList.size(); i ++){
-                    	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                    		startPlace = (nodeList.get(i));
-                    	}
-                    	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                    		endPlace = (nodeList.get(i));
-                    	}
-                    }
-                	System.out.println("start: " + startPlace.getName());
-                	System.out.println("end: " + endPlace.getName());
-
-
-                    LinkedList<Node> route = new LinkedList<Node>();
-                    route = graph.findRoute(startPlace, endPlace);
-
-                    //Display the directions on the side
-
-                    if(!(route.size() <= 1)){
-                    	multiMap = splitRoute(route);//is endlessly looping or suttin
-
-                    }
-                    //if the entire route is only on 1 map, display all instruction at once
-                    if(currMaps == 1 || route.size() <= 1)
-                    	displayInstructions(route, root);
-                    else{
-                    	//otherwise just put the first map on
-                    	displayInstructions(multiMap.get(currRoute), root);
-                    	root.getChildren().add(NextInstruction); //attach next button
-                    }
-
-                    System.out.println(" " +route);
-                    for(int i = 0; i < route.size(); i++){
-                    	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                    }
-
-
-                    drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                    drawRoute(gc, route);
-
-                    final Group group = new Group(imageView, canvas, NodePane);
-            	    zoomPane = createZoomPane(group);
-            	    root.getChildren().add(zoomPane);
-                    //drawRoute(gc, route);
-            	    //loadMap(root, imageView, NodePane);
-
-
-                    route = new LinkedList<Node>();
-            	}
-            }
-        });
-
+        
 
         primaryStage.setScene(new Scene(root, 1050, 700));
         primaryStage.show();
@@ -542,49 +514,61 @@ public class GPSapp extends Application{
     				startBool = true;
     				if(destBool && startBool) {
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
-
     					root.getChildren().remove(zoomPane);
 
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                     	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < nodeList.size(); i ++){
-                        	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (nodeList.get(i));
+                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
+                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
+                        		startPlace = (globalGraph.getNodes().get(i));
                         	}
-                        	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (nodeList.get(i));
+                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
+                        		endPlace = (globalGraph.getNodes().get(i));
                         	}
                         }
                     	System.out.println("start: " + startPlace.getName());
                     	System.out.println("end: " + endPlace.getName());
 
-                        LinkedList<Node> route = new LinkedList<Node>();
-                        route = graph.findRoute(startPlace, endPlace);
-
+                    	LinkedList<Node> route = new LinkedList<Node>();
+                        route = globalGraph.findRoute(startPlace, endPlace);
+                        
+                        System.out.println("Route lenth: " + route.size());
                         //Display the directions on the side
-
-                        if(!(route.size() <= 1)){
-                        	multiMap = splitRoute(route);//is endlessly looping or suttin
-
-                        }
+                        System.out.println("Route = " + route);
+                        //if(!(route.size() <= 1)){
+                        multiMap = splitRoute(route);//is endlessly looping or suttin
+                        currRoute = 0;
+                        //}
                         //if the entire route is only on 1 map, display all instruction at once
-                        if(currMaps == 1 || route.size() <= 1)
-                        	displayInstructions(route, root);
-                        else{
-                        	//otherwise just put the first map on
-                        	displayInstructions(multiMap.get(currRoute), root);
-                        	root.getChildren().add(NextInstruction); //attach next button
-                        }
+                        displayInstructions(multiMap.get(currRoute), root);
+                        root.getChildren().remove(NextInstruction);
+                    	root.getChildren().add(NextInstruction); //attach next button
+                    	String initials = "";
+        				
+                    	for(int i = 0; i < maps.size(); i++){
+                    		System.out.println("CURRENT ROUTE: "+ currRoute);
+                    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                    	}
+                    	System.out.println("INITIALS: "+ initials);
+                    	gc.clearRect(0, 0, 6000, 3000);
 
+                    	mapSelector.setValue(initials);
+                    	loadMap(root, imageView);
+                    	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        drawRoute(gc, multiMap.get(currRoute));
+                    	
+                        
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                         }
 
 
-                        drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                        drawRoute(gc, route);
+                        //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        //drawRoute(gc, route);
 
                         final Group group = new Group(imageView, canvas, NodePane);
                 	    zoomPane = createZoomPane(group);
@@ -610,43 +594,56 @@ public class GPSapp extends Application{
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                     	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < nodeList.size(); i ++){
-                        	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (nodeList.get(i));
+                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
+                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
+                        		startPlace = (globalGraph.getNodes().get(i));
                         	}
-                        	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (nodeList.get(i));
+                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
+                        		endPlace = (globalGraph.getNodes().get(i));
                         	}
                         }
                     	System.out.println("start: " + startPlace.getName());
                     	System.out.println("end: " + endPlace.getName());
 
-                        LinkedList<Node> route = new LinkedList<Node>();
-                        route = graph.findRoute(startPlace, endPlace);
-
+                    	LinkedList<Node> route = new LinkedList<Node>();
+                        route = globalGraph.findRoute(startPlace, endPlace);
+                        
+                        System.out.println("Route lenth: " + route.size());
                         //Display the directions on the side
-
-                        if(!(route.size() <= 1)){
-                        	multiMap = splitRoute(route);//is endlessly looping or suttin
-
-                        }
+                        System.out.println("Route = " + route);
+                        //if(!(route.size() <= 1)){
+                        multiMap = splitRoute(route);//is endlessly looping or suttin
+                        currRoute = 0;
+                        //}
                         //if the entire route is only on 1 map, display all instruction at once
-                        if(currMaps == 1 || route.size() <= 1)
-                        	displayInstructions(route, root);
-                        else{
-                        	//otherwise just put the first map on
-                        	displayInstructions(multiMap.get(currRoute), root);
-                        	root.getChildren().add(NextInstruction); //attach next button
-                        }
+                        displayInstructions(multiMap.get(currRoute), root);
+                        root.getChildren().remove(NextInstruction);
+                    	root.getChildren().add(NextInstruction); //attach next button
+                    	String initials = "";
+        				
+                    	for(int i = 0; i < maps.size(); i++){
+                    		System.out.println("CURRENT ROUTE: "+ currRoute);
+                    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                    	}
+                    	System.out.println("INITIALS: "+ initials);
+                    	gc.clearRect(0, 0, 6000, 3000);
 
+                    	mapSelector.setValue(initials);
+                    	loadMap(root, imageView);
+                    	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        drawRoute(gc, multiMap.get(currRoute));
+                    	
+                        
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                         }
 
 
-                        drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                        drawRoute(gc, route);
+                        //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        //drawRoute(gc, route);
 
                         final Group group = new Group(imageView, canvas, NodePane);
                 	    zoomPane = createZoomPane(group);
@@ -869,62 +866,119 @@ public class GPSapp extends Application{
 
     //If the route is across multiple maps we want to break it up
     private LinkedList<LinkedList<Node>> splitRoute(LinkedList<Node> route){
-    	
+    	System.out.println("routeSize = " + route.size());
     	//change this.. or check if it before splitorator
-    	if(route.size() == 0)
-    		return null;
-
+    	if(route.size() == 0){
+    		   LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
+    		   return splitRoutes;
+    	}
+;
+    	
     	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
-    	String aBuilding = route.get(0).getBuilding();
+    	String aBuilding = route.get(0).getFloorMap();
     	int newBuildingIndex = 0;
+    	System.out.println("aBuilding = " + aBuilding);
     	
     	for(int i = 0; i < route.size(); i++){
+    		System.out.println("Route.get(i)" + route.get(i).getFloorMap());
     		//if the current node is in a different building, chop off the stuff before and place it in its own list
-    		if(!aBuilding.equals(route.get(i).getBuilding())){
+    		if(!aBuilding.equals(route.get(i).getFloorMap()) || i == route.size()-1){
+    			System.out.println("Switched Floors");
     			//add from newBuildingIndex to i-1
     			LinkedList<Node> tempRoute = new LinkedList<Node>();
-    			for(int k = newBuildingIndex; k < i; i++){
+    			for(int k = newBuildingIndex; k <= i; k++){
     				tempRoute.add(route.get(k));
     			}
     			newBuildingIndex = i;
-    			aBuilding = route.get(i).getBuilding(); //since i is the new building
+    			aBuilding = route.get(i).getFloorMap(); //since i is the new building
     			splitRoutes.add(tempRoute);
+    			System.out.println("splitRoutesize = "+splitRoutes.size());
     		}
     		//if we haven't added any yet, route is all on 1 map
-    		if(splitRoutes.size() == 0){
-    			LinkedList<Node> tempRoute = new LinkedList<Node>();
-    			for(int k = newBuildingIndex; k < i; i++){
-    				tempRoute.add(route.get(k));
-    			}
-    			splitRoutes.add(tempRoute);
-    		}
+    		
     				
     	}
+    	if(splitRoutes.size() == 0){
+			splitRoutes.add(route);
+		}
     	currMaps = splitRoutes.size();
     	return splitRoutes;
     }
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
 
     	//create Global nodes and edges list to pass to other createGraph method
-    	LinkedList<Node> globalNodeList = new LinkedList<Node>();
     	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
+    	LinkedList<EdgeDataConversion> globalEdgeListConversion = new LinkedList<EdgeDataConversion>();
 
     	//Manually add all of the Nodes...
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AKB.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BHB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH3.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLSB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/Gl3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHAPT.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHGAR.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SHB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-
+    	
     	//Manually add all of the Edges
     	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+
+    	/*
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");*/
+    	//globalEdgeList.addAll(convertEdgeData(edgeListConversion));
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-
+//		for(int i =0; i < globalEdgeList.size(); i ++ ){
+//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
+//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
+//
+//		}
     	return GLOBALGRAPH;
 
     	
@@ -974,11 +1028,13 @@ public class GPSapp extends Application{
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-    	System.out.print("Nodes: " + nodes);
+    	//System.out.print("Nodes: " + nodes);
     	System.out.println();
-    	System.out.print("Edges: " + edges);
+    	//System.out.print("Edges: " + edges);
+    	System.out.println("///***&&&");
     	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
+    		System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
     		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
     	}
     	return g;
@@ -1025,46 +1081,59 @@ public class GPSapp extends Application{
                         	// Need to string compare from
                         	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                         	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                        	for(int i = 0; i < nodeList.size(); i ++){
-                            	if((nodeList.get(i)).getName().equals(StartText.getText())) {
-                            		startPlace = (nodeList.get(i));
+                        	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
+                            	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
+                            		startPlace = (globalGraph.getNodes().get(i));
                             	}
-                            	if((nodeList.get(i)).getName().equals(DestText.getText())) {
-                            		endPlace = (nodeList.get(i));
+                            	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
+                            		endPlace = (globalGraph.getNodes().get(i));
                             	}
                             }
                         	System.out.println("start: " + startPlace.getName());
                         	System.out.println("end: " + endPlace.getName());
-							for(int i = 0; i < startPlace.getEdges().size(); i++){
-								System.out.println("!!!!!start node edge list from: " + startPlace.getEdges().get(i).getFrom());
-								System.out.println("!!!!!start node edge list to: " + startPlace.getEdges().get(i).getTo());
-
-
-							}
 
                             LinkedList<Node> route = new LinkedList<Node>();
-                            route = graph.findRoute(startPlace, endPlace);
-
+                            route = globalGraph.findRoute(startPlace, endPlace);
+                            
+                            System.out.println("Route lenth: " + route.size());
                             //Display the directions on the side
                             System.out.println("Route = " + route);
-                            if(!(route.size() <= 1)){
-                            	multiMap = splitRoute(route);//is endlessly looping or suttin
-
-                            }
+                            //if(!(route.size() <= 1)){
+                            multiMap = splitRoute(route);//is endlessly looping or suttin
+                            currRoute = 0;
+                            //}
                             //if the entire route is only on 1 map, display all instruction at once
-                            if(currMaps == 1 || route.size() <= 1)
-                            	displayInstructions(route, root);
-                            else{
-                            	//otherwise just put the first map on
-                            	displayInstructions(multiMap.get(currRoute), root);
-                            	root.getChildren().add(NextInstruction); //attach next button
-                            }
+                            displayInstructions(multiMap.get(currRoute), root);
+                            root.getChildren().remove(NextInstruction);
+                        	root.getChildren().add(NextInstruction); //attach next button
+                        	String initials = "";
+            				System.out.println("MAPSIZE: "+ maps.size());
+                        	for(int i = 0; i < maps.size(); i++){
+                        		System.out.println("MAP!!!!!: "+ maps.get(i).getName());
+                        		System.out.println("CURRENT ROUTE: "+ currRoute);
+                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                        			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                        	}
+                        	
 
-                            System.out.println(" " +route);
+                        	System.out.println("MAP!!!!!: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        	gc.clearRect(0, 0, 6000, 3000);
 
+                        	mapSelector.setValue(initials);
+                        	System.out.println("initials = "+initials);
+                        	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
 
-                            drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                            drawRoute(gc, route);
+                        	loadMap(root, imageView);
+                        	for(int h = 0; h < nodeList.size(); h++){
+                        		
+                            	System.out.println("NodeList!!! = "+ nodeList.get(h).getIsPlace());
+
+                        	}
+                        	System.out.println("NodeList Size = "+ nodeList.size());
+                        	drawRoute(gc, multiMap.get(currRoute));
+                        	//drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                            
 
                             final Group group = new Group(imageView, canvas, NodePane);
                     	    zoomPane = createZoomPane(group);
@@ -1092,14 +1161,22 @@ public class GPSapp extends Application{
     	 gc.setLineCap(StrokeLineCap.ROUND);
     	//iterate through the route drawing a connection between nodes
     	for(int i = 1; i < route.size(); i ++){
-    		gc.setLineWidth(5);
-            gc.setStroke(Color.BLACK);
-	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
+    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")) 
+    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
+    			gc.setLineWidth(5);
+                gc.setStroke(Color.BLACK);
+    	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
+    		}
+    		
     	}
     	for(int i = 1; i < route.size(); i ++){
-    		gc.setLineWidth(3);
-            gc.setStroke(customBlue);
-	  		gc.strokeLine(route.get(i - 1).getX(), route.get(i - 1).getY(), route.get(i).getX(), route.get(i).getY());
+    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase"))
+    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
+    			gc.setLineWidth(3);
+                gc.setStroke(customBlue);
+    	  		gc.strokeLine(route.get(i - 1).getX(), route.get(i - 1).getY(), route.get(i).getX(), route.get(i).getY());
+    		}
+    		
 
     	}
     }
@@ -1112,18 +1189,18 @@ public class GPSapp extends Application{
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < nodeList.size(); j ++){
-    			System.out.println("NodeSize: "+nodeList.size());
-    			System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
-    			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    		for(int j = 0; j < globalNodeList.size(); j ++){
+    			//System.out.println("NodeSize: "+nodeList.size());
+    			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+    			if(edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())){
 					from = j;
 				}
-				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
+				if(edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())){
 					to = j;
 				}
 
     		}
-    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
+    		Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
 
@@ -1360,12 +1437,13 @@ public class GPSapp extends Application{
 	   // NodePane.setScaleY(1);
 
     	nodeList.clear();
-   		edgeList.clear();
+   		//edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
+        System.out.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
-    	edgeList = convertEdgeData(edgeListConversion);
+    	//edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
@@ -1374,16 +1452,16 @@ public class GPSapp extends Application{
         imageView.setImage(mapImage);
 
         //add node buttons to the screen and populates the drop down menus
-        LocationOptions.clear();
+        /*LocationOptions.clear();
         for(int i = 0; i < nodeList.size() - 1; i ++){
         	if(nodeList.get(i).getIsPlace())
         		LocationOptions.add(nodeList.get(i).getName());
         }
         StartList.setItems(LocationOptions);
-        DestList.setItems(LocationOptions);
+        DestList.setItems(LocationOptions);*/
 
-        graph = createGraph(graph, nodeList, edgeList);
-        NodePane = new Pane();
+        //graph = createGraph(graph, nodeList, edgeList);
+        NodePane.getChildren().clear();
         NodePane.setPrefSize(2450, 1250);
 
         switch (mapSelector.getValue()) {
@@ -1703,7 +1781,7 @@ public class GPSapp extends Application{
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
         	}
@@ -1717,40 +1795,40 @@ public class GPSapp extends Application{
         NodePane.getChildren().add(cc);
 
 
-//        Polygon olin = new Polygon();
-//        olin.getPoints().addAll(new Double[]{
-//
-//        	    1334.0 - xOffset, 510.0 - yOffset,
-//        	    1373.0 - xOffset, 516.0 - yOffset,
-//        	    1350.0 - xOffset, 662.0 - yOffset,
-//        	    1311.0 - xOffset, 656.0 - yOffset});
-//
-//        olin.setFill(Color.TRANSPARENT);
-//
-//        olin.setStroke(Color.TRANSPARENT);
-//        olin.setStrokeWidth(1.0);
-//        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                keyText.setText("Olin Hall");
-//                keyText.setFill(BuildingName);
-//                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-//        		//System.out.println("I'm here");
-//        	}
-//        });
-//        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//                keyText.setText("Show Key");
-//                keyText.setFill(key);
-//                olin.setFill(Color.TRANSPARENT);
-//        	}
-//        });
-//        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
-//        	public void handle (MouseEvent event){
-//        		//getMapSelector(OlinHall, root, zoomPane, imageView);
-//        	}
-//        });
+        Polygon olin = new Polygon();
+        olin.getPoints().addAll(new Double[]{
 
- //       NodePane.getChildren().add(olin);
+        	    1334.0 - xOffset, 510.0 - yOffset,
+        	    1373.0 - xOffset, 516.0 - yOffset,
+        	    1350.0 - xOffset, 662.0 - yOffset,
+        	    1311.0 - xOffset, 656.0 - yOffset});
+
+        olin.setFill(Color.TRANSPARENT);
+
+        olin.setStroke(Color.TRANSPARENT);
+        olin.setStrokeWidth(1.0);
+        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText("Olin Hall");
+                keyText.setFill(BuildingName);
+                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		//System.out.println("I'm here");
+        	}
+        });
+        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText(" ");
+                keyText.setFill(key);
+                olin.setFill(Color.TRANSPARENT);
+        	}
+        });
+        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		//getMapSelector(OlinHall, root, zoomPane, imageView);
+        	}
+        });
+
+        NodePane.getChildren().add(olin);
 
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
@@ -1774,7 +1852,7 @@ public class GPSapp extends Application{
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		stratton.setFill(Color.TRANSPARENT);
         	}
@@ -1819,7 +1897,7 @@ public class GPSapp extends Application{
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		library.setFill(Color.TRANSPARENT);
         	}
@@ -1865,7 +1943,7 @@ public class GPSapp extends Application{
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		ak.setFill(Color.TRANSPARENT);
         	}
@@ -1901,7 +1979,7 @@ public class GPSapp extends Application{
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		cdc.setFill(Color.TRANSPARENT);
         	}
@@ -1953,7 +2031,7 @@ public class GPSapp extends Application{
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.setFill(key);
         		higginsHouse.setFill(Color.TRANSPARENT);
         	}
@@ -2002,7 +2080,7 @@ public class GPSapp extends Application{
 
             public void handle (MouseEvent event){
 
-                keyText.setText("Show Key");
+                keyText.setText(" ");
                 keyText.relocate(850,650);
                 root.getChildren().remove(keyText);
                 root.getChildren().add(keyText);

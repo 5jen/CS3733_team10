@@ -121,6 +121,7 @@ public class stepIndicator {
              i++;
         }
 
+        result.addFirst(new Step(0,"Walk Straight",0));
         result.addFirst(new Step(7,"Starting nevigation",0));
         result.addLast(new Step(8,"reach destination",0));
 
