@@ -109,7 +109,8 @@ public class MapTool extends Application{
 	String nodeReference = "";
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
-	Button startButton = null, endButton = null;
+	Button startButton = null, endButton = null, currentButton = null;
+    ;
     final TextField xField = new TextField("");  
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
@@ -143,7 +144,6 @@ public class MapTool extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
     	
@@ -450,9 +450,10 @@ public class MapTool extends Application{
                 	nodeList.add(newPlace);
                     //Add actions for when you click this unique button
                     newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
                     	public void handle(MouseEvent event) {
                         	//check to see if we are just editting an exiting node
-                    		
+
                     		if(delete){
                     			root.getChildren().remove(newNodeButton);
                             	nodeList.remove(newPlace);
@@ -465,6 +466,8 @@ public class MapTool extends Application{
                             	delete = false;
                             }
                             else if(!startCoord){
+                                if(startButton != null && endButton != startButton)startButton.setId(null);
+                                newNodeButton.setId("round-red");
                                 startButton = newNodeButton;
                             	startX = newNodeButton.getLayoutX()+7;
                             	startY = newNodeButton.getLayoutY()+7;
@@ -481,6 +484,8 @@ public class MapTool extends Application{
                             	startCoord = true;
                             }
                             else if(!endCoord){
+                                if(endButton != null && endButton != startButton)endButton.setId(null);
+                                endButton.setId("green");
                                 endButton = newNodeButton;
                             	endX = newNodeButton.getLayoutX()+7;
                             	endY = newNodeButton.getLayoutY()+7;
@@ -658,8 +663,7 @@ public class MapTool extends Application{
                             }
                         }
                     });
-                    startButton.setId("round-red");
-                    endButton.setId("round-red");
+
                     NodePane.getChildren().add(line);
                 }
             }
@@ -1028,6 +1032,7 @@ public class MapTool extends Application{
             Node newPlace = nodes.get(i);
             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
+
             		if(delete){
             			root.getChildren().remove(newNodeButton);
                     	nodeList.remove(newPlace);
@@ -1040,6 +1045,8 @@ public class MapTool extends Application{
                     	delete = false;
                     }
                     else if(!startCoord){
+                        if(startButton != null && endButton != startButton)startButton.setId(null);
+                        newNodeButton.setId("round-red");
                         startButton = newNodeButton;
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
@@ -1056,8 +1063,10 @@ public class MapTool extends Application{
                     	startCoord = true;
                     }
                     else if(!endCoord){
+                        if(endButton != null && endButton != startButton)endButton.setId(null);
+                        newNodeButton.setId("green");
                         endButton = newNodeButton;
-                    	endX = newNodeButton.getLayoutX()+7;
+                        endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
                         toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
