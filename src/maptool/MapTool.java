@@ -373,7 +373,9 @@ public class MapTool extends Application{
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
         NodePane.setPrefSize(2450, 1250);
-        NodePane.relocate(-591, -394);
+        NodePane.setScaleX(0.75);
+        NodePane.setScaleY(0.75);
+		NodePane.relocate(-800, -518);
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
         final Group group = new Group(imageView, NodePane);

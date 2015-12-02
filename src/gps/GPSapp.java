@@ -333,12 +333,12 @@ public class GPSapp extends Application{
         imageView.setScaleX(0.75);
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
-	    highLight(NodePane, imageView, root);
-		NodePane.setScaleX(0.75);
+        NodePane.setPrefSize(2450, 1250);
+		highLight(NodePane, imageView, root);
+	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
+	    NodePane.setScaleX(0.75);
 		NodePane.setScaleY(0.75);
 		NodePane.relocate(-800, -518);
-	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
-
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    
@@ -709,7 +709,7 @@ public class GPSapp extends Application{
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
-
+    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
 
     	//Manually add all of the Edges
     	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
@@ -814,16 +814,15 @@ public class GPSapp extends Application{
     
     private void drawRoute(GraphicsContext gc, LinkedList<Node> route) {
     	 Color customBlue = Color.web("0x00b3fd"); 
-    	 
     	 gc.setLineCap(StrokeLineCap.ROUND);
     	//iterate through the route drawing a connection between nodes
     	for(int i = 1; i < route.size(); i ++){
     		gc.setLineWidth(5);
-    		
             gc.setStroke(Color.BLACK);
 	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
-            gc.setLineWidth(3);
-            
+    	}
+    	for(int i = 1; i < route.size(); i ++){
+    		gc.setLineWidth(3);
             gc.setStroke(customBlue);
 	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
 	  		
@@ -839,16 +838,17 @@ public class GPSapp extends Application{
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < nodeList.size(); j ++){
-
-    			if(edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())){
+    			System.out.println("NodeSize: "+nodeList.size());
+    			System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+    			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
 					from = j;
 				}
-				if(edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())){
+				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
 					to = j;
 				}
     			
     		}
-    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeListConversion.get(i).getDistance());
+    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
     	
@@ -984,7 +984,7 @@ public class GPSapp extends Application{
 
 	        if(scaleFactor < 1 && k > -1) {
 	        	k--;
-	        	System.out.println(k);
+	        	//System.out.println(k);
 		        // amount of scrolling in each direction in scrollContent coordinate
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
@@ -1325,33 +1325,35 @@ public class GPSapp extends Application{
 
     public void highLight(Pane NodePane, ImageView imageView, Pane root){
         Polygon cc = new Polygon();
+        double xOffset = 131.0;
+        double yOffset = 44.0;
         cc.getPoints().addAll(new Double[]{
-        	    1261.0, 649.0,
-        	    1272.0, 656.0,
-        	    1273.0, 668.0,
-        	    1267.0, 677.0,
-        	    1254.0, 680.0,
-        	    1245.0, 673.0,
-        	    1242.0, 662.0,
-        	    1239.0, 677.0,
-        	    1175.0, 667.0,
-        	    1184.0, 617.0,
-        	    1197.0, 620.0,
-        	    1213.0, 630.0,
-        	    1220.0, 623.0,
-        	    1214.0, 617.0,
-        	    1223.0, 604.0,
-        	    1219.0, 601.0,
-        	    1218.0, 591.0,
-        	    1222.0, 582.0,
-        	    1234.0, 580.0,
-        	    1238.0, 584.0,
-        	    1248.0, 573.0,
-        	    1235.0, 565.0,
-        	    1249.0, 543.0,
-        	    1252.0, 537.0,
-        	    1302.0, 546.0,
-        	    1285.0, 652.0});
+        	    1261.0 - xOffset, 649.0 - yOffset,
+        	    1272.0 - xOffset, 656.0 - yOffset,
+        	    1273.0 - xOffset, 668.0 - yOffset,
+        	    1267.0 - xOffset, 677.0 - yOffset,
+        	    1254.0 - xOffset, 680.0 - yOffset,
+        	    1245.0 - xOffset, 673.0 - yOffset,
+        	    1242.0 - xOffset, 662.0 - yOffset,
+        	    1239.0 - xOffset, 677.0 - yOffset,
+        	    1175.0 - xOffset, 667.0 - yOffset,
+        	    1184.0 - xOffset, 617.0 - yOffset,
+        	    1197.0 - xOffset, 620.0 - yOffset,
+        	    1213.0 - xOffset, 630.0 - yOffset,
+        	    1220.0 - xOffset, 623.0 - yOffset,
+        	    1214.0 - xOffset, 617.0 - yOffset,
+        	    1223.0 - xOffset, 604.0 - yOffset,
+        	    1219.0 - xOffset, 601.0 - yOffset,
+        	    1218.0 - xOffset, 591.0 - yOffset,
+        	    1222.0 - xOffset, 582.0 - yOffset,
+        	    1234.0 - xOffset, 580.0 - yOffset,
+        	    1238.0 - xOffset, 584.0 - yOffset,
+        	    1248.0 - xOffset, 573.0 - yOffset,
+        	    1235.0 - xOffset, 565.0 - yOffset,
+        	    1249.0 - xOffset, 543.0 - yOffset,
+        	    1252.0 - xOffset, 537.0 - yOffset,
+        	    1302.0 - xOffset, 546.0 - yOffset,
+        	    1285.0 - xOffset, 652.0 - yOffset});
 
         cc.setFill(Color.TRANSPARENT);
 
@@ -1360,7 +1362,7 @@ public class GPSapp extends Application{
         cc.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 cc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1380,10 +1382,10 @@ public class GPSapp extends Application{
         Polygon olin = new Polygon();
         olin.getPoints().addAll(new Double[]{
 
-        	    1334.0, 510.0,
-        	    1373.0, 516.0,
-        	    1350.0, 662.0,
-        	    1311.0, 656.0});
+        	    1334.0 - xOffset, 510.0 - yOffset,
+        	    1373.0 - xOffset, 516.0 - yOffset,
+        	    1350.0 - xOffset, 662.0 - yOffset,
+        	    1311.0 - xOffset, 656.0 - yOffset});
 
         olin.setFill(Color.TRANSPARENT);
 
@@ -1392,7 +1394,7 @@ public class GPSapp extends Application{
         olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         olin.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1411,10 +1413,10 @@ public class GPSapp extends Application{
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
 
-        	    1377.0, 813.0,
-        	    1416.0, 820.0,
-        	    1403.0, 903.0,
-        	    1363.0, 896.0});
+        	    1377.0 - xOffset, 813.0 - yOffset,
+        	    1416.0 - xOffset, 820.0 - yOffset,
+        	    1403.0 - xOffset, 903.0 - yOffset,
+        	    1363.0 - xOffset, 896.0 - yOffset});
 
         stratton.setFill(Color.TRANSPARENT);
 
@@ -1423,7 +1425,7 @@ public class GPSapp extends Application{
         stratton.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		stratton.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1442,21 +1444,20 @@ public class GPSapp extends Application{
         Polygon library = new Polygon();
         library.getPoints().addAll(new Double[]{
 
-        	    1607.0, 712.0,
-        	    1667.0, 725.0,
-        	    1664.0, 742.0,
-        	    1661.0, 742.0,
-        	    1660.0, 769.0,
-        	    1658.0, 782.0,
-        	    1655.0, 799.0,
-        	    1645.0, 824.0,
-        	    1648.0, 825.0,
-        	    1644.0, 841.0,
-        	    1584.0, 829.0,
-        	    1585.0, 794.0,
-        	    1588.0, 773.0,
-        	    1593.0, 750.0
-        	    });
+        	    1607.0 - xOffset, 712.0 - yOffset,
+        	    1667.0 - xOffset, 725.0 - yOffset,
+        	    1664.0 - xOffset, 742.0 - yOffset,
+        	    1661.0 - xOffset, 742.0 - yOffset,
+        	    1660.0 - xOffset, 769.0 - yOffset,
+        	    1658.0 - xOffset, 782.0 - yOffset,
+        	    1655.0 - xOffset, 799.0 - yOffset,
+        	    1645.0 - xOffset, 824.0 - yOffset,
+        	    1648.0 - xOffset, 825.0 - yOffset,
+        	    1644.0 - xOffset, 841.0 - yOffset,
+        	    1584.0 - xOffset, 829.0 - yOffset,
+        	    1585.0 - xOffset, 794.0 - yOffset,
+        	    1588.0 - xOffset, 773.0 - yOffset,
+        	    1593.0 - xOffset, 750.0 - yOffset});
 
         library.setFill(Color.TRANSPARENT);
 
@@ -1465,7 +1466,7 @@ public class GPSapp extends Application{
         library.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1486,20 +1487,19 @@ public class GPSapp extends Application{
         Polygon ak = new Polygon();
         ak.getPoints().addAll(new Double[]{
 
-        	    1471.0, 439.0,
-        	    1508.0, 460.0,
-        	    1491.0, 490.0,
-        	    1540.0, 518.0,
-        	    1557.0, 489.0,
-        	    1594.0, 510.0,
-        	    1553.0, 581.0,
-        	    1530.0, 569.0,
-        	    1522.0, 582.0,
-        	    1445.0, 537.0,
-        	    1452.0, 537.0,
-        	    1452.0, 525.0,
-        	    1429.0, 512.0
-        	    });
+        	    1471.0 - xOffset, 439.0 - yOffset,
+        	    1508.0 - xOffset, 460.0 - yOffset,
+        	    1491.0 - xOffset, 490.0 - yOffset,
+        	    1540.0 - xOffset, 518.0 - yOffset,
+        	    1557.0 - xOffset, 489.0 - yOffset,
+        	    1594.0 - xOffset, 510.0 - yOffset,
+        	    1553.0 - xOffset, 581.0 - yOffset,
+        	    1530.0 - xOffset, 569.0 - yOffset,
+        	    1522.0 - xOffset, 582.0 - yOffset,
+        	    1445.0 - xOffset, 537.0 - yOffset,
+        	    1452.0 - xOffset, 537.0 - yOffset,
+        	    1452.0 - xOffset, 525.0 - yOffset,
+        	    1429.0 - xOffset, 512.0 - yOffset});
 
         ak.setFill(Color.TRANSPARENT);
 
@@ -1528,11 +1528,10 @@ public class GPSapp extends Application{
         Polygon cdc = new Polygon();
         cdc.getPoints().addAll(new Double[]{
 
-        	    1391.0, 732.0,
-        	    1430.0, 738.0,
-        	    1420.0, 804.0,
-        	    1380.0, 797.0
-        	    });
+        	    1391.0 - xOffset, 732.0 - yOffset,
+        	    1430.0 - xOffset, 738.0 - yOffset,
+        	    1420.0 - xOffset, 804.0 - yOffset,
+        	    1380.0 - xOffset, 797.0 - yOffset});
 
         cdc.setFill(Color.TRANSPARENT);
 
@@ -1541,7 +1540,7 @@ public class GPSapp extends Application{
         cdc.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1560,30 +1559,27 @@ public class GPSapp extends Application{
         Polygon higginsHouse = new Polygon();
         higginsHouse.getPoints().addAll(new Double[]{
 
-        	    1130.0, 435.0,
-        	    1154.0, 451.0,
-        	    1159.0, 443.0,
-        	    1165.0, 446.0,
-        	    1161.0, 441.0,
-        	    1165.0, 435.0,
-        	    1172.0, 435.0,
-        	    1176.0, 433.0,
-        	    1197.0, 448.0,
-        	    1209.0, 431.0,
-        	    1225.0, 441.0,
-        	    1212.0, 459.0,
-        	    1200.0, 452.0,
-        	    1192.0, 464.0,
-        	    1196.0, 466.0,
-        	    1189.0, 476.0,
-        	    1185.0, 473.0,
-        	    1163.0, 505.0,
-        	    1137.0, 487.0,
-        	    1149.0, 471.0,
-        	    1120.0, 450.0
-
-
-        	    });
+        	    1130.0 - xOffset, 435.0 - yOffset,
+        	    1154.0 - xOffset, 451.0 - yOffset,
+        	    1159.0 - xOffset, 443.0 - yOffset,
+        	    1165.0 - xOffset, 446.0 - yOffset,
+        	    1161.0 - xOffset, 441.0 - yOffset,
+        	    1165.0 - xOffset, 435.0 - yOffset,
+        	    1172.0 - xOffset, 435.0 - yOffset,
+        	    1176.0 - xOffset, 433.0 - yOffset,
+        	    1197.0 - xOffset, 448.0 - yOffset,
+        	    1209.0 - xOffset, 431.0 - yOffset,
+        	    1225.0 - xOffset, 441.0 - yOffset,
+        	    1212.0 - xOffset, 459.0 - yOffset,
+        	    1200.0 - xOffset, 452.0 - yOffset,
+        	    1192.0 - xOffset, 464.0 - yOffset,
+        	    1196.0 - xOffset, 466.0 - yOffset,
+        	    1189.0 - xOffset, 476.0 - yOffset,
+        	    1185.0 - xOffset, 473.0 - yOffset,
+        	    1163.0 - xOffset, 505.0 - yOffset,
+        	    1137.0 - xOffset, 487.0 - yOffset,
+        	    1149.0 - xOffset, 471.0 - yOffset,
+        	    1120.0 - xOffset, 450.0 - yOffset});
 
         higginsHouse.setFill(Color.TRANSPARENT);
 
@@ -1592,7 +1588,7 @@ public class GPSapp extends Application{
         higginsHouse.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1614,19 +1610,18 @@ public class GPSapp extends Application{
         Polygon boyntonHall = new Polygon();
         boyntonHall.getPoints().addAll(new Double[]{
 
-        	    1406.0, 932.0,
-        	    1435.0, 937.0,
-        	    1434.0, 943.0,
-        	    1501.0, 954.0,
-        	    1497.0, 984.0,
-        	    1492.0, 984.0,
-        	    1491.0, 988.0,
-        	    1480.0, 987.0,
-        	    1480.0, 981.0,
-        	    1429.0, 973.0,
-        	    1428.0, 980.0,
-        	    1399.0, 975.0
-        	    });
+        	    1406.0 - xOffset, 932.0 - yOffset,
+        	    1435.0 - xOffset, 937.0 - yOffset,
+        	    1434.0 - xOffset, 943.0 - yOffset,
+        	    1501.0 - xOffset, 954.0 - yOffset,
+        	    1497.0 - xOffset, 984.0 - yOffset,
+        	    1492.0 - xOffset, 984.0 - yOffset,
+        	    1491.0 - xOffset, 988.0 - yOffset,
+        	    1480.0 - xOffset, 987.0 - yOffset,
+        	    1480.0 - xOffset, 981.0 - yOffset,
+        	    1429.0 - xOffset, 973.0 - yOffset,
+        	    1428.0 - xOffset, 980.0 - yOffset,
+        	    1399.0 - xOffset, 975.0 - yOffset});
 
         boyntonHall.setFill(Color.TRANSPARENT);
 
@@ -1635,7 +1630,7 @@ public class GPSapp extends Application{
         boyntonHall.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
