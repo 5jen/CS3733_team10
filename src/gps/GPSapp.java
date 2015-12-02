@@ -1750,7 +1750,7 @@ public class GPSapp extends Application{
 //        	}
 //        });
 
-        NodePane.getChildren().add(olin);
+ //       NodePane.getChildren().add(olin);
 
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
