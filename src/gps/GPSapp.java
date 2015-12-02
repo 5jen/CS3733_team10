@@ -695,8 +695,14 @@ public class GPSapp extends Application{
     	for(int i = 0; i < directions.size(); i++){
     		HBox StepBox = new HBox(2);
     		//StepBox.setStyle("-fx-border-color: black;");
+    		Label newDirection;
 
-    		Label newDirection = new Label(directions.get(i).getMessage() + directions.get(i).getDistance());
+    		if(directions.get(i).getDistance() == 0.0) {
+    			newDirection = new Label(directions.get(i).getMessage());
+    		} else {
+    			newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
+    		}
+    		
 
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
@@ -968,13 +974,16 @@ public class GPSapp extends Application{
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
 
-    	/*
+    	
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");*/
-    	//globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	
+    	//TODO Add rest
+    	
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
 //		for(int i =0; i < globalEdgeList.size(); i ++ ){
@@ -1107,8 +1116,10 @@ public class GPSapp extends Application{
                             //}
                             //if the entire route is only on 1 map, display all instruction at once
                             displayInstructions(multiMap.get(currRoute), root);
-                            root.getChildren().remove(NextInstruction);
-                        	root.getChildren().add(NextInstruction); //attach next button
+                            if(multiMap.size() != 1) {
+                            	root.getChildren().remove(NextInstruction);
+                            	root.getChildren().add(NextInstruction); //attach next button
+                            }
                         	String initials = "";
             				System.out.println("MAPSIZE: "+ maps.size());
                         	for(int i = 0; i < maps.size(); i++){
@@ -2138,6 +2149,15 @@ public class GPSapp extends Application{
         });
 
         NodePane.getChildren().add(boyntonHall);
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 }
