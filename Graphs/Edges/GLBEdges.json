@@ -1,1 +1,1 @@
-[]
+[{"distance":1,"from":"GLHall:StaircaseBtoSB","to":"GLStarcaiseBtoSB"},{"distance":6,"from":"GLHall:StaircaseBtoSB","to":"GLHall:ElevatorB"},{"distance":4,"from":"GLHall:ElevatorB","to":"GLHall:StaircaseBto1"},{"distance":8,"from":"GLHall:StaircaseBto1","to":"GLHall:IntersectionA"},{"distance":5,"from":"GLHall:IntersectionA","to":"GLHall:006"},{"distance":5,"from":"GLHall:006","to":"GL006"}]
