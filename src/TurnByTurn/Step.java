@@ -9,7 +9,7 @@ public class Step {
     private double distance;
     //TODO need type?
 
-    public Step(int id, String message, double distance){
+    Step(int id, String message, double distance){
         this.icon_id = id;
         this.distance = distance;
         this.message = message;
@@ -27,5 +27,8 @@ public class Step {
         return this.distance;
     }
 
+    public void updateDistance(double v){
+        this.distance = this.distance+v;
+    }
 
 }

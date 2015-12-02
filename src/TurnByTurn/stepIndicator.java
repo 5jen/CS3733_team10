@@ -1,5 +1,5 @@
-
 package TurnByTurn;
+
 
 import node.Node;
 
@@ -26,6 +26,8 @@ public class stepIndicator {
 
         //Current static indicator;
         LinkedList<Step> result = new LinkedList<>();
+        //previous step id
+        int pstep_id = -1;
         //TODO add starting case
 
         int i = 1;
@@ -43,6 +45,7 @@ public class stepIndicator {
             int x3;//next x
             int y3;//next y
 
+
             int icon_id=0;//the icon_id for the instruction
 
             x1 = route.get(i-1).getX();
@@ -51,6 +54,9 @@ public class stepIndicator {
             y2 = route.get(i).getY();
             x3 = route.get(i+1).getX();
             y3 = route.get(i+1).getY();
+
+            int dis = getDistance(x1,x2,y1,y2);
+
             // Transition point between maps
             if (type.compareTo("Transition Point")==0) {
                 i++;//skip transition points in pairs
@@ -70,6 +76,7 @@ public class stepIndicator {
                     message = "Go "+ maneuver;
                 }
                 else {
+                    /**
                     if (getTurnDirection(x1,y1,x2,y2,x3,y3) == 1 ) {
                         maneuver = "left";
                         icon_id = 3;
@@ -90,11 +97,21 @@ public class stepIndicator {
                     }
                     else {
                         maneuver = "straight";
-                        icon_id = 0;
                     }
                     if (maneuver.compareTo("straight")==0) message = "Keep "+maneuver;
                     else message = "Turn "+maneuver;
+                    */
+                    message = generateMessage(x1,y1,x2,y2,x3,y3);
+
+                    if (message.compareTo("straight") == 0) {icon_id = 0;}
+                    else if (message.compareTo("left") == 0) {icon_id = 3;}
+                    else if (message.compareTo("right") == 0) {icon_id = 4;}
+                    else if (message.compareTo("sharp left") == 0) {icon_id = 33;}
+                    else if (message.compareTo("sharp right") == 0) {icon_id =44;}
+                    else if (message.compareTo("slight left") ==0) {icon_id = 39;}
+                    else if (message.compareTo("slight right") ==0) {icon_id = 52;}
                 }
+
             }
             /** IGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNOREIGNORE
             if (getTurnDirection(x1,y1,x2,y2,x3,y3)==1) {
@@ -135,7 +152,14 @@ public class stepIndicator {
              *  5                  switch map(for transition point)
              */
 
-             result.addLast(new Step(icon_id,message,getDistanceInFeet(1,1)));
+             //check duplicate go straight
+             if ((icon_id==0) && (icon_id==pstep_id)) {
+                 result.getLast().updateDistance(getDistanceInFeet(1,dis));
+             }
+             else {
+                 result.addLast(new Step(icon_id, message, getDistanceInFeet(1,dis)));
+             }
+             pstep_id = icon_id;
 
              i++;
         }
@@ -196,12 +220,6 @@ public class stepIndicator {
         return result;
     }
 
-    public double getB(int x, int y,int slope){
-        double result;
-        result = y-(slope*x);
-        return result;
-    }
-
     /**
      * determine turn left/right/straight
      * -1 left 1 right 0 straight
@@ -241,16 +259,45 @@ public class stepIndicator {
     }
 
     /**
+     * get distance in pixels for two given points
+     * @param x1
+     * @param x2
+     * @param y1
+     * @param y2
+     * @return distance in pixels
+     */
+    public int getDistance(int x1, int x2, int y1, int y2){
+        int dx = Math.abs(x2-x1);
+        int dy = Math.abs(y2-y1);
+        return (int)Math.sqrt(dx*dx+dy*dy);
+    }
+    /**
      * Return the actual distance when given the scaling of the map
      * @param scale is the scaling of the map
-     * @param px is the # of pixle calculated by nodes
-     * @return
+     * @param distance is the # of pixle calculated by nodes
+     * @return ditance in feet
      */
-    public int getDistanceInFeet(int scale,int px){
-        return px*scale;
+    public double getDistanceInFeet(int scale,int distance){
+        return distance*scale;
     }
 
 
 
+    public String generateMessage(int x1, int y1, int x2, int y2, int x3, int y3){
+        vector ab = new vector(x2-x1,y2-y1);
+        vector bc = new vector(x3-x2,y3-y2);
+
+        int angleDifference = bc.getXPlusDegree()-ab.getXPlusDegree();
+
+        if ((angleDifference > 20)&&(angleDifference <= 45)) return "slight left";
+        else if ((angleDifference >45) && (angleDifference<=120)) return "left";
+        else if ((angleDifference>120) && (angleDifference<=160)) return "sharp left";
+        else if ((angleDifference>160) && (angleDifference<=200)) return "back";
+        else if ((angleDifference>200) && (angleDifference<=240)) return "sharp right";
+        else if ((angleDifference>240) && (angleDifference<=315)) return "right";
+        else if ((angleDifference>315) && (angleDifference<=340)) return "slight right";
+        else return "straight";
+
+    }
 
 }
