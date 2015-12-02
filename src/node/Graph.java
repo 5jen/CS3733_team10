@@ -58,8 +58,8 @@ public class Graph {
 		}	
 		int dist = getDistance(nodes.get(index1), nodes.get(index2));
 		
-		System.out.println("Nodes: "+nodes);
-		System.out.println("Index1: "+index1);
+		//System.out.println("Nodes: "+nodes);
+		//System.out.println("Index1: "+index1);
 		
 		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
 		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
@@ -78,8 +78,8 @@ public class Graph {
 		int index2 = nodes.indexOf(node2);
 		int dist = getDistance(node1, node2);
 		
-		System.out.println("Nodes: "+nodes);
-		System.out.println("Index1: "+index1);
+		//System.out.println("Nodes: "+nodes);
+		//System.out.println("Index1: "+index1);
 		
 		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
 		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
