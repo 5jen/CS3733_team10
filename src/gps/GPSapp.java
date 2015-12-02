@@ -408,8 +408,16 @@ public class GPSapp extends Application{
 	    //Next instruction button actions
 	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				
+				String initials = "";
 				displayInstructions(multiMap.get(currRoute), root);
+				
+				for(int i = 0; i < maps.size(); i++){
+					if(maps.get(i).getBuildingName().equals(multiMap.get(currRoute).get(0).getBuilding()))
+						initials = maps.get(i).getInitials();
+				}
+				
+				mapSelector.setValue(initials);//pass next buildings initials
+				loadMap(root, imageView);
 				currRoute++;
 				//if we are on the last page of instructions, remove next button
 				if(currRoute == currMaps)
