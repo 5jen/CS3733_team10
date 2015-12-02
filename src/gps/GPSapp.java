@@ -317,7 +317,7 @@ public class GPSapp extends Application{
         imageView.setLayoutY(0);
 
         //create background
-        File backgroundFile = new File("CS3733_Graphics/SlateBackground.jpg");
+        File backgroundFile = new File("CS3733_Graphics/Background.jpg");
         Image bgImage = new Image(backgroundFile.toURI().toString());
         ImageView bgView = new ImageView();
         bgView.setImage(bgImage);
@@ -699,16 +699,17 @@ public class GPSapp extends Application{
 	    root.getChildren().remove(canvas);
 	    root.getChildren().remove(zoomPane);
 	    //attach background over map
-	    File newBackground = new File("CS3733_Graphics/white.png");
+	    File newBackground = new File("CS3733_Graphics/CampusMapBlurred.png");
      	final Image backgroundImage = new Image(newBackground.toURI().toString());
         imageView.setImage(backgroundImage);
+        imageView.relocate(-350, -210);
+        imageView.setScaleX(.65);
+        imageView.setScaleY(.65);
  	    root.getChildren().add(imageView);
 
         gc.clearRect(0, 0, 8000, 6000);
         //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 
-        final Group group = new Group(imageView, canvas, NodePane);
-        zoomPane = createZoomPane(group);
 
 
  	    //Attach 3D image of building
