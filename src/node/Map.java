@@ -23,7 +23,7 @@ public class Map {
 		rotationalConstant = rc;
 		globalToLocalOffsetX = gtlcX;
 		globalToLocalOffsetY = gtlcY;
-		conversionRatio = cr;
+		conversionRatio = cr/2.6053;
 		floor = nf;
 	}
 

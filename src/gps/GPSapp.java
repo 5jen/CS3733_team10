@@ -70,8 +70,9 @@ public class GPSapp extends Application{
 	JsonParser json = new JsonParser();
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
-	Canvas canvas = new Canvas(800, 650);
+
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
+	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true;
 	String startNode, endNode;
@@ -94,11 +95,11 @@ public class GPSapp extends Application{
 
 	//Building Buildings with their content
 	Building Campus = new Building("Campus");
-  	Building AtwaterKent = new Building("Atwater Kent");
+  	Building AtwaterKent = new Building("Atwater Kent"); //need layered maps
   	Building BoyntonHall = new Building("Boynton Hall");
   	Building CampusCenter = new Building("Campus Center");
   	Building GordonLibrary = new Building("Gordon Library");
-  	Building HigginsHouse = new Building("Higgins House");
+  	Building HigginsHouse = new Building("Higgins House"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
@@ -157,9 +158,13 @@ public class GPSapp extends Application{
 	final Button BackButton = new Button("Back");
 
     Text keyText = new Text(995, 690,"Show Key");
-    
-
-
+	
+	//Vars used for displaying Multiple maps after finding the route
+	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
+	int currMaps = 0;
+	int currRoute = 0;
+	Button NextInstruction = new Button("Next");
+	
     @Override
     public void start(Stage primaryStage) {
 
@@ -261,6 +266,11 @@ public class GPSapp extends Application{
     	//Find Route Button
     	final Button findRouteButton = new Button("Find Route");
     	findRouteButton.relocate(640, 640);
+    	
+    	//Next button (and previous)
+    	NextInstruction.setTextFill(Color.WHITE);
+    	NextInstruction.setLayoutX(900);
+    	NextInstruction.setLayoutY(470);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -362,6 +372,7 @@ public class GPSapp extends Application{
         root.getChildren().add(findRouteButton);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
 
+        //root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -391,7 +402,20 @@ public class GPSapp extends Application{
 
 
 	    //add to load map...
+
 	    highLight(NodePane, imageView, root, keyText);
+	    
+	    //Next instruction button actions
+	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				
+				displayInstructions(multiMap.get(currRoute), root);
+				currRoute++;
+				//if we are on the last page of instructions, remove next button
+				if(currRoute == currMaps)
+					root.getChildren().remove(NextInstruction);
+			}
+	    });
 
 	    root.getChildren().add(zoomPane);
         //Add actions to the Load Map button
@@ -431,8 +455,20 @@ public class GPSapp extends Application{
                     route = graph.findRoute(startPlace, endPlace);
 
                     //Display the directions on the side
-                    displayInstructions(route, root);
 
+                    if(!(route.size() <= 1)){
+                    	multiMap = splitRoute(route);//is endlessly looping or suttin
+
+                    }
+                    //if the entire route is only on 1 map, display all instruction at once
+                    if(currMaps == 1 || route.size() <= 1)
+                    	displayInstructions(route, root);
+                    else{
+                    	//otherwise just put the first map on 
+                    	displayInstructions(multiMap.get(currRoute), root);
+                    	root.getChildren().add(NextInstruction); //attach next button
+                    }
+                    
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -516,63 +552,31 @@ public class GPSapp extends Application{
     //Display all of the instructions on screen
     private void displayInstructions(LinkedList<Node> route, Pane root){
 
+    	//what if we move this in here..???
+    	//multiMap = splitRoute(route);
+
     	//create vertical box to add labels too
     	VBox directionBox = new VBox(2);
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
 
-
     	//add a possible scroll box for long routes..
 		ScrollPane s1 = new ScrollPane();
-		 s1.setPrefSize(220, 400);
+		 s1.setPrefSize(220, 360);
+		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
-
-
+		 
     	//or eventually break up into multiple sections of instructions based
     	//on current map displayed
-
+    	//for(int k = 0; k < multiMap.size(); k++){
+    		
+    	//}
+    		
     	//convert the route to a list of string instructions
     	stepIndicator steps = new stepIndicator(route);
-
-    	//!!!!uncomment when we have a global map to test on!!!!!!
+    	
     	LinkedList<Step> directions = steps.lInstructions();
-
-    	 /** TABLE TO ID THE IMAGE TO ADD
-         * icon_id               icon
-         *  1                  -up_stair
-         *  2                  -down_stair
-         *  3                  -turn left
-         *  4                  -turn right
-         *  33                 -sharp left
-         *  44                 -sharp right
-         *  39                 -slight left
-         *  52                 -slight right
-         *  0                  -straight
-         *  5                  -switch map(for transition point)
-         */
-    	//Hard Coded Example to see how the UI looks
-    	/*LinkedList<Step> directions = new LinkedList<Step>();
-    	Step step1 = new Step(1, "up staris  ", 10);
-    	Step step2 = new Step(2, "down stiar ", 20);
-    	Step step3 = new Step(3, "turn left  ", 5);
-    	Step step4 = new Step(4, "turn right  ", 10);
-    	Step step5 = new Step(33, "sharp left  ", 20);
-    	Step step6 = new Step(44, "sharp Right  ", 5);
-    	Step step7 = new Step(39, "slight Left  ", 10);
-    	Step step8 = new Step(52, "slight right  ", 20);
-    	Step step9 = new Step(0, "straight  ", 5);
-    	Step step10 = new Step(5, "switch map  ", 5);
-    	directions.add(step1);
-    	directions.add(step2);
-    	directions.add(step3);
-    	directions.add(step4);
-    	directions.add(step5);
-    	directions.add(step6);
-    	directions.add(step7);
-    	directions.add(step8);
-    	directions.add(step9);
-    	directions.add(step10);*/
 
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
@@ -585,12 +589,13 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 200, 0);
+            Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
 
     		StepBox.getChildren().addAll(arrowView, newDirection);
     		directionBox.getChildren().addAll(StepBox, breakLine);
     	}
+    	
     	s1.setContent(directionBox);
     	root.getChildren().add(s1);
     	return;
@@ -748,6 +753,42 @@ public class GPSapp extends Application{
 	     return pt;
 	}
 
+    //If the route is across multiple maps we want to break it up
+    private LinkedList<LinkedList<Node>> splitRoute(LinkedList<Node> route){
+    	
+    	//change this.. or check if it before splitorator
+    	if(route.size() == 0)
+    		return null;
+    	
+    	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
+    	String aBuilding = route.get(0).getBuilding();
+    	int newBuildingIndex = 0;
+    	
+    	for(int i = 0; i < route.size(); i++){
+    		//if the current node is in a different building, chop off the stuff before and place it in its own list
+    		if(!aBuilding.equals(route.get(i).getBuilding())){
+    			//add from newBuildingIndex to i-1
+    			LinkedList<Node> tempRoute = new LinkedList<Node>();
+    			for(int k = newBuildingIndex; k < i; i++){
+    				tempRoute.add(route.get(k));
+    			}
+    			newBuildingIndex = i;
+    			aBuilding = route.get(i).getBuilding(); //since i is the new building
+    			splitRoutes.add(tempRoute);
+    		}
+    		//if we haven't added any yet, route is all on 1 map
+    		if(splitRoutes.size() == 0){
+    			LinkedList<Node> tempRoute = new LinkedList<Node>();
+    			for(int k = newBuildingIndex; k < i; i++){
+    				tempRoute.add(route.get(k));
+    			}
+    			splitRoutes.add(tempRoute);
+    		}
+    				
+    	}
+    	currMaps = splitRoutes.size();
+    	return splitRoutes;
+    }
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
 
     	//create Global nodes and edges list to pass to other createGraph method
@@ -772,7 +813,8 @@ public class GPSapp extends Application{
 
     	return GLOBALGRAPH;
 
-
+    	
+    	//ITERATE THROUGH DIRS AND ATTACH INSTEAD OF HARDCODE, COULDNT GET WORKING
     	/*LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	LinkedList<Edge> TEMPedgeList = convertEdgeData(TEMPedgeListData);
@@ -788,7 +830,10 @@ public class GPSapp extends Application{
         		GLOBALGRAPH.addNode(TEMPnodeList.get(i));
         	}
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82cccf372adfd00434d265897159a69feee094c7
         System.out.println(GLOBALGRAPH.getNodes() + " Global");
     	//iterate through all of the Edge json files and add them to the global graph
         String edgePath = "Graphs/Edges/";
@@ -806,7 +851,10 @@ public class GPSapp extends Application{
             	}
         	}
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82cccf372adfd00434d265897159a69feee094c7
 		return GLOBALGRAPH;*/
 	}
 
@@ -1169,7 +1217,8 @@ public class GPSapp extends Application{
     						highLight(NodePane, imageView, root, keyText);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
-							NodePane.relocate(-685, -480);
+    						NodePane.relocate(-800, -518);
+							
 							break;
     	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
 							imageView.setScaleY(0.5161); //Not Final Values
@@ -1414,10 +1463,10 @@ public class GPSapp extends Application{
 							break;
 		}
         gc.clearRect(0, 0, 8000, 6000);
-        //drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
+        drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
 
         final Group group = new Group(imageView, canvas, NodePane);
-	   zoomPane = createZoomPane(group);
+        zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
 
     }
