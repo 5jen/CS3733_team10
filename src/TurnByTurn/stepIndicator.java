@@ -71,8 +71,12 @@ public class stepIndicator {
                 if (type.compareTo("Staircase") == 0){
                     int z1 = route.get(i-1).getZ();
                     int z2 = route.get(i+1).getZ();
-                    i++;//skip staircase in pairs
-                    if (z1>z2) {maneuver = "up stair"; icon_id=1;}
+
+                    while ((i<route.size()-1) && (route.get(i+1).getType().compareTo("Staircase")==0)){
+                        i++;
+                    }
+
+                    if (z2>z1) {maneuver = "up stair"; icon_id=1;}
                     else {maneuver = "down stair";icon_id =2;}
                     message = "Go "+ maneuver;
                 }
@@ -80,13 +84,14 @@ public class stepIndicator {
 
                     message = generateMessage(x1,y1,x2,y2,x3,y3);
 
-                    if (message.compareTo("straight") == 0) {icon_id = 0;}
-                    else if (message.compareTo("left") == 0) {icon_id = 3;}
-                    else if (message.compareTo("right") == 0) {icon_id = 4;}
-                    else if (message.compareTo("sharp left") == 0) {icon_id = 33;}
-                    else if (message.compareTo("sharp right") == 0) {icon_id =44;}
-                    else if (message.compareTo("slight left") ==0) {icon_id = 39;}
-                    else if (message.compareTo("slight right") ==0) {icon_id = 52;}
+                    if (message.compareTo("Keep straight") == 0) {icon_id = 0;}
+                    else if (message.compareTo("Turn left") == 0) {icon_id = 3;}
+                    else if (message.compareTo("Turn right") == 0) {icon_id = 4;}
+                    else if (message.compareTo("Turn sharp left") == 0) {icon_id = 33;}
+                    else if (message.compareTo("Turn sharp right") == 0) {icon_id =44;}
+                    else if (message.compareTo("Turn slight left") ==0) {icon_id = 39;}
+                    else if (message.compareTo("Turn slight right") == 0) {icon_id = 52;}
+                    else if (message.compareTo("Make a U turn") == 0){icon_id = 6;}
                 }
 
             }
@@ -122,8 +127,8 @@ public class stepIndicator {
         }
 
         result.addFirst(new Step(0,"Walk Straight",0));
-        result.addFirst(new Step(7,"Starting nevigation",0));
-        result.addLast(new Step(8,"reach destination",0));
+        result.addFirst(new Step(7,"Starting navigation",0));
+        result.addLast(new Step(8,"You have reached your destination",0));
 
         return result;
     }
@@ -255,14 +260,14 @@ public class stepIndicator {
        // System.out.println(angleDifference);
 
 
-        if ((angleDifference > 20)&&(angleDifference <= 45)) return "slight left";
-        else if ((angleDifference >45) && (angleDifference<=120)) return "left";
-        else if ((angleDifference>120) && (angleDifference<=160)) return "sharp left";
-        else if ((angleDifference>160) && (angleDifference<=200)) return "U turn";
-        else if ((angleDifference>200) && (angleDifference<=240)) return "sharp right";
-        else if ((angleDifference>240) && (angleDifference<=315)) return "right";
-        else if ((angleDifference>315) && (angleDifference<=340)) return "slight right";
-        else return "straight";
+        if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left";
+        else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left";
+        else if ((angleDifference>120) && (angleDifference<=160)) return "Turn sharp left";
+        else if ((angleDifference>160) && (angleDifference<=200)) return "Make a U turn";
+        else if ((angleDifference>200) && (angleDifference<=240)) return "Turn sharp right";
+        else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right";
+        else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right";
+        else return "Keep straight";
 
     }
 
