@@ -1848,40 +1848,40 @@ public class GPSapp extends Application{
         NodePane.getChildren().add(cc);
 
 
-        Polygon olin = new Polygon();
-        olin.getPoints().addAll(new Double[]{
-
-        	    1334.0 - xOffset, 510.0 - yOffset,
-        	    1373.0 - xOffset, 516.0 - yOffset,
-        	    1350.0 - xOffset, 662.0 - yOffset,
-        	    1311.0 - xOffset, 656.0 - yOffset});
-
-        olin.setFill(Color.TRANSPARENT);
-
-        olin.setStroke(Color.TRANSPARENT);
-        olin.setStrokeWidth(1.0);
-        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-                keyText.setText("Olin Hall");
-                keyText.setFill(BuildingName);
-                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
-        	}
-        });
-        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-                keyText.setText(" ");
-                keyText.setFill(key);
-                olin.setFill(Color.TRANSPARENT);
-        	}
-        });
-        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		//getMapSelector(OlinHall, root, zoomPane, imageView);
-        	}
-        });
-
-        NodePane.getChildren().add(olin);
+//        Polygon olin = new Polygon();
+//        olin.getPoints().addAll(new Double[]{
+//
+//        	    1334.0 - xOffset, 510.0 - yOffset,
+//        	    1373.0 - xOffset, 516.0 - yOffset,
+//        	    1350.0 - xOffset, 662.0 - yOffset,
+//        	    1311.0 - xOffset, 656.0 - yOffset});
+//
+//        olin.setFill(Color.TRANSPARENT);
+//
+//        olin.setStroke(Color.TRANSPARENT);
+//        olin.setStrokeWidth(1.0);
+//        olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                keyText.setText("Olin Hall");
+//                keyText.setFill(BuildingName);
+//                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+//        		//System.out.println("I'm here");
+//        	}
+//        });
+//        olin.setOnMouseExited(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//                keyText.setText(" ");
+//                keyText.setFill(key);
+//                olin.setFill(Color.TRANSPARENT);
+//        	}
+//        });
+//        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
+//        	public void handle (MouseEvent event){
+//        		//getMapSelector(OlinHall, root, zoomPane, imageView);
+//        	}
+//        });
+//
+//        NodePane.getChildren().add(olin);
 
         Polygon stratton = new Polygon();
         stratton.getPoints().addAll(new Double[]{
