@@ -91,11 +91,11 @@ public class GPSapp extends Application{
 
 	//Building Buildings with their content
 	Building Campus = new Building("Campus");
-  	Building AtwaterKent = new Building("Atwater Kent");
+  	Building AtwaterKent = new Building("Atwater Kent"); //need layered maps
   	Building BoyntonHall = new Building("Boynton Hall");
   	Building CampusCenter = new Building("Campus Center");
   	Building GordonLibrary = new Building("Gordon Library");
-  	Building HigginsHouse = new Building("Higgins House");
+  	Building HigginsHouse = new Building("Higgins House"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
@@ -261,7 +261,7 @@ public class GPSapp extends Application{
     	
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.WHITE);
-    	NextInstruction.setLayoutX(820);
+    	NextInstruction.setLayoutX(900);
     	NextInstruction.setLayoutY(470);
 
     	//Searchable text boxes
@@ -326,7 +326,7 @@ public class GPSapp extends Application{
         root.getChildren().add(DestSearch);
         root.getChildren().add(findRouteButton);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
-        root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
+        //root.getChildren().add(NextInstruction);//MOVE, ONLY ATTACH WHEN WE CLICK FIND ROUTE
 
         
         //Removes top bar!! Maybe implement a custom one to look better
@@ -362,6 +362,9 @@ public class GPSapp extends Application{
 				
 				displayInstructions(multiMap.get(currRoute), root);
 				currRoute++;
+				//if we are on the last page of instructions, remove next button
+				if(currRoute == currMaps)
+					root.getChildren().remove(NextInstruction);
 			}
 	    });
 	    
@@ -403,22 +406,17 @@ public class GPSapp extends Application{
                     route = graph.findRoute(startPlace, endPlace); 
                     
                     //Display the directions on the side
-                    if(route.size() <= 1){
-                    	
-                    }
-                    else{
-                    	System.out.println("1******************");
+                    if(!(route.size() <= 1)){
                     	multiMap = splitRoute(route);//is endlessly looping or suttin
-                    	System.out.println("2******************");
+
                     }
                     //if the entire route is only on 1 map, display all instruction at once
                     if(currMaps == 1 || route.size() <= 1)
                     	displayInstructions(route, root);
                     else{
-                    	System.out.println("3******************");
                     	//otherwise just put the first map on 
                     	displayInstructions(multiMap.get(currRoute), root);
-                    	System.out.println("4******************");
+                    	root.getChildren().add(NextInstruction); //attach next button
                     }
                     
                     System.out.println(" " +route);
@@ -433,7 +431,7 @@ public class GPSapp extends Application{
                     final Group group = new Group(imageView, canvas, NodePane);
             	    zoomPane = createZoomPane(group);
             	    root.getChildren().add(zoomPane);
-
+            	    
                     route = new LinkedList<Node>();
             	}
             }
@@ -511,6 +509,7 @@ public class GPSapp extends Application{
     	//add a possible scroll box for long routes..
 		ScrollPane s1 = new ScrollPane();
 		 s1.setPrefSize(220, 360);
+		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
 		 
@@ -536,7 +535,7 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 200, 0);
+            Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
             
     		StepBox.getChildren().addAll(arrowView, newDirection);
