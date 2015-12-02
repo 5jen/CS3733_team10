@@ -1039,7 +1039,7 @@ public class GPSapp extends Application{
                             route = graph.findRoute(startPlace, endPlace);
 
                             //Display the directions on the side
-
+                            System.out.println("Route = " + route);
                             if(!(route.size() <= 1)){
                             	multiMap = splitRoute(route);//is endlessly looping or suttin
 
@@ -1357,8 +1357,6 @@ public class GPSapp extends Application{
 
     	nodeList.clear();
    		edgeList.clear();
-   		StartText.clear();
-   		DestText.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
