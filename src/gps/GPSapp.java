@@ -71,7 +71,7 @@ public class GPSapp extends Application{
 	LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 
-	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+	LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);	
 	Canvas canvas = new Canvas(2450, 1250);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
@@ -164,11 +164,8 @@ public class GPSapp extends Application{
 	int currMaps = 0;
 	int currRoute = 0;
 	Button NextInstruction = new Button("Next");
-
-	LinkedList<Node> globalNodeList = new LinkedList<Node>();
-
-
-	@Override
+	
+    @Override
     public void start(Stage primaryStage) {
 
     	final Pane root = new Pane();
@@ -384,7 +381,7 @@ public class GPSapp extends Application{
         globalGraph = createGlobalGraph(globalGraph);
 
         //generate the local map graph
-        //graph = createGraph(graph, nodeList, edgeList);
+        graph = createGraph(graph, nodeList, edgeList);
 
 
 
@@ -411,16 +408,8 @@ public class GPSapp extends Application{
 	    //Next instruction button actions
 	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				String initials = "";
+				
 				displayInstructions(multiMap.get(currRoute), root);
-				
-				for(int i = 0; i < maps.size(); i++){
-					if(maps.get(i).getBuildingName().equals(multiMap.get(currRoute).get(0).getBuilding()))
-						initials = maps.get(i).getInitials();
-				}
-				
-				mapSelector.setValue(initials);//pass next buildings initials
-				loadMap(root, imageView);
 				currRoute++;
 				//if we are on the last page of instructions, remove next button
 				if(currRoute == currMaps)
@@ -462,23 +451,25 @@ public class GPSapp extends Application{
                 	System.out.println("start: " + startPlace.getName());
                 	System.out.println("end: " + endPlace.getName());
 
+
                     LinkedList<Node> route = new LinkedList<Node>();
-                    route = globalGraph.findRoute(startPlace, endPlace);
+                    route = graph.findRoute(startPlace, endPlace);
 
                     //Display the directions on the side
 
-                    multiMap = splitRoute(route);//is endlessly looping or suttin
+                    if(!(route.size() <= 1)){
+                    	multiMap = splitRoute(route);//is endlessly looping or suttin
 
-                    
+                    }
                     //if the entire route is only on 1 map, display all instruction at once
                     if(currMaps == 1 || route.size() <= 1)
                     	displayInstructions(route, root);
                     else{
-                    	//otherwise just put the first map on 
+                    	//otherwise just put the first map on
                     	displayInstructions(multiMap.get(currRoute), root);
                     	root.getChildren().add(NextInstruction); //attach next button
                     }
-                    
+
                     System.out.println(" " +route);
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -581,11 +572,11 @@ public class GPSapp extends Application{
                         if(currMaps == 1 || route.size() <= 1)
                         	displayInstructions(route, root);
                         else{
-                        	//otherwise just put the first map on 
+                        	//otherwise just put the first map on
                         	displayInstructions(multiMap.get(currRoute), root);
                         	root.getChildren().add(NextInstruction); //attach next button
                         }
-                        
+
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -619,12 +610,12 @@ public class GPSapp extends Application{
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                     	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
-                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (globalGraph.getNodes().get(i));
+                    	for(int i = 0; i < nodeList.size(); i ++){
+                        	if((nodeList.get(i)).getName().equals(StartText.getText())) {
+                        		startPlace = (nodeList.get(i));
                         	}
-                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (globalGraph.getNodes().get(i));
+                        	if((nodeList.get(i)).getName().equals(DestText.getText())) {
+                        		endPlace = (nodeList.get(i));
                         	}
                         }
                     	System.out.println("start: " + startPlace.getName());
@@ -643,11 +634,11 @@ public class GPSapp extends Application{
                         if(currMaps == 1 || route.size() <= 1)
                         	displayInstructions(route, root);
                         else{
-                        	//otherwise just put the first map on 
+                        	//otherwise just put the first map on
                         	displayInstructions(multiMap.get(currRoute), root);
                         	root.getChildren().add(NextInstruction); //attach next button
                         }
-                        
+
                         System.out.println(" " +route);
                         for(int i = 0; i < route.size(); i++){
                         	System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -880,12 +871,9 @@ public class GPSapp extends Application{
     private LinkedList<LinkedList<Node>> splitRoute(LinkedList<Node> route){
     	
     	//change this.. or check if it before splitorator
-    	if(route.size() == 0){
-    		   LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
-    		   return splitRoutes;
-    	}
-;
-    	
+    	if(route.size() == 0)
+    		return null;
+
     	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
     	String aBuilding = route.get(0).getBuilding();
     	int newBuildingIndex = 0;
@@ -918,89 +906,25 @@ public class GPSapp extends Application{
     private Graph createGlobalGraph(Graph GLOBALGRAPH) {
 
     	//create Global nodes and edges list to pass to other createGraph method
+    	LinkedList<Node> globalNodeList = new LinkedList<Node>();
     	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
-    	LinkedList<EdgeDataConversion> globalEdgeListConversion = new LinkedList<EdgeDataConversion>();
 
     	//Manually add all of the Nodes...
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AKB.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH3.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLSB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/Gl3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHAPT.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHGAR.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-    	/*
+
     	//Manually add all of the Edges
     	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));*/
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
-
-		for(int i =0; i < globalEdgeListConversion.size(); i ++ ){
-			System.out.println("!!!@#$ FROM: " + globalEdgeListConversion.get(i).getFrom());
-			System.out.println("!!!@#$ FROM: " + globalEdgeListConversion.get(i).getTo());
-
-		}
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-		for(int i =0; i < globalEdgeList.size(); i ++ ){
-			System.out.println("Edge!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
-			System.out.println("Edge!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
-
-		}
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-
-    	/*
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");*/
     	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-//		for(int i =0; i < globalEdgeList.size(); i ++ ){
-//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
-//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
-//
-//		}
+
     	return GLOBALGRAPH;
 
     	
@@ -1050,13 +974,11 @@ public class GPSapp extends Application{
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-    	//System.out.print("Nodes: " + nodes);
+    	System.out.print("Nodes: " + nodes);
     	System.out.println();
-    	//System.out.print("Edges: " + edges);
-    	System.out.println("///***&&&");
+    	System.out.print("Edges: " + edges);
     	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
-    		System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
     		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
     	}
     	return g;
@@ -1103,40 +1025,42 @@ public class GPSapp extends Application{
                         	// Need to string compare from
                         	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
                         	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                        	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
-                            	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
-                            		startPlace = (globalGraph.getNodes().get(i));
+                        	for(int i = 0; i < nodeList.size(); i ++){
+                            	if((nodeList.get(i)).getName().equals(StartText.getText())) {
+                            		startPlace = (nodeList.get(i));
                             	}
-                            	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
-                            		endPlace = (globalGraph.getNodes().get(i));
+                            	if((nodeList.get(i)).getName().equals(DestText.getText())) {
+                            		endPlace = (nodeList.get(i));
                             	}
                             }
                         	System.out.println("start: " + startPlace.getName());
                         	System.out.println("end: " + endPlace.getName());
+							for(int i = 0; i < startPlace.getEdges().size(); i++){
+								System.out.println("!!!!!start node edge list from: " + startPlace.getEdges().get(i).getFrom());
+								System.out.println("!!!!!start node edge list to: " + startPlace.getEdges().get(i).getTo());
+
+
+							}
 
                             LinkedList<Node> route = new LinkedList<Node>();
-                            route = globalGraph.findRoute(startPlace, endPlace);
-                            
-                            System.out.println("Route lenth: " + route.size());
+                            route = graph.findRoute(startPlace, endPlace);
+
                             //Display the directions on the side
                             System.out.println("Route = " + route);
-                            //if(!(route.size() <= 1)){
-                            multiMap = splitRoute(route);//is endlessly looping or suttin
+                            if(!(route.size() <= 1)){
+                            	multiMap = splitRoute(route);//is endlessly looping or suttin
 
-                            //}
+                            }
                             //if the entire route is only on 1 map, display all instruction at once
                             if(currMaps == 1 || route.size() <= 1)
                             	displayInstructions(route, root);
                             else{
-                            	//otherwise just put the first map on 
+                            	//otherwise just put the first map on
                             	displayInstructions(multiMap.get(currRoute), root);
                             	root.getChildren().add(NextInstruction); //attach next button
                             }
-                            
+
                             System.out.println(" " +route);
-                            for(int i = 0; i < route.size(); i++){
-                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                            }
 
 
                             drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
@@ -1188,18 +1112,18 @@ public class GPSapp extends Application{
     	for(int i = 0; i < edgeData.size(); i ++){
     		//System.out.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
-    		for(int j = 0; j < globalNodeList.size(); j ++){
-    			//System.out.println("NodeSize: "+nodeList.size());
-    			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
-    			if(edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())){
+    		for(int j = 0; j < nodeList.size(); j ++){
+    			System.out.println("NodeSize: "+nodeList.size());
+    			System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+    			if(edgeData.get(i).getFrom().equals((nodeList.get(j)).getName())){
 					from = j;
 				}
-				if(edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())){
+				if(edgeData.get(i).getTo().equals((nodeList.get(j)).getName())){
 					to = j;
 				}
 
     		}
-    		Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
+    		Edge newEdge = new Edge(nodeList.get(from), nodeList.get(to), edgeData.get(i).getDistance());
 			edgeList.add(newEdge);
     	}
 
@@ -1436,12 +1360,12 @@ public class GPSapp extends Application{
 	   // NodePane.setScaleY(1);
 
     	nodeList.clear();
-   		//edgeList.clear();
+   		edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
-    	//edgeList = convertEdgeData(edgeListConversion);
+    	edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
@@ -1458,7 +1382,7 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
 
-        //graph = createGraph(graph, nodeList, edgeList);
+        graph = createGraph(graph, nodeList, edgeList);
         NodePane = new Pane();
         NodePane.setPrefSize(2450, 1250);
 
