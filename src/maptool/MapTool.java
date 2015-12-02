@@ -204,7 +204,7 @@ public class MapTool extends Application{
 
 
     	final Pane root = new Pane();
-    	 Scene scene = new Scene(root, 1100, 700);//set size of scene
+    	 Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
 
         //add the cross image
