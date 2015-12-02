@@ -555,37 +555,7 @@ public class MapTool extends Application{
             	
             	saveGraphMethod();
 
-        	   	NodePane.getChildren().clear();
-
-            	root.getChildren().remove(zoomPane);
-            	root.getChildren().remove(canvas);
-           		root.getChildren().remove(imageView); //remove current map, then load new one
-           		nodeList.clear(); 
-           		edgeListConversion.clear();
-           		edgeList.clear();
-                // TODO load the nodes and edges only on the currently selected map
-            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
-            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
-            	edgeList = convertEdgeData(edgeListConversion);
-            	
-            	/* ^^^^^^^^^
-            	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
-            	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
-            	 * OVERRIDE THEM.
-            	 */
-            	
-           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
-           		Image mapImage = new Image(newMapFile.toURI().toString());
-           		ImageView imageView = new ImageView();
-           		imageView.setImage(mapImage);
-           		imageView.setLayoutX(0);  
-           		imageView.setLayoutY(0);
-                
-            	drawEdges(edgeList, gc, NodePane);
-            	
-                final Group group = new Group(imageView, NodePane);
-        	    Parent zoomPane = createZoomPane(group);
-        	    root.getChildren().add(zoomPane);
+            	loadMap(root, canvas, zoomPane, NodePane, imageView);
             }
             
         });
@@ -669,245 +639,7 @@ public class MapTool extends Application{
        //Add actions to the Load Map button
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
-        	   	k = 0; // Reset Zoom Variable
-        	   	
-        	   	NodePane.getChildren().clear();
-        	   	//clear existing node list
-        	   	root.getChildren().remove(zoomPane);
-        	   	root.getChildren().remove(canvas);        	   	
-           		root.getChildren().remove(imageView); //remove current map, then load new one
-           		nodeList.clear(); 
-           		edgeListConversion.clear();
-           		edgeList.clear();
-               // TODO only load the selected map content
-               currentlySelectedMap = mapSelector.getValue();
-            	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
-            	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
-            	edgeList = convertEdgeData(edgeListConversion);
-            	
-            	/* ^^^^^^^^^
-            	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
-            	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
-            	 * OVERRIDE THEM.
-            	 */
-            	
-           		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
-           		Image mapImage = new Image(newMapFile.toURI().toString());
-           		ImageView imageView = new ImageView();
-           		imageView.setImage(mapImage);
-        	    NodePane.relocate(0, 0);
-           		
-           		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
-            	case "CampusMap": 	imageView.setScaleX(0.75);
-        							imageView.setScaleY(0.75);
-            						imageView.relocate(-1000, -600);
-            						NodePane.setScaleX(0.75);
-            						NodePane.setScaleY(0.75);
-        							NodePane.relocate(-800, -518);
-        							break;
-            	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "AK1":			imageView.setScaleX(0.5161);
-        							imageView.setScaleY(0.5161);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5161);
-        							NodePane.setScaleY(0.5161);
-        							NodePane.relocate(-218, -22);
-        							break;
-            	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161);
-        							NodePane.setScaleY(0.5161);
-        							//NodePane.relocate(-613, -441);
-        							break;
-            	case "BHB":			imageView.setScaleX(0.5427);
-        							imageView.setScaleY(0.5427);
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5427);
-        							NodePane.setScaleY(0.5427);
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "BH1":			imageView.setScaleX(0.5476);
-        							imageView.setScaleY(0.5476);
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5476);
-        							NodePane.setScaleY(0.5476);
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "CC1":			imageView.setScaleX(0.6107);
-        							imageView.setScaleY(0.6107);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.6107);
-        							NodePane.setScaleY(0.6107);
-        							NodePane.relocate(-222, -59);
-        							break;
-            	case "CC2":			imageView.setScaleX(0.6127);
-        							imageView.setScaleY(0.6127);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.6127);
-        							NodePane.setScaleY(0.6127);
-        							NodePane.relocate(-222, -59);
-        							break;
-            	case "CC3":			imageView.setScaleX(0.6061); 
-        							imageView.setScaleY(0.6061); 
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.6061);
-        							NodePane.setScaleY(0.6061);
-        							NodePane.relocate(-222, -59);
-        							break;
-            	case "GLSB":		imageView.setScaleX(0.5686);
-        							imageView.setScaleY(0.5686);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5686);
-        							NodePane.setScaleY(0.5686);
-        							NodePane.relocate(-225, -42);
-        							break;
-            	case "GLB":			imageView.setScaleX(0.5409);
-        							imageView.setScaleY(0.5409);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5409);
-        							NodePane.setScaleY(0.5409);
-        							NodePane.relocate(-225, -42);
-        							break;
-            	case "GL1":			imageView.setScaleX(0.5678);
-        							imageView.setScaleY(0.5678);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5678);
-        							NodePane.setScaleY(0.5678);
-        							NodePane.relocate(-225, -42);
-        							break;
-            	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(-0, 0);
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							NodePane.relocate(-225, -42);
-        							break;
-        		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							NodePane.relocate(-225, -42);
-        							break;
-            	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
-            						imageView.setScaleY(0.5161); //Not Final Values
-            						imageView.relocate(0, 0); //Not Final Values
-            						NodePane.setScaleX(0.5161); //Not Final Values
-            						NodePane.setScaleY(0.5161); //Not Final Values
-            						//NodePane.relocate(-613, -441); //Not Final Values
-            						break;
-            	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
-        							imageView.setScaleY(0.5161); //Not Final Values
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5161); //Not Final Values
-        							NodePane.setScaleY(0.5161); //Not Final Values
-        							//NodePane.relocate(-613, -441); //Not Final Values
-        							break;
-            	case "PC1":			imageView.setScaleX(0.6764);
-        							imageView.setScaleY(0.6764);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.6764);
-        							NodePane.setScaleY(0.6764);
-        							NodePane.relocate(-208, -58);
-        							break;
-            	case "PC2":			imageView.setScaleX(0.6006);
-        							imageView.setScaleY(0.6006); 
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.6006);
-        							NodePane.setScaleY(0.6006); 
-        							NodePane.relocate(-222, -48);
-        							break;
-            	case "SHB":			imageView.setScaleX(0.5464);
-        							imageView.setScaleY(0.5464);
-        							imageView.relocate(0, 0);
-        							NodePane.setScaleX(0.5464);
-        							NodePane.setScaleY(0.5464);
-        							NodePane.relocate(-224, -88);
-        							break;
-            	case "SH1":			imageView.setScaleX(0.5583);
-        							imageView.setScaleY(0.5583);
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5583);
-        							NodePane.setScaleY(0.5583);
-        							NodePane.relocate(-224, -82); //Not Final Values
-        							break;
-            	case "SH2":			imageView.setScaleX(0.5556);
-        							imageView.setScaleY(0.5556);
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5556);
-        							NodePane.setScaleY(0.5556);
-        							NodePane.relocate(-224, -86); //Not Final Values
-        							break;
-            	case "SH3":			imageView.setScaleX(0.5544);
-        							imageView.setScaleY(0.5544);
-        							imageView.relocate(0, 0); //Not Final Values
-        							NodePane.setScaleX(0.5544);
-        							NodePane.setScaleY(0.5544);
-        							NodePane.relocate(-224, -83); //Not Final Values
-        							break;
-        		}
-           		
-                drawEdges(edgeList, gc, NodePane);
-                             
-                final Group group = new Group(imageView, NodePane);
-        	    Parent zoomPane = createZoomPane(group);
-        	    root.getChildren().add(zoomPane);
+        	   	loadMap(root, canvas, zoomPane, NodePane, imageView);
            }
            
        });
@@ -1268,37 +1000,247 @@ public class MapTool extends Application{
         return new Point2D(scrollXOffset, scrollYOffset);
       }
     
-    /*//NOT WORKING RIGHT NOW
-    private void loadMapMethod(){
-    	//clear existing node list
-    	root.getChildren().remove(canvas);
-    	root.getChildren().remove(imageView); //remove current map, then load new one
-    	nodeList.clear(); 
-    	edgeListConversion.clear();
-    	edgeList.clear();
-     	nodeList = JsonParser.getJsonContent("Graphs/" + (String) mapSelector.getValue() + ".json");
-     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/" + (String) mapSelector.getValue() + "Edges.json");
-     	edgeList = convertEdgeData(edgeListConversion);
-     	System.out.println(mapSelector.getValue());*/
-     	
-     	/* ^^^^^^^^^
-     	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
-     	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
-     	 * OVERRIDE THEM.
-     	 */
-     	/*
-    	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
-    	Image mapImage = new Image(newMapFile.toURI().toString());
-    	ImageView imageView = new ImageView();
-    	imageView.setImage(mapImage);
-    	imageView.setLayoutX(0);  
-    	imageView.setLayoutY(0);
-    	imageView.resize(800, 600); //incase map is not already scaled perfectly
-    	root.getChildren().add(imageView); 
-          
-    	root.getChildren().add(canvas);
-        //drawEdges(edgeList, gc, root);
+    
+    private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView){
+    	k = 0; // Reset Zoom Variable
+	   	
+	   	NodePane.getChildren().clear();
+	   	//clear existing node list
+	   	root.getChildren().remove(zoomPane);
+	   	root.getChildren().remove(canvas);        	   	
+   		root.getChildren().remove(imageView); //remove current map, then load new one
+   		nodeList.clear(); 
+   		edgeListConversion.clear();
+   		edgeList.clear();
+       // TODO only load the selected map content
+       currentlySelectedMap = mapSelector.getValue();
+    	nodeList = JsonParser.getJsonContent(currentlySelectedMap.getNodesPath());
+    	edgeListConversion = JsonParser.getJsonContentEdge(currentlySelectedMap.getEdgesPath());
+    	edgeList = convertEdgeData(edgeListConversion);
+    	
+    	/* ^^^^^^^^^
+    	 * IMPORTANT, THE PROGRAM WILL NOT RUN IF WE DONT HAVE ACTUAL FILES
+    	 * WHERE THESE PATHS ARE POINTING TO, FOR NOW, CREATE TEMP ONES AND THEN
+    	 * OVERRIDE THEM.
+    	 */
+    	
+   		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
+   		Image mapImage = new Image(newMapFile.toURI().toString());
+   		imageView.setImage(mapImage);
+	    NodePane.relocate(0, 0);
+   		
+   		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
+    	case "CampusMap": 	imageView.setScaleX(0.75);
+							imageView.setScaleY(0.75);
+    						imageView.relocate(-1000, -600);
+    						NodePane.setScaleX(0.75);
+    						NodePane.setScaleY(0.75);
+							NodePane.relocate(-800, -518);
+							break;
+    	case "AKB": 		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "AK1":			imageView.setScaleX(0.5161);
+							imageView.setScaleY(0.5161);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5161);
+							NodePane.setScaleY(0.5161);
+							NodePane.relocate(-218, -22);
+							break;
+    	case "AK2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "AK3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161);
+							NodePane.setScaleY(0.5161);
+							//NodePane.relocate(-613, -441);
+							break;
+    	case "BHB":			imageView.setScaleX(0.5427);
+							imageView.setScaleY(0.5427);
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5427);
+							NodePane.setScaleY(0.5427);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH1":			imageView.setScaleX(0.5476);
+							imageView.setScaleY(0.5476);
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5476);
+							NodePane.setScaleY(0.5476);
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "BH3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "CC1":			imageView.setScaleX(0.6107);
+							imageView.setScaleY(0.6107);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6107);
+							NodePane.setScaleY(0.6107);
+							NodePane.relocate(-222, -59);
+							break;
+    	case "CC2":			imageView.setScaleX(0.6127);
+							imageView.setScaleY(0.6127);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6127);
+							NodePane.setScaleY(0.6127);
+							NodePane.relocate(-222, -59);
+							break;
+    	case "CC3":			imageView.setScaleX(0.6061); 
+							imageView.setScaleY(0.6061); 
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6061);
+							NodePane.setScaleY(0.6061);
+							NodePane.relocate(-222, -59);
+							break;
+    	case "GLSB":		imageView.setScaleX(0.5686);
+							imageView.setScaleY(0.5686);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5686);
+							NodePane.setScaleY(0.5686);
+							NodePane.relocate(-225, -42);
+							break;
+    	case "GLB":			imageView.setScaleX(0.5409);
+							imageView.setScaleY(0.5409);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5409);
+							NodePane.setScaleY(0.5409);
+							NodePane.relocate(-225, -42);
+							break;
+    	case "GL1":			imageView.setScaleX(0.5678);
+							imageView.setScaleY(0.5678);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5678);
+							NodePane.setScaleY(0.5678);
+							NodePane.relocate(-225, -42);
+							break;
+    	case "GL2":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(-0, 0);
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.relocate(-225, -42);
+							break;
+		case "GL3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							NodePane.relocate(-225, -42);
+							break;
+    	case "HHB":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HH1":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HH2":			imageView.setScaleX(0.5161); //Not Final Values
+    						imageView.setScaleY(0.5161); //Not Final Values
+    						imageView.relocate(0, 0); //Not Final Values
+    						NodePane.setScaleX(0.5161); //Not Final Values
+    						NodePane.setScaleY(0.5161); //Not Final Values
+    						//NodePane.relocate(-613, -441); //Not Final Values
+    						break;
+    	case "HH3":			imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HHAPT":		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "HHGAR":		imageView.setScaleX(0.5161); //Not Final Values
+							imageView.setScaleY(0.5161); //Not Final Values
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5161); //Not Final Values
+							NodePane.setScaleY(0.5161); //Not Final Values
+							//NodePane.relocate(-613, -441); //Not Final Values
+							break;
+    	case "PC1":			imageView.setScaleX(0.6764);
+							imageView.setScaleY(0.6764);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6764);
+							NodePane.setScaleY(0.6764);
+							NodePane.relocate(-208, -58);
+							break;
+    	case "PC2":			imageView.setScaleX(0.6006);
+							imageView.setScaleY(0.6006); 
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6006);
+							NodePane.setScaleY(0.6006); 
+							NodePane.relocate(-222, -48);
+							break;
+    	case "SHB":			imageView.setScaleX(0.5464);
+							imageView.setScaleY(0.5464);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5464);
+							NodePane.setScaleY(0.5464);
+							NodePane.relocate(-224, -88);
+							break;
+    	case "SH1":			imageView.setScaleX(0.5583);
+							imageView.setScaleY(0.5583);
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5583);
+							NodePane.setScaleY(0.5583);
+							NodePane.relocate(-224, -82); //Not Final Values
+							break;
+    	case "SH2":			imageView.setScaleX(0.5556);
+							imageView.setScaleY(0.5556);
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5556);
+							NodePane.setScaleY(0.5556);
+							NodePane.relocate(-224, -86); //Not Final Values
+							break;
+    	case "SH3":			imageView.setScaleX(0.5544);
+							imageView.setScaleY(0.5544);
+							imageView.relocate(0, 0); //Not Final Values
+							NodePane.setScaleX(0.5544);
+							NodePane.setScaleY(0.5544);
+							NodePane.relocate(-224, -83); //Not Final Values
+							break;
+		}
+   		
+        drawEdges(edgeList, gc, NodePane);
+                     
+        final Group group = new Group(imageView, NodePane);
+        zoomPane = createZoomPane(group);
+	    root.getChildren().add(zoomPane);
         
-    }*/
+    }
     
 }

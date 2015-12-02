@@ -390,14 +390,17 @@ public class GPSapp extends Application{
                     for(int i = 0; i < route.size(); i++){
                     	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                     }
-                    
+                    /*
                     Pane NodePane = new Pane();
                     drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                     drawRoute(gc, route);
                     
                     final Group group = new Group(imageView, canvas, NodePane);
             	    zoomPane = createZoomPane(group);
-            	    root.getChildren().add(zoomPane);
+            	    root.getChildren().add(zoomPane);*/
+            	    
+            	    loadMap(root, imageView);
+            	    
 
                     route = new LinkedList<Node>();
             	}
