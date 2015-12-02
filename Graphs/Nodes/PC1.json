@@ -1,1 +1,1 @@
-[]
+[{"valx":2,"globalY":10,"isWalkable":true,"globalX":33,"floorMap":"Project Center 1","name":"PCEntrance","isPlace":false,"type":"Transition Point","valz":0,"building":"Project Center","valy":391},{"valx":852,"globalY":15,"isWalkable":true,"globalX":10,"floorMap":"Project Center 1","name":"PC108","isPlace":true,"type":"Place","valz":0,"building":"Project Center","valy":113}]
