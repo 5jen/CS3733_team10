@@ -76,7 +76,7 @@ public class stepIndicator {
                         i++;
                     }
 
-                    if (z1>z2) {maneuver = "up stair"; icon_id=1;}
+                    if (z2>z1) {maneuver = "up stair"; icon_id=1;}
                     else {maneuver = "down stair";icon_id =2;}
                     message = "Go "+ maneuver;
                 }
