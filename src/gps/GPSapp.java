@@ -56,7 +56,7 @@ public class GPSapp extends Application{
 	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
 
 	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
-	Canvas canvas = new Canvas(2450, 1250);
+	Canvas canvas = new Canvas(3000, 2000);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
 	String startNode, endNode;
@@ -387,9 +387,10 @@ public class GPSapp extends Application{
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
         NodePane.setPrefSize(3000, 2000);
+        canvas.resize(3000, 2000);
         canvas.setScaleX(0.75);
         canvas.setScaleY(0.75);
-        canvas.relocate(-800, -518);
+        canvas.relocate(-965, -643);
 		highLight(NodePane, imageView, root, keyText);
 	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 	    NodePane.setScaleX(0.75);
@@ -1002,56 +1003,7 @@ public class GPSapp extends Application{
     	
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-//		for(int i =0; i < globalEdgeList.size(); i ++ ){
-//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getFrom().getName());
-//			System.out.println("!!!@#$ FROM: " + globalEdgeList.get(i).getTo().getName());
-//
-//		}
     	return GLOBALGRAPH;
-
-    	
-    	//ITERATE THROUGH DIRS AND ATTACH INSTEAD OF HARDCODE, COULDNT GET WORKING
-    	/*LinkedList<Node> TEMPnodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
-    	LinkedList<EdgeDataConversion> TEMPedgeListData = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-    	LinkedList<Edge> TEMPedgeList = convertEdgeData(TEMPedgeListData);
-
-    	//iterate through all of the Node json files and add them to the global graph
-    	String nodePath = "Graphs/Nodes/";
-    	File nfile = new File(nodePath);
-        File[] nodesFiles = nfile.listFiles();
-        for ( File f : nodesFiles ) {
-        	//now iterate through f and add it's contents to the global map
-        	TEMPnodeList = JsonParser.getJsonContent(f.getPath());
-        	for(int i = 0; i < TEMPnodeList.size(); i++){
-        		GLOBALGRAPH.addNode(TEMPnodeList.get(i));
-        	}
-        }
-<<<<<<< HEAD
-
-=======
->>>>>>> 82cccf372adfd00434d265897159a69feee094c7
-        System.out.println(GLOBALGRAPH.getNodes() + " Global");
-    	//iterate through all of the Edge json files and add them to the global graph
-        String edgePath = "Graphs/Edges/";
-    	File efile = new File(edgePath);
-        File[] edgesFiles = efile.listFiles();
-        for ( File f : edgesFiles ) {
-        	//now iterate through f and add it's contents to the global map (Conversion data)
-        	TEMPedgeListData = JsonParser.getJsonContentEdge(f.getPath());
-        	for(int i = 0; i < TEMPedgeListData.size(); i++){
-        		TEMPedgeList = convertEdgeData(TEMPedgeListData);
-        		for(int k = 0; k < TEMPedgeList.size(); k++){
-        			System.out.println(TEMPedgeList.get(k).getFrom());
-        			System.out.println(TEMPedgeList.get(k).getTo());
-        			GLOBALGRAPH.addEdge(TEMPedgeList.get(k).getFrom(), TEMPedgeList.get(k).getTo());
-            	}
-        	}
-        }
-<<<<<<< HEAD
-
-=======
->>>>>>> 82cccf372adfd00434d265897159a69feee094c7
-		return GLOBALGRAPH;*/
 	}
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
@@ -1497,7 +1449,9 @@ public class GPSapp extends Application{
 
         //graph = createGraph(graph, nodeList, edgeList);
         NodePane.getChildren().clear();
+        gc.clearRect(0, 0, 8000, 6000);
         NodePane.setPrefSize(2450, 1250);
+        canvas.resize(2450, 1250);
 
         switch (mapSelector.getValue()) {
     	case "CampusMap": 	NodePane.setPrefSize(3000, 2000);
@@ -1508,9 +1462,10 @@ public class GPSapp extends Application{
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
     						NodePane.relocate(-965, -643);
+    						canvas.resize(3000, 2000);
     						canvas.setScaleX(0.75);
     						canvas.setScaleY(0.75);
-    						canvas.relocate(-800, -518);							
+    						canvas.relocate(-965, -643);							
 							break;
     	case "AKB": 		imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);
