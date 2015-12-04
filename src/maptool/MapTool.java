@@ -275,13 +275,11 @@ public class MapTool extends Application{
     	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
           
     	//Create a label and box for warnings, ie when the coordinates are outside the name
-    	final HBox warningBox = new HBox(0); 
-    	final Label warningLabel = new Label("");
     	warningLabel.setFont(Font.font ("manteka", 10));
     	warningLabel.setTextFill(Color.RED);
     	warningBox.setLayoutX(830);
     	warningBox.setLayoutY(440);
-    	warningBox.getChildren().addAll(warningLabel);  
+    	warningBox.getChildren().add(warningLabel);  
 
     	
     	//Create input box field labels (on top of the text boxes)
@@ -389,6 +387,7 @@ public class MapTool extends Application{
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
         root.getChildren().add(autoModeHBox);
+        root.getChildren().add(warningBox); 
 
         Pane NodePane = new Pane();
         imageView.setScaleX(0.75);
@@ -471,7 +470,7 @@ public class MapTool extends Application{
                         NodePane.getChildren().remove(cross);
                     }
                     NodePane.getChildren().add(cross);
-                    cross.relocate(event.getX() - 39, event.getY() - 40);
+                    cross.relocate(event.getX() - 38, event.getY() - 38);
             	} else {
             		NodePane.getChildren().remove(cross);
             	}
@@ -513,6 +512,8 @@ public class MapTool extends Application{
                     line.setStyle("-fx-background-color:  #F0F8FF; ");
                     line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         public void handle(MouseEvent event) {
+                        	fromField.setText(fromNode.getName());
+                        	toField.setText(toNode.getName());
                             if (delete) {
                                 NodePane.getChildren().remove(line);
                                 edgeList.remove(newEdge);
@@ -573,7 +574,6 @@ public class MapTool extends Application{
     
     //Create Node Method to be called when we wanna create a node
     public void createNode(Pane NodePane){
-    	 root.getChildren().remove(warningBox);
          NodePane.getChildren().remove(cross);
      	int x = -1, y = -1, z = -1;
      	
@@ -587,21 +587,18 @@ public class MapTool extends Application{
      	} 
      	
          //check to see if coordinates are within map bounds, We dont care if it's campus map
-         if(!isInBounds(x, y) && !currentlySelectedMap.getName().equals("Campus Map")){
+         if(!isInBounds(x, y)){
          	warningLabel.setText("Error, coordinates out of bounds");
-         	root.getChildren().add(warningBox); 
          }
          
          //check to see if proper fields types given
          else if(!isValidCoords(xField.getText())){
      		warningLabel.setText("Error, coordinates not valid");
-     		root.getChildren().add(warningBox); 
      	}
          
          // Make sure a name is entered before creating node
          else if (nameField.getText().equals("")){
          	warningLabel.setText("Error, must enter a name");
-     		root.getChildren().add(warningBox); 
          }
      	/************************************************/
      	//passes all validity checks, create waypoint and add button
@@ -625,7 +622,7 @@ public class MapTool extends Application{
          		newNodeButton.setId("dark-blue");
          	}
          	
-         	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
+         	Node newPlace = new Node(x, y, z, nameField.getText(), currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
 
              // Set the Global X and Global Y.
              newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
@@ -662,15 +659,7 @@ public class MapTool extends Application{
                      	startX = newNodeButton.getLayoutX()+7;
                      	startY = newNodeButton.getLayoutY()+7;
                      	fromField.setText(newPlace.getName());
-                         fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                         fromNode.setGlobalX((int)((fromNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                 + fromNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                 currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                 (currentlySelectedMap.getConversionRatio())));
-                         fromNode.setGlobalY((int)((-fromNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                 + fromNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                 + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                 (currentlySelectedMap.getConversionRatio())));
+                         fromNode = newPlace;
                      	startCoord = true;
                      }
                      else if(!endCoord){
@@ -680,15 +669,7 @@ public class MapTool extends Application{
                      	endX = newNodeButton.getLayoutX()+7;
                      	endY = newNodeButton.getLayoutY()+7;
                      	toField.setText(newPlace.getName());
-                         toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                         toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                 + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                 currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                 (currentlySelectedMap.getConversionRatio())));
-                         toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                 + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                 + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                 (currentlySelectedMap.getConversionRatio())));
+                         toNode = newPlace;
                          startCoord = false;
                      	endCoord = false;
                     	}
@@ -761,6 +742,8 @@ public class MapTool extends Application{
 
                 line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
+                    	fromField.setText(edgeList.get(j).getFrom().getName());
+                    	toField.setText(edgeList.get(j).getTo().getName());
                         if (delete) {
                             nodePane.getChildren().remove(line);
                             edgeList.remove(edgeList.get(j));
@@ -859,15 +842,7 @@ public class MapTool extends Application{
                     	startX = newNodeButton.getLayoutX()+7;
                     	startY = newNodeButton.getLayoutY()+7;
                     	fromField.setText(newPlace.getName());
-                        fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                        fromNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                (currentlySelectedMap.getConversionRatio())));
-                        fromNode.setGlobalY((int)((-newPlace.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                + newPlace.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                (currentlySelectedMap.getConversionRatio())));
+                        fromNode = newPlace;
                     	startCoord = true;
                     }
                     else if(!endCoord){
@@ -877,15 +852,7 @@ public class MapTool extends Application{
                         endX = newNodeButton.getLayoutX()+7;
                     	endY = newNodeButton.getLayoutY()+7;
                     	toField.setText(newPlace.getName());
-                        toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                        toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                (currentlySelectedMap.getConversionRatio())));
-                        toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                (currentlySelectedMap.getConversionRatio())));
+                        toNode = newPlace;
                     	startCoord = false;
                     	endCoord = false;
                    	}
@@ -1121,7 +1088,7 @@ public class MapTool extends Application{
     						imageView.relocate(-1000, -600);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
-    						NodePane.relocate(-800, -518);	
+    						NodePane.relocate(-965, -643);	
     						zField.setText("0");
 							break;
     	case "AKB": 		imageView.setScaleX(0.6536);

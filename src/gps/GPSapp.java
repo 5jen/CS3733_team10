@@ -386,7 +386,7 @@ public class GPSapp extends Application{
         imageView.setScaleX(0.75);
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
-        NodePane.setPrefSize(2450, 1250);
+        NodePane.setPrefSize(3000, 2000);
         canvas.setScaleX(0.75);
         canvas.setScaleY(0.75);
         canvas.relocate(-800, -518);
@@ -394,7 +394,7 @@ public class GPSapp extends Application{
 	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 	    NodePane.setScaleX(0.75);
 		NodePane.setScaleY(0.75);
-		NodePane.relocate(-800, -518);
+		NodePane.relocate(-965, -643);
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    
@@ -1491,13 +1491,14 @@ public class GPSapp extends Application{
         NodePane.setPrefSize(2450, 1250);
 
         switch (mapSelector.getValue()) {
-    	case "CampusMap": 	imageView.setScaleX(0.75);
+    	case "CampusMap": 	NodePane.setPrefSize(3000, 2000);
+    						imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
     						imageView.relocate(-1000, -600);
     						highLight(NodePane, imageView, root, keyText);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
-    						NodePane.relocate(-800, -518);
+    						NodePane.relocate(-965, -643);
     						canvas.setScaleX(0.75);
     						canvas.setScaleY(0.75);
     						canvas.relocate(-800, -518);							
