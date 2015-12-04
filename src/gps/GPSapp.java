@@ -1,43 +1,8 @@
 package gps;
 
-import java.io.File;
-import java.util.LinkedList;
-
 import TurnByTurn.Step;
 import TurnByTurn.stepIndicator;
-import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.PerspectiveTransform;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import node.Building;
-import node.Edge;
-import node.Node;
-import node.EdgeDataConversion;
-import node.Graph;
-import node.Map;
-import maptool.MapTool;
+import io.JsonParser;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -47,17 +12,36 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.text.Font;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.PerspectiveTransform;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import io.JsonParser;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import node.*;
+
+import java.io.File;
+import java.util.LinkedList;
 
 
 
@@ -239,7 +223,7 @@ public class GPSapp extends Application{
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
 
-    	//Create a map selection drop down menu
+    	//Create a Building selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
@@ -365,6 +349,8 @@ public class GPSapp extends Application{
 
             }
         });
+        
+        
 
 
         //Add images to the screen
@@ -434,7 +420,7 @@ public class GPSapp extends Application{
             		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
             			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
             	}
-            	gc.clearRect(0, 0, 6000, 3000);
+            	gc.clearRect(0, 0, 8000, 6000);
             	mapSelector.setValue(initials);
             	loadMap(root, imageView);
             	
@@ -952,16 +938,16 @@ public class GPSapp extends Application{
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	
     	//Manually add all of the Edges
-    	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
@@ -973,14 +959,40 @@ public class GPSapp extends Application{
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-
     	
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SHBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHAPTEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHGAREdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	//TODO Add rest
     	
