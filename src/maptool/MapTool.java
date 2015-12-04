@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
@@ -129,9 +131,20 @@ public class MapTool extends Application{
     // Variable to store map that is currently displayed
     Map currentlySelectedMap;
     
+    //add the cross image
+    File crossFile = new File("CS3733_Graphics/cross.png");
+    Image crossImage = new Image(crossFile.toURI().toString());
+    ImageView cross = new ImageView();
+    
+    
     final Label fromField = new Label("");
     final Label toField = new Label("");
     final Label updateNodeLabel = new Label("");
+    
+    final HBox warningBox = new HBox(0); 
+    final Label warningLabel = new Label("");
+    
+    final RadioButton autoNodeCreate = new RadioButton();
     
     
     final Pane root = new Pane();
@@ -204,14 +217,10 @@ public class MapTool extends Application{
 
 
     	final Pane root = new Pane();
-    	 Scene scene = new Scene(root, 1100, 700);//set size of scene
+    	 Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
 
-        //add the cross image
-        File crossFile = new File("CS3733_Graphics/cross.png");
-        Image crossImage = new Image(crossFile.toURI().toString());
-        ImageView cross = new ImageView();
-        cross.setImage(crossImage);
+       
 
           	//Set default Type
     	typeSelector.setValue("Place");
@@ -268,9 +277,10 @@ public class MapTool extends Application{
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0); 
     	final Label warningLabel = new Label("");
-    	warningLabel.setTextFill(Color.WHITE);
+    	warningLabel.setFont(Font.font ("manteka", 10));
+    	warningLabel.setTextFill(Color.RED);
     	warningBox.setLayoutX(830);
-    	warningBox.setLayoutY(20);
+    	warningBox.setLayoutY(440);
     	warningBox.getChildren().addAll(warningLabel);  
 
     	
@@ -301,6 +311,8 @@ public class MapTool extends Application{
         isPlaceName.setTextFill(Color.WHITE);
         isPlaceName.setFont(Font.font ("manteka", 12));
         
+        
+        
         //final Label updateNodeLabel = new Label("Node");
         updateNodeLabel.setTextFill(Color.WHITE);
         updateNodeLabel.setFont(Font.font ("manteka", 12));
@@ -318,6 +330,8 @@ public class MapTool extends Application{
         controlLabels.setLayoutY(20);
         controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox,deleteNodeButton);  
 
+        //attach the cross image
+        cross.setImage(crossImage);
         
         //create edge interface
         final VBox edgeControls = new VBox(10);
@@ -357,7 +371,16 @@ public class MapTool extends Application{
         ImageView bgView = new ImageView();
         bgView.setImage(bgImage);
         bgView.setLayoutX(0);  
-        bgView.setLayoutY(0);  
+        bgView.setLayoutY(0); 
+        
+        //AutoCreation node button
+        final Label autoCreationModeButton = new Label("Auto Creation Mode");
+        autoCreationModeButton.setTextFill(Color.WHITE);
+        autoCreationModeButton.setFont(Font.font ("manteka", 12));
+        HBox autoModeHBox = new HBox(5);
+        autoModeHBox.setLayoutX(600);
+        autoModeHBox.setLayoutY(650);
+        autoModeHBox.getChildren().addAll(autoNodeCreate ,autoCreationModeButton);
         
         //Attach everything to the screen
         root.getChildren().add(bgView);        
@@ -365,16 +388,17 @@ public class MapTool extends Application{
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
-        
+        root.getChildren().add(autoModeHBox);
 
         Pane NodePane = new Pane();
         imageView.setScaleX(0.75);
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
-        NodePane.setPrefSize(2450, 1250);
+        NodePane.setPrefSize(3000, 2000);
         NodePane.setScaleX(0.75);
         NodePane.setScaleY(0.75);
-		NodePane.relocate(-800, -518);
+		NodePane.relocate(-965, -643);
+		zField.setText("0");
         drawEdges(edgeList, gc, NodePane); //from here we draw the nodes so that nodes are on top of the edges
         
         final Group group = new Group(imageView, NodePane);
@@ -382,153 +406,7 @@ public class MapTool extends Application{
 	    
 	    root.getChildren().add(zoomPane);
         
-        final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
-            @Override  
-            public void handle(ActionEvent event) {  
-                root.getChildren().remove(warningBox);
-                NodePane.getChildren().remove(cross);
-            	int x = -1, y = -1, z = -1;
-            	
-            	/************************************************/
-            	try{
-            		x = Integer.parseInt(xField.getText());  
-            		y = Integer.parseInt(yField.getText());
-            		z = Integer.parseInt(zField.getText());
-            	} catch (NumberFormatException e) {
-            	    System.err.println("NumberFormatException: " + e.getMessage());
-            	} 
-            	
-                //check to see if coordinates are within map bounds, We dont care if it's campus map
-                if(!isInBounds(x, y) && !currentlySelectedMap.getName().equals("Campus Map")){
-                	warningLabel.setText("Error, coordinates out of bounds");
-                	root.getChildren().add(warningBox); 
-                }
-                
-                //check to see if proper fields types given
-                else if(!isValidCoords(xField.getText())){
-            		warningLabel.setText("Error, coordinates not valid");
-            		root.getChildren().add(warningBox); 
-            	}
-                
-                // Make sure a name is entered before creating node
-                else if (nameField.getText().equals("")){
-                	warningLabel.setText("Error, must enter a name");
-            		root.getChildren().add(warningBox); 
-                }
-            	/************************************************/
-            	//passes all validity checks, create waypoint and add button
-                else{
-                	int newX = x, newY = y, newZ = z;
-                	warningLabel.setText("");//Remove warning, bc successful
-                	
-                	Button newNodeButton = new Button("");
-                	
-                	if(isPlace.isSelected()){
-                    	newNodeButton.setStyle(
-                                "-fx-background-radius: 5em; " +  "-fx-min-width: 15px; " + "-fx-min-height: 15px; " + "-fx-max-width: 15px; " + "-fx-max-height: 15px;"
-                        );
-                		newNodeButton.setId("shiny-orange");
 
-                	}
-                	else{
-                		newNodeButton.setStyle(
-                    			   "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
-                        );
-                		newNodeButton.setId("dark-blue");
-                	}
-                	
-                	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
-
-                    // Set the Global X and Global Y.
-                    newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
-                            + y*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                            currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                            (currentlySelectedMap.getConversionRatio())));
-                	newPlace.setGlobalY((int)((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
-                            + y*Math.cos(currentlySelectedMap.getRotationalConstant())
-                            + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                            (currentlySelectedMap.getConversionRatio())));
-                    // TODO This should also add to the global map nodes
-                	nodeList.add(newPlace);
-                    //Add actions for when you click this unique button
-                    newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-                    	public void handle(MouseEvent event) {
-                        	//check to see if we are just editting an exiting node
-
-                    		if(delete){
-                    			root.getChildren().remove(newNodeButton);
-                            	nodeList.remove(newPlace);
-                            	//iterate through the edge list and delete all edges attached to this node
-                            	for(int i = 0; i < edgeList.size(); i++){
-                            		if(edgeList.get(i).getFrom().getName() == newPlace.getName() || edgeList.get(i).getTo().getName() == newPlace.getName()){
-                            			edgeList.remove(i);
-                            		}
-                            	}
-                            	delete = false;
-                            }
-                            else if(!startCoord){
-                                if(startButton != null && endButton != startButton)startButton.setId(null);
-                                newNodeButton.setId("green");
-                                startButton = newNodeButton;
-                            	startX = newNodeButton.getLayoutX()+7;
-                            	startY = newNodeButton.getLayoutY()+7;
-                            	fromField.setText(newPlace.getName());
-                                fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                                fromNode.setGlobalX((int)((fromNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                        + fromNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                        (currentlySelectedMap.getConversionRatio())));
-                                fromNode.setGlobalY((int)((-fromNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                        + fromNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                        (currentlySelectedMap.getConversionRatio())));
-                            	startCoord = true;
-                            }
-                            else if(!endCoord){
-                                if(endButton != null && endButton != startButton)endButton.setId(null);
-                                newNodeButton.setId("green");
-                                endButton = newNodeButton;
-                            	endX = newNodeButton.getLayoutX()+7;
-                            	endY = newNodeButton.getLayoutY()+7;
-                            	toField.setText(newPlace.getName());
-                                toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
-                                toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                        + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                                        currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                                        (currentlySelectedMap.getConversionRatio())));
-                                toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
-                                        + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
-                                        + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                                        (currentlySelectedMap.getConversionRatio())));
-                                startCoord = false;
-                            	endCoord = false;
-                           	}
-                    		//no matter what fill in this nodes data into the input box fields
-                    		xField.setText(""+newPlace.getX());
-                    		yField.setText(""+newPlace.getY());
-                    		zField.setText(""+newPlace.getZ());
-                    		nameField.setText(newPlace.getName());
-                    		typeSelector.setValue(newPlace.getType());
-                    		if(newPlace.getIsPlace())
-                    			isPlace.setSelected(true);
-                    		else { isPlace.setSelected(false); }
-                    		nodeReference = newPlace.getName(); //so we can reference this node in other places
-                    		updateNode = true;
-                    		nodeButtonReference = newNodeButton;
-                    		updateNodeLabel.setText(""+newPlace.getName());
-                        }
-                    		
-                    });
-                    NodePane.getChildren().add(newNodeButton);
-                    if(isPlace.isSelected())
-                    	newNodeButton.relocate(newX-7, newY-7);
-                    else
-                    	newNodeButton.relocate(newX-5, newY-5);
-                }
-            }  
-        }; 
-        
         updateNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	int x = -1, y = -1, z = -1;
@@ -567,13 +445,7 @@ public class MapTool extends Application{
             
         });
         
-        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-            	//remove the canvas
-            	nodeReference = "";
-            	updateNode = false;
-            }
-        });
+        
         
         //Save the Graph
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -585,17 +457,32 @@ public class MapTool extends Application{
         
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	//Set the location coordinates in the input boxes
-            	xField.setText(Integer.toString((int)event.getX()));
-            	yField.setText(Integer.toString((int) event.getY()));
-            	/*
-            	//add a cross when click on the canvas
-                if (NodePane.getChildren().contains(cross)) {
-                    NodePane.getChildren().remove(cross);
+                if (event.isStillSincePress()){
+                    //Set the location coordinates in the input boxes
+                    xField.setText(Integer.toString((int) event.getX()));
+                    yField.setText(Integer.toString((int) event.getY()));
+
+
+                    nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + xField.getText() + ":" + yField.getText());
+
+
+                    if (event.getX() > 40 && event.getY() > 40) {
+                        //add a cross when click on the canvas
+                        if (NodePane.getChildren().contains(cross)) {
+                            NodePane.getChildren().remove(cross);
+                        }
+                        NodePane.getChildren().add(cross);
+                        cross.relocate(event.getX() - 39, event.getY() - 40);
+                    } else {
+                        NodePane.getChildren().remove(cross);
+                    }
+
+                    if (autoNodeCreate.isSelected()) {
+
+                        createNode(NodePane);
+
+                    }
                 }
-                NodePane.getChildren().add(cross);
-                cross.relocate(event.getX() - 39, event.getY() - 40);
-                */
 
             }
         });
@@ -649,13 +536,199 @@ public class MapTool extends Application{
            }
            
        });
-             
-        createNodeButton.setOnAction(CreateHandler);  
+       
+       
+       
+       final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
+           @Override  
+           public void handle(ActionEvent event) {  
+           }
+       }; 
+       
+      
+       root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+           public void handle(MouseEvent event) {
+           	//remove the canvas
+           	nodeReference = "";
+           	updateNode = false;
+           	
+           	
+           }
+           
+         	
+       });
+   
+            
+        createNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+           public void handle(MouseEvent event) {
+        	   createNode( NodePane);
+           }
+           
+       });
+        
+      
         
         primaryStage.setScene(scene);  
         primaryStage.show();  
         
     }  
+    
+    //Create Node Method to be called when we wanna create a node
+    public void createNode(Pane NodePane){
+    	 root.getChildren().remove(warningBox);
+         NodePane.getChildren().remove(cross);
+     	int x = -1, y = -1, z = -1;
+     	
+     	/************************************************/
+     	try{
+     		x = Integer.parseInt(xField.getText());  
+     		y = Integer.parseInt(yField.getText());
+     		z = Integer.parseInt(zField.getText());
+     	} catch (NumberFormatException e) {
+     	    System.err.println("NumberFormatException: " + e.getMessage());
+     	} 
+     	
+         //check to see if coordinates are within map bounds, We dont care if it's campus map
+         if(!isInBounds(x, y) && !currentlySelectedMap.getName().equals("Campus Map")){
+         	warningLabel.setText("Error, coordinates out of bounds");
+         	root.getChildren().add(warningBox); 
+         }
+         
+         //check to see if proper fields types given
+         else if(!isValidCoords(xField.getText())){
+     		warningLabel.setText("Error, coordinates not valid");
+     		root.getChildren().add(warningBox); 
+     	}
+         
+         // Make sure a name is entered before creating node
+         else if (nameField.getText().equals("")){
+         	warningLabel.setText("Error, must enter a name");
+     		root.getChildren().add(warningBox); 
+         }
+     	/************************************************/
+     	//passes all validity checks, create waypoint and add button
+         else{
+         	int newX = x, newY = y, newZ = z;
+         	warningLabel.setText("");//Remove warning, bc successful
+         	
+         	Button newNodeButton = new Button("");
+         	
+         	if(isPlace.isSelected()){
+             	newNodeButton.setStyle(
+                         "-fx-background-radius: 5em; " +  "-fx-min-width: 15px; " + "-fx-min-height: 15px; " + "-fx-max-width: 15px; " + "-fx-max-height: 15px;"
+                 );
+         		newNodeButton.setId("shiny-orange");
+
+         	}
+         	else{
+         		newNodeButton.setStyle(
+             			   "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
+                 );
+         		newNodeButton.setId("dark-blue");
+         	}
+         	
+         	Node newPlace = new Node(x, y, z, (String) nameField.getText(), (String) currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
+
+             // Set the Global X and Global Y.
+             newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
+                     + y*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                     currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                     (currentlySelectedMap.getConversionRatio())));
+         	newPlace.setGlobalY((int)((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
+                     + y*Math.cos(currentlySelectedMap.getRotationalConstant())
+                     + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                     (currentlySelectedMap.getConversionRatio())));
+             // TODO This should also add to the global map nodes
+         	nodeList.add(newPlace);
+             //Add actions for when you click this unique button
+             newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+             	public void handle(MouseEvent event) {
+                 	//check to see if we are just editting an exiting node
+
+             		if(delete){
+             			root.getChildren().remove(newNodeButton);
+                     	nodeList.remove(newPlace);
+                     	//iterate through the edge list and delete all edges attached to this node
+                     	for(int i = 0; i < edgeList.size(); i++){
+                     		if(edgeList.get(i).getFrom().getName() == newPlace.getName() || edgeList.get(i).getTo().getName() == newPlace.getName()){
+                     			edgeList.remove(i);
+                     		}
+                     	}
+                     	delete = false;
+                     }
+                     else if(!startCoord){
+                         if(startButton != null && endButton != startButton)startButton.setId(null);
+                         newNodeButton.setId("green");
+                         startButton = newNodeButton;
+                     	startX = newNodeButton.getLayoutX()+7;
+                     	startY = newNodeButton.getLayoutY()+7;
+                     	fromField.setText(newPlace.getName());
+                         fromNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                         fromNode.setGlobalX((int)((fromNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                 + fromNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                 currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                 (currentlySelectedMap.getConversionRatio())));
+                         fromNode.setGlobalY((int)((-fromNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                 + fromNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                 + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                 (currentlySelectedMap.getConversionRatio())));
+                     	startCoord = true;
+                     }
+                     else if(!endCoord){
+                         if(endButton != null && endButton != startButton)endButton.setId(null);
+                         newNodeButton.setId("green");
+                         endButton = newNodeButton;
+                     	endX = newNodeButton.getLayoutX()+7;
+                     	endY = newNodeButton.getLayoutY()+7;
+                     	toField.setText(newPlace.getName());
+                         toNode = new Node(newPlace.getX(), newPlace.getY(), newPlace.getZ(), (String) newPlace.getName(), (String) newPlace.getBuilding(), newPlace.getFloorMap(), true, newPlace.getIsPlace(), newPlace.getType());
+                         toNode.setGlobalX((int)((toNode.getX()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                 + toNode.getY()*Math.sin(currentlySelectedMap.getRotationalConstant()) +
+                                 currentlySelectedMap.getGlobalToLocalOffsetX()) *
+                                 (currentlySelectedMap.getConversionRatio())));
+                         toNode.setGlobalY((int)((-toNode.getX()*Math.sin(currentlySelectedMap.getRotationalConstant())
+                                 + toNode.getY()*Math.cos(currentlySelectedMap.getRotationalConstant())
+                                 + currentlySelectedMap.getGlobalToLocalOffsetY()) *
+                                 (currentlySelectedMap.getConversionRatio())));
+                         startCoord = false;
+                     	endCoord = false;
+                    	}
+             		//no matter what fill in this nodes data into the input box fields
+             		xField.setText(""+newPlace.getX());
+             		yField.setText(""+newPlace.getY());
+             		zField.setText(""+newPlace.getZ());
+             		nameField.setText(newPlace.getName());
+             		typeSelector.setValue(newPlace.getType());
+             		if(newPlace.getIsPlace())
+             			isPlace.setSelected(true);
+             		else { isPlace.setSelected(false); }
+             		nodeReference = newPlace.getName(); //so we can reference this node in other places
+             		updateNode = true;
+             		nodeButtonReference = newNodeButton;
+             		updateNodeLabel.setText(""+newPlace.getName());
+                 }
+             		
+             });
+             nameField.setText("");
+             NodePane.getChildren().add(newNodeButton);
+             if(isPlace.isSelected())
+             	newNodeButton.relocate(newX-7, newY-7);
+             else
+             	newNodeButton.relocate(newX-5, newY-5);
+         }
+     }  
+    
+    
+    //Create Hot Key events
+    public void buttonPressed(KeyEvent e)
+    {
+        if(e.getCode().toString().equals("ENTER"))
+        {
+        	System.out.println("asdasdasdasdasdasdasdasda)");
+        	//createNodeButton.setOnAction(CreateHandler);
+        }
+    }
     
     //Change where we call drawEdges to just change the drawEdgeBool to true;
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane nodePane){
@@ -1041,15 +1114,17 @@ public class MapTool extends Application{
    		File newMapFile = new File(currentlySelectedMap.getMapPath()); //MUST ADD png extension!
    		Image mapImage = new Image(newMapFile.toURI().toString());
    		imageView.setImage(mapImage);
-	    NodePane.relocate(0, 0);
+	    NodePane.setPrefSize(2450, 1250);
    		
    		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
-    	case "CampusMap": 	imageView.setScaleX(0.75);
+    	case "CampusMap": 	NodePane.setPrefSize(3000, 2000);
+    						imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
     						imageView.relocate(-1000, -600);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
-    						NodePane.relocate(-800, -518);							
+    						NodePane.relocate(-800, -518);	
+    						zField.setText("0");
 							break;
     	case "AKB": 		imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);
@@ -1057,6 +1132,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
 							NodePane.relocate(-212, -88);
+							zField.setText("-2");
 							break;
     	case "AK1":			imageView.setScaleX(0.5161);
 							imageView.setScaleY(0.5161);
@@ -1064,6 +1140,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5161);
 							NodePane.setScaleY(0.5161);
 							NodePane.relocate(-218, -22);
+							zField.setText("-1");
 							break;
     	case "AK2":			imageView.setScaleX(0.6706);
 							imageView.setScaleY(0.6706);
@@ -1071,6 +1148,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6706);
 							NodePane.setScaleY(0.6706);
 							NodePane.relocate(-206, -57);
+							zField.setText("0");
 							break;
     	case "AK3":			imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);
@@ -1078,6 +1156,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
 							NodePane.relocate(-212, -0);
+							zField.setText("1");
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
 							imageView.setScaleY(0.5427);
@@ -1085,6 +1164,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5427);
 							NodePane.setScaleY(0.5427);
 							NodePane.relocate(-200, -90);
+							zField.setText("-1");
 							break;
     	case "BH1":			imageView.setScaleX(0.5476);
 							imageView.setScaleY(0.5476);
@@ -1092,6 +1172,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5476);
 							NodePane.setScaleY(0.5476);
 							NodePane.relocate(-220, -86);
+							zField.setText("0");
 							break;
     	case "BH2":			imageView.setScaleX(0.5438);
 							imageView.setScaleY(0.5438);
@@ -1099,6 +1180,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5438);
 							NodePane.setScaleY(0.5438);
 							NodePane.relocate(-220, -99);
+							zField.setText("1");
 							break;
     	case "BH3":			imageView.setScaleX(0.5358);
 							imageView.setScaleY(0.5358);
@@ -1106,6 +1188,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5358);
 							NodePane.setScaleY(0.5358);
 							NodePane.relocate(-220, -110);
+							zField.setText("2");
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
 							imageView.setScaleY(0.6107);
@@ -1113,6 +1196,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6107);
 							NodePane.setScaleY(0.6107);
 							NodePane.relocate(-222, -59);
+							zField.setText("-1");
 							break;
     	case "CC2":			imageView.setScaleX(0.6127);
 							imageView.setScaleY(0.6127);
@@ -1120,6 +1204,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6127);
 							NodePane.setScaleY(0.6127);
 							NodePane.relocate(-222, -59);
+							zField.setText("0");
 							break;
     	case "CC3":			imageView.setScaleX(0.6061);
 							imageView.setScaleY(0.6061);
@@ -1127,6 +1212,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6061);
 							NodePane.setScaleY(0.6061);
 							NodePane.relocate(-222, -59);
+							zField.setText("1");
 							break;
     	case "GLSB":		imageView.setScaleX(0.5686);
 							imageView.setScaleY(0.5686);
@@ -1134,6 +1220,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5686);
 							NodePane.setScaleY(0.5686);
 							NodePane.relocate(-225, -42);
+							zField.setText("-3");
 							break;
     	case "GLB":			imageView.setScaleX(0.5409);
     						imageView.setScaleY(0.5409);
@@ -1141,6 +1228,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5409);
     						NodePane.setScaleY(0.5409);
     						NodePane.relocate(-225, -42);
+    						zField.setText("-2");
     						break;
     	case "GL1":			imageView.setScaleX(0.5678);
 							imageView.setScaleY(0.5678);
@@ -1148,6 +1236,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5678);
 							NodePane.setScaleY(0.5678);
 							NodePane.relocate(-225, -42);
+							zField.setText("-1");
 							break;
     	case "GL2":			imageView.setScaleX(0.5638);
 							imageView.setScaleY(0.5638);
@@ -1155,6 +1244,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5638);
 							NodePane.setScaleY(0.5638);
 							NodePane.relocate(-225, -42);
+							zField.setText("0");
 							break;
     	case "GL3":			imageView.setScaleX(0.6119);
 							imageView.setScaleY(0.6119);
@@ -1162,6 +1252,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6119);
 							NodePane.setScaleY(0.6119);
 							NodePane.relocate(-225, -42);
+							zField.setText("1");
 							break;
     	case "HHB":			imageView.setScaleX(0.5181);
     						imageView.setScaleY(0.5181);
@@ -1169,6 +1260,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5181);
     						NodePane.setScaleY(0.5181);
     						NodePane.relocate(-360, -22);
+    						zField.setText("-3");
     						break;
     	case "HH1":			imageView.setScaleX(0.5535);
     						imageView.setScaleY(0.5535);
@@ -1176,6 +1268,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5535);
     						NodePane.setScaleY(0.5535);
     						NodePane.relocate(-338, -37);
+    						zField.setText("-2");
     						break;
     	case "HH2":			imageView.setScaleX(0.6067);
 							imageView.setScaleY(0.6067);
@@ -1183,6 +1276,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6067);
 							NodePane.setScaleY(0.6067);
 							NodePane.relocate(-298, -50);
+							zField.setText("-1");
 							break;
     	case "HH3":			imageView.setScaleX(0.5917);
 							imageView.setScaleY(0.5917);
@@ -1190,6 +1284,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5917);
 							NodePane.setScaleY(0.5917);
 							NodePane.relocate(-310, -48);
+							zField.setText("0");
 							break;
     	case "HHAPT":		imageView.setScaleX(0.8197);
 							imageView.setScaleY(0.8197);
@@ -1197,6 +1292,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.8197);
 							NodePane.setScaleY(0.8197);
 							NodePane.relocate(-130, -50);
+							zField.setText("-1");
 							break;
     	case "HHGAR":		imageView.setScaleX(0.8172);
     						imageView.setScaleY(0.8172);
@@ -1204,6 +1300,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.8172);
     						NodePane.setScaleY(0.8172);
     						NodePane.relocate(-133, -53);
+    						zField.setText("-2");
     						break;
     	case "PC1":			imageView.setScaleX(0.6764);
 							imageView.setScaleY(0.6764);
@@ -1211,6 +1308,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6764);
 							NodePane.setScaleY(0.6764);
 							NodePane.relocate(-208, -58);
+							zField.setText("0");
 							break;
     	case "PC2":			imageView.setScaleX(0.6006);
 							imageView.setScaleY(0.6006);
@@ -1218,6 +1316,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6006);
 							NodePane.setScaleY(0.6006);
 							NodePane.relocate(-222, -48);
+							zField.setText("1");
 							break;
     	case "SHB":			imageView.setScaleX(0.5464);
 							imageView.setScaleY(0.5464);
@@ -1225,6 +1324,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5464);
 							NodePane.setScaleY(0.5464);
 							NodePane.relocate(-224, -88);
+							zField.setText("-1");
 							break;
     	case "SH1":			imageView.setScaleX(0.5583);
 							imageView.setScaleY(0.5583);
@@ -1232,6 +1332,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5583);
 							NodePane.setScaleY(0.5583);
 							NodePane.relocate(-224, -82);
+							zField.setText("0");
 							break;
     	case "SH2":			imageView.setScaleX(0.5556);
 							imageView.setScaleY(0.5556);
@@ -1239,6 +1340,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5556);
 							NodePane.setScaleY(0.5556);
 							NodePane.relocate(-224, -86);
+							zField.setText("1");
 							break;
     	case "SH3":			imageView.setScaleX(0.5544);
 							imageView.setScaleY(0.5544);
@@ -1246,6 +1348,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5544);
 							NodePane.setScaleY(0.5544);
 							NodePane.relocate(-224, -83);
+							zField.setText("2");
 							break;
 		}
    		

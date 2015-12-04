@@ -226,7 +226,7 @@ public class GPSapp extends Application{
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
 
-    	//Create a map selection drop down menu
+    	//Create a Building selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
@@ -352,6 +352,8 @@ public class GPSapp extends Application{
 
             }
         });
+        
+        
 
 
         //Add images to the screen
@@ -444,7 +446,6 @@ public class GPSapp extends Application{
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                currentlySelectedMap = mapSelector.getValue();
             	loadMap( root, imageView);
 
             }
@@ -942,13 +943,13 @@ public class GPSapp extends Application{
     	//Manually add all of the Edges
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
@@ -1468,14 +1469,14 @@ public class GPSapp extends Application{
    		//edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-        System.out.println("Graphs/Nodes/" + currentlySelectedMap + ".json");
-    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + currentlySelectedMap + ".json");
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + currentlySelectedMap + "Edges.json");
+        System.out.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
+        nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
+        edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
     	//edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
-    	File newMapFile = new File("CS3733_Graphics/" + currentlySelectedMap + ".png"); //MUST ADD png extension!
+        File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
         imageView.setImage(mapImage);
 
@@ -1492,8 +1493,8 @@ public class GPSapp extends Application{
         NodePane.getChildren().clear();
         NodePane.setPrefSize(2450, 1250);
 
-        switch (currentlySelectedMap) {
-    	case "CampusMap": 	imageView.setScaleX(0.75);
+        switch (mapSelector.getValue()) {
+            case "CampusMap": 	imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
     						imageView.relocate(-1000, -600);
     						highLight(NodePane, imageView, root, keyText);
@@ -1855,7 +1856,9 @@ public class GPSapp extends Application{
         });
         cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(CampusCenter, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(CampusCenter, root, imageView);
+                }
         	}
         });
 
@@ -1926,7 +1929,9 @@ public class GPSapp extends Application{
         });
         stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(StrattonHall, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(StrattonHall, root, imageView);
+                }
         	}
         });
 
@@ -1971,7 +1976,9 @@ public class GPSapp extends Application{
         });
         library.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(GordonLibrary, root, imageView);
+                if (event.isStillSincePress()){
+                    getMapSelector(GordonLibrary, root, imageView);
+                }
         	}
         });
 
@@ -2017,7 +2024,9 @@ public class GPSapp extends Application{
         });
         ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(AtwaterKent, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(AtwaterKent, root, imageView);
+                }
         	}
         });
 
@@ -2053,7 +2062,9 @@ public class GPSapp extends Application{
         });
         cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(ProjectCenter, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(ProjectCenter, root, imageView);
+                }
         	}
         });
 
@@ -2105,7 +2116,9 @@ public class GPSapp extends Application{
         });
         higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(HigginsHouse, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(HigginsHouse, root, imageView);
+                }
         	}
         });
 
@@ -2158,7 +2171,9 @@ public class GPSapp extends Application{
         });
         boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		getMapSelector(BoyntonHall, root, imageView);
+                if (event.isStillSincePress()) {
+                    getMapSelector(BoyntonHall, root, imageView);
+                }
         	}
         });
 
