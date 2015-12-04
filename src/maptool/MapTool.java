@@ -117,7 +117,7 @@ public class MapTool extends Application{
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
     final TextField nameField = new TextField(""); 
-    ObservableList<String> typeOptions = FXCollections.observableArrayList("Place", "Transition Point", "Staircase", "Vending Machine", "Water Fountain");
+    ObservableList<String> typeOptions = FXCollections.observableArrayList("Point", "Transition Point", "Staircase", "Vending Machine", "Water Fountain", "Men's Bathroom", "Women's Bathroom", "Emergency Pole", "Dinning", "Elevator", "Computer Lab");
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
 
@@ -229,7 +229,7 @@ public class MapTool extends Application{
        
 
           	//Set default Type
-    	typeSelector.setValue("Place");
+    	typeSelector.setValue("Point");
     	
     	//Create a map selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -502,8 +502,9 @@ public class MapTool extends Application{
             			yField.setText(Integer.toString((int) event.getY()));
                 	
                 	
-                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + xField.getText() + ":" + yField.getText());
-                	
+                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
+                	int x = Integer.parseInt(xField.getText());  
+             		int y = Integer.parseInt(yField.getText());
                 	
                 	if(event.getX() > 40 && event.getY() > 40) {
                 		//add a cross when click on the canvas
@@ -511,7 +512,7 @@ public class MapTool extends Application{
                             NodePane.getChildren().remove(cross);
                         }
                         NodePane.getChildren().add(cross);
-                        cross.relocate(event.getX() - 38, event.getY() - 38);
+                        cross.relocate(x - 38, y - 38);
                 	} else {
                 		NodePane.getChildren().remove(cross);
                 	}
