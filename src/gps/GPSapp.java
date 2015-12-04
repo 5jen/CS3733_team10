@@ -223,7 +223,7 @@ public class GPSapp extends Application{
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
 
-    	//Create a map selection drop down menu
+    	//Create a Building selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
     	final Label mapSelectorLabel = new Label("Choose map");
     	mapSelectorLabel.setTextFill(Color.WHITE);
@@ -349,6 +349,8 @@ public class GPSapp extends Application{
 
             }
         });
+        
+        
 
 
         //Add images to the screen
