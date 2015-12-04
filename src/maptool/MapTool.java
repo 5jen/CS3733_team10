@@ -536,38 +536,22 @@ public class MapTool extends Application{
             	delete = true;
             }
         });
+        
+        //MOVE THIS FUNCTIONALITY TO AN EXTERNAL FUNCTON so that we can call this
+        /*
+         * Inside the node creation method when we click a node
+         * 
+         * if(autoNodeCreate.isSelected()){
+                   		
+                   		createNode( NodePane);
+                   		
+                   	}
+                   
+                   	
+         */
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-
-            	if (!(fromNode == null) || !(toNode == null)) {
-            		Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-                    System.out.println(fromNode.getName());
-                    System.out.println(toNode.getName());
-                	edgeList.add(newEdge);
-                    if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
-                        Line line = new Line();
-                        line.setStartX(startX);
-                        line.setStartY(startY);
-                        line.setEndX(endX);
-                        line.setEndY(endY);
-                        line.setStrokeWidth(3);
-                        line.setStyle("-fx-background-color:  #F0F8FF; ");
-                        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent event) {
-                            	fromField.setText(fromNode.getName());
-                            	toField.setText(toNode.getName());
-                                if (delete) {
-                                    NodePane.getChildren().remove(line);
-                                    edgeList.remove(newEdge);
-                                    delete = false;
-                                }
-                            }
-                        });
-
-                        NodePane.getChildren().add(line);
-                    }    	
-            
-            	}
+            	createEdge(NodePane);
             }
         });
        
@@ -580,8 +564,6 @@ public class MapTool extends Application{
            
        });
        
-       
-      
        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
            	//remove the canvas
@@ -606,6 +588,39 @@ public class MapTool extends Application{
         primaryStage.show();  
         
     }  
+    
+    //create an edge between 2 nodes 
+    public void createEdge(Pane NodePane){
+    	if (!(fromNode == null) || !(toNode == null)) {
+    		Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
+            System.out.println(fromNode.getName());
+            System.out.println(toNode.getName());
+        	edgeList.add(newEdge);
+            if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
+                Line line = new Line();
+                line.setStartX(startX);
+                line.setStartY(startY);
+                line.setEndX(endX);
+                line.setEndY(endY);
+                line.setStrokeWidth(3);
+                line.setStyle("-fx-background-color:  #F0F8FF; ");
+                line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                    	fromField.setText(fromNode.getName());
+                    	toField.setText(toNode.getName());
+                        if (delete) {
+                            NodePane.getChildren().remove(line);
+                            edgeList.remove(newEdge);
+                            delete = false;
+                        }
+                    }
+                });
+
+                NodePane.getChildren().add(line);
+            }    	
+    
+    	}
+    }
     
     //Create Node Method to be called when we wanna create a node
     public void createNode(Pane NodePane){
@@ -694,8 +709,18 @@ public class MapTool extends Application{
                      	startX = newNodeButton.getLayoutX()+7;
                      	startY = newNodeButton.getLayoutY()+7;
                      	fromField.setText(newPlace.getName());
-                         fromNode = newPlace;
+                         if(toNode != null){
+                        	 fromNode = toNode;
+                        	 toNode = newPlace;
+                         }
+                         else fromNode = newPlace;
                      	startCoord = true;
+                     	if(autoEdgeCreate.isSelected() && toNode != null){
+                       		
+                       		createEdge( NodePane);
+                       		
+                       	}
+                     	
                      }
                      else if(!endCoord){
                          if(endButton != null && endButton != startButton)endButton.setId(null);
@@ -707,6 +732,11 @@ public class MapTool extends Application{
                          toNode = newPlace;
                          startCoord = false;
                      	endCoord = false;
+                     	if(autoEdgeCreate.isSelected()){
+                       		
+                       		createEdge( NodePane);
+                       		
+                       	}
                     	}
              		//no matter what fill in this nodes data into the input box fields
              		xField.setText(""+newPlace.getX());
