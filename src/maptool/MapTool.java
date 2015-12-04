@@ -46,7 +46,7 @@ import javafx.collections.ObservableList;
 public class MapTool extends Application{
 	boolean delete = false;
 	boolean startCoord, endCoord  = false;
-	double startX, startY, startZ, endX, endY, endZ = 0.0;
+	double startX, startY, startZ, endX, endY, endZ = 0.0, buttonRescale = 1/0.75;
 	int k = 0; // Set Max zoom Variable
 
     // Buildings
@@ -540,18 +540,7 @@ public class MapTool extends Application{
             }
         });
         
-        //MOVE THIS FUNCTIONALITY TO AN EXTERNAL FUNCTON so that we can call this
-        /*
-         * Inside the node creation method when we click a node
-         * 
-         * if(autoNodeCreate.isSelected()){
-                   		
-                   		createNode( NodePane);
-                   		
-                   	}
-                   
-                   	
-         */
+        
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	createEdge(NodePane);
@@ -605,7 +594,7 @@ public class MapTool extends Application{
                 line.setStartY(startY);
                 line.setEndX(endX);
                 line.setEndY(endY);
-                line.setStrokeWidth(3);
+                line.setStrokeWidth(3*buttonRescale);
                 line.setStyle("-fx-background-color:  #F0F8FF; ");
                 line.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
@@ -662,16 +651,24 @@ public class MapTool extends Application{
          	Button newNodeButton = new Button("");
          	
          	if(isPlace.isSelected()){
-             	newNodeButton.setStyle(
-                         "-fx-background-radius: 5em; " +  "-fx-min-width: 15px; " + "-fx-min-height: 15px; " + "-fx-max-width: 15px; " + "-fx-max-height: 15px;"
-                 );
+         		newNodeButton.setStyle(
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: " + 15*buttonRescale + "px; " +
+                        "-fx-min-height: " + 15*buttonRescale + "px; " +
+                        "-fx-max-width: " + 15*buttonRescale + "px; " +
+                        "-fx-max-height: " + 15*buttonRescale + "px;"
+                );
          		newNodeButton.setId("shiny-orange");
 
          	}
          	else{
          		newNodeButton.setStyle(
-             			   "-fx-background-radius: 5em; " +  "-fx-min-width: 10px; " + "-fx-min-height: 10px; " + "-fx-max-width: 10px; " + "-fx-max-height: 10px;"
-                 );
+                        "-fx-background-radius: 5em; " +
+                        "-fx-min-width: " + 10*buttonRescale + "px; " +
+                        "-fx-min-height: " + 10*buttonRescale + "px; " +
+                        "-fx-max-width: " + 10*buttonRescale + "px; " +
+                        "-fx-max-height: " + 10*buttonRescale + "px;"
+                );
          		newNodeButton.setId("dark-blue");
          	}
          	
@@ -708,8 +705,8 @@ public class MapTool extends Application{
                          if(startButton != null && endButton != startButton)startButton.setId(null);
                          newNodeButton.setId("green");
                          startButton = newNodeButton;
-                     	startX = newNodeButton.getLayoutX()+7;
-                     	startY = newNodeButton.getLayoutY()+7;
+                     	startX = newNodeButton.getLayoutX()+7*buttonRescale;
+                     	startY = newNodeButton.getLayoutY()+7*buttonRescale;
                      	fromField.setText(newPlace.getName());
                          if(toNode != null){
                         	 fromNode = toNode;
@@ -728,8 +725,8 @@ public class MapTool extends Application{
                          if(endButton != null && endButton != startButton)endButton.setId(null);
                          newNodeButton.setId("green");
                          endButton = newNodeButton;
-                     	endX = newNodeButton.getLayoutX()+7;
-                     	endY = newNodeButton.getLayoutY()+7;
+                     	endX = newNodeButton.getLayoutX()+7*buttonRescale;
+                     	endY = newNodeButton.getLayoutY()+7*buttonRescale;
                      	toField.setText(newPlace.getName());
                          toNode = newPlace;
                          startCoord = false;
@@ -759,9 +756,9 @@ public class MapTool extends Application{
              nameField.setText("");
              NodePane.getChildren().add(newNodeButton);
              if(isPlace.isSelected())
-             	newNodeButton.relocate(newX-7, newY-7);
+             	newNodeButton.relocate(newX-7*buttonRescale, newY-7*buttonRescale);
              else
-             	newNodeButton.relocate(newX-5, newY-5);
+             	newNodeButton.relocate(newX-5*buttonRescale, newY-5*buttonRescale);
          }
      }  
     
@@ -779,7 +776,7 @@ public class MapTool extends Application{
     //Change where we call drawEdges to just change the drawEdgeBool to true;
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane nodePane){
     	root.getChildren().remove(canvas);
-    	gc.clearRect(0, 0, 800, 600);
+    	gc.clearRect(0, 0, 8000, 6000);
     	int i;
     	
         for( i = 0; i < edgeList.size(); i++){
@@ -804,7 +801,7 @@ public class MapTool extends Application{
                     line.setEndX(edgeList.get(i).getTo().getX());
                     line.setEndY(edgeList.get(i).getTo().getY());
                 }
-                line.setStrokeWidth(3);
+                line.setStrokeWidth(3*buttonRescale);
 
 
                 line.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -865,10 +862,10 @@ public class MapTool extends Application{
     		if(nodes.get(i).getIsPlace()){
             	newNodeButton.setStyle(
                         "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 15px; " +
-                        "-fx-min-height: 15px; " +
-                        "-fx-max-width: 15px; " +
-                        "-fx-max-height: 15px;"
+                        "-fx-min-width: " + 15*buttonRescale + "px; " +
+                        "-fx-min-height: " + 15*buttonRescale + "px; " +
+                        "-fx-max-width: " + 15*buttonRescale + "px; " +
+                        "-fx-max-height: " + 15*buttonRescale + "px;"
                 );
             	newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
         		newNodeButton.setId("shiny-orange");
@@ -877,13 +874,13 @@ public class MapTool extends Application{
             else{
             	newNodeButton.setStyle(
                         "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 10px; " +
-                        "-fx-min-height: 10px; " +
-                        "-fx-max-width: 10px; " +
-                        "-fx-max-height: 10px;"
+                        "-fx-min-width: " + 10*buttonRescale + "px; " +
+                        "-fx-min-height: " + 10*buttonRescale + "px; " +
+                        "-fx-max-width: " + 10*buttonRescale + "px; " +
+                        "-fx-max-height: " + 10*buttonRescale + "px;"
                 );
         		newNodeButton.setId("dark-blue");
-            	newNodeButton.relocate(nodes.get(i).getX()-5, nodes.get(i).getY()-5);
+            	newNodeButton.relocate(nodes.get(i).getX()-5*buttonRescale, nodes.get(i).getY()-5*buttonRescale);
 
             }
             Node newPlace = nodes.get(i);
@@ -905,8 +902,8 @@ public class MapTool extends Application{
                         if(startButton != null && endButton != startButton)startButton.setId(null);
                         newNodeButton.setId("green");
                         startButton = newNodeButton;
-                    	startX = newNodeButton.getLayoutX()+7;
-                    	startY = newNodeButton.getLayoutY()+7;
+                    	startX = newNodeButton.getLayoutX()+7*buttonRescale;
+                    	startY = newNodeButton.getLayoutY()+7*buttonRescale;
                     	fromField.setText(newPlace.getName());
                         fromNode = newPlace;
                     	startCoord = true;
@@ -915,8 +912,8 @@ public class MapTool extends Application{
                         if(endButton != null && endButton != startButton)endButton.setId(null);
                         newNodeButton.setId("green");
                         endButton = newNodeButton;
-                        endX = newNodeButton.getLayoutX()+7;
-                    	endY = newNodeButton.getLayoutY()+7;
+                        endX = newNodeButton.getLayoutX()+7*buttonRescale;
+                    	endY = newNodeButton.getLayoutY()+7*buttonRescale;
                     	toField.setText(newPlace.getName());
                         toNode = newPlace;
                     	startCoord = false;
@@ -1156,6 +1153,7 @@ public class MapTool extends Application{
     						NodePane.setScaleY(0.75);
     						NodePane.relocate(-965, -643);	
     						zField.setText("0");
+    						buttonRescale = 1/0.75;
 							break;
     	case "AKB": 		imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);

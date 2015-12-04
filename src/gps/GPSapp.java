@@ -70,6 +70,7 @@ public class GPSapp extends Application{
 	Parent zoomPane;
 	Pane NodePane = new Pane();
 	Label BuildingNameLabel = new Label();
+	Double buttonRescale = 1/0.75;
 
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
@@ -1023,14 +1024,15 @@ public class GPSapp extends Application{
     	for(i = 0; i < nodes.size(); i ++){
     		if(nodes.get(i).getIsPlace()){
         		Button newNodeButton = new Button("");
-            	newNodeButton.setStyle(
+        		newNodeButton.setStyle(
                         "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 15px; " +
-                        "-fx-min-height: 15px; " +
-                        "-fx-max-width: 15px; " +
-                        "-fx-max-height: 15px;"
+                        "-fx-min-width: " + 15*buttonRescale + "px; " +
+                        "-fx-min-height: " + 15*buttonRescale + "px; " +
+                        "-fx-max-width: " + 15*buttonRescale + "px; " +
+                        "-fx-max-height: " + 15*buttonRescale + "px;"
                 );
-            	newNodeButton.relocate(nodes.get(i).getX()-7, nodes.get(i).getY()-7);
+        		//newNodeButton.setId("green");
+            	newNodeButton.relocate(nodes.get(i).getX()-7*buttonRescale, nodes.get(i).getY()-7*buttonRescale);
             	Node newNode = nodes.get(i);
             	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
@@ -1141,7 +1143,7 @@ public class GPSapp extends Application{
     	for(int i = 1; i < route.size(); i ++){
     		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")) 
     				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
-    			gc.setLineWidth(5);
+    			gc.setLineWidth(5*buttonRescale);
                 gc.setStroke(Color.BLACK);
     	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
     		}
@@ -1150,7 +1152,7 @@ public class GPSapp extends Application{
     	for(int i = 1; i < route.size(); i ++){
     		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase"))
     				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
-    			gc.setLineWidth(3);
+    			gc.setLineWidth(3*buttonRescale);
                 gc.setStroke(customBlue);
     	  		gc.strokeLine(route.get(i - 1).getX(), route.get(i - 1).getY(), route.get(i).getX(), route.get(i).getY());
     		}
@@ -1456,7 +1458,8 @@ public class GPSapp extends Application{
     						canvas.resize(3000, 2000);
     						canvas.setScaleX(0.75);
     						canvas.setScaleY(0.75);
-    						canvas.relocate(-965, -643);							
+    						canvas.relocate(-965, -643);
+    						buttonRescale = 1/0.75;
 							break;
     	case "AKB": 		imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);
@@ -1467,6 +1470,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6536);
 							canvas.setScaleY(0.6536);
 							canvas.relocate(-212, -88);
+							buttonRescale = 1/0.6536;
 							break;
     	case "AK1":			imageView.setScaleX(0.5161);
 							imageView.setScaleY(0.5161);
@@ -1587,6 +1591,7 @@ public class GPSapp extends Application{
     						canvas.setScaleX(0.5409);
     						canvas.setScaleY(0.5409);
     						canvas.relocate(-225, -42);
+    						buttonRescale = 1/((1-0.5409)*1.75);
     						break;
     	case "GL1":			imageView.setScaleX(0.5678);
 							imageView.setScaleY(0.5678);
