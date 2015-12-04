@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import io.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -150,7 +154,6 @@ public class MapTool extends Application{
     //LOCK BUTTONS
     final RadioButton lockX = new RadioButton();
     final RadioButton lockY = new RadioButton();
-    final RadioButton lockZ = new RadioButton();
     
     
     final Pane root = new Pane();
@@ -308,7 +311,7 @@ public class MapTool extends Application{
         zFieldName.setTextFill(Color.WHITE);
         zFieldName.setFont(Font.font ("manteka", 12));
         HBox zFieldBox = new HBox(60);
-        zFieldBox.getChildren().addAll(zField, lockZ);
+        zFieldBox.getChildren().addAll(zField);
         
         final Label nameFieldName = new Label("Name");
         nameFieldName.setTextFill(Color.WHITE);
@@ -438,11 +441,21 @@ public class MapTool extends Application{
 	    
 	    root.getChildren().add(zoomPane);
 	    
-	    //add functionality to the x, y and z fields
         
+	    
+	    //For update name field when we update the type
+	    typeSelector.valueProperty().addListener(new ChangeListener<String>() {
+            @Override 
+            public void changed(ObservableValue ov, String t, String t1) { 
+            	if(!isPlace.isSelected())
+            		nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
+            }    
+        });
+	    
 
         updateNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+            	
             	int x = -1, y = -1, z = -1;
             	
             	/************************************************/
@@ -454,6 +467,8 @@ public class MapTool extends Application{
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
             	if(updateNode){
+                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
+
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
                 			//root.getChildren().remove(nodeButtonReference);
