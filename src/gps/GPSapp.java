@@ -936,16 +936,16 @@ public class GPSapp extends Application{
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	
     	//Manually add all of the Edges
-    	LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
@@ -968,16 +968,16 @@ public class GPSapp extends Application{
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(edgeListConversion));
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHBEdges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
