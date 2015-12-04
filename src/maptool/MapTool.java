@@ -493,6 +493,8 @@ public class MapTool extends Application{
             	//Set the location coordinates in the input boxes
             	
             	//still need to find where to add Z..****
+            	//TODO add tool to write the locations we click to the screen so we can make outlines on rooms for clicking anypoint in rooms
+            	
             	
             	if (event.isStillSincePress()) {
             		//Set the location coordinates in the input boxes
