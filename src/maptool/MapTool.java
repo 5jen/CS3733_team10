@@ -662,14 +662,13 @@ public class MapTool extends Application{
          	Node newPlace = new Node(x, y, z, nameField.getText(), currentlySelectedMap.getBuildingName(), currentlySelectedMap.getName(), true, isPlace.isSelected(), typeSelector.getValue());
 
              // Set the Global X and Global Y.
-             newPlace.setGlobalX((int)((x*Math.cos(currentlySelectedMap.getRotationalConstant())
-                     + y*Math.sin(currentlySelectedMap.getRotationalConstant()) +
-                     currentlySelectedMap.getGlobalToLocalOffsetX()) *
-                     (currentlySelectedMap.getConversionRatio())));
-         	newPlace.setGlobalY((int)((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
-                     + y*Math.cos(currentlySelectedMap.getRotationalConstant())
-                     + currentlySelectedMap.getGlobalToLocalOffsetY()) *
-                     (currentlySelectedMap.getConversionRatio())));
+             newPlace.setGlobalX((int)(((x*Math.cos(currentlySelectedMap.getRotationalConstant())
+                     + y*Math.sin(currentlySelectedMap.getRotationalConstant()))*(currentlySelectedMap.getConversionRatio()) +
+                     currentlySelectedMap.getGlobalToLocalOffsetX())
+                     ));
+         	newPlace.setGlobalY((int)(((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
+                     + y*Math.cos(currentlySelectedMap.getRotationalConstant()))*(currentlySelectedMap.getConversionRatio())
+                     + currentlySelectedMap.getGlobalToLocalOffsetY())));
              // TODO This should also add to the global map nodes
          	nodeList.add(newPlace);
              //Add actions for when you click this unique button
