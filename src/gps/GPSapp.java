@@ -71,9 +71,6 @@ public class GPSapp extends Application{
 	Pane NodePane = new Pane();
 	Label BuildingNameLabel = new Label();
 
-    // Variable to store map that is currently displayed
-    String currentlySelectedMap;
-
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
@@ -389,7 +386,7 @@ public class GPSapp extends Application{
         imageView.setScaleX(0.75);
 		imageView.setScaleY(0.75);
 		imageView.relocate(-1000, -600);
-        NodePane.setPrefSize(2450, 1250);
+        NodePane.setPrefSize(3000, 2000);
         canvas.setScaleX(0.75);
         canvas.setScaleY(0.75);
         canvas.relocate(-800, -518);
@@ -397,7 +394,7 @@ public class GPSapp extends Application{
 	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 	    NodePane.setScaleX(0.75);
 		NodePane.setScaleY(0.75);
-		NodePane.relocate(-800, -518);
+		NodePane.relocate(-965, -643);
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
 	    
@@ -1470,13 +1467,13 @@ public class GPSapp extends Application{
         StartList.setOpacity(0);
         DestList.setOpacity(0);
         System.out.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
-        nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
-        edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
+    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
     	//edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
-        File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+    	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
         imageView.setImage(mapImage);
 
@@ -1494,13 +1491,14 @@ public class GPSapp extends Application{
         NodePane.setPrefSize(2450, 1250);
 
         switch (mapSelector.getValue()) {
-            case "CampusMap": 	imageView.setScaleX(0.75);
+    	case "CampusMap": 	NodePane.setPrefSize(3000, 2000);
+    						imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
     						imageView.relocate(-1000, -600);
     						highLight(NodePane, imageView, root, keyText);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
-    						NodePane.relocate(-800, -518);
+    						NodePane.relocate(-965, -643);
     						canvas.setScaleX(0.75);
     						canvas.setScaleY(0.75);
     						canvas.relocate(-800, -518);							
@@ -1856,9 +1854,9 @@ public class GPSapp extends Application{
         });
         cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(CampusCenter, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(CampusCenter, root, imageView);
+        		}
         	}
         });
 
@@ -1894,7 +1892,9 @@ public class GPSapp extends Application{
         });
         olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		//getMapSelector(OlinHall, root, zoomPane, imageView);
+        		if (event.isStillSincePress()) {
+        			//getMapSelector(OlinHall, root, zoomPane, imageView);
+        		}
         	}
         });
 
@@ -1929,9 +1929,9 @@ public class GPSapp extends Application{
         });
         stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(StrattonHall, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(StrattonHall, root, imageView);
+        		}
         	}
         });
 
@@ -1976,9 +1976,9 @@ public class GPSapp extends Application{
         });
         library.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()){
-                    getMapSelector(GordonLibrary, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(GordonLibrary, root, imageView);
+        		}
         	}
         });
 
@@ -2024,9 +2024,9 @@ public class GPSapp extends Application{
         });
         ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(AtwaterKent, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(AtwaterKent, root, imageView);
+        		}
         	}
         });
 
@@ -2062,9 +2062,9 @@ public class GPSapp extends Application{
         });
         cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(ProjectCenter, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(ProjectCenter, root, imageView);
+        		}
         	}
         });
 
@@ -2116,9 +2116,9 @@ public class GPSapp extends Application{
         });
         higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(HigginsHouse, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(HigginsHouse, root, imageView);
+        		}
         	}
         });
 
@@ -2171,9 +2171,9 @@ public class GPSapp extends Application{
         });
         boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                if (event.isStillSincePress()) {
-                    getMapSelector(BoyntonHall, root, imageView);
-                }
+        		if (event.isStillSincePress()) {
+        			getMapSelector(BoyntonHall, root, imageView);
+        		}
         	}
         });
 
