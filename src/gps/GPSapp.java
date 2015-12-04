@@ -71,6 +71,9 @@ public class GPSapp extends Application{
 	Pane NodePane = new Pane();
 	Label BuildingNameLabel = new Label();
 
+    // Variable to store map that is currently displayed
+    String currentlySelectedMap;
+
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
@@ -441,6 +444,7 @@ public class GPSapp extends Application{
         //Add actions to the Load Map button
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+                currentlySelectedMap = mapSelector.getValue();
             	loadMap( root, imageView);
 
             }
@@ -1464,14 +1468,14 @@ public class GPSapp extends Application{
    		//edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-        System.out.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
-    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
-    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
+        System.out.println("Graphs/Nodes/" + currentlySelectedMap + ".json");
+    	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + currentlySelectedMap + ".json");
+    	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + currentlySelectedMap + "Edges.json");
     	//edgeList = convertEdgeData(edgeListConversion);
 
     	//graph = createGraph(new Graph(), nodeList, edgeList);
 
-    	File newMapFile = new File("CS3733_Graphics/" + (String) mapSelector.getValue() + ".png"); //MUST ADD png extension!
+    	File newMapFile = new File("CS3733_Graphics/" + currentlySelectedMap + ".png"); //MUST ADD png extension!
     	Image mapImage = new Image(newMapFile.toURI().toString());
         imageView.setImage(mapImage);
 
@@ -1488,7 +1492,7 @@ public class GPSapp extends Application{
         NodePane.getChildren().clear();
         NodePane.setPrefSize(2450, 1250);
 
-        switch (mapSelector.getValue()) {
+        switch (currentlySelectedMap) {
     	case "CampusMap": 	imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
     						imageView.relocate(-1000, -600);
