@@ -122,8 +122,8 @@ public class MapTool extends Application{
     final RadioButton isPlace = new RadioButton();
 
     // Variables to store to and from nodes
-    Node fromNode = new Node(0, 0, 0, "", "", "", false, false, "");
-    Node toNode = new Node(0, 0, 0, "", "", "", false, false, "");
+    Node fromNode;
+    Node toNode;
 
     ObservableList<Map> mapOptions = FXCollections.observableArrayList();
 	final ComboBox<Map> mapSelector = new ComboBox<>(mapOptions);
@@ -456,32 +456,35 @@ public class MapTool extends Application{
         
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	//Set the location coordinates in the input boxes
-            	xField.setText(Integer.toString((int)event.getX()));
-            	yField.setText(Integer.toString((int) event.getY()));
             	
-            	
-            	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + xField.getText() + ":" + yField.getText());
-            	
-            	
-            	if(event.getX() > 40 && event.getY() > 40) {
-            		//add a cross when click on the canvas
-                    if (NodePane.getChildren().contains(cross)) {
-                        NodePane.getChildren().remove(cross);
-                    }
-                    NodePane.getChildren().add(cross);
-                    cross.relocate(event.getX() - 38, event.getY() - 38);
-            	} else {
-            		NodePane.getChildren().remove(cross);
+            	if (event.isStillSincePress()) {
+            		//Set the location coordinates in the input boxes
+                	xField.setText(Integer.toString((int)event.getX()));
+                	yField.setText(Integer.toString((int) event.getY()));
+                	
+                	
+                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + xField.getText() + ":" + yField.getText());
+                	
+                	
+                	if(event.getX() > 40 && event.getY() > 40) {
+                		//add a cross when click on the canvas
+                        if (NodePane.getChildren().contains(cross)) {
+                            NodePane.getChildren().remove(cross);
+                        }
+                        NodePane.getChildren().add(cross);
+                        cross.relocate(event.getX() - 38, event.getY() - 38);
+                	} else {
+                		NodePane.getChildren().remove(cross);
+                	}
+
+                	if(autoNodeCreate.isSelected()){
+                   		
+                   		createNode( NodePane);
+                   		
+                   	}
+
+                }
             	}
-
-            	if(autoNodeCreate.isSelected()){
-               		
-               		createNode( NodePane);
-               		
-               	}
-
-            }
         });
         
 
@@ -498,32 +501,35 @@ public class MapTool extends Application{
        createEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-            	Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-                System.out.println(fromNode.getName());
-                System.out.println(toNode.getName());
-            	edgeList.add(newEdge);
-                if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
-                    Line line = new Line();
-                    line.setStartX(startX);
-                    line.setStartY(startY);
-                    line.setEndX(endX);
-                    line.setEndY(endY);
-                    line.setStrokeWidth(3);
-                    line.setStyle("-fx-background-color:  #F0F8FF; ");
-                    line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        public void handle(MouseEvent event) {
-                        	fromField.setText(fromNode.getName());
-                        	toField.setText(toNode.getName());
-                            if (delete) {
-                                NodePane.getChildren().remove(line);
-                                edgeList.remove(newEdge);
-                                delete = false;
+            	if (!(fromNode == null) || !(toNode == null)) {
+            		Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
+                    System.out.println(fromNode.getName());
+                    System.out.println(toNode.getName());
+                	edgeList.add(newEdge);
+                    if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
+                        Line line = new Line();
+                        line.setStartX(startX);
+                        line.setStartY(startY);
+                        line.setEndX(endX);
+                        line.setEndY(endY);
+                        line.setStrokeWidth(3);
+                        line.setStyle("-fx-background-color:  #F0F8FF; ");
+                        line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            public void handle(MouseEvent event) {
+                            	fromField.setText(fromNode.getName());
+                            	toField.setText(toNode.getName());
+                                if (delete) {
+                                    NodePane.getChildren().remove(line);
+                                    edgeList.remove(newEdge);
+                                    delete = false;
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    NodePane.getChildren().add(line);
-                }
+                        NodePane.getChildren().add(line);
+                    }    	
+            
+            	}
             }
         });
        
@@ -893,14 +899,14 @@ public class MapTool extends Application{
     		}
 
             if (fromEdgeNode == null){
-                fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
-            }
-            if (toEdgeNode == null){
-                toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+                //fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
+            }else if (toEdgeNode == null){
+                //toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
 
+            } else {
+            	Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
+    			edgeList.add(newEdge);
             }
-    		Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
-			edgeList.add(newEdge);
     	}
     	
     	return edgeList;
