@@ -145,6 +145,12 @@ public class MapTool extends Application{
     final Label warningLabel = new Label("");
     
     final RadioButton autoNodeCreate = new RadioButton();
+    final RadioButton autoEdgeCreate = new RadioButton();
+    
+    //LOCK BUTTONS
+    final RadioButton lockX = new RadioButton();
+    final RadioButton lockY = new RadioButton();
+    final RadioButton lockZ = new RadioButton();
     
     
     final Pane root = new Pane();
@@ -290,14 +296,21 @@ public class MapTool extends Application{
         final Label xFieldName = new Label("X Coordinate");
         xFieldName.setFont(Font.font ("manteka", 12));
         xFieldName.setTextFill(Color.WHITE);
+        HBox xFieldBox = new HBox(60);
+        xFieldBox.getChildren().addAll(xField, lockX);
+        //************
         
         final Label yFieldName = new Label("Y Coordinate");
         yFieldName.setFont(Font.font ("manteka", 12));
         yFieldName.setTextFill(Color.WHITE);
+        HBox yFieldBox = new HBox(60);
+        yFieldBox.getChildren().addAll(yField, lockY);
         
         final Label zFieldName = new Label("Z Coordinate");
         zFieldName.setTextFill(Color.WHITE);
         zFieldName.setFont(Font.font ("manteka", 12));
+        HBox zFieldBox = new HBox(60);
+        zFieldBox.getChildren().addAll(zField, lockZ);
         
         final Label nameFieldName = new Label("Name");
         nameFieldName.setTextFill(Color.WHITE);
@@ -328,7 +341,7 @@ public class MapTool extends Application{
         
         controlLabels.setLayoutX(830);
         controlLabels.setLayoutY(20);
-        controlLabels.getChildren().addAll(xFieldName, xField, yFieldName, yField, zFieldName, zField, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox,deleteNodeButton);  
+        controlLabels.getChildren().addAll(xFieldName, xFieldBox, yFieldName, yFieldBox, zFieldName, zFieldBox, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox,deleteNodeButton);  
 
         //attach the cross image
         cross.setImage(crossImage);
@@ -343,6 +356,15 @@ public class MapTool extends Application{
         fromField.setFont(Font.font ("manteka", 12));
         fromField.setTextFill(Color.WHITE);
         fromBox.getChildren().addAll(fromLabel, fromField);
+        
+        
+        //Create Lock label
+        final Label lockLabel = new Label("Lock");
+        lockLabel.setFont(Font.font ("manteka", 12));
+        lockLabel.setTextFill(Color.WHITE);
+        lockLabel.setLayoutX(1050);
+        lockLabel.setLayoutY(20);
+        
         
         final HBox toBox = new HBox(10);
         final Label toName = new Label("To:   ");
@@ -374,13 +396,22 @@ public class MapTool extends Application{
         bgView.setLayoutY(0); 
         
         //AutoCreation node button
-        final Label autoCreationModeButton = new Label("Auto Creation Mode");
-        autoCreationModeButton.setTextFill(Color.WHITE);
-        autoCreationModeButton.setFont(Font.font ("manteka", 12));
-        HBox autoModeHBox = new HBox(5);
-        autoModeHBox.setLayoutX(600);
-        autoModeHBox.setLayoutY(650);
-        autoModeHBox.getChildren().addAll(autoNodeCreate ,autoCreationModeButton);
+        VBox autoModeBox = new VBox(5);
+        final Label autoCreationNodeButton = new Label("Auto Node Mode");
+        autoCreationNodeButton.setTextFill(Color.WHITE);
+        autoCreationNodeButton.setFont(Font.font ("manteka", 12));
+        HBox autoNodeModeHBox = new HBox(5);
+        autoNodeModeHBox.getChildren().addAll(autoNodeCreate, autoCreationNodeButton);
+        
+        final Label autoCreationEdgeButton = new Label("Auto Edge Mode");
+        autoCreationEdgeButton.setTextFill(Color.WHITE);
+        autoCreationEdgeButton.setFont(Font.font ("manteka", 12));
+        HBox autoEdgeModeHBox = new HBox(5);
+        autoEdgeModeHBox.getChildren().addAll(autoEdgeCreate, autoCreationEdgeButton);
+        
+        autoModeBox.getChildren().addAll(autoNodeModeHBox, autoEdgeModeHBox);
+        autoModeBox.setLayoutX(600);
+        autoModeBox.setLayoutY(620);
         
         //Attach everything to the screen
         root.getChildren().add(bgView);        
@@ -388,7 +419,8 @@ public class MapTool extends Application{
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
-        root.getChildren().add(autoModeHBox);
+        root.getChildren().add(autoModeBox);
+        root.getChildren().addAll(lockLabel);
 
         Pane NodePane = new Pane();
         imageView.setScaleX(0.75);
@@ -405,6 +437,8 @@ public class MapTool extends Application{
 	    Parent zoomPane = createZoomPane(group);
 	    
 	    root.getChildren().add(zoomPane);
+	    
+	    //add functionality to the x, y and z fields
         
 
         updateNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -445,8 +479,7 @@ public class MapTool extends Application{
             
         });
         
-        
-        
+         
         //Save the Graph
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -458,8 +491,13 @@ public class MapTool extends Application{
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	//Set the location coordinates in the input boxes
-            	xField.setText(Integer.toString((int)event.getX()));
-            	yField.setText(Integer.toString((int) event.getY()));
+            	
+            	//check locks first
+            	if(!lockX.isSelected())
+            		xField.setText(Integer.toString((int)event.getX()));
+            	if(!lockY.isSelected())
+            		yField.setText(Integer.toString((int) event.getY()));
+            	//still need to find where to add Z..
             	
             	
             	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + xField.getText() + ":" + yField.getText());
@@ -477,11 +515,8 @@ public class MapTool extends Application{
             	}
 
             	if(autoNodeCreate.isSelected()){
-               		
                		createNode( NodePane);
-               		
                	}
-
             }
         });
         
@@ -536,13 +571,6 @@ public class MapTool extends Application{
        });
        
        
-       
-       final EventHandler<ActionEvent> CreateHandler = new EventHandler<ActionEvent>() {  
-           @Override  
-           public void handle(ActionEvent event) {  
-           }
-       }; 
-       
       
        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
@@ -561,11 +589,9 @@ public class MapTool extends Application{
            public void handle(MouseEvent event) {
         	   createNode( NodePane);
            }
-           
        });
         
       
-        
         primaryStage.setScene(scene);  
         primaryStage.show();  
         
@@ -826,7 +852,6 @@ public class MapTool extends Application{
     		}
             else{
             	newNodeButton.setStyle(
-            			  
                         "-fx-background-radius: 5em; " +
                         "-fx-min-width: 10px; " +
                         "-fx-min-height: 10px; " +
