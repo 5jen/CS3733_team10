@@ -725,9 +725,13 @@ public class GPSapp extends Application{
             Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
             
+            String style = StepBox.getStyle();
+            
             int currentInstruction = i-1;
             StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
+            		
+            		StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
             		//highlight the current path
             		int NodeX = route.get(currentInstruction).getX();
             		int NodeY = route.get(currentInstruction).getY();
@@ -748,6 +752,7 @@ public class GPSapp extends Application{
             });
             StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
+            		StepBox.setStyle(style);
             		NodePane.getChildren().remove(pinView);
                     pinAttached = false;
             	}
