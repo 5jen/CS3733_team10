@@ -1,8 +1,6 @@
 .root {
     /*-fx-font-size: 16px;*/
 }
-.label {
-}
 #green {
     -fx-background-color:
         linear-gradient(#f0ff35, #a9ff00),
@@ -225,10 +223,4 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
-}
-.warning-text.label .text {
-    -fx-font-size: 14px;
-    -fx-text-fill: red;
-    -fx-stroke: black;
-    -fx-stroke-width: 1;
 }
