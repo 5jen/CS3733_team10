@@ -167,8 +167,12 @@ public class GPSapp extends Application{
 	int currMaps = 0;
 	int currRoute = 0;
 	Button NextInstruction = new Button("Next");
+	Button PrevInstruction = new Button("Prev");
 
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
+	
+	 ImageView pinView = new ImageView();
+	 boolean pinAttached = false;
 
 
 	@Override
@@ -276,8 +280,12 @@ public class GPSapp extends Application{
     	
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.WHITE);
-    	NextInstruction.setLayoutX(900);
+    	NextInstruction.setLayoutX(950);
     	NextInstruction.setLayoutY(470);
+    	
+    	PrevInstruction.setTextFill(Color.WHITE);
+    	PrevInstruction.setLayoutX(870);
+    	PrevInstruction.setLayoutY(470);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -425,44 +433,7 @@ public class GPSapp extends Application{
 
 	    highLight(NodePane, imageView, root, keyText);
 	    
-	    //Next instruction button actions
-	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				currRoute++;
-				displayInstructions(multiMap.get(currRoute), root);
-				
-				//displayInstructions(multiMap.get(currRoute), root);
-            	//root.getChildren().add(NextInstruction); //attach next button
-            	String initials = "";
-				
-            	for(int i = 0; i < maps.size(); i++){
-            		System.out.println("CURRENT ROUTE: "+ currRoute);
-            		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-            		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-            			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
-            	}
-            	gc.clearRect(0, 0, 8000, 6000);
-            	mapSelector.setValue(initials);
-            	loadMap(root, imageView);
-            	
-            	NodePane.getChildren().clear();
-                LinkedList<Node> tempNodeList = new LinkedList<Node>();
-                tempNodeList.add(multiMap.get(currRoute).get(0));
-                tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
-                //Draws only the start and end nodes of the route
-                drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
-                drawRoute(gc, multiMap.get(currRoute));
-				
-				
-				
-				//if we are on the last page of instructions, remove next button
-				if(currRoute == currMaps-1){
-					root.getChildren().remove(NextInstruction);
-					
-				}
-			}
-	    });
-
+	 
 	    root.getChildren().add(zoomPane);
 	    
 	    
@@ -473,6 +444,24 @@ public class GPSapp extends Application{
 
             }
         });
+        
+        //Next instruction button actions
+	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				currRoute++;
+				changeInstructions(NodePane,  root,  imageView);
+			}
+	    });
+
+	  //Next instruction button actions
+	    PrevInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				if(currRoute > 0 || currRoute < currMaps){
+					currRoute--;
+					changeInstructions(NodePane,  root,  imageView);
+				}
+			}
+	    });
 
         
         Scene scene = new Scene(root, 1050,700);
@@ -546,6 +535,25 @@ public class GPSapp extends Application{
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
 
+                        //if the entire route is only on 1 map, display all instruction at once
+                        displayInstructions(multiMap.get(currRoute), root);
+                        if(currRoute > 0){
+                        	root.getChildren().remove(PrevInstruction);
+                        	root.getChildren().add(PrevInstruction);
+                        }
+                        root.getChildren().remove(NextInstruction);
+                    	root.getChildren().add(NextInstruction); //attach next button
+                    	String initials = "";
+        				
+                    	for(int i = 0; i < maps.size(); i++){
+                    		System.out.println("CURRENT ROUTE: "+ currRoute);
+                    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                    	}
+                    	System.out.println("INITIALS: "+ initials);
+                    	gc.clearRect(0, 0, 6000, 3000);
+
                         try {
                             System.out.println("Route length: " + route.size());
                             //Display the directions on the side
@@ -559,7 +567,6 @@ public class GPSapp extends Application{
                             displayInstructions(multiMap.get(currRoute), root);
                             root.getChildren().remove(NextInstruction);
                             root.getChildren().add(NextInstruction); //attach next button
-                            String initials = "";
 
                             for (int i = 0; i < maps.size(); i++) {
                                 System.out.println("CURRENT ROUTE: " + currRoute);
@@ -581,20 +588,14 @@ public class GPSapp extends Application{
                                 System.out.println("Route node: " + i + " , " + route.get(i).getName());
                             }
 
-
-                            //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                            //drawRoute(gc, route);
-
                             final Group group = new Group(imageView, canvas, NodePane);
                             zoomPane = createZoomPane(group);
                             root.getChildren().add(zoomPane);
-                            //drawRoute(gc, route);
-                            //loadMap(root, imageView, NodePane);
-
 
                             route = new LinkedList<Node>();
                         } catch (NullPointerException n){
-                            warningLabel.setText("Path not Found");
+                            keyText.setText("Path not Found");
+                            keyText.setFill(Color.RED);
                         }
     				}
 
@@ -626,52 +627,52 @@ public class GPSapp extends Application{
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
                         
-                        System.out.println("Route lenth: " + route.size());
-                        //Display the directions on the side
-                        System.out.println("Route = " + route);
-                        //if(!(route.size() <= 1)){
-                        multiMap = splitRoute(route);//is endlessly looping or suttin
-                        currRoute = 0;
+                        try{
+                        	System.out.println("Route lenth: " + route.size());
+                            //Display the directions on the side
+                            System.out.println("Route = " + route);
+                            //if(!(route.size() <= 1)){
+                            multiMap = splitRoute(route);//is endlessly looping or suttin
+                            currRoute = 0;
 
-                        //}
-                        //if the entire route is only on 1 map, display all instruction at once
-                        displayInstructions(multiMap.get(currRoute), root);
-                        root.getChildren().remove(NextInstruction);
-                    	root.getChildren().add(NextInstruction); //attach next button
-                    	String initials = "";
-        				
-                    	for(int i = 0; i < maps.size(); i++){
-                    		System.out.println("CURRENT ROUTE: "+ currRoute);
-                    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-                    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
-                    	}
-                    	System.out.println("INITIALS: "+ initials);
-                    	gc.clearRect(0, 0, 6000, 3000);
+                            //if the entire route is only on 1 map, display all instruction at once
+                            displayInstructions(multiMap.get(currRoute), root);
+                            if(currRoute > 0){
+                            	root.getChildren().remove(PrevInstruction);
+                            	root.getChildren().add(PrevInstruction);
+                            }
+                            root.getChildren().remove(NextInstruction);
+                        	root.getChildren().add(NextInstruction); //attach next button
+                        	String initials = "";
+            				
+                        	for(int i = 0; i < maps.size(); i++){
+                        		System.out.println("CURRENT ROUTE: "+ currRoute);
+                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                        			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                        	}
+                        	System.out.println("INITIALS: "+ initials);
+                        	gc.clearRect(0, 0, 6000, 3000);
 
-                    	mapSelector.setValue(initials);
-                    	loadMap(root, imageView);
-                    	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                        drawRoute(gc, multiMap.get(currRoute));
-                    	
-                        
-                        System.out.println(" " +route);
-                        for(int i = 0; i < route.size(); i++){
-                        	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                        	mapSelector.setValue(initials);
+                        	loadMap(root, imageView);
+                        	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                            drawRoute(gc, multiMap.get(currRoute));
+                        	
+                            System.out.println(" " +route);
+                            for(int i = 0; i < route.size(); i++){
+                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                            }
+
+                            final Group group = new Group(imageView, canvas, NodePane);
+                    	    zoomPane = createZoomPane(group);
+                    	    root.getChildren().add(zoomPane);
+                            route = new LinkedList<Node>();
+                            
+        				} catch (NullPointerException n){
+        					keyText.setText("Path not Found");
+        					keyText.setFill(Color.RED);
                         }
-
-
-                        //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                        //drawRoute(gc, route);
-
-                        final Group group = new Group(imageView, canvas, NodePane);
-                	    zoomPane = createZoomPane(group);
-                	    root.getChildren().add(zoomPane);
-                        //drawRoute(gc, route);
-                	    //loadMap(root, imageView, NodePane);
-
-
-                        route = new LinkedList<Node>();
     				}
 
     			}
@@ -719,7 +720,6 @@ public class GPSapp extends Application{
     		} else {
     			newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
     		}
-    		
 
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
@@ -727,6 +727,34 @@ public class GPSapp extends Application{
             arrowView.setImage(arrowImage);
             Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
+            
+            int currentInstruction = i-1;
+            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            	public void handle(MouseEvent event) {
+            		//highlight the current path
+            		int NodeX = route.get(currentInstruction).getX();
+            		int NodeY = route.get(currentInstruction).getY();
+            		//attach an image, or do an animation on this current node
+            		File PinFile = new File("CS3733_Graphics/pin.png");
+                    Image pinImage = new Image(PinFile.toURI().toString());
+                   
+                    pinView.setImage(pinImage);
+                    pinView.setLayoutX(NodeX-10);
+                    pinView.setLayoutY(NodeY-36);
+                    if(!pinAttached){
+                    	System.out.println(NodeX + "   "+ NodeY);
+                    	NodePane.getChildren().add(pinView);
+                    	pinAttached = true;
+                    }
+                    
+            	}
+            });
+            StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+            	public void handle(MouseEvent event) {
+            		NodePane.getChildren().remove(pinView);
+                    pinAttached = false;
+            	}
+            });
 
     		StepBox.getChildren().addAll(arrowView, newDirection);
     		directionBox.getChildren().addAll(StepBox, breakLine);
@@ -736,6 +764,41 @@ public class GPSapp extends Application{
     	root.getChildren().add(s1);
     	return;
 
+    }
+    
+    public void changeInstructions(Pane NodePane, Pane root, ImageView imageView){
+    	displayInstructions(multiMap.get(currRoute), root);
+		
+    	String initials = "";
+    	for(int i = 0; i < maps.size(); i++){
+    		System.out.println("CURRENT ROUTE: "+ currRoute);
+    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+    	}
+    	gc.clearRect(0, 0, 8000, 6000);
+    	mapSelector.setValue(initials);
+    	loadMap(root, imageView);
+    	
+    	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+        drawRoute(gc, multiMap.get(currRoute));
+		
+        //Determine which buttons to display when changing instructions
+        if(currRoute > 0){
+        	root.getChildren().remove(PrevInstruction);
+        	root.getChildren().add(PrevInstruction);
+        }
+        else if(currRoute == 0){
+        	root.getChildren().remove(PrevInstruction);
+        }
+		
+		//if we are on the last page of instructions, remove next button
+		if(currRoute >= currMaps-1){
+			root.getChildren().remove(NextInstruction);
+		}
+		else {
+			root.getChildren().add(NextInstruction);
+		}
     }
 
 
@@ -793,7 +856,7 @@ public class GPSapp extends Application{
 
     			}
     	});
-
+    	
 
     	//Load the layered Maps
 	    //convert to for loop
@@ -1107,7 +1170,6 @@ public class GPSapp extends Application{
                             destButtonBool = false;
                             startButtonBool = false;
                             gc.clearRect(0, 0, 8000, 6000); // Clears old path
-//                            root.getChildren().remove(zoomPane);
 
                             // Need to string compare from
                             Node startPlace = new Node(0, 0, 0, "", "", "", false, false, "");
@@ -1134,7 +1196,7 @@ public class GPSapp extends Application{
                                 root.getChildren().remove(zoomPane);
                                 multiMap = splitRoute(route);//is endlessly looping or suttin
                                 currRoute = 0;
-                                //}
+                                
                                 //if the entire route is only on 1 map, display all instruction at once
                                 displayInstructions(multiMap.get(currRoute), root);
                                 if (multiMap.size() != 1) {
@@ -1151,7 +1213,6 @@ public class GPSapp extends Application{
                                         initials = maps.get(i).getInitials() + maps.get(i).getFloor();
                                 }
 
-
                                 System.out.println("MAP!!!!!: " + multiMap.get(currRoute).get(0).getFloorMap());
                                 gc.clearRect(0, 0, 6000, 3000);
 
@@ -1161,31 +1222,25 @@ public class GPSapp extends Application{
 
                                 loadMap(root, imageView);
                                 for (int h = 0; h < nodeList.size(); h++) {
-
                                     System.out.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
-
                                 }
+                                
                                 System.out.println("NodeList Size = " + nodeList.size());
                                 drawRoute(gc, multiMap.get(currRoute));
                                 NodePane.getChildren().clear();
                                 LinkedList<Node> tempNodeList = new LinkedList<Node>();
                                 tempNodeList.add(multiMap.get(currRoute).get(0));
                                 tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                                
                                 //Draws only the start and end nodes of the route
                                 drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
                                 
-
-
                                 final Group group = new Group(imageView, canvas, NodePane);
                                 zoomPane = createZoomPane(group);
                                 root.getChildren().add(zoomPane);
-                                //drawRoute(gc, route);
-                                //loadMap(root, imageView, NodePane);
-
-
                                 route = new LinkedList<Node>();
+                                
                             } catch (NullPointerException n){
-                                System.out.println("No Path Found");
                                 keyText.setText("No Path Found");
                         		keyText.setFill(Color.RED);
                             }
