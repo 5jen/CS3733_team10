@@ -1453,18 +1453,20 @@ public class GPSapp extends Application{
         NodePane.getChildren().clear();
         gc.clearRect(0, 0, 8000, 6000);
         NodePane.setPrefSize(2450, 1250);
-        canvas.resize(2450, 1250);
+        canvas = new Canvas(2450, 1250);
+        gc = canvas.getGraphicsContext2D();
 
         switch (mapSelector.getValue()) {
-    	case "CampusMap": 	NodePane.setPrefSize(3000, 2000);
+    	case "CampusMap": 	canvas = new Canvas(3000,2000);
+        					gc = canvas.getGraphicsContext2D();
+        					NodePane.setPrefSize(3000, 2000);
     						imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
-    						imageView.relocate(-1000, -600);
+    						imageView.relocate(-1000, -600); //800, 513
     						highLight(NodePane, imageView, root, keyText);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
     						NodePane.relocate(-965, -643);
-    						canvas.resize(3000, 2000);
     						canvas.setScaleX(0.75);
     						canvas.setScaleY(0.75);
     						canvas.relocate(-965, -643);
@@ -1479,7 +1481,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6536);
 							canvas.setScaleY(0.6536);
 							canvas.relocate(-212, -88);
-							buttonRescale = 1/0.6536;
+    						buttonRescale = 1/0.6536;
 							break;
     	case "AK1":			imageView.setScaleX(0.5161);
 							imageView.setScaleY(0.5161);
@@ -1490,6 +1492,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5161);
 							canvas.setScaleY(0.5161);
 							canvas.relocate(-218, -22);
+    						buttonRescale = 1/0.5161;
 							break;
     	case "AK2":			imageView.setScaleX(0.6706);
 							imageView.setScaleY(0.6706);
@@ -1500,6 +1503,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6706);
 							canvas.setScaleY(0.6706);
 							canvas.relocate(-206, -57);
+    						buttonRescale = 1/0.6706;
 							break;
     	case "AK3":			imageView.setScaleX(0.6536);
 							imageView.setScaleY(0.6536);
@@ -1510,6 +1514,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6536);
 							canvas.setScaleY(0.6536);
 							canvas.relocate(-212, -70);
+    						buttonRescale = 1/0.6536;
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
 							imageView.setScaleY(0.5427);
@@ -1520,6 +1525,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5427);
 							canvas.setScaleY(0.5427);
 							canvas.relocate(-200, -90);
+    						buttonRescale = 1/0.5427;
 							break;
     	case "BH1":			imageView.setScaleX(0.5476);
 							imageView.setScaleY(0.5476);
@@ -1530,6 +1536,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5476);
 							canvas.setScaleY(0.5476);
 							canvas.relocate(-220, -86);
+    						buttonRescale = 1/0.5476;
 							break;
     	case "BH2":			imageView.setScaleX(0.5438);
 							imageView.setScaleY(0.5438);
@@ -1540,6 +1547,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5438);
 							canvas.setScaleY(0.5438);
 							canvas.relocate(-220, -99);
+    						buttonRescale = 1/0.5438;
 							break;
     	case "BH3":			imageView.setScaleX(0.5358);
 							imageView.setScaleY(0.5358);
@@ -1550,6 +1558,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5358);
 							canvas.setScaleY(0.5358);
 							canvas.relocate(-220, -110);
+    						buttonRescale = 1/0.5358;
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
 							imageView.setScaleY(0.6107);
@@ -1560,6 +1569,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6107);
 							canvas.setScaleY(0.6107);
 							canvas.relocate(-222, -59);
+    						buttonRescale = 1/0.6107;
 							break;
     	case "CC2":			imageView.setScaleX(0.6127);
 							imageView.setScaleY(0.6127);
@@ -1570,6 +1580,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6127);
 							canvas.setScaleY(0.6127);
 							canvas.relocate(-222, -59);
+    						buttonRescale = 1/0.6127;
 							break;
     	case "CC3":			imageView.setScaleX(0.6061);
 							imageView.setScaleY(0.6061);
@@ -1580,6 +1591,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6061);
 							canvas.setScaleY(0.6061);
 							canvas.relocate(-222, -59);
+    						buttonRescale = 1/0.6061;
 							break;
     	case "GLSB":		imageView.setScaleX(0.5686);
 							imageView.setScaleY(0.5686);
@@ -1590,6 +1602,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5686);
 							canvas.setScaleY(0.5686);
 							canvas.relocate(-225, -42);
+    						buttonRescale = 1/0.5686;
 							break;
     	case "GLB":			imageView.setScaleX(0.5409);
     						imageView.setScaleY(0.5409);
@@ -1600,7 +1613,7 @@ public class GPSapp extends Application{
     						canvas.setScaleX(0.5409);
     						canvas.setScaleY(0.5409);
     						canvas.relocate(-225, -42);
-    						buttonRescale = 1/((1-0.5409)*1.75);
+    						buttonRescale = 1/0.5409;
     						break;
     	case "GL1":			imageView.setScaleX(0.5678);
 							imageView.setScaleY(0.5678);
@@ -1611,6 +1624,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5678);
 							canvas.setScaleY(0.5678);
 							canvas.relocate(-225, -42);
+    						buttonRescale = 1/0.5678;
 							break;
     	case "GL2":			imageView.setScaleX(0.5638);
 							imageView.setScaleY(0.5638);
@@ -1621,6 +1635,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5638);
 							canvas.setScaleY(0.5638);
 							canvas.relocate(-225, -42);
+    						buttonRescale = 1/0.5638;
 							break;
     	case "GL3":			imageView.setScaleX(0.6119);
 							imageView.setScaleY(0.6119);
@@ -1631,6 +1646,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6119);
 							canvas.setScaleY(0.6119);
 							canvas.relocate(-225, -42);
+    						buttonRescale = 1/0.6119;
 							break;
     	case "HHB":			imageView.setScaleX(0.5181);
     						imageView.setScaleY(0.5181);
@@ -1641,6 +1657,7 @@ public class GPSapp extends Application{
     						canvas.setScaleX(0.5181);
     						canvas.setScaleY(0.5181);
     						canvas.relocate(-360, -22);
+    						buttonRescale = 1/0.5181;
     						break;
     	case "HH1":			imageView.setScaleX(0.5535);
     						imageView.setScaleY(0.5535);
@@ -1651,6 +1668,7 @@ public class GPSapp extends Application{
     						canvas.setScaleX(0.5535);
     						canvas.setScaleY(0.5535);
     						canvas.relocate(-338, -37);
+    						buttonRescale = 1/0.5535;
     						break;
     	case "HH2":			imageView.setScaleX(0.6067);
 							imageView.setScaleY(0.6067);
@@ -1661,6 +1679,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6067);
 							canvas.setScaleY(0.6067);
 							canvas.relocate(-298, -50);
+    						buttonRescale = 1/0.6067;
 							break;
     	case "HH3":			imageView.setScaleX(0.5917);
 							imageView.setScaleY(0.5917);
@@ -1671,6 +1690,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5917);
 							canvas.setScaleY(0.5917);
 							canvas.relocate(-310, -48);
+    						buttonRescale = 1/0.5917;
 							break;
     	case "HHAPT":		imageView.setScaleX(0.8197);
 							imageView.setScaleY(0.8197);
@@ -1681,6 +1701,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.8197);
 							canvas.setScaleY(0.8197);
 							canvas.relocate(-130, -50);
+    						buttonRescale = 1/0.8197;
 							break;
     	case "HHGAR":		imageView.setScaleX(0.8172);
     						imageView.setScaleY(0.8172);
@@ -1691,6 +1712,7 @@ public class GPSapp extends Application{
     						canvas.setScaleX(0.8172);
     						canvas.setScaleY(0.8172);
     						canvas.relocate(-133, -53);
+    						buttonRescale = 1/0.8172;
     						break;
     	case "PC1":			imageView.setScaleX(0.6764);
 							imageView.setScaleY(0.6764);
@@ -1701,6 +1723,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6764);
 							canvas.setScaleY(0.6764);
 							canvas.relocate(-208, -58);
+    						buttonRescale = 1/0.6764;
 							break;
     	case "PC2":			imageView.setScaleX(0.6006);
 							imageView.setScaleY(0.6006);
@@ -1711,6 +1734,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.6006);
 							canvas.setScaleY(0.6006);
 							canvas.relocate(-222, -48);
+    						buttonRescale = 1/0.6006;
 							break;
     	case "SHB":			imageView.setScaleX(0.5464);
 							imageView.setScaleY(0.5464);
@@ -1721,6 +1745,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5464);
 							canvas.setScaleY(0.5464);
 							canvas.relocate(-224, -88);
+    						buttonRescale = 1/0.5464;
 							break;
     	case "SH1":			imageView.setScaleX(0.5583);
 							imageView.setScaleY(0.5583);
@@ -1731,6 +1756,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5583);
 							canvas.setScaleY(0.5583);
 							canvas.relocate(-224, -82);
+    						buttonRescale = 1/0.5583;
 							break;
     	case "SH2":			imageView.setScaleX(0.5556);
 							imageView.setScaleY(0.5556);
@@ -1741,6 +1767,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5556);
 							canvas.setScaleY(0.5556);
 							canvas.relocate(-224, -86);
+    						buttonRescale = 1/0.5556;
 							break;
     	case "SH3":			imageView.setScaleX(0.5544);
 							imageView.setScaleY(0.5544);
@@ -1751,6 +1778,7 @@ public class GPSapp extends Application{
 							canvas.setScaleX(0.5544);
 							canvas.setScaleY(0.5544);
 							canvas.relocate(-224, -83);
+    						buttonRescale = 1/0.5544;
 							break;
 		}
         gc.clearRect(0, 0, 8000, 6000);
@@ -1772,8 +1800,8 @@ public class GPSapp extends Application{
         Color BuildingName = new Color(1,0,0,1);
         Color key = new Color(1,1,1,0.5);
         Polygon cc = new Polygon();
-        double xOffset = 131.0;
-        double yOffset = 44.0;
+        double xOffset = 0.0;
+        double yOffset = 0.0;
         cc.getPoints().addAll(new Double[]{
         	    1261.0 - xOffset, 649.0 - yOffset,
         	    1272.0 - xOffset, 656.0 - yOffset,
@@ -1848,7 +1876,7 @@ public class GPSapp extends Application{
         	public void handle (MouseEvent event){
                 keyText.setText("Olin Hall");
                 keyText.setFill(BuildingName);
-                olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+                //olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		//System.out.println("I'm here");
         	}
         });
@@ -1930,7 +1958,7 @@ public class GPSapp extends Application{
         library.setStrokeWidth(1.0);
         library.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Gorden Library");
+                keyText.setText("Gordon Library");
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		//System.out.println("I'm here");

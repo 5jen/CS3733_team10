@@ -1176,6 +1176,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
 							NodePane.relocate(-212, -88);
+							buttonRescale = 1/0.6536;
 							zField.setText("-2");
 							break;
     	case "AK1":			imageView.setScaleX(0.5161);
@@ -1184,6 +1185,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5161);
 							NodePane.setScaleY(0.5161);
 							NodePane.relocate(-218, -22);
+    						buttonRescale = 1/0.5161;
 							zField.setText("-1");
 							break;
     	case "AK2":			imageView.setScaleX(0.6706);
@@ -1192,6 +1194,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6706);
 							NodePane.setScaleY(0.6706);
 							NodePane.relocate(-206, -57);
+    						buttonRescale = 1/0.6706;
 							zField.setText("0");
 							break;
     	case "AK3":			imageView.setScaleX(0.6536);
@@ -1200,6 +1203,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
 							NodePane.relocate(-212, -0);
+    						buttonRescale = 1/0.6536;
 							zField.setText("1");
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);
@@ -1208,6 +1212,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5427);
 							NodePane.setScaleY(0.5427);
 							NodePane.relocate(-200, -90);
+    						buttonRescale = 1/0.5427;
 							zField.setText("-1");
 							break;
     	case "BH1":			imageView.setScaleX(0.5476);
@@ -1216,6 +1221,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5476);
 							NodePane.setScaleY(0.5476);
 							NodePane.relocate(-220, -86);
+    						buttonRescale = 1/0.5476;
 							zField.setText("0");
 							break;
     	case "BH2":			imageView.setScaleX(0.5438);
@@ -1224,6 +1230,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5438);
 							NodePane.setScaleY(0.5438);
 							NodePane.relocate(-220, -99);
+    						buttonRescale = 1/0.5438;
 							zField.setText("1");
 							break;
     	case "BH3":			imageView.setScaleX(0.5358);
@@ -1232,6 +1239,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5358);
 							NodePane.setScaleY(0.5358);
 							NodePane.relocate(-220, -110);
+    						buttonRescale = 1/0.5358;
 							zField.setText("2");
 							break;
     	case "CC1":			imageView.setScaleX(0.6107);
@@ -1240,6 +1248,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6107);
 							NodePane.setScaleY(0.6107);
 							NodePane.relocate(-222, -59);
+    						buttonRescale = 1/0.6107;
 							zField.setText("-1");
 							break;
     	case "CC2":			imageView.setScaleX(0.6127);
@@ -1248,6 +1257,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6127);
 							NodePane.setScaleY(0.6127);
 							NodePane.relocate(-222, -59);
+    						buttonRescale = 1/0.6127;
 							zField.setText("0");
 							break;
     	case "CC3":			imageView.setScaleX(0.6061);
@@ -1256,6 +1266,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6061);
 							NodePane.setScaleY(0.6061);
 							NodePane.relocate(-222, -59);
+    						buttonRescale = 1/0.6061;
 							zField.setText("1");
 							break;
     	case "GLSB":		imageView.setScaleX(0.5686);
@@ -1264,6 +1275,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5686);
 							NodePane.setScaleY(0.5686);
 							NodePane.relocate(-225, -42);
+    						buttonRescale = 1/0.5686;
 							zField.setText("-3");
 							break;
     	case "GLB":			imageView.setScaleX(0.5409);
@@ -1272,6 +1284,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5409);
     						NodePane.setScaleY(0.5409);
     						NodePane.relocate(-225, -42);
+    						buttonRescale = 1/0.5409;
     						zField.setText("-2");
     						break;
     	case "GL1":			imageView.setScaleX(0.5678);
@@ -1280,6 +1293,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5678);
 							NodePane.setScaleY(0.5678);
 							NodePane.relocate(-225, -42);
+    						buttonRescale = 1/0.5678;
 							zField.setText("-1");
 							break;
     	case "GL2":			imageView.setScaleX(0.5638);
@@ -1288,6 +1302,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5638);
 							NodePane.setScaleY(0.5638);
 							NodePane.relocate(-225, -42);
+    						buttonRescale = 1/0.5638;
 							zField.setText("0");
 							break;
     	case "GL3":			imageView.setScaleX(0.6119);
@@ -1296,6 +1311,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6119);
 							NodePane.setScaleY(0.6119);
 							NodePane.relocate(-225, -42);
+    						buttonRescale = 1/0.6119;
 							zField.setText("1");
 							break;
     	case "HHB":			imageView.setScaleX(0.5181);
@@ -1304,6 +1320,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5181);
     						NodePane.setScaleY(0.5181);
     						NodePane.relocate(-360, -22);
+    						buttonRescale = 1/0.5181;
     						zField.setText("-3");
     						break;
     	case "HH1":			imageView.setScaleX(0.5535);
@@ -1312,6 +1329,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.5535);
     						NodePane.setScaleY(0.5535);
     						NodePane.relocate(-338, -37);
+    						buttonRescale = 1/0.5535;
     						zField.setText("-2");
     						break;
     	case "HH2":			imageView.setScaleX(0.6067);
@@ -1320,6 +1338,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6067);
 							NodePane.setScaleY(0.6067);
 							NodePane.relocate(-298, -50);
+    						buttonRescale = 1/0.6067;
 							zField.setText("-1");
 							break;
     	case "HH3":			imageView.setScaleX(0.5917);
@@ -1328,6 +1347,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5917);
 							NodePane.setScaleY(0.5917);
 							NodePane.relocate(-310, -48);
+    						buttonRescale = 1/0.5917;
 							zField.setText("0");
 							break;
     	case "HHAPT":		imageView.setScaleX(0.8197);
@@ -1336,6 +1356,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.8197);
 							NodePane.setScaleY(0.8197);
 							NodePane.relocate(-130, -50);
+    						buttonRescale = 1/0.8197;
 							zField.setText("-1");
 							break;
     	case "HHGAR":		imageView.setScaleX(0.8172);
@@ -1344,6 +1365,7 @@ public class MapTool extends Application{
     						NodePane.setScaleX(0.8172);
     						NodePane.setScaleY(0.8172);
     						NodePane.relocate(-133, -53);
+    						buttonRescale = 1/0.8172;
     						zField.setText("-2");
     						break;
     	case "PC1":			imageView.setScaleX(0.6764);
@@ -1352,6 +1374,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6764);
 							NodePane.setScaleY(0.6764);
 							NodePane.relocate(-208, -58);
+    						buttonRescale = 1/0.6764;
 							zField.setText("0");
 							break;
     	case "PC2":			imageView.setScaleX(0.6006);
@@ -1360,6 +1383,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.6006);
 							NodePane.setScaleY(0.6006);
 							NodePane.relocate(-222, -48);
+    						buttonRescale = 1/0.6006;
 							zField.setText("1");
 							break;
     	case "SHB":			imageView.setScaleX(0.5464);
@@ -1368,6 +1392,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5464);
 							NodePane.setScaleY(0.5464);
 							NodePane.relocate(-224, -88);
+    						buttonRescale = 1/0.5464;
 							zField.setText("-1");
 							break;
     	case "SH1":			imageView.setScaleX(0.5583);
@@ -1376,6 +1401,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5583);
 							NodePane.setScaleY(0.5583);
 							NodePane.relocate(-224, -82);
+    						buttonRescale = 1/0.5583;
 							zField.setText("0");
 							break;
     	case "SH2":			imageView.setScaleX(0.5556);
@@ -1384,6 +1410,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5556);
 							NodePane.setScaleY(0.5556);
 							NodePane.relocate(-224, -86);
+    						buttonRescale = 1/0.5556;
 							zField.setText("1");
 							break;
     	case "SH3":			imageView.setScaleX(0.5544);
@@ -1392,6 +1419,7 @@ public class MapTool extends Application{
 							NodePane.setScaleX(0.5544);
 							NodePane.setScaleY(0.5544);
 							NodePane.relocate(-224, -83);
+    						buttonRescale = 1/0.5544;
 							zField.setText("2");
 							break;
 		}
