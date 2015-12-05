@@ -152,6 +152,9 @@ public class GPSapp extends Application{
 	Button PrevInstruction = new Button("Prev");
 
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
+	
+	 ImageView pinView = new ImageView();
+	 boolean pinAttached = false;
 
 
 	@Override
@@ -686,7 +689,6 @@ public class GPSapp extends Application{
     		} else {
     			newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
     		}
-    		
 
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
@@ -694,6 +696,34 @@ public class GPSapp extends Application{
             arrowView.setImage(arrowImage);
             Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
+            
+            int currentInstruction = i-1;
+            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            	public void handle(MouseEvent event) {
+            		//highlight the current path
+            		int NodeX = route.get(currentInstruction).getX();
+            		int NodeY = route.get(currentInstruction).getY();
+            		//attach an image, or do an animation on this current node
+            		File PinFile = new File("CS3733_Graphics/pin.png");
+                    Image pinImage = new Image(PinFile.toURI().toString());
+                   
+                    pinView.setImage(pinImage);
+                    pinView.setLayoutX(NodeX);
+                    pinView.setLayoutY(NodeY);
+                    if(!pinAttached){
+                    	System.out.println(NodeX + "   "+ NodeY);
+                    	NodePane.getChildren().add(pinView);
+                    	pinAttached = true;
+                    }
+                    
+            	}
+            });
+            StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+            	public void handle(MouseEvent event) {
+            		NodePane.getChildren().remove(pinView);
+                    pinAttached = false;
+            	}
+            });
 
     		StepBox.getChildren().addAll(arrowView, newDirection);
     		directionBox.getChildren().addAll(StepBox, breakLine);
