@@ -149,6 +149,7 @@ public class GPSapp extends Application{
 	int currMaps = 0;
 	int currRoute = 0;
 	Button NextInstruction = new Button("Next");
+	Button PrevInstruction = new Button("Prev");
 
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
 
@@ -258,8 +259,12 @@ public class GPSapp extends Application{
     	
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.WHITE);
-    	NextInstruction.setLayoutX(900);
+    	NextInstruction.setLayoutX(950);
     	NextInstruction.setLayoutY(470);
+    	
+    	PrevInstruction.setTextFill(Color.WHITE);
+    	PrevInstruction.setLayoutX(870);
+    	PrevInstruction.setLayoutY(470);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -404,39 +409,8 @@ public class GPSapp extends Application{
 
 	    highLight(NodePane, imageView, root, keyText);
 	    
-	    //Next instruction button actions
-	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				currRoute++;
-				displayInstructions(multiMap.get(currRoute), root);
-				
-				//displayInstructions(multiMap.get(currRoute), root);
-            	//root.getChildren().add(NextInstruction); //attach next button
-            	String initials = "";
-				
-            	for(int i = 0; i < maps.size(); i++){
-            		System.out.println("CURRENT ROUTE: "+ currRoute);
-            		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-            		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-            			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
-            	}
-            	gc.clearRect(0, 0, 8000, 6000);
-            	mapSelector.setValue(initials);
-            	loadMap(root, imageView);
-            	
-            	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                drawRoute(gc, multiMap.get(currRoute));
-				
-				
-				
-				//if we are on the last page of instructions, remove next button
-				if(currRoute == currMaps-1){
-					root.getChildren().remove(NextInstruction);
-					
-				}
-			}
-	    });
-
+	   
+	    
 	    root.getChildren().add(zoomPane);
 	    
 	    
@@ -447,6 +421,22 @@ public class GPSapp extends Application{
 
             }
         });
+        
+        //Next instruction button actions
+	    NextInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				currRoute++;
+				changeInstructions(NodePane,  root,  imageView);
+			}
+	    });
+
+	  //Next instruction button actions
+	    PrevInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				currRoute--;
+				changeInstructions(NodePane,  root,  imageView);
+			}
+	    });
 
         
 
@@ -529,6 +519,10 @@ public class GPSapp extends Application{
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
                         displayInstructions(multiMap.get(currRoute), root);
+                        if(currRoute > 0){
+                        	root.getChildren().remove(PrevInstruction);
+                        	root.getChildren().add(PrevInstruction);
+                        }
                         root.getChildren().remove(NextInstruction);
                     	root.getChildren().add(NextInstruction); //attach next button
                     	String initials = "";
@@ -605,6 +599,10 @@ public class GPSapp extends Application{
                         //}
                         //if the entire route is only on 1 map, display all instruction at once
                         displayInstructions(multiMap.get(currRoute), root);
+                        if(currRoute > 0){
+                        	root.getChildren().remove(PrevInstruction);
+                        	root.getChildren().add(PrevInstruction);
+                        }
                         root.getChildren().remove(NextInstruction);
                     	root.getChildren().add(NextInstruction); //attach next button
                     	String initials = "";
@@ -705,6 +703,41 @@ public class GPSapp extends Application{
     	root.getChildren().add(s1);
     	return;
 
+    }
+    
+    public void changeInstructions(Pane NodePane, Pane root, ImageView imageView){
+    	displayInstructions(multiMap.get(currRoute), root);
+		
+    	String initials = "";
+    	for(int i = 0; i < maps.size(); i++){
+    		System.out.println("CURRENT ROUTE: "+ currRoute);
+    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+    	}
+    	gc.clearRect(0, 0, 8000, 6000);
+    	mapSelector.setValue(initials);
+    	loadMap(root, imageView);
+    	
+    	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+        drawRoute(gc, multiMap.get(currRoute));
+		
+        //Determine which buttons to display when changing instructions
+        if(currRoute > 0){
+        	root.getChildren().remove(PrevInstruction);
+        	root.getChildren().add(PrevInstruction);
+        }
+        else if(currRoute == 0){
+        	root.getChildren().remove(PrevInstruction);
+        }
+		
+		//if we are on the last page of instructions, remove next button
+		if(currRoute >= currMaps-1){
+			root.getChildren().remove(NextInstruction);
+		}
+		else {
+			root.getChildren().add(NextInstruction);
+		}
     }
 
 
@@ -1132,6 +1165,7 @@ public class GPSapp extends Application{
                             	root.getChildren().remove(NextInstruction);
                             	root.getChildren().add(NextInstruction); //attach next button
                             }
+                            
                         	String initials = "";
             				System.out.println("MAPSIZE: "+ maps.size());
                         	for(int i = 0; i < maps.size(); i++){
