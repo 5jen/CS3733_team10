@@ -436,8 +436,10 @@ public class GPSapp extends Application{
 	  //Next instruction button actions
 	    PrevInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
-				currRoute--;
-				changeInstructions(NodePane,  root,  imageView);
+				if(currRoute > 0 || currRoute < currMaps){
+					currRoute--;
+					changeInstructions(NodePane,  root,  imageView);
+				}
 			}
 	    });
 
