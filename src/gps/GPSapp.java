@@ -853,7 +853,7 @@ public class GPSapp extends Application{
 
     			}
     	});
-
+    	
 
     	//Load the layered Maps
 	    //convert to for loop
