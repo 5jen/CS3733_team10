@@ -36,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import node.*;
@@ -397,6 +398,8 @@ public class GPSapp extends Application{
     		if(globalNodeList.get(i).getIsPlace())
     			LocationOptions.add((globalNodeList.get(i)).getName());
         }
+    	
+    	
 
 
 
@@ -2239,5 +2242,33 @@ public class GPSapp extends Application{
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
+
+    pane.getScene().widthProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+    				Number oldValue, Number newValue) {
+
+    			scaleXratio = newValue.doubleValue() / stageInitialWidth;
+              
+    			pane.getTransforms().clear();
+    			Scale scale = new Scale(scaleXratio, scaleYRatio, 0, 0);
+    			pane.getTransforms().add(scale);
+
+    		}
+    	});
+
+    pane.getScene().heightProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+                   Number oldValue, Number newValue) {
+
+    			scaleYRatio = (newValue.doubleValue())/ (stageInitialHeight);
+
+    			pane.getTransforms().clear();
+    			Scale scale = new Scale(scaleXratio, scaleYRatio, 0, 0);
+    			pane.getTransforms().add(scale);
+
+    		}
+    	});
 
 }
