@@ -121,7 +121,7 @@ public class MapTool extends Application{
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
     final TextField nameField = new TextField(""); 
-    ObservableList<String> typeOptions = FXCollections.observableArrayList("Point", "Transition Point", "Staircase", "Vending Machine", "Water Fountain", "Men's Bathroom", "Women's Bathroom", "Emergency Pole", "Dinning", "Elevator", "Computer Lab");
+    ObservableList<String> typeOptions = FXCollections.observableArrayList("Point", "Transition Point", "Staircase", "Vending Machine", "Water Fountain", "Men's Bathroom", "Women's Bathroom", "Emergency Pole", "Dining", "Elevator", "Computer Lab");
 	final ComboBox<String> typeSelector = new ComboBox<String>(typeOptions);
     final RadioButton isPlace = new RadioButton();
 
@@ -226,9 +226,8 @@ public class MapTool extends Application{
 
 
     	final Pane root = new Pane();
-    	 Scene scene = new Scene(root, 1125, 700);//set size of scene
+    	Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-
        
 
           	//Set default Type
@@ -346,6 +345,7 @@ public class MapTool extends Application{
 
         //attach the cross image
         cross.setImage(crossImage);
+    
         
         //create edge interface
         final VBox edgeControls = new VBox(10);
@@ -643,6 +643,14 @@ public class MapTool extends Application{
      	    System.err.println("NumberFormatException: " + e.getMessage());
      	} 
      	
+     	// Check for dupilcate name
+     	Boolean duplicateName = false;
+     	for(int i=0; i < nodeList.size(); i++) {
+     		if (nameField.getText().equals(nodeList.get(i).getName())) {
+   			 duplicateName = true;
+     		}
+     	}
+     	
          //check to see if coordinates are within map bounds, We dont care if it's campus map
          if(!isInBounds(x, y)){
          	warningLabel.setText("Error, coordinates out of bounds");
@@ -657,9 +665,15 @@ public class MapTool extends Application{
          else if (nameField.getText().equals("")){
          	warningLabel.setText("Error, must enter a name");
          }
+         
+         else if (duplicateName) {
+        	 warningLabel.setText("Error, cannot have two nodes with the same name");
+         }
+        
      	/************************************************/
      	//passes all validity checks, create waypoint and add button
          else{
+        	 
          	int newX = x, newY = y, newZ = z;
          	warningLabel.setText("");//Remove warning, bc successful
          	

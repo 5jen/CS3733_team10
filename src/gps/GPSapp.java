@@ -71,12 +71,28 @@ public class GPSapp extends Application{
 	Pane NodePane = new Pane();
 	Label BuildingNameLabel = new Label();
 	Double buttonRescale = 1/0.75;
+	Button startButton = null, endButton = null, currentButton = null;
 
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
 	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AKB", "AK1", "AK2", "AK3", "GLSB", "GLB", "GL1", "GL2", "GL3", "BHB", "BH1", "BH2", "BH3", "CC1", "CC2", "CC3", "HHB", "HH1", "HH2", "HH3", "HHAPT", "HHGAR", "PC1", "PC2", "SHB", "SH1", "SH2", "SH3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
+	
+	//Lists of all nodes of the types
+	LinkedList<Node> PointNodes = new LinkedList<Node>();
+	LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
+	LinkedList<Node> TransitionNodes = new LinkedList<Node>();
+	LinkedList<Node> VendingMachineNodes = new LinkedList<Node>();
+	LinkedList<Node> WaterFountainNodes = new LinkedList<Node>();
+	LinkedList<Node> MensBathroomNodes = new LinkedList<Node>();
+	LinkedList<Node> WomensBathroomNodes = new LinkedList<Node>();
+	LinkedList<Node> EmergencyPoleNodes = new LinkedList<Node>();
+	LinkedList<Node> DiningNodes = new LinkedList<Node>();
+	LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
+	LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
+	
+	
 
 	//Building Buildings with their content
 	Building Campus = new Building("Campus");
@@ -426,7 +442,12 @@ public class GPSapp extends Application{
             	mapSelector.setValue(initials);
             	loadMap(root, imageView);
             	
-            	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+            	NodePane.getChildren().clear();
+                LinkedList<Node> tempNodeList = new LinkedList<Node>();
+                tempNodeList.add(multiMap.get(currRoute).get(0));
+                tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                //Draws only the start and end nodes of the route
+                drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
                 drawRoute(gc, multiMap.get(currRoute));
 				
 				
@@ -451,8 +472,9 @@ public class GPSapp extends Application{
         });
 
         
-
-        primaryStage.setScene(new Scene(root, 1050, 700));
+        Scene scene = new Scene(root, 1050,700);
+        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
 
         DestText.textProperty().addListener(
@@ -1002,6 +1024,24 @@ public class GPSapp extends Application{
     	
     	//TODO Add rest
     	
+    	for(int i=0; i < globalNodeList.size(); i++) {
+    		
+    		switch (globalNodeList.get(i).getType()) {
+    		case "Point":				PointNodes.add(globalNodeList.get(i));
+    		case "Transition Point": 	TransitionNodes.add(globalNodeList.get(i));
+    		case "Staircase":			StaircaseNodes.add(globalNodeList.get(i));
+    		case "Vending Machine":		VendingMachineNodes.add(globalNodeList.get(i));
+    		case "Water Fountain":		WaterFountainNodes.add(globalNodeList.get(i));
+    		case "Men's Bathroom":		MensBathroomNodes.add(globalNodeList.get(i));
+    		case "Women's Bathroom":	WomensBathroomNodes.add(globalNodeList.get(i));
+    		case "Emergency Pole":		EmergencyPoleNodes.add(globalNodeList.get(i));
+    		case "Dining":				DiningNodes.add(globalNodeList.get(i));
+    		case "Elevator":			ElevatorNodes.add(globalNodeList.get(i));
+    		case "ComputerLab":			ComputerLabNodes.add(globalNodeList.get(i));
+    		}
+    		
+    	}
+    	
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	return GLOBALGRAPH;
@@ -1035,18 +1075,24 @@ public class GPSapp extends Application{
                         "-fx-max-width: " + 15*buttonRescale + "px; " +
                         "-fx-max-height: " + 15*buttonRescale + "px;"
                 );
-        		//newNodeButton.setId("green");
+        		newNodeButton.setId("glass-grey");
             	newNodeButton.relocate(nodes.get(i).getX()-7*buttonRescale, nodes.get(i).getY()-7*buttonRescale);
             	Node newNode = nodes.get(i);
             	newNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
                     	if (!start){
+                    		if(startButton != null && endButton != startButton)startButton.setId(null);
+                            newNodeButton.setId("shiny-orange");
+                            startButton = newNodeButton;
                     		if(newNode.getIsPlace()) startNode = newNode.getName();
                     		startText.setText(startNode);
                     		start = true;
                     		startButtonBool = true;
                     	}
                     	else if(!end){
+                    		if(endButton != null && endButton != startButton)endButton.setId(null);
+                            newNodeButton.setId("shiny-orange");
+                            endButton = newNodeButton;
                     		if(newNode.getIsPlace()) endNode = newNode.getName();
                     		DestText.setText(endNode);
                     		start = false;
@@ -1118,7 +1164,13 @@ public class GPSapp extends Application{
                                 }
                                 System.out.println("NodeList Size = " + nodeList.size());
                                 drawRoute(gc, multiMap.get(currRoute));
-                                //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                                NodePane.getChildren().clear();
+                                LinkedList<Node> tempNodeList = new LinkedList<Node>();
+                                tempNodeList.add(multiMap.get(currRoute).get(0));
+                                tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                                //Draws only the start and end nodes of the route
+                                drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
+                                
 
 
                                 final Group group = new Group(imageView, canvas, NodePane);
@@ -1131,6 +1183,8 @@ public class GPSapp extends Application{
                                 route = new LinkedList<Node>();
                             } catch (NullPointerException n){
                                 System.out.println("No Path Found");
+                                keyText.setText("No Path Found");
+                        		keyText.setFill(Color.RED);
                             }
                         }
                     	
@@ -2009,7 +2063,7 @@ public class GPSapp extends Application{
                 keyText.setText("Atwater Kent");
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		System.out.println("I'm here");
+        		//System.out.println("I'm here");
         	}
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
