@@ -1261,6 +1261,7 @@ public class GPSapp extends Application{
 
                             LinkedList<Node> route = new LinkedList<Node>();
                             route = globalGraph.findRoute(startPlace, endPlace);
+							keyText.setText(" ");
                             
                             if(!(startPlace.equals(endPlace))) {
                             	try {
