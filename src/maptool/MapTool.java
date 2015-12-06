@@ -705,10 +705,10 @@ public class MapTool extends Application{
 
              // Set the Global X and Global Y.
              newPlace.setGlobalX((int)(((x*Math.cos(currentlySelectedMap.getRotationalConstant())
-                     + y*Math.sin(currentlySelectedMap.getRotationalConstant()))*(currentlySelectedMap.getConversionRatio()) +
+                     - y*Math.sin(currentlySelectedMap.getRotationalConstant()))*(currentlySelectedMap.getConversionRatio()) +
                      currentlySelectedMap.getGlobalToLocalOffsetX())
                      ));
-         	newPlace.setGlobalY((int)(((-x*Math.sin(currentlySelectedMap.getRotationalConstant())
+         	newPlace.setGlobalY((int)(((x*Math.sin(currentlySelectedMap.getRotationalConstant())
                      + y*Math.cos(currentlySelectedMap.getRotationalConstant()))*(currentlySelectedMap.getConversionRatio())
                      + currentlySelectedMap.getGlobalToLocalOffsetY())));
              // TODO This should also add to the global map nodes
