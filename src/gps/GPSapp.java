@@ -28,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -36,6 +37,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import node.*;
@@ -67,11 +69,13 @@ public class GPSapp extends Application{
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
-	Parent zoomPane;
+	static Parent zoomPane;
 	Pane NodePane = new Pane();
 	Label BuildingNameLabel = new Label();
 	Double buttonRescale = 1/0.75;
 	Button startButton = null, endButton = null, currentButton = null;
+	VBox directionBox = new VBox(2);
+	ScrollPane s1 = new ScrollPane();
 
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
@@ -92,6 +96,15 @@ public class GPSapp extends Application{
 	LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
 	LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
 	
+	//For Rescaling the application
+	final Pane root = new Pane();
+	final BorderPane Borders = new BorderPane();
+    ScrollPane scrollPane = new ScrollPane();
+	Scene scene = new Scene(root, 1050,750);
+	double scaleXratio = 1;
+    double scaleYRatio = 1;
+    double stageInitialWidthDifference = 100;
+    double stageInitialHeightDifference = 100;
 	
 
 	//Building Buildings with their content
@@ -107,40 +120,40 @@ public class GPSapp extends Application{
   	//Map Buildings with their content
   	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
-	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -1.308, 1548, 594, 0.1627, "B");
-	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
-	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -1.308, 1548, 594, 0.1692, "2");
-	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -1.308, 1548, 594, 0.1690, "3");
+	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -2.617, 1548, 594, 0.1627, "B");
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -2.617, 1548, 594, 0.1312, "1");
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -2.617, 1548, 594, 0.1692, "2");
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -2.617, 1548, 594, 0.1690, "3");
 
-	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
-	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
-	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
-	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 0.1223, "2");
-	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 0.1387, "3");
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", 1.762, 1668, 726, 0.1187, "SB");
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", 1.762, 1668, 726, 0.1251, "B");
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", 1.762, 1668, 726, 0.1194, "1");
+	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", 1.762, 1668, 726, 0.1223, "2");
+	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", 1.762, 1668, 726, 0.1387, "3");
 
-	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", -1.483, 1496, 991, 0.0956, "B");
-	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 0.0973, "1");
-	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 0.0981, "2");
-	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 0.1003, "3");
+	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", 0.157, 1496, 991, 0.0956, "B");
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", 0.157, 1496, 991, 0.0973, "1");
+	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", 0.157, 1496, 991, 0.0981, "2");
+	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", 0.157, 1496, 991, 0.1003, "3");
 
-	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", 1.396, 1175, 670, 0.1695, "1");
-	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", 1.396, 1175, 670, 0.166, "2");
-	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", 1.396, 1175, 670, 0.1689, "3");
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", -1.413, 1175, 670, 0.1695, "1");
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", -1.413, 1175, 670, 0.166, "2");
+	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", -1.413, 1175, 670, 0.1689, "3");
 
-	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.355, 1200, 451, 0.1314, "B");
-	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.355, 1200, 451, 0.1364, "1");
-	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.355, 1200, 451, 0.1343, "2");
-	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.355, 1200, 451, 0.1317, "3");
-	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -2.355, 1200, 451, 0.0521, "APT");
-	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -2.355, 1200, 451, 0.053, "GAR");
+	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.529, 1161, 504, 0.1314, "B");
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.529, 1161, 504, 0.1364, "1");
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.529, 1161, 504, 0.1343, "2");
+	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.529, 1161, 504, 0.1317, "3");
+	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -0.942, 1215, 394, 0.0521, "APT");
+	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -0.942, 1215, 394, 0.053, "GAR");
 
-	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 3.053, 1228, 772, 0.0701, "1");
-	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 3.053, 1228, 772, 0.1016, "2");
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 1.71, 1228, 772, 0.0701, "1");
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 1.71, 1228, 772, 0.1016, "2");
 
-	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.483, 1364, 898, 0.0804, "B");
-	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.483, 1364, 898, 0.0813, "1");
-	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.483, 1364, 898, 0.0766, "2");
-	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.483, 1364, 898, 0.0749, "3");
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.71, 1364, 898, 0.0804, "B");
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.71, 1364, 898, 0.0813, "1");
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.71, 1364, 898, 0.0766, "2");
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.71, 1364, 898, 0.0749, "3");
 
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
@@ -159,7 +172,7 @@ public class GPSapp extends Application{
 	final Button BackButton = new Button("Back");
 
     Text keyText = new Text(600, 640,"");
-    Text toggleKeyText = new Text(995, 690,"Show Key");
+    Text toggleKeyText = new Text(995, 740,"Show Key");
 	
 	//Vars used for displaying Multiple maps after finding the route
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
@@ -173,11 +186,12 @@ public class GPSapp extends Application{
 	 ImageView pinView = new ImageView();
 	 boolean pinAttached = false;
 
+	Building BuildingRolledOver = new Building("");
 
 	@Override
     public void start(Stage primaryStage) {
 
-    	final Pane root = new Pane();
+    	
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -340,7 +354,7 @@ public class GPSapp extends Application{
         ImageView imageViewKey = new ImageView();
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(830);
-        imageViewKey.setLayoutY(520);
+        imageViewKey.setLayoutY(570);
 
         
         //hide key
@@ -405,7 +419,10 @@ public class GPSapp extends Application{
     		if(globalNodeList.get(i).getIsPlace())
     			LocationOptions.add((globalNodeList.get(i)).getName());
         }
-
+    	
+    	
+    	 stageInitialWidthDifference = scene.getWidth()-1050;
+         stageInitialHeightDifference = scene.getHeight()-750;
 
 
         imageView.setScaleX(0.75);
@@ -416,7 +433,7 @@ public class GPSapp extends Application{
         canvas.setScaleX(0.75);
         canvas.setScaleY(0.75);
         canvas.relocate(-965, -643);
-		highLight(NodePane, imageView, root, keyText);
+        highLight(NodePane, imageView, root, keyText);
 	    drawNodes(nodeList, NodePane, root, StartText, DestText,imageView);
 	    NodePane.setScaleX(0.75);
 		NodePane.setScaleY(0.75);
@@ -427,8 +444,6 @@ public class GPSapp extends Application{
 
 
 	    //add to load map...
-
-	    highLight(NodePane, imageView, root, keyText);
 	    
 	 
 	    root.getChildren().add(zoomPane);
@@ -461,10 +476,49 @@ public class GPSapp extends Application{
 	    });
 
         
-        Scene scene = new Scene(root, 1050,700);
+        
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+    				Number oldValue, Number newValue) {
+    			stageInitialWidthDifference = scene.getWidth()- 1050;    			
+    			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+    			//imageViewKey, NextInstruction, PrevInstruction, directionsTitle, DestLabel, StartLabel,DestSearch,StartSearch, toggleKeyText ,keyText ,mapSelectionBoxV
+    			imageViewKey.setTranslateX(stageInitialWidthDifference);
+    			NextInstruction.setTranslateX(stageInitialWidthDifference);
+    			PrevInstruction.setTranslateX(stageInitialWidthDifference);
+    			directionsTitle.setTranslateX(stageInitialWidthDifference);
+    			toggleKeyText.setTranslateX(stageInitialWidthDifference);
+    			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
+    			s1.setTranslateX(stageInitialWidthDifference);
+
+    		}
+    	});
+
+	    scene.heightProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+                   Number oldValue, Number newValue) {
+    	        stageInitialHeightDifference = scene.getHeight()-750;
+    			scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
+    			
+    			DestLabel.setTranslateY(stageInitialHeightDifference);
+    			StartLabel.setTranslateY(stageInitialHeightDifference);
+    			DestSearch.setTranslateY(stageInitialHeightDifference);
+    			StartSearch.setTranslateY(stageInitialHeightDifference);
+    			toggleKeyText.setTranslateY(stageInitialHeightDifference);
+    			imageViewKey.setTranslateY(stageInitialHeightDifference);
+    			keyText.setTranslateY(stageInitialHeightDifference);
+
+    		}
+    	});
+	    
+        
 
         DestText.textProperty().addListener(
                 new ChangeListener<Object>() {
@@ -514,6 +568,7 @@ public class GPSapp extends Application{
     				if(destBool && startBool) {
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
+    					keyText.setText("");
 
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
@@ -531,69 +586,81 @@ public class GPSapp extends Application{
 
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
+                        keyText.setFont(Font.font ("manteka", 20));
 
-                        //if the entire route is only on 1 map, display all instruction at once
-                        displayInstructions(multiMap.get(currRoute), root);
-                        if(currRoute > 0){
-                        	root.getChildren().remove(PrevInstruction);
-                        	root.getChildren().add(PrevInstruction);
-                        }
-                        root.getChildren().remove(NextInstruction);
-                    	root.getChildren().add(NextInstruction); //attach next button
-                    	String initials = "";
-        				
-                    	for(int i = 0; i < maps.size(); i++){
-                    		System.out.println("CURRENT ROUTE: "+ currRoute);
-                    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-                    		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                    			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
-                    	}
-                    	System.out.println("INITIALS: "+ initials);
-                    	gc.clearRect(0, 0, 6000, 3000);
+                        if(!(startPlace.equals(endPlace))) {
 
-                        try {
-                            System.out.println("Route length: " + route.size());
-                            //Display the directions on the side
-                            System.out.println("Route = " + route);
-                            //if(!(route.size() <= 1)){
-                            multiMap = splitRoute(route);//is endlessly looping or suttin
-                            currRoute = 0;
-
-                            //}
+                            try {
+                            	
                             //if the entire route is only on 1 map, display all instruction at once
                             displayInstructions(multiMap.get(currRoute), root);
+                            if(currRoute > 0){
+                            	root.getChildren().remove(PrevInstruction);
+                            	root.getChildren().add(PrevInstruction);
+                            }
                             root.getChildren().remove(NextInstruction);
-                            root.getChildren().add(NextInstruction); //attach next button
+                        	root.getChildren().add(NextInstruction); //attach next button
+                        	String initials = "";
+                        	
+                        	for(int i = 0; i < maps.size(); i++){
+                        		System.out.println("CURRENT ROUTE: "+ currRoute);
+                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                        			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                        	}
+                        	System.out.println("INITIALS: "+ initials);
+                        	gc.clearRect(0, 0, 6000, 3000);
 
-                            for (int i = 0; i < maps.size(); i++) {
-                                System.out.println("CURRENT ROUTE: " + currRoute);
-                                System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
-                                if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                                    initials = maps.get(i).getInitials() + maps.get(i).getFloor();
+                            
+                                System.out.println("Route length: " + route.size());
+                                //Display the directions on the side
+                                System.out.println("Route = " + route);
+                                //if(!(route.size() <= 1)){
+                                multiMap = splitRoute(route);//is endlessly looping or suttin
+                                currRoute = 0;
+
+                                //}
+                                //if the entire route is only on 1 map, display all instruction at once
+                                displayInstructions(multiMap.get(currRoute), root);
+                                root.getChildren().remove(NextInstruction);
+                                root.getChildren().add(NextInstruction); //attach next button
+
+                                for (int i = 0; i < maps.size(); i++) {
+                                    System.out.println("CURRENT ROUTE: " + currRoute);
+                                    System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                    if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                                        initials = maps.get(i).getInitials() + maps.get(i).getFloor();
+                                }
+                                System.out.println("INITIALS: " + initials);
+                                gc.clearRect(0, 0, 6000, 3000);
+
+                                mapSelector.setValue(initials);
+                                loadMap(root, imageView);
+                                drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                                drawRoute(gc, multiMap.get(currRoute));
+
+
+                                System.out.println(" " + route);
+                                for (int i = 0; i < route.size(); i++) {
+                                    System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                                }
+
+                                final Group group = new Group(imageView, canvas, NodePane);
+                                zoomPane = createZoomPane(group);
+                                root.getChildren().add(zoomPane);
+
+                                route = new LinkedList<Node>();
+                            } catch (NullPointerException n){
+                                keyText.setText("Path not Found");
+                                keyText.setFill(Color.RED);
+                                loadMap(root, imageView);
                             }
-                            System.out.println("INITIALS: " + initials);
-                            gc.clearRect(0, 0, 6000, 3000);
-
-                            mapSelector.setValue(initials);
-                            loadMap(root, imageView);
-                            drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                            drawRoute(gc, multiMap.get(currRoute));
-
-
-                            System.out.println(" " + route);
-                            for (int i = 0; i < route.size(); i++) {
-                                System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                            }
-
-                            final Group group = new Group(imageView, canvas, NodePane);
-                            zoomPane = createZoomPane(group);
-                            root.getChildren().add(zoomPane);
-
-                            route = new LinkedList<Node>();
-                        } catch (NullPointerException n){
-                            keyText.setText("Path not Found");
-                            keyText.setFill(Color.RED);
-                        }
+        				} else {
+        					loadMap(root, imageView);
+        					keyText.setFont(Font.font ("manteka", 14));
+        					keyText.setFill(Color.RED);
+        					keyText.setText("Your Start and Destination are the same");
+        				}
     				}
 
     			}
@@ -606,6 +673,7 @@ public class GPSapp extends Application{
     				if(destBool && startBool) {
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
+    					keyText.setText("");
 
                     	// Need to string compare from
                     	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
@@ -624,53 +692,62 @@ public class GPSapp extends Application{
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
                         
-                        try{
-                        	System.out.println("Route lenth: " + route.size());
-                            //Display the directions on the side
-                            System.out.println("Route = " + route);
-                            //if(!(route.size() <= 1)){
-                            multiMap = splitRoute(route);//is endlessly looping or suttin
-                            currRoute = 0;
+                        if(!(startPlace.equals(endPlace))) {
+                        
+                        	try{
+                            	System.out.println("Route lenth: " + route.size());
+                                //Display the directions on the side
+                                System.out.println("Route = " + route);
+                                //if(!(route.size() <= 1)){
+                                multiMap = splitRoute(route);//is endlessly looping or suttin
+                                currRoute = 0;
 
-                            //if the entire route is only on 1 map, display all instruction at once
-                            displayInstructions(multiMap.get(currRoute), root);
-                            if(currRoute > 0){
-                            	root.getChildren().remove(PrevInstruction);
-                            	root.getChildren().add(PrevInstruction);
+                                //if the entire route is only on 1 map, display all instruction at once
+                                displayInstructions(multiMap.get(currRoute), root);
+                                if(currRoute > 0){
+                                	root.getChildren().remove(PrevInstruction);
+                                	root.getChildren().add(PrevInstruction);
+                                }
+                                root.getChildren().remove(NextInstruction);
+                            	root.getChildren().add(NextInstruction); //attach next button
+                            	String initials = "";
+                				
+                            	for(int i = 0; i < maps.size(); i++){
+                            		System.out.println("CURRENT ROUTE: "+ currRoute);
+                            		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                            		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                            			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                            	}
+                            	System.out.println("INITIALS: "+ initials);
+                            	gc.clearRect(0, 0, 6000, 3000);
+
+                            	mapSelector.setValue(initials);
+                            	loadMap(root, imageView);
+                            	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                                drawRoute(gc, multiMap.get(currRoute));
+                            	
+                                System.out.println(" " +route);
+                                for(int i = 0; i < route.size(); i++){
+                                	System.out.println("Route node: " + i + " , " + route.get(i).getName());
+                                }
+
+                                final Group group = new Group(imageView, canvas, NodePane);
+                        	    zoomPane = createZoomPane(group);
+                        	    root.getChildren().add(zoomPane);
+                                route = new LinkedList<Node>();
+                                
+            				} catch (NullPointerException n){
+            					keyText.setText("Path not Found");
+            					keyText.setFill(Color.RED);
+            					loadMap(root, imageView);
                             }
-                            root.getChildren().remove(NextInstruction);
-                        	root.getChildren().add(NextInstruction); //attach next button
-                        	String initials = "";
-            				
-                        	for(int i = 0; i < maps.size(); i++){
-                        		System.out.println("CURRENT ROUTE: "+ currRoute);
-                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                        			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
-                        	}
-                        	System.out.println("INITIALS: "+ initials);
-                        	gc.clearRect(0, 0, 6000, 3000);
-
-                        	mapSelector.setValue(initials);
-                        	loadMap(root, imageView);
-                        	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                            drawRoute(gc, multiMap.get(currRoute));
-                        	
-                            System.out.println(" " +route);
-                            for(int i = 0; i < route.size(); i++){
-                            	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                            }
-
-                            final Group group = new Group(imageView, canvas, NodePane);
-                    	    zoomPane = createZoomPane(group);
-                    	    root.getChildren().add(zoomPane);
-                            route = new LinkedList<Node>();
-                            
-        				} catch (NullPointerException n){
-        					keyText.setText("Path not Found");
+        				} else {
+        					loadMap(root, imageView);
+        					keyText.setFont(Font.font ("manteka", 14));
         					keyText.setFill(Color.RED);
-                        }
-    				}
+        					keyText.setText("Your Start and Destination are the same");
+        				}
+				}
 
     			}
             });
@@ -684,12 +761,10 @@ public class GPSapp extends Application{
     	//multiMap = splitRoute(route);
 
     	//create vertical box to add labels too
-    	VBox directionBox = new VBox(2);
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
 
     	//add a possible scroll box for long routes..
-		ScrollPane s1 = new ScrollPane();
 		 s1.setPrefSize(220, 360);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
@@ -765,6 +840,7 @@ public class GPSapp extends Application{
     		directionBox.getChildren().addAll(StepBox, breakLine);
     	}
     	
+    	root.getChildren().remove(s1);
     	s1.setContent(directionBox);
     	root.getChildren().add(s1);
     	return;
@@ -808,32 +884,31 @@ public class GPSapp extends Application{
 
 
 	private void getMapSelector(Building building, Pane root, ImageView imageView) {
-	    root.getChildren().remove(canvas);
-	    root.getChildren().remove(zoomPane);
+	    //root.getChildren().remove(canvas);
+	    //root.getChildren().remove(zoomPane);
 	    //attach background over map
-	    File newBackground = new File("CS3733_Graphics/CampusMapBlurred.png");
+	    /*File newBackground = new File("CS3733_Graphics/CampusMapBlurred.png");
      	final Image backgroundImage = new Image(newBackground.toURI().toString());
         imageView.setImage(backgroundImage);
         imageView.relocate(-350, -210);
         imageView.setScaleX(.65);
         imageView.setScaleY(.65);
- 	    root.getChildren().add(imageView);
+ 	    root.getChildren().add(imageView);*/
 
         gc.clearRect(0, 0, 8000, 6000);
         //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 
 
-
  	    //Attach 3D image of building
  	    System.out.println(building.getMaps().get(0).getInitials());
- 		File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
+ 		/*File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
 
  		final Image b = new Image(buildingFile.toURI().toString());
 		final ImageView bImage = new ImageView();
 		bImage.setImage(b);
 		bImage.setLayoutX(400);
 		bImage.setLayoutY(150);
-		root.getChildren().add(bImage);
+		root.getChildren().add(bImage);*/
 
 		//Attach Building label
 		BuildingNameLabel.setText(building.getName());
@@ -855,13 +930,13 @@ public class GPSapp extends Application{
     				//b = null;
     	    		//bImage = null;
     	    		//backgroundImage = null;
-    				root.getChildren().remove(bImage);
+    				//root.getChildren().remove(bImage);
     				root.getChildren().remove(BackButton);
     				loadMap(root, imageView);
 
     			}
     	});
-
+    	
 
     	//Load the layered Maps
 	    //convert to for loop
@@ -876,9 +951,12 @@ public class GPSapp extends Application{
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
+    		mapImageView.setRotate(BuildingRolledOver.getMaps().get(0).getRotationalConstant());
 
 
    	     	Group g1 = new Group();
+    		//g1.setRotate(BuildingRolledOver.getMaps().get(0).getRotationalConstant());
+
    	     	g1.setEffect(pt);
    	     	g1.getChildren().add(mapImageView);
 
@@ -931,16 +1009,16 @@ public class GPSapp extends Application{
 		 g1moveTo.setY(600.0f);
 		 LineTo g1lineTo = new LineTo();
 		 g1lineTo.setX(500.0f);
-		 g1lineTo.setY(560.0f - i*10);
+		 g1lineTo.setY(560.0f - i*15);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
 		 PathTransition g1pt = new PathTransition();
-		 g1pt.setDuration(Duration.millis(5000));
+		 g1pt.setDuration(Duration.millis(1000));
 		 g1pt.setPath(g1path);
 		 g1pt.setNode(g1);
 		 g1pt.setOrientation(PathTransition.OrientationType.NONE);
-		 g1pt.setCycleCount(Timeline.INDEFINITE);
+		 //g1pt.setCycleCount(Timeline.INDEFINITE); //for levitation, but nahh
 		 g1pt.setAutoReverse(true);
 		 g1pt.play();
 
@@ -1175,6 +1253,8 @@ public class GPSapp extends Application{
                             destButtonBool = false;
                             startButtonBool = false;
                             gc.clearRect(0, 0, 8000, 6000); // Clears old path
+                            root.getChildren().remove(zoomPane);
+                            keyText.setText("");
 
                             // Need to string compare from
                             Node startPlace = new Node(0, 0, 0, "", "", "", false, false, "");
@@ -1192,67 +1272,75 @@ public class GPSapp extends Application{
 
                             LinkedList<Node> route = new LinkedList<Node>();
                             route = globalGraph.findRoute(startPlace, endPlace);
+                            
+                            if(!(startPlace.equals(endPlace))) {
+                            	try {
+                                    System.out.println("Route length: " + route.size());
+                                    //Display the directions on the side
+                                    System.out.println("Route = " + route);
+                                    //if(!(route.size() <= 1)){
+                                    root.getChildren().remove(zoomPane);
+                                    multiMap = splitRoute(route);//is endlessly looping or suttin
+                                    currRoute = 0;
+                                    
+                                    //if the entire route is only on 1 map, display all instruction at once
+                                    displayInstructions(multiMap.get(currRoute), root);
+                                    if (multiMap.size() != 1) {
+                                        root.getChildren().remove(NextInstruction);
+                                        root.getChildren().add(NextInstruction); //attach next button
+                                    }
+                                    String initials = "";
+                                    System.out.println("MAPSIZE: " + maps.size());
+                                    for (int i = 0; i < maps.size(); i++) {
+                                        System.out.println("MAP!!!!!: " + maps.get(i).getName());
+                                        System.out.println("CURRENT ROUTE: " + currRoute);
+                                        System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                        if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                                            initials = maps.get(i).getInitials() + maps.get(i).getFloor();
+                                    }
 
-                            try {
-                                System.out.println("Route length: " + route.size());
-                                //Display the directions on the side
-                                System.out.println("Route = " + route);
-                                //if(!(route.size() <= 1)){
-                                root.getChildren().remove(zoomPane);
-                                multiMap = splitRoute(route);//is endlessly looping or suttin
-                                currRoute = 0;
-                                
-                                //if the entire route is only on 1 map, display all instruction at once
-                                displayInstructions(multiMap.get(currRoute), root);
-                                if (multiMap.size() != 1) {
-                                    root.getChildren().remove(NextInstruction);
-                                    root.getChildren().add(NextInstruction); //attach next button
+                                    System.out.println("MAP!!!!!: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                    gc.clearRect(0, 0, 6000, 3000);
+
+                                    mapSelector.setValue(initials);
+                                    System.out.println("initials = " + initials);
+                                    nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
+
+                                    loadMap(root, imageView);
+                                    root.getChildren().remove(zoomPane);
+                                    for (int h = 0; h < nodeList.size(); h++) {
+                                        System.out.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
+                                    }
+                                    
+                                    System.out.println("NodeList Size = " + nodeList.size());
+                                    drawRoute(gc, multiMap.get(currRoute));
+                                    NodePane.getChildren().clear();
+                                    LinkedList<Node> tempNodeList = new LinkedList<Node>();
+                                    tempNodeList.add(multiMap.get(currRoute).get(0));
+                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                                    
+                                    //Draws only the start and end nodes of the route
+                                    drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
+                                    
+                                    final Group group = new Group(imageView, canvas, NodePane);
+                                    zoomPane = createZoomPane(group);
+                                    root.getChildren().add(zoomPane);
+                                    route = new LinkedList<Node>();
+                                    
+                                } catch (NullPointerException n){
+                                    keyText.setText("No Path Found");
+                            		keyText.setFill(Color.RED);
+                            		loadMap(root, imageView);
                                 }
-                                String initials = "";
-                                System.out.println("MAPSIZE: " + maps.size());
-                                for (int i = 0; i < maps.size(); i++) {
-                                    System.out.println("MAP!!!!!: " + maps.get(i).getName());
-                                    System.out.println("CURRENT ROUTE: " + currRoute);
-                                    System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
-                                    if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                                        initials = maps.get(i).getInitials() + maps.get(i).getFloor();
-                                }
-
-                                System.out.println("MAP!!!!!: " + multiMap.get(currRoute).get(0).getFloorMap());
-                                gc.clearRect(0, 0, 6000, 3000);
-
-                                mapSelector.setValue(initials);
-                                System.out.println("initials = " + initials);
-                                nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
-
-                                loadMap(root, imageView);
-                                for (int h = 0; h < nodeList.size(); h++) {
-                                    System.out.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
-                                }
-                                
-                                System.out.println("NodeList Size = " + nodeList.size());
-                                drawRoute(gc, multiMap.get(currRoute));
-                                NodePane.getChildren().clear();
-                                LinkedList<Node> tempNodeList = new LinkedList<Node>();
-                                tempNodeList.add(multiMap.get(currRoute).get(0));
-                                tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
-                                
-                                //Draws only the start and end nodes of the route
-                                drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
-                                
-                                final Group group = new Group(imageView, canvas, NodePane);
-                                zoomPane = createZoomPane(group);
-                                root.getChildren().add(zoomPane);
-                                route = new LinkedList<Node>();
-                                
-                            } catch (NullPointerException n){
-                                keyText.setText("No Path Found");
-                        		keyText.setFill(Color.RED);
+                            } else {
+                            loadMap(root, imageView);
+                            keyText.setFont(Font.font ("manteka", 14));
+                            keyText.setFill(Color.RED);
+                            keyText.setText("Your Start and Destination are the same");
                             }
-                        }
+                    	}
                     	
-                    	
-                    }
+    				}
                 });
             	NodePane.getChildren().add(newNodeButton);
     		} else if(!nodes.get(i).getIsPlace()){
@@ -1406,7 +1494,9 @@ public class GPSapp extends Application{
     private Parent createZoomPane(final Group group) {
 	    final double SCALE_DELTA = 1.1;
 	    final StackPane zoomPane = new StackPane();
-	    final ScrollPane scrollPane = new ScrollPane();
+	    scrollPane = new ScrollPane();
+	    scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+  	  	scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
 
 	    zoomPane.getChildren().add(group);
 
@@ -1421,12 +1511,17 @@ public class GPSapp extends Application{
 	      @Override
 	      public void changed(ObservableValue<? extends Bounds> observable,
 	          Bounds oldValue, Bounds newValue) {
-	        zoomPane.setMinSize(newValue.getWidth(), newValue.getHeight());
+	    	  scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+	    	  scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
+	    	  zoomPane.setMinSize(newValue.getWidth(), newValue.getHeight());
+	        
 	      }
 	    });
+	    
+	   
 
-	    scrollPane.setPrefViewportWidth(800);
-	    scrollPane.setPrefViewportHeight(605);
+	    //scrollPane.setPrefViewportWidth(stageInitialWidth);
+	    //scrollPane.setPrefViewportHeight(stageInitialHeight);
 
 	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
 	      @Override
@@ -1579,7 +1674,7 @@ public class GPSapp extends Application{
         					NodePane.setPrefSize(3000, 2000);
     						imageView.setScaleX(0.75);
 							imageView.setScaleY(0.75);
-    						imageView.relocate(-1000, -600); //800, 513
+    						imageView.relocate(-1000, -600);
     						highLight(NodePane, imageView, root, keyText);
     						NodePane.setScaleX(0.75);
     						NodePane.setScaleY(0.75);
@@ -1900,7 +1995,8 @@ public class GPSapp extends Application{
 		}
         gc.clearRect(0, 0, 8000, 6000);
         drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
-
+        
+        	
         final Group group = new Group(imageView, canvas, NodePane);
         zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
@@ -1956,7 +2052,10 @@ public class GPSapp extends Application{
                 cc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 keyText.setText("Campus Center");
                 keyText.setFill(BuildingName);
+                BuildingRolledOver = CampusCenter;
         		//System.out.println("I'm here");
+                //TO-DO
+                getMapSelector(CampusCenter, root, imageView); //ADD THIS LINE TO OTHER BUILDINGS
         	}
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -1966,10 +2065,10 @@ public class GPSapp extends Application{
                 cc.setFill(Color.TRANSPARENT);
         	}
         });
-        cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        cc.setOnMouseMoved(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
         		if (event.isStillSincePress()) {
-        			getMapSelector(CampusCenter, root, imageView);
+        			//getMapSelector(CampusCenter, root, imageView);
         		}
         	}
         });
@@ -1993,6 +2092,7 @@ public class GPSapp extends Application{
         	public void handle (MouseEvent event){
                 keyText.setText("Olin Hall");
                 keyText.setFill(BuildingName);
+                //BuildingRolledOver = olinHall;
                 //olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		//System.out.println("I'm here");
         	}
@@ -2031,6 +2131,7 @@ public class GPSapp extends Application{
         		stratton.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 keyText.setText("Stratton Hall");
                 keyText.setFill(BuildingName);
+                BuildingRolledOver = StrattonHall;
         		//System.out.println("I'm here");
         	}
         });
@@ -2078,6 +2179,7 @@ public class GPSapp extends Application{
                 keyText.setText("Gordon Library");
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		BuildingRolledOver = GordonLibrary;
         		//System.out.println("I'm here");
         	}
         });
@@ -2126,6 +2228,7 @@ public class GPSapp extends Application{
                 keyText.setText("Atwater Kent");
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		BuildingRolledOver = AtwaterKent;
         		//System.out.println("I'm here");
         	}
         });
@@ -2164,6 +2267,7 @@ public class GPSapp extends Application{
                 keyText.setText("Project Center");
                 keyText.setFill(BuildingName);
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		BuildingRolledOver = ProjectCenter;
         		//System.out.println("I'm here");
         	}
         });
@@ -2218,6 +2322,7 @@ public class GPSapp extends Application{
                 keyText.setText("Higgins House");
                 keyText.setFill(BuildingName);
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		BuildingRolledOver = HigginsHouse;
         		//System.out.println("I'm here");
         	}
         });
@@ -2267,6 +2372,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
 
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		BuildingRolledOver = BoyntonHall;
         		//System.out.println("I'm here");
         	}
         });
@@ -2295,12 +2401,14 @@ public class GPSapp extends Application{
     }
     
     public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+        if (places < 0) {
+        	throw new IllegalArgumentException();
+        }
 
         long factor = (long) Math.pow(10, places);
         value = value * factor;
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
-
 }
+
