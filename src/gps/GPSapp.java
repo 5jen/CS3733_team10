@@ -115,6 +115,7 @@ public class GPSapp extends Application{
   	Building CampusCenter = new Building("Campus Center");
   	Building GordonLibrary = new Building("Gordon Library");
   	Building HigginsHouse = new Building("Higgins House"); //need layered maps
+  	Building HigginsHouseGarage = new Building("Higgins House Garage"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
@@ -220,8 +221,9 @@ public class GPSapp extends Application{
     	HigginsHouse.addMap(HigginsHouse1);
     	HigginsHouse.addMap(HigginsHouse2);
     	HigginsHouse.addMap(HigginsHouse3);
-    	HigginsHouse.addMap(HigginsHouseAPT);
-    	HigginsHouse.addMap(HigginsHouseGAR);
+    	
+    	HigginsHouseGarage.addMap(HigginsHouseGAR);
+    	HigginsHouseGarage.addMap(HigginsHouseAPT);
 
     	StrattonHall.addMap(StrattonHallB);
     	StrattonHall.addMap(StrattonHall1);
@@ -2339,6 +2341,45 @@ public class GPSapp extends Application{
 
 
         NodePane.getChildren().add(higginsHouse);
+        
+        
+        Polygon higginsHouseGAR = new Polygon();
+        higginsHouseGAR.getPoints().addAll(new Double[]{
+
+        	    1231.0 - xOffset, 404.0 - yOffset,
+        	    1216.0 - xOffset, 394.0 - yOffset,
+        	    1236.0 - xOffset, 367.0 - yOffset,
+        	    1251.0 - xOffset, 377.0 - yOffset});
+
+        higginsHouseGAR.setFill(Color.TRANSPARENT);
+
+        higginsHouseGAR.setStroke(Color.TRANSPARENT);
+        higginsHouseGAR.setStrokeWidth(1.0);
+        higginsHouseGAR.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText("Higgins House Garage");
+                keyText.setFill(BuildingName);
+                higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		//System.out.println("I'm here");
+        	}
+        });
+        higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText(" ");
+                keyText.setFill(key);
+                higginsHouseGAR.setFill(Color.TRANSPARENT);
+        	}
+        });
+        higginsHouseGAR.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		if (event.isStillSincePress()) {
+        			getMapSelector(HigginsHouseGarage, root, imageView);
+        		}
+        	}
+        });
+
+
+        NodePane.getChildren().add(higginsHouseGAR);
 
 
 

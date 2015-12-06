@@ -847,8 +847,7 @@ public class MapTool extends Application{
                 nodePane.getChildren().add(line);
             }
         }
-
-       	drawNodes(nodeList, nodePane, fromField, toField);
+       	drawNodes(nodeList, nodePane, fromField, toField, nodePane);
 
 	}
   
@@ -883,7 +882,7 @@ public class MapTool extends Application{
     }
     
     // Draws the Places and Nodes on to the map
-    private void drawNodes(LinkedList<Node> nodes, Pane root, Label fromField, Label toField){
+    private void drawNodes(LinkedList<Node> nodes, Pane root, Label fromField, Label toField, Pane NodePane){
     	int i;
     	for(i = 0; i < nodes.size(); i ++){ 
     		Button newNodeButton = new Button("");
@@ -936,6 +935,11 @@ public class MapTool extends Application{
                     	fromField.setText(newPlace.getName());
                         fromNode = newPlace;
                     	startCoord = true;
+                    	if(autoEdgeCreate.isSelected() && toNode != null){
+                       		
+                       		createEdge( NodePane);
+                       		
+                       	}
                     }
                     else if(!endCoord){
                         if(endButton != null && endButton != startButton)endButton.setId(null);
@@ -947,7 +951,13 @@ public class MapTool extends Application{
                         toNode = newPlace;
                     	startCoord = false;
                     	endCoord = false;
+                    	if(autoEdgeCreate.isSelected()){
+                       		
+                       		createEdge( NodePane);
+                       		
+                       	}
                    	}
+            		
             		//no matter what fill in this nodes data into the input box fields
             		xField.setText(""+newPlace.getX());
             		yField.setText(""+newPlace.getY());
