@@ -76,7 +76,8 @@ public class GPSapp extends Application{
 	Button startButton = null, endButton = null, currentButton = null;
 	VBox directionBox = new VBox(2);
 	ScrollPane s1 = new ScrollPane();
-
+	double mouseYposition, mouseXposition;
+	
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
@@ -114,46 +115,47 @@ public class GPSapp extends Application{
   	Building CampusCenter = new Building("Campus Center");
   	Building GordonLibrary = new Building("Gordon Library");
   	Building HigginsHouse = new Building("Higgins House"); //need layered maps
+  	Building HigginsHouseGarage = new Building("Higgins House Garage"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
   	//Map Buildings with their content
   	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
-	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -1.308, 1548, 594, 0.1627, "B");
-	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -1.308, 1548, 594, 0.1312, "1");
-	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -1.308, 1548, 594, 0.1692, "2");
-	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -1.308, 1548, 594, 0.1690, "3");
+	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -2.617, 1548, 594, 0.1627, "B");
+	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -2.617, 1548, 594, 0.1312, "1");
+	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -2.617, 1548, 594, 0.1692, "2");
+	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -2.617, 1548, 594, 0.1690, "3");
 
-	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", -1.744, 1668, 726, 0.1187, "SB");
-	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", -1.744, 1668, 726, 0.1251, "B");
-	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", -1.744, 1668, 726, 0.1194, "1");
-	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", -1.744, 1668, 726, 0.1223, "2");
-	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", -1.744, 1668, 726, 0.1387, "3");
+	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", 1.762, 1668, 726, 0.1187, "SB");
+	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", 1.762, 1668, 726, 0.1251, "B");
+	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", 1.762, 1668, 726, 0.1194, "1");
+	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", 1.762, 1668, 726, 0.1223, "2");
+	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", 1.762, 1668, 726, 0.1387, "3");
 
-	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", -1.483, 1496, 991, 0.0956, "B");
-	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", -1.483, 1496, 991, 0.0973, "1");
-	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", -1.483, 1496, 991, 0.0981, "2");
-	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", -1.483, 1496, 991, 0.1003, "3");
+	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", 0.157, 1496, 991, 0.0956, "B");
+	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", 0.157, 1496, 991, 0.0973, "1");
+	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", 0.157, 1496, 991, 0.0981, "2");
+	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", 0.157, 1496, 991, 0.1003, "3");
 
-	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", 1.396, 1175, 670, 0.1695, "1");
-	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", 1.396, 1175, 670, 0.166, "2");
-	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", 1.396, 1175, 670, 0.1689, "3");
+	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", -1.413, 1175, 670, 0.1695, "1");
+	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", -1.413, 1175, 670, 0.166, "2");
+	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", -1.413, 1175, 670, 0.1689, "3");
 
-	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.355, 1200, 451, 0.1314, "B");
-	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.355, 1200, 451, 0.1364, "1");
-	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.355, 1200, 451, 0.1343, "2");
-	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.355, 1200, 451, 0.1317, "3");
-	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -2.355, 1200, 451, 0.0521, "APT");
-	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -2.355, 1200, 451, 0.053, "GAR");
+	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.529, 1161, 504, 0.1314, "B");
+	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.529, 1161, 504, 0.1364, "1");
+	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.529, 1161, 504, 0.1343, "2");
+	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.529, 1161, 504, 0.1317, "3");
+	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -0.942, 1215, 394, 0.0521, "APT");
+	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -0.942, 1215, 394, 0.053, "GAR");
 
-	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 3.053, 1228, 772, 0.0701, "1");
-	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 3.053, 1228, 772, 0.1016, "2");
+	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 1.71, 1228, 772, 0.0701, "1");
+	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 1.71, 1228, 772, 0.1016, "2");
 
-	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.483, 1364, 898, 0.0804, "B");
-	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.483, 1364, 898, 0.0813, "1");
-	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.483, 1364, 898, 0.0766, "2");
-	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.483, 1364, 898, 0.0749, "3");
+	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.71, 1364, 898, 0.0804, "B");
+	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.71, 1364, 898, 0.0813, "1");
+	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.71, 1364, 898, 0.0766, "2");
+	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.71, 1364, 898, 0.0749, "3");
 
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
@@ -219,8 +221,9 @@ public class GPSapp extends Application{
     	HigginsHouse.addMap(HigginsHouse1);
     	HigginsHouse.addMap(HigginsHouse2);
     	HigginsHouse.addMap(HigginsHouse3);
-    	HigginsHouse.addMap(HigginsHouseAPT);
-    	HigginsHouse.addMap(HigginsHouseGAR);
+    	
+    	HigginsHouseGarage.addMap(HigginsHouseGAR);
+    	HigginsHouseGarage.addMap(HigginsHouseAPT);
 
     	StrattonHall.addMap(StrattonHallB);
     	StrattonHall.addMap(StrattonHall1);
@@ -487,7 +490,6 @@ public class GPSapp extends Application{
     				Number oldValue, Number newValue) {
     			stageInitialWidthDifference = scene.getWidth()- 1050;    			
     			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
-    			//imageViewKey, NextInstruction, PrevInstruction, directionsTitle, DestLabel, StartLabel,DestSearch,StartSearch, toggleKeyText ,keyText ,mapSelectionBoxV
     			imageViewKey.setTranslateX(stageInitialWidthDifference);
     			NextInstruction.setTranslateX(stageInitialWidthDifference);
     			PrevInstruction.setTranslateX(stageInitialWidthDifference);
@@ -1490,7 +1492,7 @@ public class GPSapp extends Application{
     }
 
     private Parent createZoomPane(final Group group) {
-	    final double SCALE_DELTA = 1.1;
+	    final double SCALE_DELTA = 1.001;
 	    final StackPane zoomPane = new StackPane();
 	    scrollPane = new ScrollPane();
 	    scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
@@ -1520,18 +1522,26 @@ public class GPSapp extends Application{
 
 	    //scrollPane.setPrefViewportWidth(stageInitialWidth);
 	    //scrollPane.setPrefViewportHeight(stageInitialHeight);
+	    zoomPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		mouseYposition = event.getY();
+        		mouseXposition = event.getX();
+        		System.out.println(mouseXposition + ":" + mouseYposition);
+        		
+        	}
+        });
 
 	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
 	      @Override
 	      public void handle(ScrollEvent event) {
 	        event.consume();
+	        
 
 	        if (event.getDeltaY() == 0) {
 	          return;
 	        }
 
-	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
-	            : 1 / SCALE_DELTA;
+	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
 
 	        if(scaleFactor < 1 && k > -1) {
 	        	k--;
@@ -1539,9 +1549,13 @@ public class GPSapp extends Application{
 		        // amount of scrolling in each direction in scrollContent coordinate
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        for(int i = 0; i < 50; i++) {
+		        	group.setScaleX(group.getScaleX() * scaleFactor);
+			        group.setScaleY(group.getScaleY() * scaleFactor);
+		        }
 
-		        group.setScaleX(group.getScaleX() * scaleFactor);
-		        group.setScaleY(group.getScaleY() * scaleFactor);
+		        
 
 		        // move viewport so that old center remains in the center after the
 		        // scaling
@@ -1553,8 +1567,10 @@ public class GPSapp extends Application{
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
 
-		        group.setScaleX(group.getScaleX() * scaleFactor);
-		        group.setScaleY(group.getScaleY() * scaleFactor);
+		        for(int i = 0; i < 50; i++) {
+		        	group.setScaleX(group.getScaleX() * scaleFactor);
+		        	group.setScaleY(group.getScaleY() * scaleFactor);
+		        }
 
 		        // move viewport so that old center remains in the center after the
 		        // scaling
@@ -1621,7 +1637,8 @@ public class GPSapp extends Application{
         double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
         double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
         double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
-        return new Point2D(scrollXOffset, scrollYOffset);
+        	
+        return new Point2D(mouseXposition, mouseYposition);
       }
 
     private void loadMap(Pane root, ImageView imageView){
@@ -2333,6 +2350,45 @@ public class GPSapp extends Application{
 
 
         NodePane.getChildren().add(higginsHouse);
+        
+        
+        Polygon higginsHouseGAR = new Polygon();
+        higginsHouseGAR.getPoints().addAll(new Double[]{
+
+        	    1231.0 - xOffset, 404.0 - yOffset,
+        	    1216.0 - xOffset, 394.0 - yOffset,
+        	    1236.0 - xOffset, 367.0 - yOffset,
+        	    1251.0 - xOffset, 377.0 - yOffset});
+
+        higginsHouseGAR.setFill(Color.TRANSPARENT);
+
+        higginsHouseGAR.setStroke(Color.TRANSPARENT);
+        higginsHouseGAR.setStrokeWidth(1.0);
+        higginsHouseGAR.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText("Higgins House Garage");
+                keyText.setFill(BuildingName);
+                higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		//System.out.println("I'm here");
+        	}
+        });
+        higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText(" ");
+                keyText.setFill(key);
+                higginsHouseGAR.setFill(Color.TRANSPARENT);
+        	}
+        });
+        higginsHouseGAR.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		if (event.isStillSincePress()) {
+        			getMapSelector(HigginsHouseGarage, root, imageView);
+        		}
+        	}
+        });
+
+
+        NodePane.getChildren().add(higginsHouseGAR);
 
 
 
