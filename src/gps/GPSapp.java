@@ -76,7 +76,8 @@ public class GPSapp extends Application{
 	Button startButton = null, endButton = null, currentButton = null;
 	VBox directionBox = new VBox(2);
 	ScrollPane s1 = new ScrollPane();
-
+	double mouseYposition, mouseXposition;
+	
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
@@ -114,6 +115,7 @@ public class GPSapp extends Application{
   	Building CampusCenter = new Building("Campus Center");
   	Building GordonLibrary = new Building("Gordon Library");
   	Building HigginsHouse = new Building("Higgins House"); //need layered maps
+  	Building HigginsHouseGarage = new Building("Higgins House Garage"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
 
@@ -220,8 +222,9 @@ public class GPSapp extends Application{
     	HigginsHouse.addMap(HigginsHouse1);
     	HigginsHouse.addMap(HigginsHouse2);
     	HigginsHouse.addMap(HigginsHouse3);
-    	HigginsHouse.addMap(HigginsHouseAPT);
-    	HigginsHouse.addMap(HigginsHouseGAR);
+    	
+    	HigginsHouseGarage.addMap(HigginsHouseGAR);
+    	HigginsHouseGarage.addMap(HigginsHouseAPT);
 
     	StrattonHall.addMap(StrattonHallB);
     	StrattonHall.addMap(StrattonHall1);
@@ -488,7 +491,6 @@ public class GPSapp extends Application{
     				Number oldValue, Number newValue) {
     			stageInitialWidthDifference = scene.getWidth()- 1050;    			
     			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
-    			//imageViewKey, NextInstruction, PrevInstruction, directionsTitle, DestLabel, StartLabel,DestSearch,StartSearch, toggleKeyText ,keyText ,mapSelectionBoxV
     			imageViewKey.setTranslateX(stageInitialWidthDifference);
     			NextInstruction.setTranslateX(stageInitialWidthDifference);
     			PrevInstruction.setTranslateX(stageInitialWidthDifference);
@@ -1492,7 +1494,7 @@ public class GPSapp extends Application{
     }
 
     private Parent createZoomPane(final Group group) {
-	    final double SCALE_DELTA = 1.1;
+	    final double SCALE_DELTA = 1.001;
 	    final StackPane zoomPane = new StackPane();
 	    scrollPane = new ScrollPane();
 	    scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
@@ -1522,18 +1524,26 @@ public class GPSapp extends Application{
 
 	    //scrollPane.setPrefViewportWidth(stageInitialWidth);
 	    //scrollPane.setPrefViewportHeight(stageInitialHeight);
+	    zoomPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		mouseYposition = event.getY();
+        		mouseXposition = event.getX();
+        		System.out.println(mouseXposition + ":" + mouseYposition);
+        		
+        	}
+        });
 
 	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
 	      @Override
 	      public void handle(ScrollEvent event) {
 	        event.consume();
+	        
 
 	        if (event.getDeltaY() == 0) {
 	          return;
 	        }
 
-	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
-	            : 1 / SCALE_DELTA;
+	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
 
 	        if(scaleFactor < 1 && k > -1) {
 	        	k--;
@@ -1541,9 +1551,13 @@ public class GPSapp extends Application{
 		        // amount of scrolling in each direction in scrollContent coordinate
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
+		        
+		        for(int i = 0; i < 50; i++) {
+		        	group.setScaleX(group.getScaleX() * scaleFactor);
+			        group.setScaleY(group.getScaleY() * scaleFactor);
+		        }
 
-		        group.setScaleX(group.getScaleX() * scaleFactor);
-		        group.setScaleY(group.getScaleY() * scaleFactor);
+		        
 
 		        // move viewport so that old center remains in the center after the
 		        // scaling
@@ -1555,8 +1569,10 @@ public class GPSapp extends Application{
 		        // units
 		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
 
-		        group.setScaleX(group.getScaleX() * scaleFactor);
-		        group.setScaleY(group.getScaleY() * scaleFactor);
+		        for(int i = 0; i < 50; i++) {
+		        	group.setScaleX(group.getScaleX() * scaleFactor);
+		        	group.setScaleY(group.getScaleY() * scaleFactor);
+		        }
 
 		        // move viewport so that old center remains in the center after the
 		        // scaling
@@ -1623,7 +1639,8 @@ public class GPSapp extends Application{
         double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
         double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
         double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
-        return new Point2D(scrollXOffset, scrollYOffset);
+        	
+        return new Point2D(mouseXposition, mouseYposition);
       }
 
     private void loadMap(Pane root, ImageView imageView){
@@ -2343,6 +2360,45 @@ public class GPSapp extends Application{
 
 
         NodePane.getChildren().add(higginsHouse);
+        
+        
+        Polygon higginsHouseGAR = new Polygon();
+        higginsHouseGAR.getPoints().addAll(new Double[]{
+
+        	    1231.0 - xOffset, 404.0 - yOffset,
+        	    1216.0 - xOffset, 394.0 - yOffset,
+        	    1236.0 - xOffset, 367.0 - yOffset,
+        	    1251.0 - xOffset, 377.0 - yOffset});
+
+        higginsHouseGAR.setFill(Color.TRANSPARENT);
+
+        higginsHouseGAR.setStroke(Color.TRANSPARENT);
+        higginsHouseGAR.setStrokeWidth(1.0);
+        higginsHouseGAR.setOnMouseEntered(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText("Higgins House Garage");
+                keyText.setFill(BuildingName);
+                higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+        		//System.out.println("I'm here");
+        	}
+        });
+        higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+                keyText.setText(" ");
+                keyText.setFill(key);
+                higginsHouseGAR.setFill(Color.TRANSPARENT);
+        	}
+        });
+        higginsHouseGAR.setOnMouseClicked(new EventHandler <MouseEvent>(){
+        	public void handle (MouseEvent event){
+        		if (event.isStillSincePress()) {
+        			getMapSelector(HigginsHouseGarage, root, imageView);
+        		}
+        	}
+        });
+
+
+        NodePane.getChildren().add(higginsHouseGAR);
 
 
 
