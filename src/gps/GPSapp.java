@@ -675,7 +675,7 @@ public class GPSapp extends Application{
     			}
             });
     }
-
+	///END OF MAIN ***************************************************************
 
     //Display all of the instructions on screen
     private void displayInstructions(LinkedList<Node> route, Pane root){
