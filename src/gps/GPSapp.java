@@ -325,6 +325,13 @@ public class GPSapp extends Application{
 		bgView.setLayoutX(0);
 		bgView.setLayoutY(0);
 
+		//create pin image
+		File pinFile = new File("CS3733_Graphics/pin.jpg");
+		Image pinImage = new Image(pinFile.toURI().toString());
+		ImageView pinView = new ImageView();
+		pinView.setImage(pinImage);
+
+
 		//Create a keyimage to place the map key on screen
 		File keyFile = new File("CS3733_Graphics/Key.png");
 		Image keyImage = new Image(keyFile.toURI().toString());
@@ -445,6 +452,9 @@ public class GPSapp extends Application{
 
 				//if we are on the last page of instructions, remove next button
 				if(currRoute == currMaps-1){
+					NodePane.getChildren().add(pinView);
+					pinView.setLayoutX(nodeList.getLast().getX());
+					pinView.setLayoutY(nodeList.getLast().getY());
 					root.getChildren().remove(NextInstruction);
 
 				}
