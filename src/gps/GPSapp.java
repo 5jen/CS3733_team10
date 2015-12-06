@@ -779,6 +779,8 @@ public class GPSapp extends Application{
     	stepIndicator steps = new stepIndicator(route);
     	
     	LinkedList<Step> directions = steps.lInstructions();
+    	if(currRoute == 0)
+    		directions.addFirst(new Step(0,"Walk Straight",0, directions.get(0).getX(),directions.get(0).getY()));
 
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
@@ -799,29 +801,35 @@ public class GPSapp extends Application{
             Line breakLine = new Line(0, 0, 210, 0);
             breakLine.setLayoutX(10);
             
-            int currentInstruction = i-1;
+            String style = StepBox.getStyle();
+            
+            int currentInstruction = i;
             StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
-            		//highlight the current path
-            		int NodeX = route.get(currentInstruction).getX();
-            		int NodeY = route.get(currentInstruction).getY();
-            		//attach an image, or do an animation on this current node
-            		File PinFile = new File("CS3733_Graphics/pin.png");
-                    Image pinImage = new Image(PinFile.toURI().toString());
-                   
-                    pinView.setImage(pinImage);
-                    pinView.setLayoutX(NodeX-10);
-                    pinView.setLayoutY(NodeY-36);
-                    if(!pinAttached){
-                    	System.out.println(NodeX + "   "+ NodeY);
-                    	NodePane.getChildren().add(pinView);
-                    	pinAttached = true;
-                    }
-                    
+            		if(currentInstruction >= 0){
+            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
+                		//highlight the current path
+                		int NodeX = directions.get(currentInstruction).getX();
+                		int NodeY = directions.get(currentInstruction).getY();
+                		//attach an image, or do an animation on this current node
+                		File PinFile = new File("CS3733_Graphics/pin.png");
+                        Image pinImage = new Image(PinFile.toURI().toString());
+                       
+                        pinView.setImage(pinImage);
+                        pinView.setLayoutX(NodeX-10);
+                        pinView.setLayoutY(NodeY-36);
+                        if(!pinAttached){
+                        	System.out.println(NodeX + "   "+ NodeY);
+                        	NodePane.getChildren().add(pinView);
+                        	pinAttached = true;
+                        }
+            		}
+            		
             	}
             });
             StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
             	public void handle(MouseEvent event) {
+            		StepBox.setStyle(style);
             		NodePane.getChildren().remove(pinView);
                     pinAttached = false;
             	}

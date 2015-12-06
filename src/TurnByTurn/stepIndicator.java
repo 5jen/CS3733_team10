@@ -1,5 +1,6 @@
 package TurnByTurn;
 
+
 import node.Node;
 
 import java.util.LinkedList;
@@ -20,12 +21,10 @@ public class stepIndicator {
         this.route = route;
     }
 
-    /**
-     * The core method that well generate a list of instructions
-     * @return a linked list of steps
-     */
+
     public LinkedList<Step> lInstructions(){
 
+        //Current static indicator;
         LinkedList<Step> result = new LinkedList<>();
         //previous step id
         int pstep_id = -1;
@@ -33,20 +32,29 @@ public class stepIndicator {
 
         int i = 1;
         while (i<route.size()- 1){
+           // int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
             String message;
             String maneuver;
             //the type for a node
             String type = route.get(i).getType();
             String name = route.get(i).getName();
+            System.out.println(name);
+            int x1;//previous x
+            int y1;//previous y
+            int x2;//current x
+            int y2;//current y
+            int x3;//next x
+            int y3;//next y
+
 
             int icon_id=0;//the icon_id for the instruction
 
-            int x1 = route.get(i-1).getGlobalX();
-            int y1 = route.get(i-1).getGlobalY();
-            int x2 = route.get(i).getGlobalX();
-            int y2 = route.get(i).getGlobalY();
-            int x3 = route.get(i+1).getGlobalX();
-            int y3 = route.get(i+1).getGlobalY();
+            x1 = route.get(i-1).getGlobalX();
+            y1 = route.get(i-1).getGlobalY();
+            x2 = route.get(i).getGlobalX();
+            y2 = route.get(i).getGlobalY();
+            x3 = route.get(i+1).getGlobalX();
+            y3 = route.get(i+1).getGlobalY();
 
             int dis = getDistance(x1,x2,y1,y2);
 
@@ -88,6 +96,7 @@ public class stepIndicator {
 
             }
 
+            //TODO create a class for instructions
             /**
              * icon_id               icon
              *  1                  up_stair
@@ -110,7 +119,7 @@ public class stepIndicator {
                  result.getLast().updateDistance(getDistanceInFeet(2.6053,dis));
              }
              else {
-                 result.addLast(new Step(icon_id, message, getDistanceInFeet(2.6053,dis)));
+                 result.addLast(new Step(icon_id, message, getDistanceInFeet(2.6053,dis), route.get(i).getX(), route.get(i).getY()));
              }
              pstep_id = icon_id;
 
@@ -118,9 +127,100 @@ public class stepIndicator {
         }
 
         //result.addFirst(new Step(0,"Walk Straight",0));
-        result.addFirst(new Step(7,"Starting navigation",0));
-        result.addLast(new Step(8,"You have reached your destination",0));
+        //result.addFirst(new Step(7,"Starting navigation",0));
+        //result.addLast(new Step(8,"You have reached your destination",0));
 
+        return result;
+    }
+
+    /**
+     * Get angle in degree from 3 given point
+     * @param a is the previous node
+     * @param b is the current node
+     * @param c is the next node
+     * @return the angle in degree for node b
+     */
+    public int getAngleInDegree(Node a,Node b,Node c){
+        int x1;//previous x
+        int y1;//previous y
+        int x2;//current x
+        int y2;//current y
+        int x3;//next x
+        int y3;//next y
+
+        x1 = a.getX();
+        y1 = a.getY();
+        x2 = b.getX();
+        y2 = b.getY();
+        x3 = c.getX();
+        y3 = c.getY();
+
+        int ba_x = x1 - x2;
+        int ba_y = y1 - y2;
+        int bc_x = x3 - x2;
+        int bc_y = y3 - y2;
+
+        int dot_product = (ba_x * bc_x) + (ba_y * bc_y);
+        if (false) {System.out.println(dot_product);}
+
+        double absMA =  Math.sqrt((ba_x*ba_x)+(ba_y*ba_y));
+        double absMB =  Math.sqrt((bc_x*bc_x)+(bc_y*bc_y));
+
+        double cos = dot_product/(absMA*absMB);
+
+        return (int) (180*Math.acos(cos)/(Math.PI));
+    }
+
+    /**
+     * Get slope of the line between two node
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return the slope of the line connecting these two points
+     */
+    public double getSlope(int x1,int y1, int x2, int y2){
+        double result;
+        result = (double)(y2-y1)/(x2-x1);
+        System.out.println(result);
+        return result;
+    }
+
+    /**
+     * determine turn left/right/straight
+     * -1 left 1 right 0 straight
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param x3
+     * @param y3
+     * @return
+     */
+    public int getTurnDirection(int x1,int y1,int x2,int y2,int x3,int y3){
+        int result;
+        double tempSlope1;
+        double tempSlope2;
+        tempSlope1 = getSlope(x1,y1,x3,y3);
+        tempSlope2 = getSlope(x1,y1,x2,y2);
+        if (x2==x1) {
+
+            if (((x3 - x2 > 0) && (y2-y1 > 0))||((x3 - x2 < 0)&&(y2-y1<0))) {
+                result = -1;
+            }
+            else result = 1;
+
+        }
+        else if (x2>x1) {
+            if (tempSlope1<tempSlope2) return -1;
+            else if (tempSlope1==tempSlope2) return 0;
+            else return 1;
+        }
+        else {
+            if (tempSlope1<tempSlope2) return -1;
+            else if (tempSlope1==tempSlope2) return 0;
+            else return 1;
+        }
         return result;
     }
 
@@ -141,22 +241,14 @@ public class stepIndicator {
      * Return the actual distance when given the scaling of the map
      * @param scale is the scaling of the map
      * @param distance is the # of pixle calculated by nodes
-     * @return Distance in feet
+     * @return ditance in feet
      */
     public double getDistanceInFeet(double scale,int distance){
         return distance*scale;
     }
 
-    /**
-     * Generate the message from given node info
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param x3
-     * @param y3
-     * @return
-     */
+
+
     public String generateMessage(int x1, int y1, int x2, int y2, int x3, int y3){
         vector ab = new vector(x2-x1,y1-y2);
         vector bc = new vector(x3-x2,y2-y3);
@@ -164,6 +256,9 @@ public class stepIndicator {
         int angleDifference = bc.getXPlusDegree()-ab.getXPlusDegree();
 
         if (angleDifference<0) angleDifference+=360;
+
+       // System.out.println(angleDifference);
+
 
         if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left";
         else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left";
@@ -173,6 +268,7 @@ public class stepIndicator {
         else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right";
         else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right";
         else return "Keep straight";
+
     }
 
 }
