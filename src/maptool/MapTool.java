@@ -736,13 +736,11 @@ public class MapTool extends Application{
                          startButton = newNodeButton;
                      	startX = newNodeButton.getLayoutX()+7*buttonRescale;
                      	startY = newNodeButton.getLayoutY()+7*buttonRescale;
+                     	
                      	fromField.setText(newPlace.getName());
-                         if(toNode != null){
-                        	 fromNode = toNode;
-                        	 toNode = newPlace;
-                         }
-                         else fromNode = newPlace;
-                     	startCoord = true;
+                        fromNode = newPlace;
+                    	startCoord = true;
+                     	
                      	if(autoEdgeCreate.isSelected() && toNode != null){
                        		
                        		createEdge( NodePane);
@@ -756,10 +754,14 @@ public class MapTool extends Application{
                          endButton = newNodeButton;
                      	endX = newNodeButton.getLayoutX()+7*buttonRescale;
                      	endY = newNodeButton.getLayoutY()+7*buttonRescale;
+                     	
                      	toField.setText(newPlace.getName());
-                         toNode = newPlace;
-                         startCoord = false;
-                     	endCoord = false;
+                        toNode = newPlace;
+                    	startCoord = false;
+                    	endCoord = false;
+                     	
+                     	
+                     	
                      	if(autoEdgeCreate.isSelected()){
                        		
                        		createEdge( NodePane);
