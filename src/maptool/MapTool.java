@@ -448,7 +448,8 @@ public class MapTool extends Application{
             public void changed(ObservableValue ov, String t, String t1) { 
             	if(!isPlace.isSelected())
             		nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
-            }    
+                warningLabel.setText(" ");
+            }
         });
 	    
 
@@ -498,6 +499,7 @@ public class MapTool extends Application{
         saveGraph.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	saveGraphMethod();
+                warningLabel.setText(" ");
             }
         });
         
@@ -509,7 +511,7 @@ public class MapTool extends Application{
             	//still need to find where to add Z..****
             	//TODO add tool to write the locations we click to the screen so we can make outlines on rooms for clicking anypoint in rooms
             	
-            	
+            	warningLabel.setText(" ");
             	if (event.isStillSincePress()) {
             		//Set the location coordinates in the input boxes
             		if(!lockX.isSelected())
@@ -546,11 +548,13 @@ public class MapTool extends Application{
         deleteNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	delete = true;
+                warningLabel.setText(" ");
             }
         });
         deleteEdgeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	delete = true;
+                warningLabel.setText(" ");
             }
         });
         
@@ -565,7 +569,8 @@ public class MapTool extends Application{
        //Add actions to the Load Map button
        LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
-        	   	loadMap(root, canvas, zoomPane, NodePane, imageView);
+               loadMap(root, canvas, zoomPane, NodePane, imageView);
+               warningLabel.setText(" ");
            }
            
        });
@@ -575,7 +580,7 @@ public class MapTool extends Application{
            	//remove the canvas
            	nodeReference = "";
            	updateNode = false;
-           	
+               warningLabel.setText(" ");
            	
            }
            
@@ -586,6 +591,7 @@ public class MapTool extends Application{
         createNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
            public void handle(MouseEvent event) {
         	   createNode( NodePane);
+               warningLabel.setText(" ");
            }
        });
         
@@ -636,6 +642,7 @@ public class MapTool extends Application{
     
     //Create Node Method to be called when we wanna create a node
     public void createNode(Pane NodePane){
+        warningLabel.setText(" ");
          NodePane.getChildren().remove(cross);
      	int x = -1, y = -1, z = -1;
      	
@@ -1164,7 +1171,11 @@ public class MapTool extends Application{
     
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView){
     	k = 0; // Reset Zoom Variable
-	   	
+        fromNode = null;
+        toNode = null;
+        toField.setText("");
+        fromField.setText("");
+        warningLabel.setText(" ");
 	   	NodePane.getChildren().clear();
 	   	//clear existing node list
 	   	root.getChildren().remove(zoomPane);
