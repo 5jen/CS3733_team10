@@ -116,8 +116,7 @@ public class MapTool extends Application{
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
 	Button startButton = null, endButton = null, currentButton = null;
-    ;
-    final TextField xField = new TextField("");  
+    final TextField xField = new TextField("");
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
     final TextField nameField = new TextField(""); 
@@ -470,7 +469,7 @@ public class MapTool extends Application{
                 	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
 
             		for(int i = 0; i < nodeList.size(); i++){
-                		if(nodeReference == nodeList.get(i).getName()){
+                		if(Objects.equals(nodeReference, nodeList.get(i).getName())){
                 			//root.getChildren().remove(nodeButtonReference);
                             // TODO If a node is updated the edges also have to be updated
                 			nodeList.get(i).setX(x);
@@ -722,12 +721,12 @@ public class MapTool extends Application{
              		if(delete){
              			root.getChildren().remove(newNodeButton);
                      	nodeList.remove(newPlace);
-                     	//iterate through the edge list and delete all edges attached to this node
-                     	for(int i = 0; i < edgeList.size(); i++){
-                     		if(Objects.equals(edgeList.get(i).getFrom().getName(), newPlace.getName()) || Objects.equals(edgeList.get(i).getTo().getName(), newPlace.getName())){
-                     			edgeList.remove(i);
-                     		}
-                     	}
+                        LinkedList<Edge> edgesToDelete = new LinkedList<>();
+                        //iterate through the edge list and delete all edges attached to this node
+                        edgeList.stream().filter(e -> Objects.equals(e.getFrom().getName(), newPlace.getName()) || Objects.equals(e.getTo().getName(), newPlace.getName())).forEach(e -> {
+                            edgesToDelete.add(e);
+                        });
+                        edgeList.removeAll(edgesToDelete);
                      	delete = false;
                      }
                      else if(!startCoord){
@@ -920,12 +919,12 @@ public class MapTool extends Application{
             		if(delete){
             			root.getChildren().remove(newNodeButton);
                     	nodeList.remove(newPlace);
+                        LinkedList<Edge> edgesToDelete = new LinkedList<>();
                     	//iterate through the edge list and delete all edges attached to this node
-                    	for(int i = 0; i < edgeList.size(); i++){
-                    		if(Objects.equals(edgeList.get(i).getFrom().getName(), newPlace.getName()) || Objects.equals(edgeList.get(i).getTo().getName(), newPlace.getName())){
-                    			edgeList.remove(i);
-                    		}
-                    	}
+                        edgeList.stream().filter(e -> Objects.equals(e.getFrom().getName(), newPlace.getName()) || Objects.equals(e.getTo().getName(), newPlace.getName())).forEach(e -> {
+                            edgesToDelete.add(e);
+                        });
+                        edgeList.removeAll(edgesToDelete);
                     	delete = false;
                     }
                     else if(!startCoord){
