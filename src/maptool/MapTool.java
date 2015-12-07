@@ -598,32 +598,38 @@ public class MapTool extends Application{
     //create an edge between 2 nodes 
     public void createEdge(Pane NodePane){
     	if (!(fromNode == null) || !(toNode == null)) {
-    		Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-            System.out.println(fromNode.getName());
-            System.out.println(toNode.getName());
-        	edgeList.add(newEdge);
-            if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
-                Line line = new Line();
-                line.setStartX(startX);
-                line.setStartY(startY);
-                line.setEndX(endX);
-                line.setEndY(endY);
-                line.setStrokeWidth(3*buttonRescale);
-                line.setStyle("-fx-background-color:  #F0F8FF; ");
-                line.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    public void handle(MouseEvent event) {
-                    	fromField.setText(fromNode.getName());
-                    	toField.setText(toNode.getName());
-                        if (delete) {
-                            NodePane.getChildren().remove(line);
-                            edgeList.remove(newEdge);
-                            delete = false;
+            if (Objects.equals(fromNode.getName(), toNode.getName())) {
+                System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
+                warningLabel.setText("Cannot Create Edge");
+            }
+            else {
+                Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
+                System.out.println(fromNode.getName());
+                System.out.println(toNode.getName());
+                edgeList.add(newEdge);
+                if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
+                    Line line = new Line();
+                    line.setStartX(startX);
+                    line.setStartY(startY);
+                    line.setEndX(endX);
+                    line.setEndY(endY);
+                    line.setStrokeWidth(3 * buttonRescale);
+                    line.setStyle("-fx-background-color:  #F0F8FF; ");
+                    line.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        public void handle(MouseEvent event) {
+                            fromField.setText(fromNode.getName());
+                            toField.setText(toNode.getName());
+                            if (delete) {
+                                NodePane.getChildren().remove(line);
+                                edgeList.remove(newEdge);
+                                delete = false;
+                            }
                         }
-                    }
-                });
+                    });
 
-                NodePane.getChildren().add(line);
-            }    	
+                    NodePane.getChildren().add(line);
+                }
+            }
     
     	}
     }
