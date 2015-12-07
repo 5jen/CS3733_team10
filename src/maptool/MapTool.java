@@ -1171,10 +1171,6 @@ public class MapTool extends Application{
     
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView){
     	k = 0; // Reset Zoom Variable
-        fromNode = null;
-        toNode = null;
-        toField.setText("");
-        fromField.setText("");
         warningLabel.setText(" ");
 	   	NodePane.getChildren().clear();
 	   	//clear existing node list
