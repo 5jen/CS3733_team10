@@ -119,16 +119,16 @@ public class stepIndicator {
                  result.getLast().updateDistance(getDistanceInFeet(2.6053,dis));
              }
              else {
-                 result.addLast(new Step(icon_id, message, getDistanceInFeet(2.6053,dis)));
+                 result.addLast(new Step(icon_id, message, getDistanceInFeet(2.6053,dis), route.get(i).getX(), route.get(i).getY()));
              }
              pstep_id = icon_id;
 
              i++;
         }
 
-        result.addFirst(new Step(0,"Walk Straight",0));
-        result.addFirst(new Step(7,"Starting navigation",0));
-        result.addLast(new Step(8,"You have reached your destination",0));
+        //result.addFirst(new Step(0,"Walk Straight",0));
+        //result.addFirst(new Step(7,"Starting navigation",0));
+        //result.addLast(new Step(8,"You have reached your destination",0));
 
         return result;
     }

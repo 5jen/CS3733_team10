@@ -7,12 +7,16 @@ public class Step {
     private String message;
     private int icon_id;
     private double distance;
+    private int X;
+    private int Y;
     //TODO need type?
 
-    Step(int id, String message, double distance){
+    public Step(int id, String message, double distance, int x, int y){
         this.icon_id = id;
         this.distance = distance;
         this.message = message;
+        this.X = x;
+        this.Y = y;
     }
 
     public int getIconID(){
@@ -29,6 +33,14 @@ public class Step {
 
     public void updateDistance(double v){
         this.distance = this.distance+v;
+    }
+    
+    public int getX(){
+    	return this.X;
+    }
+    
+    public int getY(){
+    	return this.Y;
     }
 
 }
