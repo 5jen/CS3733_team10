@@ -1579,7 +1579,7 @@ public class GPSapp extends Application{
         	public void handle(MouseEvent event) {
         		mouseYposition = event.getY();
         		mouseXposition = event.getX();
-        		System.out.println(mouseXposition + ":" + mouseYposition);
+        		//System.out.println(mouseXposition + ":" + mouseYposition);
         		
         	}
         });
