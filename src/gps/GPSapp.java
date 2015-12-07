@@ -3,6 +3,7 @@ package gps;
 import TurnByTurn.Step;
 import TurnByTurn.stepIndicator;
 import io.JsonParser;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -22,6 +24,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
@@ -160,6 +163,7 @@ public class GPSapp extends Application{
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
 	final DropShadow shadow = new DropShadow();
+	final FadeTransition fader = new FadeTransition();
 
 	Path g1path = new Path();
 	MoveTo g1moveTo = new MoveTo();
@@ -260,6 +264,7 @@ public class GPSapp extends Application{
 	    double height = 60;
     	pt = setCorners(pt, width, height);
     	shadow.setInput(pt);
+    	
 
     	//Create a Building selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -886,31 +891,27 @@ public class GPSapp extends Application{
 
 
 	private void getMapSelector(Building building, Pane root, ImageView imageView) {
-	    //root.getChildren().remove(canvas);
-	    //root.getChildren().remove(zoomPane);
-	    //attach background over map
-	    /*File newBackground = new File("CS3733_Graphics/CampusMapBlurred.png");
-     	final Image backgroundImage = new Image(newBackground.toURI().toString());
-        imageView.setImage(backgroundImage);
-        imageView.relocate(-350, -210);
-        imageView.setScaleX(.65);
-        imageView.setScaleY(.65);
- 	    root.getChildren().add(imageView);*/
-
+	   
+		//If the user moved out of the building dont display the map
+		/*if(BuildingRolledOver == null)
+        	return;*/
+		
+		if(NodePane.getChildren().contains(LayerGroup)){
+    		NodePane.getChildren().remove(LayerGroup);
+    		LayerGroup.getChildren().clear();
+		}
+		
         gc.clearRect(0, 0, 8000, 6000);
         //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 
 
- 	    //Attach 3D image of building
- 	    System.out.println(building.getMaps().get(0).getInitials());
- 		/*File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
-
- 		final Image b = new Image(buildingFile.toURI().toString());
-		final ImageView bImage = new ImageView();
-		bImage.setImage(b);
-		bImage.setLayoutX(400);
-		bImage.setLayoutY(150);
-		root.getChildren().add(bImage);*/
+ 	    //****** ATTACHING MAPS OVER, DELETING ON MOUSE OVER ***** 
+        //MOve this effect to global so we dont make a new one every time
+        BoxBlur bb = new BoxBlur();
+        bb.setWidth(20);
+        bb.setHeight(10);
+        bb.setIterations(3);
+        
 
 		//Attach Building label
 		BuildingNameLabel.setText(building.getName());
@@ -921,27 +922,8 @@ public class GPSapp extends Application{
 		root.getChildren().remove(BuildingNameLabel);
     	root.getChildren().add(BuildingNameLabel);
 
-    	//Attach Building label
-    	BackButton.setTextFill(Color.BLACK);
-    	BackButton.setFont(Font.font ("manteka", 30));
-    	BackButton.setLayoutX(650);
-    	BackButton.setLayoutY(530);
-    	root.getChildren().addAll(BackButton);
-    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    			public void handle(MouseEvent event) {
-    				//b = null;
-    	    		//bImage = null;
-    	    		//backgroundImage = null;
-    				//root.getChildren().remove(bImage);
-    				root.getChildren().remove(BackButton);
-    				loadMap(root, imageView);
-
-    			}
-    	});
     	
-
     	//Load the layered Maps
-	    //convert to for loop
 	    int currentFloor = 0;
 	    root.getChildren().remove(LayerGroup);
 	    LayerGroup.getChildren().clear();
@@ -953,14 +935,65 @@ public class GPSapp extends Application{
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
-    		mapImageView.setRotate(BuildingRolledOver.getMaps().get(0).getRotationalConstant());
+    		
+    		//calculuate the rotational constant and offsets
+    		double rc = (180*BuildingRolledOver.getMaps().get(0).getRotationalConstant())/Math.PI;
+    		double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
+    		double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
 
    	     	Group g1 = new Group();
-    		//g1.setRotate(BuildingRolledOver.getMaps().get(0).getRotationalConstant());
-
    	     	g1.setEffect(pt);
+   	     	g1.setOpacity(.3);
    	     	g1.getChildren().add(mapImageView);
+   	     	
+	     	
+	     	//CUSTOM OFFSETS AHHHH DAMNIT
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Campus Center")){
+	     		g1.setLayoutX(xplacement+360);
+		     	g1.setLayoutY(yplacement+290-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House Garage")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Stratton Hall")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Boynton Hall")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Gordon Library")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Project Center")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Atwater Kent")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
+	     		g1.setLayoutX(xplacement+400);
+		     	g1.setLayoutY(yplacement+270-i*45);
+	     	}
+	     	/// ABOVE^^^^^^
+	     		
+	     		
+	     	applyAnimation(g1, i, imageView);
+	     	
+	     	//fade in the group of layered maps
+	     	shortFadeIn(LayerGroup);
+   	     	LayerGroup.getChildren().add(g1);
 
    	     	//used inside action scope
    	     	int floor = currentFloor;
@@ -968,6 +1001,8 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
    	     				System.out.println(floor);
+   	     				root.getChildren().remove(LayerGroup);
+   	     				LayerGroup.getChildren().clear();
    	     				root.getChildren().remove(BackButton);
    	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
@@ -977,7 +1012,8 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
      			public void handle(MouseEvent event) {
      				BuildingNameLabel.setText(building.getName());
-
+     				g1.setEffect(pt);
+     				shortFadeOut(g1);
      			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -986,32 +1022,104 @@ public class GPSapp extends Application{
    	     			g1.setEffect(shadow);
    	     		}
    	     	});
-   	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
-   	     		public void handle(MouseEvent event) {
-   	     			//PerspectiveTransform pt = new PerspectiveTransform();
-   	     			//pt = setCorners(pt, 80, 60);
-   	     			g1.setEffect(pt);
-   	     		}
-   	     	});
-   	     	g1.setLayoutX(120);
-   	     	g1.setLayoutY(100-i*45);
-   	     	applyAnimation(g1, i);
-   	     	LayerGroup.getChildren().add(g1);
-
+   	     	//Fade out the rest of the maps **START OTHER ALPHA AT LOW**
+   	     	g1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+	     		public void handle(MouseEvent event) {
+	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
+	     			g1.setEffect(shadow);
+	     			shortFadeIn(g1);
+	     		}
+	     	});
     	}
-	    root.getChildren().add(LayerGroup);
+    	if(!NodePane.getChildren().contains(LayerGroup))
+    		NodePane.getChildren().add(LayerGroup);
+	    
+	    //add actions to when you leave the layered group, remove it
+	    LayerGroup.setOnMouseExited(new EventHandler<MouseEvent>() {
+     		public void handle(MouseEvent event) {
+     			BuildingNameLabel.setText("..");
+     			if(root.getChildren().contains(BuildingNameLabel))
+     				root.getChildren().remove(BuildingNameLabel);
+     			screenFadeBack(imageView);
+     			///Change to fade out of the layered group
+     			fadeOutLayeredGroup(LayerGroup);
+     		}
+			private void fadeOutLayeredGroup(Group layerGroup) {
+				FadeTransition blur = new FadeTransition();
+				blur.setDuration(Duration.millis(500));
+				blur.setFromValue(.3);
+				blur.setToValue(0);
+				blur.setNode(layerGroup);
+				blur.play();
+				
+				//remove the layered group from stage when we roll out after it fades out
+				blur.setOnFinished(new EventHandler<ActionEvent>(){
+			            @Override
+			            public void handle(ActionEvent arg0) {
+			            	NodePane.getChildren().remove(LayerGroup);
+			     			LayerGroup.getChildren().clear();
+			            }
+			    });
+			}
+     	});
 	}
+	
+	private void shortFadeOut(Group g1){
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(500));
+		blur.setFromValue(1);
+		blur.setToValue(.3);
+		blur.setNode(g1);
+		blur.play();
+		
+	}
+	//Fade in for a group
+	private void shortFadeIn(Group g1){
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(500));
+		blur.setFromValue(.3);
+		blur.setToValue(1);
+		blur.setNode(g1);
+		blur.play();
+	}
+	//restore map alpha back to 100%
+	private void screenFadeBack(ImageView imageView){
+		//Fade the alpha
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(1000));
+		blur.setFromValue(.3);
+		blur.setToValue(1.0);
+		blur.setNode(imageView);
+		blur.play();
+		
+	}
+	
+		
+	
 
-	private void applyAnimation(Group g1, int i){
+	private void applyAnimation(Group g1, int i,  ImageView imageView){
+		
+		//Fade the alpha
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(1000));
+		blur.setFromValue(1.0);
+		blur.setToValue(.3);
+		blur.setNode(imageView);
+		blur.play();
+		
+		//where to attach the maps
+		//**** CHANGING THESE VARS BELOW (ADDING STUFF)*****
+		double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
+		double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
-		 g1moveTo.setX(500.0f);
-		 g1moveTo.setY(600.0f);
+		 g1moveTo.setX(0);
+		 g1moveTo.setY(0);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX(500.0f);
-		 g1lineTo.setY(560.0f - i*15);
+		 g1lineTo.setX( -i*40);//-i*15
+		 g1lineTo.setY( -i*40);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
@@ -1026,15 +1134,16 @@ public class GPSapp extends Application{
 
     }
 
+	//Custom ones for each building, move pt from global to local again
     private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
-		 pt.setUlx(width + 80);//upper left
-	     pt.setUly(height + 0);
-	     pt.setUrx(width + 280);//upper right
-	     pt.setUry(height + 0);
-	     pt.setLrx(width + 200);//Lower right
-	     pt.setLry(height + 120);
-	     pt.setLlx(width + 0);//lower left
-	     pt.setLly(height + 120);
+		 pt.setUlx(0);//upper left
+	     pt.setUly(0);
+	     pt.setUrx(300);//upper right
+	     pt.setUry(0);
+	     pt.setLrx(300);//Lower right
+	     pt.setLry(150);
+	     pt.setLlx(0);//lower left
+	     pt.setLly(150);
 	     return pt;
 	}
 
@@ -2070,9 +2179,17 @@ public class GPSapp extends Application{
                 keyText.setText("Campus Center");
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = CampusCenter;
-        		//System.out.println("I'm here");
                 //TO-DO
-                getMapSelector(CampusCenter, root, imageView); //ADD THIS LINE TO OTHER BUILDINGS
+                //DELAY BEFORE OPENING LAYERED VIEW, 
+                /*try {
+        		    Thread.sleep(800);                 //1000 milliseconds is one second.
+        		    getMapSelector(CampusCenter, root, imageView);
+                } catch(InterruptedException ex) {
+        		    Thread.currentThread().interrupt();
+        		}*/
+                //**BUGGY WITH DELAY!!!!
+    		    getMapSelector(CampusCenter, root, imageView);
+
         	}
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2080,6 +2197,7 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
+                //BuildingRolledOver = null;
         	}
         });
         cc.setOnMouseMoved(new EventHandler <MouseEvent>(){
@@ -2150,6 +2268,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = StrattonHall;
         		//System.out.println("I'm here");
+                getMapSelector(StrattonHall, root, imageView);// <- Not working for all buildings
         	}
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2197,7 +2316,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = GordonLibrary;
-        		//System.out.println("I'm here");
+        		getMapSelector(GordonLibrary, root, imageView);
         	}
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2246,8 +2365,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = AtwaterKent;
-        		//System.out.println("I'm here");
-        	}
+        		getMapSelector(AtwaterKent, root, imageView);        	}
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2285,8 +2403,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = ProjectCenter;
-        		//System.out.println("I'm here");
-        	}
+        		getMapSelector(ProjectCenter, root, imageView);        	}
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2340,8 +2457,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = HigginsHouse;
-        		//System.out.println("I'm here");
-        	}
+        		getMapSelector(HigginsHouse, root, imageView);        	}
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2379,8 +2495,7 @@ public class GPSapp extends Application{
                 keyText.setText("Higgins House Garage");
                 keyText.setFill(BuildingName);
                 higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
-        	}
+                getMapSelector(HigginsHouseGarage, root, imageView);        	}
         });
         higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2429,8 +2544,7 @@ public class GPSapp extends Application{
 
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = BoyntonHall;
-        		//System.out.println("I'm here");
-        	}
+        		getMapSelector(BoyntonHall, root, imageView);        	}
         });
         boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
 

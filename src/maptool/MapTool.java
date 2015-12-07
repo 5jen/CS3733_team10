@@ -455,7 +455,7 @@ public class MapTool extends Application{
 
         updateNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-            	
+            	updateNode = true;
             	int x = -1, y = -1, z = -1;
             	
             	/************************************************/
@@ -467,7 +467,6 @@ public class MapTool extends Application{
             	    System.err.println("NumberFormatException: " + e.getMessage());
             	} 
             	if(updateNode){
-                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
 
             		for(int i = 0; i < nodeList.size(); i++){
                 		if(nodeReference == nodeList.get(i).getName()){
@@ -484,6 +483,8 @@ public class MapTool extends Application{
                 		}
                 			//set all fields and then break out of this
                 	}
+                	nameField.setText(currentlySelectedMap.getInitials() + currentlySelectedMap.getFloor() + ":" + typeSelector.getValue() + ":" + xField.getText() + ":" + yField.getText());
+
             		updateNode = false;
             	}
             	
