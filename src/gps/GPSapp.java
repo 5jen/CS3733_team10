@@ -184,9 +184,19 @@ public class GPSapp extends Application{
 	Button PrevInstruction = new Button("Prev");
 
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
-	
-	 ImageView pinView = new ImageView();
-	 boolean pinAttached = false;
+	//create pin image
+	File pinFile = new File("CS3733_Graphics/pin.png");
+	Image pinImage = new Image(pinFile.toURI().toString());
+	ImageView pinView = new ImageView();
+
+	//create pin image
+	File yPinFile = new File("CS3733_Graphics/yellow-pin.png");
+	Image yPinImage = new Image(yPinFile.toURI().toString());
+	ImageView yPinView = new ImageView();
+
+	boolean pinAttached = false;
+	Circle enter = new Circle(10.0, Color.GREEN);
+	Circle exit = new Circle(10.0, Color.RED);
 
 
 	@Override
@@ -350,7 +360,10 @@ public class GPSapp extends Application{
         bgView.setLayoutX(0);
         bgView.setLayoutY(0);
 
-        //Create a keyimage to place the map key on screen
+		pinView.setImage(pinImage);
+		yPinView.setImage(yPinImage);
+
+		//Create a keyimage to place the map key on screen
     	File keyFile = new File("CS3733_Graphics/Key.png");
         Image keyImage = new Image(keyFile.toURI().toString());
         ImageView imageViewKey = new ImageView();
@@ -640,7 +653,9 @@ public class GPSapp extends Application{
                                 drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
-
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
                                 System.out.println(" " + route);
                                 for (int i = 0; i < route.size(); i++) {
                                     System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -726,8 +741,12 @@ public class GPSapp extends Application{
                             	loadMap(root, imageView);
                             	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
-                            	
-                                System.out.println(" " +route);
+
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+								System.out.println(" " +route);
                                 for(int i = 0; i < route.size(); i++){
                                 	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                                 }
@@ -864,8 +883,23 @@ public class GPSapp extends Application{
     	
     	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
         drawRoute(gc, multiMap.get(currRoute));
-		
-        //Determine which buttons to display when changing instructions
+		if(currRoute != 0){
+			NodePane.getChildren().add(enter);
+			enter.setLayoutX(multiMap.get(currRoute).getFirst().getX());
+			enter.setLayoutY(multiMap.get(currRoute).getFirst().getY());
+
+			NodePane.getChildren().add(exit);
+			exit.setLayoutX(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 2).getX());
+			exit.setLayoutY(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 2).getY());
+
+		}
+		else{
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+			yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+		}
+
+		//Determine which buttons to display when changing instructions
         if(currRoute > 0){
         	root.getChildren().remove(PrevInstruction);
         	root.getChildren().add(PrevInstruction);
@@ -873,9 +907,15 @@ public class GPSapp extends Application{
         else if(currRoute == 0){
         	root.getChildren().remove(PrevInstruction);
         }
-		
+
 		//if we are on the last page of instructions, remove next button
-		if(currRoute >= currMaps-1){
+		if (currRoute >= currMaps-1){
+			NodePane.getChildren().remove(exit);
+
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getLast().getLast().getX() - 12);
+			yPinView.setLayoutY(multiMap.getLast().getLast().getY() - 37);
+
 			root.getChildren().remove(NextInstruction);
 		}
 		else {
@@ -1317,12 +1357,25 @@ public class GPSapp extends Application{
                                     NodePane.getChildren().clear();
                                     LinkedList<Node> tempNodeList = new LinkedList<Node>();
                                     tempNodeList.add(multiMap.get(currRoute).get(0));
-                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 1));
                                     
                                     //Draws only the start and end nodes of the route
                                     drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
-                                    
-                                    final Group group = new Group(imageView, canvas, NodePane);
+
+									NodePane.getChildren().add(yPinView);
+									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+									yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+									if(multiMap.size() == 1){
+										ImageView endPinView = new ImageView();
+										endPinView.setImage(yPinImage);
+										NodePane.getChildren().add(endPinView);
+										endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+										endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+
+									}
+
+									final Group group = new Group(imageView, canvas, NodePane);
                                     zoomPane = createZoomPane(group);
                                     root.getChildren().add(zoomPane);
                                     route = new LinkedList<Node>();
