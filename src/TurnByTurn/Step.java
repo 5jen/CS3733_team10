@@ -9,7 +9,6 @@ public class Step {
     private double distance;
     private int X;
     private int Y;
-    //TODO need type?
 
     public Step(int id, String message, double distance, int x, int y){
         this.icon_id = id;
@@ -24,7 +23,8 @@ public class Step {
     }
 
     public String getMessage(){
-        return this.message;
+        formatMessage();
+        return message;
     }
 
     public double getDistance(){
@@ -41,6 +41,17 @@ public class Step {
     
     public int getY(){
     	return this.Y;
+    }
+
+    public void formatMessage(){
+        int mLength = message.length();
+        String distance = ((int) this.distance)+" ft";
+        int dLength = distance.length();
+        int nSpace  = 28- mLength- dLength;
+        for (int i=0;i<nSpace;i++){
+            message +=" ";
+        }
+        message += distance;
     }
 
 }

@@ -3,18 +3,18 @@ package gps;
 import TurnByTurn.Step;
 import TurnByTurn.stepIndicator;
 import io.JsonParser;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,17 +22,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
@@ -77,11 +74,13 @@ public class GPSapp extends Application{
 	VBox directionBox = new VBox(2);
 	ScrollPane s1 = new ScrollPane();
 	double mouseYposition, mouseXposition;
+	double OriginalScale = 1.0;
 	
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
-	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AKB", "AK1", "AK2", "AK3", "GLSB", "GLB", "GL1", "GL2", "GL3", "BHB", "BH1", "BH2", "BH3", "CC1", "CC2", "CC3", "HHB", "HH1", "HH2", "HH3", "HHAPT", "HHGAR", "PC1", "PC2", "SHB", "SH1", "SH2", "SH3");
+	//TODO PROBABLY CHANGE THIS TO SELECT BUILDING AND THEN SUB DROP DOWN TO SELECT FLOOR
+	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AKB", "AK1", "AK2", "AK3", "GLSB", "GLB", "GL1", "GL2", "GL3", "BHB", "BH1", "BH2", "BH3", "CC1", "CC2", "CC3", "HHB", "HH1", "HH2", "HH3", "HHAPT", "HHGAR", "PC1", "PC2", "SHB", "SH1", "SH2", "SH3", "FLSB", "FLB", "FL1", "FL2", "FL3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
 	
 	//Lists of all nodes of the types
@@ -101,7 +100,7 @@ public class GPSapp extends Application{
 	final Pane root = new Pane();
 	final BorderPane Borders = new BorderPane();
     ScrollPane scrollPane = new ScrollPane();
-	Scene scene = new Scene(root, 1050,750);
+	Scene scene = new Scene(root, 1100,750);
 	double scaleXratio = 1;
     double scaleYRatio = 1;
     double stageInitialWidthDifference = 100;
@@ -118,48 +117,60 @@ public class GPSapp extends Application{
   	Building HigginsHouseGarage = new Building("Higgins House Garage"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
+    Building FullerLabs = new Building("Fuller Labs");
+  	Building NullBuilding = new Building("Null Building");
 
-  	//Map Buildings with their content
-  	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
-	Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -2.617, 1548, 594, 0.1627, "B");
-	Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -2.617, 1548, 594, 0.1312, "1");
-	Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -2.617, 1548, 594, 0.1692, "2");
-	Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -2.617, 1548, 594, 0.1690, "3");
+  //Map Buildings with their content
+    Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
-	Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", 1.762, 1668, 726, 0.1187, "SB");
-	Map GordonLibraryB = new Map("Gordon Library B",  "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", 1.762, 1668, 726, 0.1251, "B");
-	Map GordonLibrary1 = new Map("Gordon Library 1",  "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", 1.762, 1668, 726, 0.1194, "1");
-	Map GordonLibrary2 = new Map("Gordon Library 2",  "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", 1.762, 1668, 726, 0.1223, "2");
-	Map GordonLibrary3 = new Map("Gordon Library 3",  "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", 1.762, 1668, 726, 0.1387, "3");
+    Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -2.617, 1548, 594, 0.1627, "B");
+    Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -2.617, 1548, 594, 0.1312, "1");
+    Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -2.617, 1548, 594, 0.1692, "2");
+    Map AtwaterKent3 = new Map("Atwater Kent 3", "AK", "CS3733_Graphics/AK3.png", "Graphs/Nodes/AK3.json", "Graphs/Edges/AK3Edges.json", -2.617, 1548, 594, 0.1690, "3");
 
-	Map BoyntonHallB = new Map("Boynton Hall B", "BH","CS3733_Graphics/BHB.png","Graphs/Nodes/BHB.json","Graphs/Edges/BHBEdges.json", 0.157, 1496, 991, 0.0956, "B");
-	Map BoyntonHall1 = new Map("Boynton Hall 1", "BH","CS3733_Graphics/BH1.png","Graphs/Nodes/BH1.json","Graphs/Edges/BH1Edges.json", 0.157, 1496, 991, 0.0973, "1");
-	Map BoyntonHall2 = new Map("Boynton Hall 2", "BH","CS3733_Graphics/BH2.png","Graphs/Nodes/BH2.json","Graphs/Edges/BH2Edges.json", 0.157, 1496, 991, 0.0981, "2");
-	Map BoyntonHall3 = new Map("Boynton Hall 3", "BH","CS3733_Graphics/BH3.png","Graphs/Nodes/BH3.json","Graphs/Edges/BH3Edges.json", 0.157, 1496, 991, 0.1003, "3");
+    Map GordonLibrarySB = new Map("Gordon Library SB", "GL", "CS3733_Graphics/GLSB.png", "Graphs/Nodes/GLSB.json", "Graphs/Edges/GLSBEdges.json", 1.762, 1668, 726, 0.1187, "SB");
+    Map GordonLibraryB = new Map("Gordon Library B", "GL", "CS3733_Graphics/GLB.png", "Graphs/Nodes/GLB.json", "Graphs/Edges/GLBEdges.json", 1.762, 1668, 726, 0.1251, "B");
+    Map GordonLibrary1 = new Map("Gordon Library 1", "GL", "CS3733_Graphics/GL1.png", "Graphs/Nodes/GL1.json", "Graphs/Edges/GL1Edges.json", 1.762, 1668, 726, 0.1194, "1");
+    Map GordonLibrary2 = new Map("Gordon Library 2", "GL", "CS3733_Graphics/GL2.png", "Graphs/Nodes/GL2.json", "Graphs/Edges/GL2Edges.json", 1.762, 1668, 726, 0.1223, "2");
+    Map GordonLibrary3 = new Map("Gordon Library 3", "GL", "CS3733_Graphics/GL3.png", "Graphs/Nodes/GL3.json", "Graphs/Edges/GL3Edges.json", 1.762, 1668, 726, 0.1387, "3");
 
-	Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", -1.413, 1175, 670, 0.1695, "1");
-	Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", -1.413, 1175, 670, 0.166, "2");
-	Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", -1.413, 1175, 670, 0.1689, "3");
+    Map BoyntonHallB = new Map("Boynton Hall B", "BH", "CS3733_Graphics/BHB.png", "Graphs/Nodes/BHB.json", "Graphs/Edges/BHBEdges.json", 0.157, 1496, 991, 0.0956, "B");
+    Map BoyntonHall1 = new Map("Boynton Hall 1", "BH", "CS3733_Graphics/BH1.png", "Graphs/Nodes/BH1.json", "Graphs/Edges/BH1Edges.json", 0.157, 1496, 991, 0.0973, "1");
+    Map BoyntonHall2 = new Map("Boynton Hall 2", "BH", "CS3733_Graphics/BH2.png", "Graphs/Nodes/BH2.json", "Graphs/Edges/BH2Edges.json", 0.157, 1496, 991, 0.0981, "2");
+    Map BoyntonHall3 = new Map("Boynton Hall 3", "BH", "CS3733_Graphics/BH3.png", "Graphs/Nodes/BH3.json", "Graphs/Edges/BH3Edges.json", 0.157, 1496, 991, 0.1003, "3");
 
-	Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.529, 1161, 504, 0.1314, "B");
-	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.529, 1161, 504, 0.1364, "1");
-	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.529, 1161, 504, 0.1343, "2");
-	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.529, 1161, 504, 0.1317, "3");
-	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -0.942, 1215, 394, 0.0521, "APT");
-	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -0.942, 1215, 394, 0.053, "GAR");
+    Map CampusCenter1 = new Map("Campus Center 1", "CC", "CS3733_Graphics/CC1.png", "Graphs/Nodes/CC1.json", "Graphs/Edges/CC1Edges.json", -1.413, 1175, 670, 0.1695, "1");
+    Map CampusCenter2 = new Map("Campus Center 2", "CC", "CS3733_Graphics/CC2.png", "Graphs/Nodes/CC2.json", "Graphs/Edges/CC2Edges.json", -1.413, 1175, 670, 0.166, "2");
+    Map CampusCenter3 = new Map("Campus Center 3", "CC", "CS3733_Graphics/CC3.png", "Graphs/Nodes/CC3.json", "Graphs/Edges/CC3Edges.json", -1.413, 1175, 670, 0.1689, "3");
 
-	Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 1.71, 1228, 772, 0.0701, "1");
-	Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 1.71, 1228, 772, 0.1016, "2");
+    Map HigginsHouseB = new Map("Higgins House B", "HH", "CS3733_Graphics/HHB.png", "Graphs/Nodes/HHB.json", "Graphs/Edges/HHBEdges.json", -2.529, 1161, 504, 0.1314, "B");
+    Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.529, 1161, 504, 0.1364, "1");
+    Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.529, 1161, 504, 0.1343, "2");
+    Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.529, 1161, 504, 0.1317, "3");
+    Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -0.942, 1215, 394, 0.0521, "APT");
+    Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -0.942, 1215, 394, 0.053, "GAR");
 
-	Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.71, 1364, 898, 0.0804, "B");
-	Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.71, 1364, 898, 0.0813, "1");
-	Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.71, 1364, 898, 0.0766, "2");
-	Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.71, 1364, 898, 0.0749, "3");
+    Map ProjectCenter1 = new Map("Project Center 1", "PC", "CS3733_Graphics/PC1.png", "Graphs/Nodes/PC1.json", "Graphs/Edges/PC1Edges.json", 1.71, 1228, 772, 0.0701, "1");
+    Map ProjectCenter2 = new Map("Project Center 2", "PC", "CS3733_Graphics/PC2.png", "Graphs/Nodes/PC2.json", "Graphs/Edges/PC2Edges.json", 1.71, 1228, 772, 0.1016, "2");
+
+    Map StrattonHallB = new Map("Stratton Hall B", "SH", "CS3733_Graphics/SHB.png", "Graphs/Nodes/SHB.json", "Graphs/Edges/SHBEdges.json", 1.71, 1364, 898, 0.0804, "B");
+    Map StrattonHall1 = new Map("Stratton Hall 1", "SH", "CS3733_Graphics/SH1.png", "Graphs/Nodes/SH1.json", "Graphs/Edges/SH1Edges.json", 1.71, 1364, 898, 0.0813, "1");
+    Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.71, 1364, 898, 0.0766, "2");
+    Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.71, 1364, 898, 0.0749, "3");
+
+    Map FullerLabsSB = new Map("Fuller Labs SB", "FL", "CS3733_Graphics/FLSB.png", "Graphs/Nodes/FLSB.json", "Graphs/Edges/FLSBEdges.json", 1.099, 1636, 497, 0.1735, "SB");
+    Map FullerLabsB = new Map("Fuller Labs B", "FL", "CS3733_Graphics/FLB.png", "Graphs/Nodes/FLB.json", "Graphs/Edges/FLBEdges.json", 1.099, 1636, 497, 0.1641, "B");
+    Map FullerLabs1 = new Map("Fuller Labs 1", "FL", "CS3733_Graphics/FL1.png", "Graphs/Nodes/FL1.json", "Graphs/Edges/FL1Edges.json", 1.099, 1636, 497, 0.169, "1");
+    Map FullerLabs2 = new Map("Fuller Labs 2", "FL", "CS3733_Graphics/FL2.png", "Graphs/Nodes/FL2.json", "Graphs/Edges/FL2Edges.json", 1.099, 1636, 497, 0.168, "2");
+    Map FullerLabs3 = new Map("Fuller Labs 3", "FL", "CS3733_Graphics/FL3.png", "Graphs/Nodes/FL3.json", "Graphs/Edges/FL3Edges.json", 1.099, 1636, 497, 0.1661, "3");
 
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
+	PerspectiveTransform ptFuller = new PerspectiveTransform();
 	final DropShadow shadow = new DropShadow();
+	final DropShadow shadowFuller = new DropShadow();
+	final FadeTransition fader = new FadeTransition();
 
 	Path g1path = new Path();
 	MoveTo g1moveTo = new MoveTo();
@@ -174,7 +185,7 @@ public class GPSapp extends Application{
 	final Button BackButton = new Button("Back");
 
     Text keyText = new Text(600, 640,"");
-    Text toggleKeyText = new Text(995, 740,"Show Key");
+    Text toggleKeyText = new Text(1045, 740,"Show Key");
 	
 	//Vars used for displaying Multiple maps after finding the route
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
@@ -198,11 +209,11 @@ public class GPSapp extends Application{
 	Circle enter = new Circle(10.0, Color.GREEN);
 	Circle exit = new Circle(10.0, Color.RED);
 
+	Building BuildingRolledOver = new Building("");
+	PauseTransition pause = new PauseTransition(Duration.millis(700));
 
 	@Override
     public void start(Stage primaryStage) {
-
-    	
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -242,6 +253,12 @@ public class GPSapp extends Application{
 
     	ProjectCenter.addMap(ProjectCenter1);
     	ProjectCenter.addMap(ProjectCenter2);
+        
+        FullerLabs.addMap(FullerLabsSB);
+        FullerLabs.addMap(FullerLabsB);
+        FullerLabs.addMap(FullerLabs1);
+        FullerLabs.addMap(FullerLabs2);
+        FullerLabs.addMap(FullerLabs3);
 
     	 // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -250,9 +267,11 @@ public class GPSapp extends Application{
         buildings.add(GordonLibrary);
         buildings.add(CampusCenter);
         buildings.add(HigginsHouse);
+        buildings.add(HigginsHouseGarage);
         buildings.add(StrattonHall);
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
+        buildings.add(FullerLabs);
 
     	        
         toggleKeyText.setFont(Font.font ("manteka", 10));
@@ -267,8 +286,11 @@ public class GPSapp extends Application{
         
     	double width = 80;
 	    double height = 60;
-    	pt = setCorners(pt, width, height);
+    	pt = setCorners(pt);
+    	ptFuller = setCornersFuller(ptFuller);
     	shadow.setInput(pt);
+    	shadowFuller.setInput(ptFuller);
+    	
 
     	//Create a Building selection drop down menu
     	final VBox mapSelectionBoxV = new VBox(5);
@@ -436,7 +458,7 @@ public class GPSapp extends Application{
         }
     	
     	
-    	 stageInitialWidthDifference = scene.getWidth()-1050;
+    	 stageInitialWidthDifference = scene.getWidth()-1100;
          stageInitialHeightDifference = scene.getHeight()-750;
 
 
@@ -455,6 +477,9 @@ public class GPSapp extends Application{
 		NodePane.relocate(-965, -643);
         final Group group = new Group(imageView, canvas, NodePane);
 	    zoomPane = createZoomPane(group);
+	    
+	   // scrollContent.setTranslateX(-517);
+    	//scrollContent.setTranslateY(-236);
 	    
 
 
@@ -501,7 +526,7 @@ public class GPSapp extends Application{
     		@Override
     		public void changed(ObservableValue<? extends Number> observable,
     				Number oldValue, Number newValue) {
-    			stageInitialWidthDifference = scene.getWidth()- 1050;    			
+    			stageInitialWidthDifference = scene.getWidth()- 1100;    			
     			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
     			imageViewKey.setTranslateX(stageInitialWidthDifference);
     			NextInstruction.setTranslateX(stageInitialWidthDifference);
@@ -772,29 +797,26 @@ public class GPSapp extends Application{
     			}
             });
     }
-
+	///END OF MAIN ***************************************************************
 
     //Display all of the instructions on screen
     private void displayInstructions(LinkedList<Node> route, Pane root){
 
-    	//what if we move this in here..???
-    	//multiMap = splitRoute(route);
-
+    	directionBox.getChildren().clear();
+    	//nooooo
+    	//clear current instructions
+    	//s1 = new ScrollPane();
+    	
     	//create vertical box to add labels too
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
 
     	//add a possible scroll box for long routes..
-		 s1.setPrefSize(220, 360);
+		 s1.setPrefSize(270, 360);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
 		 
-    	//or eventually break up into multiple sections of instructions based
-    	//on current map displayed
-    	//for(int k = 0; k < multiMap.size(); k++){
-    		
-    	//}
     		
     	//convert the route to a list of string instructions
     	stepIndicator steps = new stepIndicator(route);
@@ -809,17 +831,18 @@ public class GPSapp extends Application{
     		//StepBox.setStyle("-fx-border-color: black;");
     		Label newDirection;
 
-    		if(directions.get(i).getDistance() == 0.0) {
+    		//if(directions.get(i).getDistance() == 0.0) {
     			newDirection = new Label(directions.get(i).getMessage());
-    		} else {
-    			newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
-    		}
+			    newDirection.setFont(Font.font("Menlo"));
+    		//} else {
+    		//	newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
+    		//}
 
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 210, 0);
+            Line breakLine = new Line(0, 0, 250, 0);
             breakLine.setLayoutX(10);
             
             String style = StepBox.getStyle();
@@ -872,8 +895,8 @@ public class GPSapp extends Application{
 		
     	String initials = "";
     	for(int i = 0; i < maps.size(); i++){
-    		System.out.println("CURRENT ROUTE: "+ currRoute);
-    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+    		//System.out.println("CURRENT ROUTE: "+ currRoute);
+    		//System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
     		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
     			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
     	}
@@ -925,32 +948,23 @@ public class GPSapp extends Application{
 
 
 	private void getMapSelector(Building building, Pane root, ImageView imageView) {
-	    root.getChildren().remove(canvas);
-	    root.getChildren().remove(zoomPane);
-	    //attach background over map
-	    File newBackground = new File("CS3733_Graphics/CampusMapBlurred.png");
-     	final Image backgroundImage = new Image(newBackground.toURI().toString());
-        imageView.setImage(backgroundImage);
-        imageView.relocate(-350, -210);
-        imageView.setScaleX(.65);
-        imageView.setScaleY(.65);
- 	    root.getChildren().add(imageView);
-
+	   
+		//If the user moved out of the building dont display the map
+		/*if(BuildingRolledOver == null)
+        	return;*/
+		
+		if(NodePane.getChildren().contains(LayerGroup)){
+    		NodePane.getChildren().remove(LayerGroup);
+    		LayerGroup.getChildren().clear();
+		}
+		
         gc.clearRect(0, 0, 8000, 6000);
         //drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 
 
-
- 	    //Attach 3D image of building
- 	    System.out.println(building.getMaps().get(0).getInitials());
- 		File buildingFile = new File("CS3733_Graphics/BuildingImages/"+building.getMaps().get(0).getInitials()+".png");
-
- 		final Image b = new Image(buildingFile.toURI().toString());
-		final ImageView bImage = new ImageView();
-		bImage.setImage(b);
-		bImage.setLayoutX(400);
-		bImage.setLayoutY(150);
-		root.getChildren().add(bImage);
+ 	    //****** ATTACHING MAPS OVER, DELETING ON MOUSE OVER ***** 
+        //MOve this effect to global so we dont make a new one every time
+        
 
 		//Attach Building label
 		BuildingNameLabel.setText(building.getName());
@@ -961,27 +975,8 @@ public class GPSapp extends Application{
 		root.getChildren().remove(BuildingNameLabel);
     	root.getChildren().add(BuildingNameLabel);
 
-    	//Attach Building label
-    	BackButton.setTextFill(Color.BLACK);
-    	BackButton.setFont(Font.font ("manteka", 30));
-    	BackButton.setLayoutX(650);
-    	BackButton.setLayoutY(530);
-    	root.getChildren().addAll(BackButton);
-    	BackButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-    			public void handle(MouseEvent event) {
-    				//b = null;
-    	    		//bImage = null;
-    	    		//backgroundImage = null;
-    				root.getChildren().remove(bImage);
-    				root.getChildren().remove(BackButton);
-    				loadMap(root, imageView);
-
-    			}
-    	});
     	
-
     	//Load the layered Maps
-	    //convert to for loop
 	    int currentFloor = 0;
 	    root.getChildren().remove(LayerGroup);
 	    LayerGroup.getChildren().clear();
@@ -993,11 +988,76 @@ public class GPSapp extends Application{
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
     		mapImageView.setImage(image);
-
+    		
+    		//calculuate the rotational constant and offsets
+    		double rc = (180*BuildingRolledOver.getMaps().get(0).getRotationalConstant())/Math.PI;
+    		double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
+    		double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
    	     	Group g1 = new Group();
-   	     	g1.setEffect(pt);
+   	     	//Fuller has a special transformation
+   	     	if(building.equals(FullerLabs))
+   	     		g1.setEffect(ptFuller);
+   	     	else
+   	     		g1.setEffect(pt);
+   	     	
+   	     	g1.setOpacity(.3);
    	     	g1.getChildren().add(mapImageView);
+   	     	
+	     	//TODO 
+   	     	//ATTAH BUILDING to the layeredGroup so that when you roll out you can still be on the builing
+	     	//CUSTOM OFFSETS AHHHH DAMNIT
+   	     	//Align with he lower right hand corner of the building
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Campus Center")){
+	     		g1.setLayoutX(xplacement+340);
+		     	g1.setLayoutY(yplacement+310-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House")){
+	     		g1.setLayoutX(xplacement+370);
+		     	g1.setLayoutY(yplacement+470-i*45);
+	     	}
+	     	//TODO
+	     	///****** WHAT IS THAT ACTUAL NAME OF THIS?????***
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House Garage")){
+	     		g1.setLayoutX(xplacement+270);
+		     	g1.setLayoutY(yplacement+200-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Stratton Hall")){
+	     		g1.setLayoutX(xplacement+290);
+		     	g1.setLayoutY(yplacement+170-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Boynton Hall")){
+	     		g1.setLayoutX(xplacement+280);
+		     	g1.setLayoutY(yplacement+180-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Gordon Library")){
+	     		g1.setLayoutX(xplacement+225);
+		     	g1.setLayoutY(yplacement+365-i*45);
+	     	}
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Project Center")){
+	     		g1.setLayoutX(xplacement+430);
+		     	g1.setLayoutY(yplacement+272-i*45);
+	     	}
+	     	//TODO
+	     	//AWKWARD BC OF SHAPE ?? TOP LEVEL NOT HIGHLIGHTING!!!! - is it not being attached? CHECK NUMBER OF FLOORS
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Atwater Kent")){
+	     		//g1.setRotate(180);
+	     		g1.setLayoutX(xplacement+280);
+		     	g1.setLayoutY(yplacement+230-i*30);
+	     	}
+	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
+	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
+	     		g1.setLayoutX(xplacement+340);
+		     	g1.setLayoutY(yplacement+560-i*45);
+	     	}
+	     	/// ABOVE^^^^^^
+	     		
+	     		
+	     	applyAnimation(g1, i, imageView);
+	     	
+	     	//fade in the group of layered maps
+	     	shortFadeIn(LayerGroup);
+   	     	LayerGroup.getChildren().add(g1);
 
    	     	//used inside action scope
    	     	int floor = currentFloor;
@@ -1005,7 +1065,12 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
    	     				System.out.println(floor);
+   	     				root.getChildren().remove(LayerGroup);
+   	     				LayerGroup.getChildren().clear();
    	     				root.getChildren().remove(BackButton);
+   	     				if(root.getChildren().contains(BuildingNameLabel))
+   	     					root.getChildren().remove(BuildingNameLabel);
+   	     				screenFadeBack(imageView);
    	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
    	     				loadMap(root, imageView);
@@ -1014,64 +1079,154 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
      			public void handle(MouseEvent event) {
      				BuildingNameLabel.setText(building.getName());
-
+     				if(building.equals(FullerLabs))
+     	   	     		g1.setEffect(ptFuller);
+     	   	     	else
+     	   	     		g1.setEffect(pt);
+     				shortFadeOut(g1);
      			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
    	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
-   	     			g1.setEffect(shadow);
-   	     		}
+   	     			
+   	     			if(building.equals(FullerLabs))
+   	     				g1.setEffect(shadowFuller);
+   	     			else
+   	     				g1.setEffect(shadow);
+   	     			}
    	     	});
-   	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
-   	     		public void handle(MouseEvent event) {
-   	     			//PerspectiveTransform pt = new PerspectiveTransform();
-   	     			//pt = setCorners(pt, 80, 60);
-   	     			g1.setEffect(pt);
-   	     		}
-   	     	});
-   	     	g1.setLayoutX(120);
-   	     	g1.setLayoutY(100-i*45);
-   	     	applyAnimation(g1, i);
-   	     	LayerGroup.getChildren().add(g1);
-
+   	     	//Fade out the rest of the maps **START OTHER ALPHA AT LOW**
+   	     	g1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+	     		public void handle(MouseEvent event) {
+	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
+	     			if(building.equals(FullerLabs))
+   	     				g1.setEffect(shadowFuller);
+   	     			else
+   	     				g1.setEffect(shadow);
+	     			shortFadeIn(g1);
+	     		}
+	     	});
     	}
-	    root.getChildren().add(LayerGroup);
+    	if(!NodePane.getChildren().contains(LayerGroup))
+    		NodePane.getChildren().add(LayerGroup);
+	    
+	    //add actions to when you leave the layered group, remove it
+	    LayerGroup.setOnMouseExited(new EventHandler<MouseEvent>() {
+     		public void handle(MouseEvent event) {
+     			BuildingNameLabel.setText("..");
+     			if(root.getChildren().contains(BuildingNameLabel))
+     				root.getChildren().remove(BuildingNameLabel);
+     			screenFadeBack(imageView);
+     			///Change to fade out of the layered group
+     			fadeOutLayeredGroup(LayerGroup);
+     		}
+			private void fadeOutLayeredGroup(Group layerGroup) {
+				FadeTransition blur = new FadeTransition();
+				blur.setDuration(Duration.millis(500));
+				blur.setFromValue(.3);
+				blur.setToValue(0);
+				blur.setNode(layerGroup);
+				blur.play();
+				
+				//remove the layered group from stage when we roll out after it fades out
+				blur.setOnFinished(new EventHandler<ActionEvent>(){
+			            @Override
+			            public void handle(ActionEvent arg0) {
+			            	NodePane.getChildren().remove(LayerGroup);
+			     			LayerGroup.getChildren().clear();
+			            }
+			    });
+			}
+     	});
 	}
-
-	private void applyAnimation(Group g1, int i){
+	
+	private void shortFadeOut(Group g1){
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(300));
+		blur.setFromValue(1);
+		blur.setToValue(.3);
+		blur.setNode(g1);
+		blur.play();
+	}
+	//Fade in for a group
+	private void shortFadeIn(Group g1){
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(300));
+		blur.setFromValue(.3);
+		blur.setToValue(1);
+		blur.setNode(g1);
+		blur.play();
+	}
+	//restore map alpha back to 100%
+	private void screenFadeBack(ImageView imageView){
+		//Fade the alpha
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(800));
+		blur.setFromValue(.3);
+		blur.setToValue(1.0);
+		blur.setNode(imageView);
+		blur.play();
+	}
+	
+	private void applyAnimation(Group g1, int i,  ImageView imageView){
+		//Fade the alpha
+		FadeTransition blur = new FadeTransition();
+		blur.setDuration(Duration.millis(1000));
+		blur.setFromValue(1.0);
+		blur.setToValue(.3);
+		blur.setNode(imageView);
+		blur.play();
+		
+		//where to attach the maps
+		//**** CHANGING THESE VARS BELOW (ADDING STUFF)*****
+		//double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
+		//double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
 		 //FLOOR 1
 		 Path g1path = new Path();
 		 MoveTo g1moveTo = new MoveTo();
-		 g1moveTo.setX(500.0f);
-		 g1moveTo.setY(600.0f);
+		 g1moveTo.setX(0);
+		 g1moveTo.setY(0);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX(500.0f);
-		 g1lineTo.setY(560.0f - i*10);
+		 g1lineTo.setX(0);//-i*15
+		 g1lineTo.setY( -i*14);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
 		 PathTransition g1pt = new PathTransition();
-		 g1pt.setDuration(Duration.millis(5000));
+		 g1pt.setDuration(Duration.millis(1000));
 		 g1pt.setPath(g1path);
 		 g1pt.setNode(g1);
 		 g1pt.setOrientation(PathTransition.OrientationType.NONE);
-		 g1pt.setCycleCount(Timeline.INDEFINITE);
+		 //g1pt.setCycleCount(Timeline.INDEFINITE); //for levitation, but nahh
 		 g1pt.setAutoReverse(true);
 		 g1pt.play();
-
     }
 
-    private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
-		 pt.setUlx(width + 80);//upper left
-	     pt.setUly(height + 0);
-	     pt.setUrx(width + 280);//upper right
-	     pt.setUry(height + 0);
-	     pt.setLrx(width + 200);//Lower right
-	     pt.setLry(height + 120);
-	     pt.setLlx(width + 0);//lower left
-	     pt.setLly(height + 120);
+	//Custom ones for each building, move pt from global to local again
+    private PerspectiveTransform setCorners(PerspectiveTransform pt) {
+		 pt.setUlx(0);//upper left
+	     pt.setUly(0);
+	     pt.setUrx(270);//upper right
+	     pt.setUry(0);
+	     pt.setLrx(270);//Lower right
+	     pt.setLry(120);
+	     pt.setLlx(0);//lower left
+	     pt.setLly(120);
+	     return pt;
+	}
+    
+  //Custom Fuller transform
+    private PerspectiveTransform setCornersFuller(PerspectiveTransform pt) {
+		 pt.setUlx(0);//upper left
+	     pt.setUly(0);
+	     pt.setUrx(200);//upper right
+	     pt.setUry(0);
+	     pt.setLrx(200);//Lower right
+	     pt.setLry(200);
+	     pt.setLlx(0);//lower left
+	     pt.setLly(200);
 	     return pt;
 	}
 
@@ -1215,25 +1370,7 @@ public class GPSapp extends Application{
         globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	//TODO Add rest
-    	
-    	for(int i=0; i < globalNodeList.size(); i++) {
-    		
-    		switch (globalNodeList.get(i).getType()) {
-    		case "Point":				PointNodes.add(globalNodeList.get(i));
-    		case "Transition Point": 	TransitionNodes.add(globalNodeList.get(i));
-    		case "Staircase":			StaircaseNodes.add(globalNodeList.get(i));
-    		case "Vending Machine":		VendingMachineNodes.add(globalNodeList.get(i));
-    		case "Water Fountain":		WaterFountainNodes.add(globalNodeList.get(i));
-    		case "Men's Bathroom":		MensBathroomNodes.add(globalNodeList.get(i));
-    		case "Women's Bathroom":	WomensBathroomNodes.add(globalNodeList.get(i));
-    		case "Emergency Pole":		EmergencyPoleNodes.add(globalNodeList.get(i));
-    		case "Dining":				DiningNodes.add(globalNodeList.get(i));
-    		case "Elevator":			ElevatorNodes.add(globalNodeList.get(i));
-    		case "ComputerLab":			ComputerLabNodes.add(globalNodeList.get(i));
-    		}
-    		
-    	}
-    	
+    	    	
 
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	return GLOBALGRAPH;
@@ -1501,6 +1638,16 @@ public class GPSapp extends Application{
         		StartList.setOpacity(0);
 
     }
+    
+    class DragContext {
+
+        double mouseAnchorX;
+        double mouseAnchorY;
+
+        double translateAnchorX;
+        double translateAnchorY;
+
+    }
 
     public void handleSearchByKeyDest(String oldVal, String newVal) {
         // If the number of characters in the text box is less than last time
@@ -1549,7 +1696,6 @@ public class GPSapp extends Application{
     }
 
     private Parent createZoomPane(final Group group) {
-	    final double SCALE_DELTA = 1.001;
 	    final StackPane zoomPane = new StackPane();
 	    scrollPane = new ScrollPane();
 	    scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
@@ -1560,6 +1706,11 @@ public class GPSapp extends Application{
 
 	    final Group scrollContent = new Group(zoomPane);
 	    scrollPane.setContent(scrollContent);
+	    
+	    if(mapSelector.getValue().equals("CampusMap")) {
+		    scrollContent.setTranslateX(-517);
+	    	scrollContent.setTranslateY(-236);
+	    }
 	    //Removes Scroll bars
 	    scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 	    scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -1577,126 +1728,71 @@ public class GPSapp extends Application{
 	    
 	   
 
-	    //scrollPane.setPrefViewportWidth(stageInitialWidth);
-	    //scrollPane.setPrefViewportHeight(stageInitialHeight);
 	    zoomPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
         	public void handle(MouseEvent event) {
         		mouseYposition = event.getY();
         		mouseXposition = event.getX();
-        		//System.out.println(mouseXposition + ":" + mouseYposition);
         		
         	}
         });
-
+	    
+	    	    
 	    zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
 	      @Override
 	      public void handle(ScrollEvent event) {
-	        event.consume();
-	        
-
-	        if (event.getDeltaY() == 0) {
-	          return;
-	        }
-
-	        double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
-
-	        if(scaleFactor < 1 && k > -1) {
-	        	k--;
-	        	//System.out.println(k);
-		        // amount of scrolling in each direction in scrollContent coordinate
-		        // units
-		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-		        
-		        for(int i = 0; i < 50; i++) {
-		        	group.setScaleX(group.getScaleX() * scaleFactor);
-			        group.setScaleY(group.getScaleY() * scaleFactor);
-		        }
-
-		        
-
-		        // move viewport so that old center remains in the center after the
-		        // scaling
-		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-	        }
-	        if(scaleFactor > 1 && k < 8) {
-	        	k++;
-		        // amount of scrolling in each direction in scrollContent coordinate
-		        // units
-		        Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-
-		        for(int i = 0; i < 50; i++) {
-		        	group.setScaleX(group.getScaleX() * scaleFactor);
-		        	group.setScaleY(group.getScaleY() * scaleFactor);
-		        }
-
-		        // move viewport so that old center remains in the center after the
-		        // scaling
-		        repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-	        }
-
+	    	  double zoomFactor = 1.1;
+	    	  
+	    	  
+	          if (event.getDeltaY() <= 0) {
+	              // zoom out
+	              zoomFactor = 1 / zoomFactor;
+	              
+	          }
+	          Scale scale = new Scale(zoomFactor, zoomFactor, mouseXposition, mouseYposition);
+	          
+	          if ( zoomFactor > 1 && k < 10) {
+	        	  
+		          scrollContent.getTransforms().add(scale);
+	        	  k++;
+	          }
+	          if (zoomFactor < 1 && k > -5 ){
+		          scrollContent.getTransforms().add(scale);
+	        	  k--;
+	          }
+	                    
+	          event.consume();
 	      }
 	    });
+	    
+	    
 
+	    DragContext sceneDragContext = new DragContext();
 	    // Panning via drag....
-	    final ObjectProperty<Point2D> lastMouseCoordinates = new SimpleObjectProperty<Point2D>();
 	    scrollContent.setOnMousePressed(new EventHandler<MouseEvent>() {
 	      @Override
 	      public void handle(MouseEvent event) {
-	        lastMouseCoordinates.set(new Point2D(event.getX(), event.getY()));
+	    	  sceneDragContext.mouseAnchorX = event.getSceneX();
+	            sceneDragContext.mouseAnchorY = event.getSceneY();
+
+	            sceneDragContext.translateAnchorX = scrollContent.getTranslateX();
+	            sceneDragContext.translateAnchorY = scrollContent.getTranslateY();
 	      }
 	    });
+	    
+	    
 
 	    scrollContent.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                double deltaX = event.getX() - lastMouseCoordinates.get().getX();
-                double extraWidth = scrollContent.getLayoutBounds().getWidth() - scrollPane.getViewportBounds().getWidth();
-                double deltaH = deltaX * (scrollPane.getHmax() - scrollPane.getHmin()) / extraWidth;
-                double desiredH = scrollPane.getHvalue() - deltaH;
-                scrollPane.setHvalue(Math.max(0, Math.min(scrollPane.getHmax(), desiredH)));
-
-                double deltaY = event.getY() - lastMouseCoordinates.get().getY();
-                double extraHeight = scrollContent.getLayoutBounds().getHeight() - scrollPane.getViewportBounds().getHeight();
-                double deltaV = deltaY * (scrollPane.getHmax() - scrollPane.getHmin()) / extraHeight;
-                double desiredV = scrollPane.getVvalue() - deltaV;
-                scrollPane.setVvalue(Math.max(0, Math.min(scrollPane.getVmax(), desiredV)));
-            }
+            	scrollContent.setTranslateX(sceneDragContext.translateAnchorX + event.getSceneX() - sceneDragContext.mouseAnchorX);
+            	scrollContent.setTranslateY(sceneDragContext.translateAnchorY + event.getSceneY() - sceneDragContext.mouseAnchorY);
+            	event.consume();
+            	}
         });
 
 	    return scrollPane;
 	}
 
-    private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
-        double scrollXOffset = scrollOffset.getX();
-        double scrollYOffset = scrollOffset.getY();
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        if (extraWidth > 0) {
-          double halfWidth = scroller.getViewportBounds().getWidth() / 2 ;
-          double newScrollXOffset = (scaleFactor - 1) *  halfWidth + scaleFactor * scrollXOffset;
-          scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
-        } else {
-          scroller.setHvalue(scroller.getHmin());
-        }
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        if (extraHeight > 0) {
-          double halfHeight = scroller.getViewportBounds().getHeight() / 2 ;
-          double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
-          scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
-        } else {
-          scroller.setHvalue(scroller.getHmin());
-        }
-      }
-
-    private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
-        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
-        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
-        	
-        return new Point2D(mouseXposition, mouseYposition);
-      }
 
     private void loadMap(Pane root, ImageView imageView){
 
@@ -2064,12 +2160,71 @@ public class GPSapp extends Application{
 							canvas.relocate(-224, -83);
     						buttonRescale = 1/0.5544;
 							break;
+    	case "FLSB":
+            				imageView.setScaleX(0.7882);
+            				imageView.setScaleY(0.7882);
+            				imageView.relocate(0, 0);
+            				NodePane.setScaleX(0.7882);
+            				NodePane.setScaleY(0.7882);
+            				NodePane.relocate(-150, -80);
+            				canvas.setScaleX(0.7882);
+            				canvas.setScaleY(0.7882);
+            				canvas.relocate(-150, -80);
+            				buttonRescale = 1 / 0.7882;
+            				break;
+        case "FLB":
+            				imageView.setScaleX(0.7601);
+            				imageView.setScaleY(0.7601);
+            				imageView.relocate(0, 0);
+            				NodePane.setScaleX(0.7601);
+            				NodePane.setScaleY(0.7601);
+            				NodePane.relocate(-170, -55);
+            				canvas.setScaleX(0.7601);
+            				canvas.setScaleY(0.7601);
+            				canvas.relocate(-170, -55);
+            				buttonRescale = 1 / 0.7601;
+            				break;
+        case "FL1":
+            				imageView.setScaleX(0.6098);
+            				imageView.setScaleY(0.6098);
+            				imageView.relocate(0, 0);
+            				NodePane.setScaleX(0.6098);
+            				NodePane.setScaleY(0.6098);
+            				NodePane.relocate(-250, -52);
+            				canvas.setScaleX(0.6098);
+            				canvas.setScaleY(0.6098);
+            				canvas.relocate(-250, -52);
+            				buttonRescale = 1 / 0.6098;
+            				break;
+        case "FL2":
+            				imageView.setScaleX(0.5585);
+            				imageView.setScaleY(0.5585);
+            				imageView.relocate(0, 0);
+            				NodePane.setScaleX(0.5585);
+            				NodePane.setScaleY(0.5585);
+            				NodePane.relocate(-250, -40);
+            				canvas.setScaleX(0.5585);
+            				canvas.setScaleY(0.5585);
+            				canvas.relocate(-250, -40);
+            				buttonRescale = 1 / 0.5585;
+            				break;
+        case "FL3":
+            				imageView.setScaleX(0.5515);
+            				imageView.setScaleY(0.5515);
+            				imageView.relocate(0, 0);
+            				NodePane.setScaleX(0.5515);
+            				NodePane.setScaleY(0.5515);
+            				NodePane.relocate(-270, -40);
+            				canvas.setScaleX(0.5515);
+            				canvas.setScaleY(0.5515);
+            				canvas.relocate(-270, -40);
+            				buttonRescale = 1 / 0.5515;
+            				break;
 		}
         gc.clearRect(0, 0, 8000, 6000);
         drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
         
         	
-
         final Group group = new Group(imageView, canvas, NodePane);
         zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
@@ -2125,7 +2280,9 @@ public class GPSapp extends Application{
                 cc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 keyText.setText("Campus Center");
                 keyText.setFill(BuildingName);
-        		//System.out.println("I'm here");
+                BuildingRolledOver = CampusCenter;
+                pause.play(); //At the end of play, pause runs a method to show layered maps
+               
         	}
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2133,16 +2290,10 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
+                BuildingRolledOver = NullBuilding;
         	}
         });
-        cc.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(CampusCenter, root, imageView);
-        		}
-        	}
-        });
-
+        
         NodePane.getChildren().add(cc);
 
 
@@ -2160,26 +2311,23 @@ public class GPSapp extends Application{
         olin.setStrokeWidth(1.0);
         olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Olin Hall");
-                keyText.setFill(BuildingName);
+                //keyText.setText("Olin Hall");
+                //keyText.setFill(BuildingName);
+                //BuildingRolledOver = olinHall;
                 //olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
+                //BuildingRolledOver = CampusCenter;
+                //pause.play();
         	}
         });
         olin.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText(" ");
-                keyText.setFill(key);
-                olin.setFill(Color.TRANSPARENT);
+                //keyText.setText(" ");
+                //keyText.setFill(key);
+                //olin.setFill(Color.TRANSPARENT);
+                //BuildingRolledOver = NullBuilding;
         	}
         });
-        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			//getMapSelector(OlinHall, root, zoomPane, imageView);
-        		}
-        	}
-        });
+        
 
         NodePane.getChildren().add(olin);
 
@@ -2200,7 +2348,8 @@ public class GPSapp extends Application{
         		stratton.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 keyText.setText("Stratton Hall");
                 keyText.setFill(BuildingName);
-        		//System.out.println("I'm here");
+                BuildingRolledOver = StrattonHall;
+                pause.play();
         	}
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2208,16 +2357,10 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		stratton.setFill(Color.TRANSPARENT);
+        		BuildingRolledOver = NullBuilding;
         	}
         });
-        stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(StrattonHall, root, imageView);
-        		}
-        	}
-        });
-
+        
         NodePane.getChildren().add(stratton);
 
         Polygon library = new Polygon();
@@ -2247,7 +2390,8 @@ public class GPSapp extends Application{
                 keyText.setText("Gordon Library");
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
+        		BuildingRolledOver = GordonLibrary;
+                pause.play();
         	}
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2255,13 +2399,7 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		library.setFill(Color.TRANSPARENT);
-        	}
-        });
-        library.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(GordonLibrary, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2295,7 +2433,8 @@ public class GPSapp extends Application{
                 keyText.setText("Atwater Kent");
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
+        		BuildingRolledOver = AtwaterKent;
+                pause.play();  
         	}
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2303,15 +2442,10 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		ak.setFill(Color.TRANSPARENT);
+        		BuildingRolledOver = NullBuilding;
         	}
         });
-        ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(AtwaterKent, root, imageView);
-        		}
-        	}
-        });
+        
 
 
         NodePane.getChildren().add(ak);
@@ -2333,7 +2467,8 @@ public class GPSapp extends Application{
                 keyText.setText("Project Center");
                 keyText.setFill(BuildingName);
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
+        		BuildingRolledOver = ProjectCenter;
+                pause.play();
         	}
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2341,13 +2476,7 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		cdc.setFill(Color.TRANSPARENT);
-        	}
-        });
-        cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(ProjectCenter, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2387,21 +2516,16 @@ public class GPSapp extends Application{
                 keyText.setText("Higgins House");
                 keyText.setFill(BuildingName);
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
-        	}
+        		BuildingRolledOver = HigginsHouse;
+                pause.play();        	
+                }
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
         		higginsHouse.setFill(Color.TRANSPARENT);
-        	}
-        });
-        higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(HigginsHouse, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2426,21 +2550,16 @@ public class GPSapp extends Application{
                 keyText.setText("Higgins House Garage");
                 keyText.setFill(BuildingName);
                 higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
-        	}
+                BuildingRolledOver = HigginsHouseGarage;
+                pause.play();               
+               }
         });
         higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
                 higginsHouseGAR.setFill(Color.TRANSPARENT);
-        	}
-        });
-        higginsHouseGAR.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(HigginsHouseGarage, root, imageView);
-        		}
+                BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2473,33 +2592,72 @@ public class GPSapp extends Application{
         	public void handle (MouseEvent event){
                 keyText.setText("Boynton Hall");
                 keyText.setFill(BuildingName);
-
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
-        	}
+        		BuildingRolledOver = BoyntonHall;
+                pause.play();        		
+        		}
         });
         boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
 
             public void handle (MouseEvent event){
-
-                keyText.setText(" ");
-                keyText.relocate(850,650);
-                root.getChildren().remove(keyText);
-                root.getChildren().add(keyText);
-
+            	keyText.setText(" ");
                 keyText.setFill(key);
                 boyntonHall.setFill(Color.TRANSPARENT);
+                BuildingRolledOver = NullBuilding;
         	}
         });
-        boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
+       
+
+        NodePane.getChildren().add(boyntonHall);
+        
+        
+        Polygon fullerLabs = new Polygon();
+        fullerLabs.getPoints().addAll(new Double[]{
+
+        	    1560.0 - xOffset, 592.0 - yOffset,
+        	    1586.0 - xOffset, 645.0 - yOffset,
+        	    1663.0 - xOffset, 606.0 - yOffset,
+        	    1645.0 - xOffset, 571.0 - yOffset,
+        	    1667.0 - xOffset, 558.0 - yOffset,
+        	    1638.0 - xOffset, 501.0 - yOffset,
+        	    1632.0 - xOffset, 499.0 - yOffset,
+        	    1603.0 - xOffset, 515.0 - yOffset,
+        	    1616.0 - xOffset, 540.0 - yOffset,
+        	    1573.0 - xOffset, 563.0 - yOffset,
+        	    1582.0 - xOffset, 580.0 - yOffset});
+
+        fullerLabs.setFill(Color.TRANSPARENT);
+
+        fullerLabs.setStroke(Color.TRANSPARENT);
+        fullerLabs.setStrokeWidth(1.0);
+        fullerLabs.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(BoyntonHall, root, imageView);
-        		}
+                keyText.setText("Fuller Labs");
+                keyText.setFill(BuildingName);
+
+                fullerLabs.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+                BuildingRolledOver = FullerLabs;
+                pause.play(); 
+            }
+        });
+        fullerLabs.setOnMouseExited(new EventHandler <MouseEvent>(){
+
+            public void handle (MouseEvent event){
+            	keyText.setText(" ");
+                keyText.setFill(key);
+                fullerLabs.setFill(Color.TRANSPARENT);
+                BuildingRolledOver = NullBuilding;
         	}
         });
 
-        NodePane.getChildren().add(boyntonHall);
+        NodePane.getChildren().add(fullerLabs);
+        pause.setOnFinished(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent arg0) {
+            	if(!BuildingRolledOver.equals(NullBuilding))
+    		    	getMapSelector(BuildingRolledOver, root, imageView);
+            }
+        });
     }
     
     public static double round(double value, int places) {
