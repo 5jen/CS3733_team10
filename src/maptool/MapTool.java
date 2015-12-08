@@ -63,6 +63,7 @@ public class MapTool extends Application {
     Building HigginsHouse = new Building("Higgins House");
     Building ProjectCenter = new Building("Project Center");
     Building StrattonHall = new Building("Stratton Hall");
+    Building FullerLabs = new Building("Fuller Labs");
 
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -102,6 +103,13 @@ public class MapTool extends Application {
     Map StrattonHall2 = new Map("Stratton Hall 2", "SH", "CS3733_Graphics/SH2.png", "Graphs/Nodes/SH2.json", "Graphs/Edges/SH2Edges.json", 1.71, 1364, 898, 0.0766, "2");
     Map StrattonHall3 = new Map("Stratton Hall 3", "SH", "CS3733_Graphics/SH3.png", "Graphs/Nodes/SH3.json", "Graphs/Edges/SH3Edges.json", 1.71, 1364, 898, 0.0749, "3");
 
+    Map FullerLabsSB = new Map("Fuller Labs SB", "FL", "CS3733_Graphics/FLSB.png", "Graphs/Nodes/FLSB.json", "Graphs/Edges/FLSBEdges.json", 1.099, 1636, 497, 0.1735, "SB");
+    Map FullerLabsB = new Map("Fuller Labs B", "FL", "CS3733_Graphics/FLB.png", "Graphs/Nodes/FLB.json", "Graphs/Edges/FLBEdges.json", 1.099, 1636, 497, 0.1641, "B");
+    Map FullerLabs1 = new Map("Fuller Labs 1", "FL", "CS3733_Graphics/FL1.png", "Graphs/Nodes/FL1.json", "Graphs/Edges/FL1Edges.json", 1.099, 1636, 497, 0.169, "1");
+    Map FullerLabs2 = new Map("Fuller Labs 2", "FL", "CS3733_Graphics/FL2.png", "Graphs/Nodes/FL2.json", "Graphs/Edges/FL2Edges.json", 1.099, 1636, 497, 0.168, "2");
+    Map FullerLabs3 = new Map("Fuller Labs 3", "FL", "CS3733_Graphics/FL3.png", "Graphs/Nodes/FL3.json", "Graphs/Edges/FL3Edges.json", 1.099, 1636, 497, 0.1661, "3");
+
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -204,6 +212,12 @@ public class MapTool extends Application {
 
         ProjectCenter.addMap(ProjectCenter1);
         ProjectCenter.addMap(ProjectCenter2);
+        
+        FullerLabs.addMap(FullerLabsSB);
+        FullerLabs.addMap(FullerLabsB);
+        FullerLabs.addMap(FullerLabs1);
+        FullerLabs.addMap(FullerLabs2);
+        FullerLabs.addMap(FullerLabs3);
 
         // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -216,6 +230,7 @@ public class MapTool extends Application {
         buildings.add(StrattonHall);
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
+        buildings.add(FullerLabs);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -1520,6 +1535,56 @@ public class MapTool extends Application {
                 NodePane.relocate(-224, -83);
                 buttonRescale = 1 / 0.5544;
                 zField.setText("2");
+                break;
+            case "FLSB":
+                imageView.setScaleX(0.7882);
+                imageView.setScaleY(0.7882);
+                imageView.relocate(0, 0);
+                NodePane.setScaleX(0.7882);
+                NodePane.setScaleY(0.7882);
+                NodePane.relocate(-150, -80);
+                buttonRescale = 1 / 0.7882;
+                zField.setText("-4");
+                break;
+            case "FLB":
+                imageView.setScaleX(0.7601);
+                imageView.setScaleY(0.7601);
+                imageView.relocate(0, 0);
+                NodePane.setScaleX(0.7601);
+                NodePane.setScaleY(0.7601);
+                NodePane.relocate(-170, -55);
+                buttonRescale = 1 / 0.7601;
+                zField.setText("-3");
+                break;
+            case "FL1":
+                imageView.setScaleX(0.6098);
+                imageView.setScaleY(0.6098);
+                imageView.relocate(0, 0);
+                NodePane.setScaleX(0.6098);
+                NodePane.setScaleY(0.6098);
+                NodePane.relocate(-250, -52);
+                buttonRescale = 1 / 0.6098;
+                zField.setText("-2");
+                break;
+            case "FL2":
+                imageView.setScaleX(0.5585);
+                imageView.setScaleY(0.5585);
+                imageView.relocate(0, 0);
+                NodePane.setScaleX(0.5585);
+                NodePane.setScaleY(0.5585);
+                NodePane.relocate(-250, -40);
+                buttonRescale = 1 / 0.5585;
+                zField.setText("-1");
+                break;
+            case "FL3":
+                imageView.setScaleX(0.5515);
+                imageView.setScaleY(0.5515);
+                imageView.relocate(0, 0);
+                NodePane.setScaleX(0.5515);
+                NodePane.setScaleY(0.5515);
+                NodePane.relocate(-270, -40);
+                buttonRescale = 1 / 0.5515;
+                zField.setText("0");
                 break;
         }
 
