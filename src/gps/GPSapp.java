@@ -3,20 +3,15 @@ package gps;
 import TurnByTurn.Step;
 import TurnByTurn.stepIndicator;
 import io.JsonParser;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,11 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
@@ -812,11 +803,12 @@ public class GPSapp extends Application{
     		//StepBox.setStyle("-fx-border-color: black;");
     		Label newDirection;
 
-    		if(directions.get(i).getDistance() == 0.0) {
+    		//if(directions.get(i).getDistance() == 0.0) {
     			newDirection = new Label(directions.get(i).getMessage());
-    		} else {
-    			newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
-    		}
+			    newDirection.setFont(Font.font("Menlo"));
+    		//} else {
+    		//	newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
+    		//}
 
     		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
             Image arrowImage = new Image(arrowFile.toURI().toString());
