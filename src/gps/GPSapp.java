@@ -167,7 +167,9 @@ public class GPSapp extends Application{
 
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
+	PerspectiveTransform ptFuller = new PerspectiveTransform();
 	final DropShadow shadow = new DropShadow();
+	final DropShadow shadowFuller = new DropShadow();
 	final FadeTransition fader = new FadeTransition();
 
 	Path g1path = new Path();
@@ -284,8 +286,10 @@ public class GPSapp extends Application{
         
     	double width = 80;
 	    double height = 60;
-    	pt = setCorners(pt, width, height);
+    	pt = setCorners(pt);
+    	ptFuller = setCornersFuller(ptFuller);
     	shadow.setInput(pt);
+    	shadowFuller.setInput(ptFuller);
     	
 
     	//Create a Building selection drop down menu
@@ -990,9 +994,13 @@ public class GPSapp extends Application{
     		double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
     		double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
-
    	     	Group g1 = new Group();
-   	     	g1.setEffect(pt);
+   	     	//Fuller has a special transformation
+   	     	if(building.equals(FullerLabs))
+   	     		g1.setEffect(ptFuller);
+   	     	else
+   	     		g1.setEffect(pt);
+   	     	
    	     	g1.setOpacity(.3);
    	     	g1.getChildren().add(mapImageView);
    	     	
@@ -1039,8 +1047,8 @@ public class GPSapp extends Application{
 	     	}
 	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
-	     		g1.setLayoutX(xplacement+300);
-		     	g1.setLayoutY(yplacement+600-i*45);
+	     		g1.setLayoutX(xplacement+340);
+		     	g1.setLayoutY(yplacement+560-i*45);
 	     	}
 	     	/// ABOVE^^^^^^
 	     		
@@ -1071,21 +1079,31 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
      			public void handle(MouseEvent event) {
      				BuildingNameLabel.setText(building.getName());
-     				g1.setEffect(pt);
+     				if(building.equals(FullerLabs))
+     	   	     		g1.setEffect(ptFuller);
+     	   	     	else
+     	   	     		g1.setEffect(pt);
      				shortFadeOut(g1);
      			}
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
    	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
-   	     			g1.setEffect(shadow);
-   	     		}
+   	     			
+   	     			if(building.equals(FullerLabs))
+   	     				g1.setEffect(shadowFuller);
+   	     			else
+   	     				g1.setEffect(shadow);
+   	     			}
    	     	});
    	     	//Fade out the rest of the maps **START OTHER ALPHA AT LOW**
    	     	g1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	     		public void handle(MouseEvent event) {
 	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
-	     			g1.setEffect(shadow);
+	     			if(building.equals(FullerLabs))
+   	     				g1.setEffect(shadowFuller);
+   	     			else
+   	     				g1.setEffect(shadow);
 	     			shortFadeIn(g1);
 	     		}
 	     	});
@@ -1187,7 +1205,7 @@ public class GPSapp extends Application{
     }
 
 	//Custom ones for each building, move pt from global to local again
-    private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
+    private PerspectiveTransform setCorners(PerspectiveTransform pt) {
 		 pt.setUlx(0);//upper left
 	     pt.setUly(0);
 	     pt.setUrx(270);//upper right
@@ -1196,6 +1214,19 @@ public class GPSapp extends Application{
 	     pt.setLry(120);
 	     pt.setLlx(0);//lower left
 	     pt.setLly(120);
+	     return pt;
+	}
+    
+  //Custom Fuller transform
+    private PerspectiveTransform setCornersFuller(PerspectiveTransform pt) {
+		 pt.setUlx(0);//upper left
+	     pt.setUly(0);
+	     pt.setUrx(200);//upper right
+	     pt.setUry(0);
+	     pt.setLrx(200);//Lower right
+	     pt.setLry(200);
+	     pt.setLlx(0);//lower left
+	     pt.setLly(200);
 	     return pt;
 	}
 
