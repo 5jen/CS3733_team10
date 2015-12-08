@@ -442,7 +442,7 @@ public class MapTool extends Application {
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
-        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        zoomPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.W && event.isShiftDown()) {
