@@ -106,7 +106,9 @@ public class MapTool extends Application {
     JsonParser json = new JsonParser();
     LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
+    LinkedList<EdgeDataConversion> transitionEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/MapTransitions.json");
     LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+    LinkedList<Edge> transitionEdgeList = convertEdgeData(transitionEdgeListConversion);
     Canvas canvas = new Canvas(800, 600);
     GraphicsContext gc = canvas.getGraphicsContext2D();
     boolean start, end = false;
@@ -662,7 +664,11 @@ public class MapTool extends Application {
                 Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
                 System.out.println(fromNode.getName());
                 System.out.println(toNode.getName());
-                edgeList.add(newEdge);
+                if (!Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())){
+                    transitionEdgeList.add(newEdge);
+                } else {
+                    edgeList.add(newEdge);
+                }
                 if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
                     Line line = new Line();
                     line.setStartX(startX);
@@ -1038,24 +1044,32 @@ public class MapTool extends Application {
         Node fromEdgeNode = null;
         Node toEdgeNode = null;
 
-        //iterate through the edges
-        for (int i = 0; i < edgeData.size(); i++) {
-            //iterate throught he nodelist to find the matching node
-            for (int j = 0; j < nodeList.size(); j++) {
-                if (edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())) {
-                    fromEdgeNode = nodeList.get(j);
-                }
-                if (edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())) {
-                    toEdgeNode = nodeList.get(j);
-                }
+        if(Objects.equals(edgeData, transitionEdgeListConversion)){
+            for (EdgeDataConversion eC : edgeData) {
+                toEdgeNode = new Node(0, 0, 0, eC.getTo(), "", "", false, false, "");
+                fromEdgeNode = new Node(0, 0, 0, eC.getFrom(), "", "", false, false, "");
+                edgeList.add(new Edge(fromEdgeNode, toEdgeNode, eC.getDistance()));
             }
+        } else {
 
-            if (fromEdgeNode == null) {
-                //fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
-            } else if (toEdgeNode == null) {
-                //toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+            //iterate through the edges
+            for (int i = 0; i < edgeData.size(); i++) {
+                //iterate throught he nodelist to find the matching node
+                for (int j = 0; j < nodeList.size(); j++) {
+                    if (edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())) {
+                        fromEdgeNode = nodeList.get(j);
+                    }
+                    if (edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())) {
+                        toEdgeNode = nodeList.get(j);
+                    }
+                }
 
-            } else {
+                if (fromEdgeNode == null) {
+                    fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
+                }
+                if (toEdgeNode == null) {
+                    toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+                }
                 Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
                 edgeList.add(newEdge);
             }
@@ -1078,6 +1092,14 @@ public class MapTool extends Application {
         String edgePath = currentlySelectedMap.getEdgesPath();
         try {
             JsonParser.saveFile(edgeData, edgePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String transitionEdgeData = JsonParser.jsonToStringEdge(transitionEdgeList);
+        String transitionEdgePath = "Graphs/Edges/MapTransitions.json";
+        try {
+            JsonParser.saveFile(transitionEdgeData, transitionEdgePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
