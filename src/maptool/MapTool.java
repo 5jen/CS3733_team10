@@ -7,8 +7,7 @@ import java.util.Objects;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import io.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,10 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -52,6 +48,7 @@ public class MapTool extends Application {
     boolean startCoord, endCoord = false;
     double startX, startY, startZ, endX, endY, endZ = 0.0, buttonRescale = 1 / 0.75;
     int k = 0; // Set Max zoom Variable
+    boolean disableKey = false;
 
     // Buildings
     // TODO Add more buildings
@@ -458,34 +455,39 @@ public class MapTool extends Application {
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
+
         root.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.W && event.isShiftDown()) {
-                    autoEdgeCreate.setSelected(!autoEdgeCreate.isSelected());
-                } else if (event.getCode() == KeyCode.W) {
-                    createEdge(NodePane);
-                }
-                if (event.getCode() == KeyCode.Q && event.isShiftDown()) {
-                    autoNodeCreate.setSelected(!autoNodeCreate.isSelected());
-                } else if (event.getCode() == KeyCode.Q) {
-                    createNode(NodePane);
-                }
-                if (event.getCode() == KeyCode.P) {
-                    isPlace.setSelected(!isPlace.isSelected());
-                }
-                if (event.getCode() == KeyCode.L) {
-                    loadMap(root, canvas, zoomPane, NodePane, imageView);
-                }
-                if (event.getCode() == KeyCode.S && event.isControlDown()) {
-                    saveGraphMethod();
-                    warningLabel.setText("Map Saved");
-                }
-                if (event.getCode() == KeyCode.X) {
-                    lockX.setSelected(!lockX.isSelected());
-                }
-                if (event.getCode() == KeyCode.Y) {
-                    lockY.setSelected(!lockY.isSelected());
+                if (disableKey || event.getCode() == KeyCode.SHIFT || event.getCode() == KeyCode.ALT || event.getCode() == KeyCode.CONTROL) {
+
+                } else {
+                    if (event.getCode() == KeyCode.W && event.isControlDown()) {
+                        autoEdgeCreate.setSelected(!autoEdgeCreate.isSelected());
+                    } else if (event.getCode() == KeyCode.W && !event.isShiftDown()) {
+                        createEdge(NodePane);
+                    }
+                    if (event.getCode() == KeyCode.Q && event.isControlDown()) {
+                        autoNodeCreate.setSelected(!autoNodeCreate.isSelected());
+                    } else if (event.getCode() == KeyCode.Q && !event.isShiftDown()) {
+                        createNode(NodePane);
+                    }
+                    if (event.getCode() == KeyCode.P && !event.isShiftDown()) {
+                        isPlace.setSelected(!isPlace.isSelected());
+                    }
+                    if (event.getCode() == KeyCode.L && !event.isShiftDown()) {
+                        loadMap(root, canvas, zoomPane, NodePane, imageView);
+                    }
+                    if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                        saveGraphMethod();
+                        warningLabel.setText("Map Saved");
+                    }
+                    if (event.getCode() == KeyCode.X && !event.isShiftDown()) {
+                        lockX.setSelected(!lockX.isSelected());
+                    }
+                    if (event.getCode() == KeyCode.Y && !event.isShiftDown()) {
+                        lockY.setSelected(!lockY.isSelected());
+                    }
                 }
             }
         });
@@ -568,9 +570,17 @@ public class MapTool extends Application {
             }
         });
 
+        nameField.setOnInputMethodTextChanged(new EventHandler<InputMethodEvent>() {
+            @Override
+            public void handle(InputMethodEvent event) {
+                disableKey = true;
+            }
+        });
+
 
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+                disableKey = false;
                 //Set the location coordinates in the input boxes
 
                 //still need to find where to add Z..****
@@ -1122,6 +1132,7 @@ public class MapTool extends Application {
         scrollPane.setPrefViewportWidth(800);
         scrollPane.setPrefViewportHeight(605);
 
+
         zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
@@ -1227,6 +1238,7 @@ public class MapTool extends Application {
 
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView) {
         k = 0; // Reset Zoom Variable
+        disableKey = false;
         warningLabel.setText(" ");
         NodePane.getChildren().clear();
         //clear existing node list
@@ -1602,7 +1614,6 @@ public class MapTool extends Application {
         final Group group = new Group(imageView, NodePane);
         zoomPane = createZoomPane(group);
         root.getChildren().add(zoomPane);
-
     }
 
 //    public void updateNodeMethod(Parent zoomPane, Pane NodePane) {
