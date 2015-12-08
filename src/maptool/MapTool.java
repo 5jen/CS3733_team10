@@ -7,8 +7,7 @@ import java.util.Objects;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
 import io.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,10 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -52,6 +48,7 @@ public class MapTool extends Application {
     boolean startCoord, endCoord = false;
     double startX, startY, startZ, endX, endY, endZ = 0.0, buttonRescale = 1 / 0.75;
     int k = 0; // Set Max zoom Variable
+    boolean disableKey = false;
 
     // Buildings
     // TODO Add more buildings
@@ -168,7 +165,9 @@ public class MapTool extends Application {
     JsonParser json = new JsonParser();
     LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
+    LinkedList<EdgeDataConversion> transitionEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/MapTransitions.json");
     LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+    LinkedList<Edge> transitionEdgeList = convertEdgeData(transitionEdgeListConversion);
     Canvas canvas = new Canvas(800, 600);
     GraphicsContext gc = canvas.getGraphicsContext2D();
     boolean start, end = false;
@@ -509,34 +508,39 @@ public class MapTool extends Application {
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
+
         root.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.W && event.isShiftDown()) {
-                    autoEdgeCreate.setSelected(!autoEdgeCreate.isSelected());
-                } else if (event.getCode() == KeyCode.W) {
-                    createEdge(NodePane);
-                }
-                if (event.getCode() == KeyCode.Q && event.isShiftDown()) {
-                    autoNodeCreate.setSelected(!autoNodeCreate.isSelected());
-                } else if (event.getCode() == KeyCode.Q) {
-                    createNode(NodePane);
-                }
-                if (event.getCode() == KeyCode.P) {
-                    isPlace.setSelected(!isPlace.isSelected());
-                }
-                if (event.getCode() == KeyCode.L) {
-                    loadMap(root, canvas, zoomPane, NodePane, imageView);
-                }
-                if (event.getCode() == KeyCode.S && event.isControlDown()) {
-                    saveGraphMethod();
-                    warningLabel.setText("Map Saved");
-                }
-                if (event.getCode() == KeyCode.X) {
-                    lockX.setSelected(!lockX.isSelected());
-                }
-                if (event.getCode() == KeyCode.Y) {
-                    lockY.setSelected(!lockY.isSelected());
+                if (disableKey || event.getCode() == KeyCode.SHIFT || event.getCode() == KeyCode.ALT || event.getCode() == KeyCode.CONTROL) {
+
+                } else {
+                    if (event.getCode() == KeyCode.W && event.isControlDown()) {
+                        autoEdgeCreate.setSelected(!autoEdgeCreate.isSelected());
+                    } else if (event.getCode() == KeyCode.W && !event.isShiftDown()) {
+                        createEdge(NodePane);
+                    }
+                    if (event.getCode() == KeyCode.Q && event.isControlDown()) {
+                        autoNodeCreate.setSelected(!autoNodeCreate.isSelected());
+                    } else if (event.getCode() == KeyCode.Q && !event.isShiftDown()) {
+                        createNode(NodePane);
+                    }
+                    if (event.getCode() == KeyCode.P && !event.isShiftDown()) {
+                        isPlace.setSelected(!isPlace.isSelected());
+                    }
+                    if (event.getCode() == KeyCode.L && !event.isShiftDown()) {
+                        loadMap(root, canvas, zoomPane, NodePane, imageView);
+                    }
+                    if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                        saveGraphMethod();
+                        warningLabel.setText("Map Saved");
+                    }
+                    if (event.getCode() == KeyCode.X && !event.isShiftDown()) {
+                        lockX.setSelected(!lockX.isSelected());
+                    }
+                    if (event.getCode() == KeyCode.Y && !event.isShiftDown()) {
+                        lockY.setSelected(!lockY.isSelected());
+                    }
                 }
             }
         });
@@ -619,9 +623,17 @@ public class MapTool extends Application {
             }
         });
 
+        nameField.setOnInputMethodTextChanged(new EventHandler<InputMethodEvent>() {
+            @Override
+            public void handle(InputMethodEvent event) {
+                disableKey = true;
+            }
+        });
+
 
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+                disableKey = false;
                 //Set the location coordinates in the input boxes
 
                 //still need to find where to add Z..****
@@ -727,7 +739,11 @@ public class MapTool extends Application {
                 Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
                 System.out.println(fromNode.getName());
                 System.out.println(toNode.getName());
-                edgeList.add(newEdge);
+                if (!Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())){
+                    transitionEdgeList.add(newEdge);
+                } else {
+                    edgeList.add(newEdge);
+                }
                 if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
                     Line line = new Line();
                     line.setStartX(startX);
@@ -1103,24 +1119,32 @@ public class MapTool extends Application {
         Node fromEdgeNode = null;
         Node toEdgeNode = null;
 
-        //iterate through the edges
-        for (int i = 0; i < edgeData.size(); i++) {
-            //iterate throught he nodelist to find the matching node
-            for (int j = 0; j < nodeList.size(); j++) {
-                if (edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())) {
-                    fromEdgeNode = nodeList.get(j);
-                }
-                if (edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())) {
-                    toEdgeNode = nodeList.get(j);
-                }
+        if(Objects.equals(edgeData, transitionEdgeListConversion)){
+            for (EdgeDataConversion eC : edgeData) {
+                toEdgeNode = new Node(0, 0, 0, eC.getTo(), "", "", false, false, "");
+                fromEdgeNode = new Node(0, 0, 0, eC.getFrom(), "", "", false, false, "");
+                edgeList.add(new Edge(fromEdgeNode, toEdgeNode, eC.getDistance()));
             }
+        } else {
 
-            if (fromEdgeNode == null) {
-                //fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
-            } else if (toEdgeNode == null) {
-                //toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+            //iterate through the edges
+            for (int i = 0; i < edgeData.size(); i++) {
+                //iterate throught he nodelist to find the matching node
+                for (int j = 0; j < nodeList.size(); j++) {
+                    if (edgeListConversion.get(i).getFrom().equals((nodeList.get(j)).getName())) {
+                        fromEdgeNode = nodeList.get(j);
+                    }
+                    if (edgeListConversion.get(i).getTo().equals((nodeList.get(j)).getName())) {
+                        toEdgeNode = nodeList.get(j);
+                    }
+                }
 
-            } else {
+                if (fromEdgeNode == null) {
+                    fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
+                }
+                if (toEdgeNode == null) {
+                    toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
+                }
                 Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
                 edgeList.add(newEdge);
             }
@@ -1143,6 +1167,14 @@ public class MapTool extends Application {
         String edgePath = currentlySelectedMap.getEdgesPath();
         try {
             JsonParser.saveFile(edgeData, edgePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String transitionEdgeData = JsonParser.jsonToStringEdge(transitionEdgeList);
+        String transitionEdgePath = "Graphs/Edges/MapTransitions.json";
+        try {
+            JsonParser.saveFile(transitionEdgeData, transitionEdgePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1172,6 +1204,7 @@ public class MapTool extends Application {
 
         scrollPane.setPrefViewportWidth(800);
         scrollPane.setPrefViewportHeight(605);
+
 
         zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
@@ -1278,6 +1311,7 @@ public class MapTool extends Application {
 
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView) {
         k = 0; // Reset Zoom Variable
+        disableKey = false;
         warningLabel.setText(" ");
         NodePane.getChildren().clear();
         //clear existing node list
@@ -1653,7 +1687,6 @@ public class MapTool extends Application {
         final Group group = new Group(imageView, NodePane);
         zoomPane = createZoomPane(group);
         root.getChildren().add(zoomPane);
-
     }
 
 //    public void updateNodeMethod(Parent zoomPane, Pane NodePane) {

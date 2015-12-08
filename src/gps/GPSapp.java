@@ -1364,6 +1364,10 @@ public class GPSapp extends Application{
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+
+		// Add transition edges
+        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/MapTransitions.json");
+        globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	//TODO Add rest
     	    	
