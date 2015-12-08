@@ -1074,15 +1074,10 @@ public class MapTool extends Application {
                 }
             }
 
-            if (fromEdgeNode == null) {
-                //fromEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getFrom(), "", "", false, false, "");
-            } else if (toEdgeNode == null) {
-                //toEdgeNode = new Node(0, 0, 0, edgeListConversion.get(i).getTo(), "", "", false, false, "");
-
-            } else {
-                Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
-                edgeList.add(newEdge);
-            }
+            
+            Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
+           	edgeList.add(newEdge);
+            
         }
 
         return edgeList;
