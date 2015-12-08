@@ -1,35 +1,5 @@
 [
  {
-  "distance": 38,
-  "from": "CampusCenter2Entrance",
-  "to": "CC:216:560:0"
- },
- {
-  "distance": 17,
-  "from": "CCHall:430:560:0",
-  "to": "CC:709:560:0"
- },
- {
-  "distance": 3,
-  "from": "CCHall:430:560:0",
-  "to": "CCStairsDown:0"
- },
- {
-  "distance": 40,
-  "from": "CC:903:560:0",
-  "to": "CC252"
- },
- {
-  "distance": 4,
-  "from": "CC2:Staircase:1027:506",
-  "to": "CC:1027:560:0"
- },
- {
-  "distance": 3,
-  "from": "CC2:Staircase:1027:506",
-  "to": "CCBackStairs0"
- },
- {
   "distance": 24,
   "from": "CC2:Point:709:717",
   "to": "CC2:Point:1090:717"
@@ -55,11 +25,6 @@
   "to": "CC2:Place:1193:604"
  },
  {
-  "distance": 1265,
-  "from": "CCElevator:0",
-  "to": "CC2:Place:1193:560"
- },
- {
   "distance": 2,
   "from": "CC2:Place:1193:560",
   "to": "CC2:Place:1193:604"
@@ -68,16 +33,6 @@
   "distance": 1,
   "from": "CC2:Place:1193:560",
   "to": "CC2:Place:1170:560"
- },
- {
-  "distance": 1261,
-  "from": "CC2:Place:1144:560",
-  "to": "CC:1027:560:0"
- },
- {
-  "distance": 1276,
-  "from": "CC2:Point:360:704",
-  "to": "CCHall:430:560:0"
  },
  {
   "distance": 3,
@@ -158,11 +113,6 @@
   "distance": 5,
   "from": "CC2:Point:318:825",
   "to": "CC2:Point:349:742"
- },
- {
-  "distance": 1260,
-  "from": "CC2:Place:216:466",
-  "to": "CC:216:560:0"
  },
  {
   "distance": 1,
@@ -360,11 +310,6 @@
   "to": "CC2:Place:216:113"
  },
  {
-  "distance": 1267,
-  "from": "CCHall:430:560:0",
-  "to": "CC2:Point:378:560"
- },
- {
   "distance": 5,
   "from": "CC2:Staircase:400:484",
   "to": "CC2:Point:378:560"
@@ -405,29 +350,9 @@
   "to": "CC2:Place:216:247"
  },
  {
-  "distance": 1264,
-  "from": "CC2:Point:289:560",
-  "to": "CC:216:560:0"
- },
- {
   "distance": 8,
   "from": "CC2:Staircase:400:484",
   "to": "CC2:Point:289:560"
- },
- {
-  "distance": 8,
-  "from": "CC:1027:560:0",
-  "to": "CC:903:560:0"
- },
- {
-  "distance": 1265,
-  "from": "Dunkin' Donuts",
-  "to": "CC:903:560:0"
- },
- {
-  "distance": 1262,
-  "from": "Dunkin' Donuts",
-  "to": "CC:709:560:0"
  },
  {
   "distance": 2,
@@ -450,13 +375,93 @@
   "to": "CC2:Place:1144:560"
  },
  {
-  "distance": 1270,
-  "from": "CC:709:560:0",
-  "to": "Campus Center Bookstore"
- },
- {
   "distance": 5,
   "from": "CC2:Point:709:717",
   "to": "Campus Center Bookstore"
+ },
+ {
+  "distance": 8,
+  "from": "CC2:Point:903:560",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 7,
+  "from": "CC2:Place:1144:560",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Point:903:560",
+  "to": "CC252"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Staircase:1051:510",
+  "to": "CC2:Point:1027:510"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Staircase:1049:445",
+  "to": "CC2:Point:1027:510"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:1027:510",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Point:903:560",
+  "to": "Dunkin' Donuts"
+ },
+ {
+  "distance": 8,
+  "from": "Dunkin' Donuts",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 5,
+  "from": "Campus Center Bookstore",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:429:558",
+  "to": "CC2:Point:378:560"
+ },
+ {
+  "distance": 6,
+  "from": "CCStairsDown:0",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Point:507:557",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 10,
+  "from": "CC2:Point:360:704",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 13,
+  "from": "CC2:Point:507:557",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Place:216:559",
+  "to": "CC2:Point:289:560"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Place:216:466",
+  "to": "CC2:Place:216:559"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Transition Point:105:560",
+  "to": "CC2:Place:216:559"
  }
 ]
