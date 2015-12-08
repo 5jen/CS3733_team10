@@ -1482,6 +1482,16 @@ public class GPSapp extends Application{
         		StartList.setOpacity(0);
 
     }
+    
+    class DragContext {
+
+        double mouseAnchorX;
+        double mouseAnchorY;
+
+        double translateAnchorX;
+        double translateAnchorY;
+
+    }
 
     public void handleSearchByKeyDest(String oldVal, String newVal) {
         // If the number of characters in the text box is less than last time
