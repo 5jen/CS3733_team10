@@ -141,7 +141,9 @@ public class JsonParser {
     	}
 
 
-		return array.toString();
+
+
+		return array.toString(1);
     }
     
     /**
@@ -161,7 +163,7 @@ public class JsonParser {
         	array.put(json);
     	}
 
-		return array.toString();
+		return array.toString(1);
     }
     
     public static void saveFile(String str, String path) throws IOException{
