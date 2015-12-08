@@ -116,7 +116,6 @@ public class MapTool extends Application{
 	boolean updateNode = false;
 	Button nodeButtonReference = new Button("");
 	Button startButton = null, endButton = null, currentButton = null;
-    ;
     final TextField xField = new TextField("");  
     final TextField yField = new TextField("");
     final TextField zField = new TextField("");
