@@ -5,6 +5,7 @@ import TurnByTurn.stepIndicator;
 import io.JsonParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -84,6 +85,8 @@ public class GPSapp extends Application{
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
 
+	//TODO PROBABLY CHANGE THIS TO SELECT BUILDING AND THEN SUB DROP DOWN TO SELECT FLOOR
+	//THIS IS TOO CLUTTERED. NOT ORGANIZED
 	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AKB", "AK1", "AK2", "AK3", "GLSB", "GLB", "GL1", "GL2", "GL3", "BHB", "BH1", "BH2", "BH3", "CC1", "CC2", "CC3", "HHB", "HH1", "HH2", "HH3", "HHAPT", "HHGAR", "PC1", "PC2", "SHB", "SH1", "SH2", "SH3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
 	
@@ -193,11 +196,10 @@ public class GPSapp extends Application{
 	 boolean pinAttached = false;
 
 	Building BuildingRolledOver = new Building("");
+	PauseTransition pause = new PauseTransition(Duration.millis(1000));
 
 	@Override
     public void start(Stage primaryStage) {
-
-    	
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -907,10 +909,6 @@ public class GPSapp extends Application{
 
  	    //****** ATTACHING MAPS OVER, DELETING ON MOUSE OVER ***** 
         //MOve this effect to global so we dont make a new one every time
-        BoxBlur bb = new BoxBlur();
-        bb.setWidth(20);
-        bb.setHeight(10);
-        bb.setIterations(3);
         
 
 		//Attach Building label
@@ -947,7 +945,8 @@ public class GPSapp extends Application{
    	     	g1.setOpacity(.3);
    	     	g1.getChildren().add(mapImageView);
    	     	
-	     	
+	     	//TODO 
+   	     	//ATTAH BUILDING to the layeredGroup so that when you roll out you can still be on the builing
 	     	//CUSTOM OFFSETS AHHHH DAMNIT
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Campus Center")){
 	     		g1.setLayoutX(xplacement+360);
@@ -955,31 +954,35 @@ public class GPSapp extends Application{
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House")){
 	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+		     	g1.setLayoutY(yplacement+600-i*45);
 	     	}
+	     	//TODO
+	     	///****** WHAT IS THAT ACTUAL NAME OF THIS?????***
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House Garage")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+	     		g1.setLayoutX(xplacement+250);
+		     	g1.setLayoutY(yplacement-500-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Stratton Hall")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+	     		g1.setLayoutX(xplacement+360);
+		     	g1.setLayoutY(yplacement+210-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Boynton Hall")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+	     		g1.setLayoutX(xplacement+370);
+		     	g1.setLayoutY(yplacement+220-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Gordon Library")){
 	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+		     	g1.setLayoutY(yplacement+320-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Project Center")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+	     		g1.setLayoutX(xplacement+470);
+		     	g1.setLayoutY(yplacement+300-i*45);
 	     	}
+	     	//TODO
+	     	//AWKWARD BC OF SHAPE ?? TOP LEVEL NOT HIGHLIGHTING!!!! - is it not being attached? CHECK NUMBER OF FLOORS
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Atwater Kent")){
 	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*45);
+		     	g1.setLayoutY(yplacement+270-i*30);
 	     	}
 	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
@@ -1004,6 +1007,9 @@ public class GPSapp extends Application{
    	     				root.getChildren().remove(LayerGroup);
    	     				LayerGroup.getChildren().clear();
    	     				root.getChildren().remove(BackButton);
+   	     				if(root.getChildren().contains(BuildingNameLabel))
+   	     					root.getChildren().remove(BuildingNameLabel);
+   	     				screenFadeBack(imageView);
    	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
    	     				loadMap(root, imageView);
@@ -1066,17 +1072,16 @@ public class GPSapp extends Application{
 	
 	private void shortFadeOut(Group g1){
 		FadeTransition blur = new FadeTransition();
-		blur.setDuration(Duration.millis(500));
+		blur.setDuration(Duration.millis(300));
 		blur.setFromValue(1);
 		blur.setToValue(.3);
 		blur.setNode(g1);
 		blur.play();
-		
 	}
 	//Fade in for a group
 	private void shortFadeIn(Group g1){
 		FadeTransition blur = new FadeTransition();
-		blur.setDuration(Duration.millis(500));
+		blur.setDuration(Duration.millis(300));
 		blur.setFromValue(.3);
 		blur.setToValue(1);
 		blur.setNode(g1);
@@ -1086,19 +1091,14 @@ public class GPSapp extends Application{
 	private void screenFadeBack(ImageView imageView){
 		//Fade the alpha
 		FadeTransition blur = new FadeTransition();
-		blur.setDuration(Duration.millis(1000));
+		blur.setDuration(Duration.millis(800));
 		blur.setFromValue(.3);
 		blur.setToValue(1.0);
 		blur.setNode(imageView);
 		blur.play();
-		
 	}
 	
-		
-	
-
 	private void applyAnimation(Group g1, int i,  ImageView imageView){
-		
 		//Fade the alpha
 		FadeTransition blur = new FadeTransition();
 		blur.setDuration(Duration.millis(1000));
@@ -1109,8 +1109,8 @@ public class GPSapp extends Application{
 		
 		//where to attach the maps
 		//**** CHANGING THESE VARS BELOW (ADDING STUFF)*****
-		double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
-		double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
+		//double xplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetX();
+		//double yplacement = BuildingRolledOver.getMaps().get(0).getGlobalToLocalOffsetY();
 
 		 //FLOOR 1
 		 Path g1path = new Path();
@@ -1131,7 +1131,6 @@ public class GPSapp extends Application{
 		 //g1pt.setCycleCount(Timeline.INDEFINITE); //for levitation, but nahh
 		 g1pt.setAutoReverse(true);
 		 g1pt.play();
-
     }
 
 	//Custom ones for each building, move pt from global to local again
@@ -2179,17 +2178,8 @@ public class GPSapp extends Application{
                 keyText.setText("Campus Center");
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = CampusCenter;
-                //TO-DO
-                //DELAY BEFORE OPENING LAYERED VIEW, 
-                /*try {
-        		    Thread.sleep(800);                 //1000 milliseconds is one second.
-        		    getMapSelector(CampusCenter, root, imageView);
-                } catch(InterruptedException ex) {
-        		    Thread.currentThread().interrupt();
-        		}*/
-                //**BUGGY WITH DELAY!!!!
-    		    getMapSelector(CampusCenter, root, imageView);
-
+                pause.play(); //At the end of play, pause runs a method to show layered maps
+               
         	}
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2197,17 +2187,10 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
-                //BuildingRolledOver = null;
+                BuildingRolledOver = null;
         	}
         });
-        cc.setOnMouseMoved(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			//getMapSelector(CampusCenter, root, imageView);
-        		}
-        	}
-        });
-
+        
         NodePane.getChildren().add(cc);
 
 
@@ -2568,6 +2551,14 @@ public class GPSapp extends Application{
         });
 
         NodePane.getChildren().add(boyntonHall);
+        
+        pause.setOnFinished(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent arg0) {
+            	if(BuildingRolledOver.equals(CampusCenter))
+    		    	getMapSelector(CampusCenter, root, imageView);
+            }
+        });
     }
     
     public static double round(double value, int places) {
