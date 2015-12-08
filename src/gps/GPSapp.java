@@ -100,7 +100,7 @@ public class GPSapp extends Application{
 	final Pane root = new Pane();
 	final BorderPane Borders = new BorderPane();
     ScrollPane scrollPane = new ScrollPane();
-	Scene scene = new Scene(root, 1050,750);
+	Scene scene = new Scene(root, 1100,750);
 	double scaleXratio = 1;
     double scaleYRatio = 1;
     double stageInitialWidthDifference = 100;
@@ -185,7 +185,7 @@ public class GPSapp extends Application{
 	final Button BackButton = new Button("Back");
 
     Text keyText = new Text(600, 640,"");
-    Text toggleKeyText = new Text(995, 740,"Show Key");
+    Text toggleKeyText = new Text(1045, 740,"Show Key");
 	
 	//Vars used for displaying Multiple maps after finding the route
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
@@ -458,7 +458,7 @@ public class GPSapp extends Application{
         }
     	
     	
-    	 stageInitialWidthDifference = scene.getWidth()-1050;
+    	 stageInitialWidthDifference = scene.getWidth()-1100;
          stageInitialHeightDifference = scene.getHeight()-750;
 
 
@@ -526,7 +526,7 @@ public class GPSapp extends Application{
     		@Override
     		public void changed(ObservableValue<? extends Number> observable,
     				Number oldValue, Number newValue) {
-    			stageInitialWidthDifference = scene.getWidth()- 1050;    			
+    			stageInitialWidthDifference = scene.getWidth()- 1100;    			
     			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
     			imageViewKey.setTranslateX(stageInitialWidthDifference);
     			NextInstruction.setTranslateX(stageInitialWidthDifference);
@@ -842,7 +842,7 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 270, 0);
+            Line breakLine = new Line(0, 0, 250, 0);
             breakLine.setLayoutX(10);
             
             String style = StepBox.getStyle();
