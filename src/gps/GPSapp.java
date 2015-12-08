@@ -1039,8 +1039,8 @@ public class GPSapp extends Application{
 	     	}
 	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement-270-i*45);
+	     		g1.setLayoutX(xplacement+300);
+		     	g1.setLayoutY(yplacement+600-i*45);
 	     	}
 	     	/// ABOVE^^^^^^
 	     		
