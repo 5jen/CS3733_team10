@@ -124,6 +124,7 @@ public class GPSapp extends Application{
   	Building HigginsHouseGarage = new Building("Higgins House Garage"); //need layered maps
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
+  	Building NullBuilding = new Building("Null Building");
 
   	//Map Buildings with their content
   	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -152,6 +153,7 @@ public class GPSapp extends Application{
 	Map HigginsHouse1 = new Map("Higgins House 1", "HH", "CS3733_Graphics/HH1.png", "Graphs/Nodes/HH1.json", "Graphs/Edges/HH1Edges.json", -2.529, 1161, 504, 0.1364, "1");
 	Map HigginsHouse2 = new Map("Higgins House 2", "HH", "CS3733_Graphics/HH2.png", "Graphs/Nodes/HH2.json", "Graphs/Edges/HH2Edges.json", -2.529, 1161, 504, 0.1343, "2");
 	Map HigginsHouse3 = new Map("Higgins House 3", "HH", "CS3733_Graphics/HH3.png", "Graphs/Nodes/HH3.json", "Graphs/Edges/HH3Edges.json", -2.529, 1161, 504, 0.1317, "3");
+	
 	Map HigginsHouseAPT = new Map("Higgins House Apartment", "HH", "CS3733_Graphics/HHAPT.png", "Graphs/Nodes/HHAPT.json", "Graphs/Edges/HHAPTEdges.json", -0.942, 1215, 394, 0.0521, "APT");
 	Map HigginsHouseGAR = new Map("Higgins House Garage", "HH", "CS3733_Graphics/HHGAR.png", "Graphs/Nodes/HHGAR.json", "Graphs/Edges/HHGAREdges.json", -0.942, 1215, 394, 0.053, "GAR");
 
@@ -191,12 +193,22 @@ public class GPSapp extends Application{
 	Button PrevInstruction = new Button("Prev");
 
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
-	
-	 ImageView pinView = new ImageView();
-	 boolean pinAttached = false;
+	//create pin image
+	File pinFile = new File("CS3733_Graphics/pin.png");
+	Image pinImage = new Image(pinFile.toURI().toString());
+	ImageView pinView = new ImageView();
+
+	//create pin image
+	File yPinFile = new File("CS3733_Graphics/yellow-pin.png");
+	Image yPinImage = new Image(yPinFile.toURI().toString());
+	ImageView yPinView = new ImageView();
+
+	boolean pinAttached = false;
+	Circle enter = new Circle(10.0, Color.GREEN);
+	Circle exit = new Circle(10.0, Color.RED);
 
 	Building BuildingRolledOver = new Building("");
-	PauseTransition pause = new PauseTransition(Duration.millis(1000));
+	PauseTransition pause = new PauseTransition(Duration.millis(700));
 
 	@Override
     public void start(Stage primaryStage) {
@@ -247,6 +259,7 @@ public class GPSapp extends Application{
         buildings.add(GordonLibrary);
         buildings.add(CampusCenter);
         buildings.add(HigginsHouse);
+        buildings.add(HigginsHouseGarage);
         buildings.add(StrattonHall);
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
@@ -358,7 +371,10 @@ public class GPSapp extends Application{
         bgView.setLayoutX(0);
         bgView.setLayoutY(0);
 
-        //Create a keyimage to place the map key on screen
+		pinView.setImage(pinImage);
+		yPinView.setImage(yPinImage);
+
+		//Create a keyimage to place the map key on screen
     	File keyFile = new File("CS3733_Graphics/Key.png");
         Image keyImage = new Image(keyFile.toURI().toString());
         ImageView imageViewKey = new ImageView();
@@ -648,7 +664,9 @@ public class GPSapp extends Application{
                                 drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
-
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
                                 System.out.println(" " + route);
                                 for (int i = 0; i < route.size(); i++) {
                                     System.out.println("Route node: " + i + " , " + route.get(i).getName());
@@ -734,8 +752,12 @@ public class GPSapp extends Application{
                             	loadMap(root, imageView);
                             	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
-                            	
-                                System.out.println(" " +route);
+
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+								System.out.println(" " +route);
                                 for(int i = 0; i < route.size(); i++){
                                 	System.out.println("Route node: " + i + " , " + route.get(i).getName());
                                 }
@@ -766,24 +788,21 @@ public class GPSapp extends Application{
     //Display all of the instructions on screen
     private void displayInstructions(LinkedList<Node> route, Pane root){
 
-    	//what if we move this in here..???
-    	//multiMap = splitRoute(route);
-
+    	directionBox.getChildren().clear();
+    	//nooooo
+    	//clear current instructions
+    	//s1 = new ScrollPane();
+    	
     	//create vertical box to add labels too
     	directionBox.setLayoutX(820);
     	directionBox.setLayoutY(100);
 
     	//add a possible scroll box for long routes..
-		 s1.setPrefSize(220, 360);
+		 s1.setPrefSize(270, 360);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
 		 
-    	//or eventually break up into multiple sections of instructions based
-    	//on current map displayed
-    	//for(int k = 0; k < multiMap.size(); k++){
-    		
-    	//}
     		
     	//convert the route to a list of string instructions
     	stepIndicator steps = new stepIndicator(route);
@@ -808,7 +827,7 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 210, 0);
+            Line breakLine = new Line(0, 0, 270, 0);
             breakLine.setLayoutX(10);
             
             String style = StepBox.getStyle();
@@ -861,8 +880,8 @@ public class GPSapp extends Application{
 		
     	String initials = "";
     	for(int i = 0; i < maps.size(); i++){
-    		System.out.println("CURRENT ROUTE: "+ currRoute);
-    		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+    		//System.out.println("CURRENT ROUTE: "+ currRoute);
+    		//System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
     		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
     			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
     	}
@@ -872,8 +891,23 @@ public class GPSapp extends Application{
     	
     	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
         drawRoute(gc, multiMap.get(currRoute));
-		
-        //Determine which buttons to display when changing instructions
+		if(currRoute != 0){
+			NodePane.getChildren().add(enter);
+			enter.setLayoutX(multiMap.get(currRoute).getFirst().getX());
+			enter.setLayoutY(multiMap.get(currRoute).getFirst().getY());
+
+			NodePane.getChildren().add(exit);
+			exit.setLayoutX(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 2).getX());
+			exit.setLayoutY(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 2).getY());
+
+		}
+		else{
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+			yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+		}
+
+		//Determine which buttons to display when changing instructions
         if(currRoute > 0){
         	root.getChildren().remove(PrevInstruction);
         	root.getChildren().add(PrevInstruction);
@@ -881,9 +915,15 @@ public class GPSapp extends Application{
         else if(currRoute == 0){
         	root.getChildren().remove(PrevInstruction);
         }
-		
+
 		//if we are on the last page of instructions, remove next button
-		if(currRoute >= currMaps-1){
+		if (currRoute >= currMaps-1){
+			NodePane.getChildren().remove(exit);
+
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getLast().getLast().getX() - 12);
+			yPinView.setLayoutY(multiMap.getLast().getLast().getY() - 37);
+
 			root.getChildren().remove(NextInstruction);
 		}
 		else {
@@ -948,41 +988,43 @@ public class GPSapp extends Application{
 	     	//TODO 
    	     	//ATTAH BUILDING to the layeredGroup so that when you roll out you can still be on the builing
 	     	//CUSTOM OFFSETS AHHHH DAMNIT
+   	     	//Align with he lower right hand corner of the building
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Campus Center")){
-	     		g1.setLayoutX(xplacement+360);
-		     	g1.setLayoutY(yplacement+290-i*45);
+	     		g1.setLayoutX(xplacement+340);
+		     	g1.setLayoutY(yplacement+310-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+600-i*45);
+	     		g1.setLayoutX(xplacement+370);
+		     	g1.setLayoutY(yplacement+470-i*45);
 	     	}
 	     	//TODO
 	     	///****** WHAT IS THAT ACTUAL NAME OF THIS?????***
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins House Garage")){
-	     		g1.setLayoutX(xplacement+250);
-		     	g1.setLayoutY(yplacement-500-i*45);
+	     		g1.setLayoutX(xplacement+270);
+		     	g1.setLayoutY(yplacement+200-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Stratton Hall")){
-	     		g1.setLayoutX(xplacement+360);
-		     	g1.setLayoutY(yplacement+210-i*45);
+	     		g1.setLayoutX(xplacement+290);
+		     	g1.setLayoutY(yplacement+170-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Boynton Hall")){
-	     		g1.setLayoutX(xplacement+370);
-		     	g1.setLayoutY(yplacement+220-i*45);
+	     		g1.setLayoutX(xplacement+280);
+		     	g1.setLayoutY(yplacement+180-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Gordon Library")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+320-i*45);
+	     		g1.setLayoutX(xplacement+225);
+		     	g1.setLayoutY(yplacement+365-i*45);
 	     	}
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Project Center")){
-	     		g1.setLayoutX(xplacement+470);
-		     	g1.setLayoutY(yplacement+300-i*45);
+	     		g1.setLayoutX(xplacement+430);
+		     	g1.setLayoutY(yplacement+272-i*45);
 	     	}
 	     	//TODO
 	     	//AWKWARD BC OF SHAPE ?? TOP LEVEL NOT HIGHLIGHTING!!!! - is it not being attached? CHECK NUMBER OF FLOORS
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Atwater Kent")){
-	     		g1.setLayoutX(xplacement+400);
-		     	g1.setLayoutY(yplacement+270-i*30);
+	     		g1.setRotate(180);
+	     		g1.setLayoutX(xplacement-400);
+		     	g1.setLayoutY(yplacement-270-i*30);
 	     	}
 	     	//TODO FILL IN ONCE WE GET THE FULLER LAB INFO!!!!!!!!
 	     	if(BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Fuller Labs")){
@@ -1118,8 +1160,8 @@ public class GPSapp extends Application{
 		 g1moveTo.setX(0);
 		 g1moveTo.setY(0);
 		 LineTo g1lineTo = new LineTo();
-		 g1lineTo.setX( -i*40);//-i*15
-		 g1lineTo.setY( -i*40);
+		 g1lineTo.setX(0);//-i*15
+		 g1lineTo.setY( -i*14);
 		 g1path.getElements().add(g1moveTo);
 		 g1path.getElements().add(g1lineTo);
 
@@ -1137,12 +1179,12 @@ public class GPSapp extends Application{
     private PerspectiveTransform setCorners(PerspectiveTransform pt, double width, double height) {
 		 pt.setUlx(0);//upper left
 	     pt.setUly(0);
-	     pt.setUrx(300);//upper right
+	     pt.setUrx(270);//upper right
 	     pt.setUry(0);
-	     pt.setLrx(300);//Lower right
-	     pt.setLry(150);
+	     pt.setLrx(270);//Lower right
+	     pt.setLry(120);
 	     pt.setLlx(0);//lower left
-	     pt.setLly(150);
+	     pt.setLly(120);
 	     return pt;
 	}
 
@@ -1382,6 +1424,7 @@ public class GPSapp extends Application{
 
                             LinkedList<Node> route = new LinkedList<Node>();
                             route = globalGraph.findRoute(startPlace, endPlace);
+							keyText.setText(" ");
                             
                             if(!(startPlace.equals(endPlace))) {
                             	try {
@@ -1427,12 +1470,25 @@ public class GPSapp extends Application{
                                     NodePane.getChildren().clear();
                                     LinkedList<Node> tempNodeList = new LinkedList<Node>();
                                     tempNodeList.add(multiMap.get(currRoute).get(0));
-                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size()-1));
+                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 1));
                                     
                                     //Draws only the start and end nodes of the route
                                     drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
-                                    
-                                    final Group group = new Group(imageView, canvas, NodePane);
+
+									NodePane.getChildren().add(yPinView);
+									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+									yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+									if(multiMap.size() == 1){
+										ImageView endPinView = new ImageView();
+										endPinView.setImage(yPinImage);
+										NodePane.getChildren().add(endPinView);
+										endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+										endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+
+									}
+
+									final Group group = new Group(imageView, canvas, NodePane);
                                     zoomPane = createZoomPane(group);
                                     root.getChildren().add(zoomPane);
                                     route = new LinkedList<Node>();
@@ -1636,7 +1692,7 @@ public class GPSapp extends Application{
         	public void handle(MouseEvent event) {
         		mouseYposition = event.getY();
         		mouseXposition = event.getX();
-        		System.out.println(mouseXposition + ":" + mouseYposition);
+        		//System.out.println(mouseXposition + ":" + mouseYposition);
         		
         	}
         });
@@ -2187,7 +2243,7 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
                 cc.setFill(Color.TRANSPARENT);
-                BuildingRolledOver = null;
+                BuildingRolledOver = NullBuilding;
         	}
         });
         
@@ -2208,27 +2264,23 @@ public class GPSapp extends Application{
         olin.setStrokeWidth(1.0);
         olin.setOnMouseEntered(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText("Olin Hall");
-                keyText.setFill(BuildingName);
+                //keyText.setText("Olin Hall");
+                //keyText.setFill(BuildingName);
                 //BuildingRolledOver = olinHall;
                 //olin.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-        		//System.out.println("I'm here");
+                //BuildingRolledOver = CampusCenter;
+                //pause.play();
         	}
         });
         olin.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
-                keyText.setText(" ");
-                keyText.setFill(key);
-                olin.setFill(Color.TRANSPARENT);
+                //keyText.setText(" ");
+                //keyText.setFill(key);
+                //olin.setFill(Color.TRANSPARENT);
+                //BuildingRolledOver = NullBuilding;
         	}
         });
-        olin.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			//getMapSelector(OlinHall, root, zoomPane, imageView);
-        		}
-        	}
-        });
+        
 
         NodePane.getChildren().add(olin);
 
@@ -2250,8 +2302,7 @@ public class GPSapp extends Application{
                 keyText.setText("Stratton Hall");
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = StrattonHall;
-        		//System.out.println("I'm here");
-                getMapSelector(StrattonHall, root, imageView);// <- Not working for all buildings
+                pause.play();
         	}
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2259,16 +2310,10 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		stratton.setFill(Color.TRANSPARENT);
+        		BuildingRolledOver = NullBuilding;
         	}
         });
-        stratton.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(StrattonHall, root, imageView);
-        		}
-        	}
-        });
-
+        
         NodePane.getChildren().add(stratton);
 
         Polygon library = new Polygon();
@@ -2299,7 +2344,7 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = GordonLibrary;
-        		getMapSelector(GordonLibrary, root, imageView);
+                pause.play();
         	}
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -2307,13 +2352,7 @@ public class GPSapp extends Application{
                 keyText.setText(" ");
                 keyText.setFill(key);
         		library.setFill(Color.TRANSPARENT);
-        	}
-        });
-        library.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(GordonLibrary, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2348,22 +2387,18 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = AtwaterKent;
-        		getMapSelector(AtwaterKent, root, imageView);        	}
+                pause.play();  
+        	}
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
         		ak.setFill(Color.TRANSPARENT);
+        		BuildingRolledOver = NullBuilding;
         	}
         });
-        ak.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(AtwaterKent, root, imageView);
-        		}
-        	}
-        });
+        
 
 
         NodePane.getChildren().add(ak);
@@ -2386,20 +2421,15 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = ProjectCenter;
-        		getMapSelector(ProjectCenter, root, imageView);        	}
+                pause.play();
+        	}
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
         		cdc.setFill(Color.TRANSPARENT);
-        	}
-        });
-        cdc.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(ProjectCenter, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2440,20 +2470,15 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = HigginsHouse;
-        		getMapSelector(HigginsHouse, root, imageView);        	}
+                pause.play();        	
+                }
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
         		higginsHouse.setFill(Color.TRANSPARENT);
-        	}
-        });
-        higginsHouse.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(HigginsHouse, root, imageView);
-        		}
+        		BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2478,20 +2503,16 @@ public class GPSapp extends Application{
                 keyText.setText("Higgins House Garage");
                 keyText.setFill(BuildingName);
                 higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
-                getMapSelector(HigginsHouseGarage, root, imageView);        	}
+                BuildingRolledOver = HigginsHouseGarage;
+                pause.play();               
+               }
         });
         higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
                 keyText.setText(" ");
                 keyText.setFill(key);
                 higginsHouseGAR.setFill(Color.TRANSPARENT);
-        	}
-        });
-        higginsHouseGAR.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(HigginsHouseGarage, root, imageView);
-        		}
+                BuildingRolledOver = NullBuilding;
         	}
         });
 
@@ -2524,39 +2545,30 @@ public class GPSapp extends Application{
         	public void handle (MouseEvent event){
                 keyText.setText("Boynton Hall");
                 keyText.setFill(BuildingName);
-
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = BoyntonHall;
-        		getMapSelector(BoyntonHall, root, imageView);        	}
+                pause.play();        		
+        		}
         });
         boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
 
             public void handle (MouseEvent event){
-
-                keyText.setText(" ");
-                keyText.relocate(850,650);
-                root.getChildren().remove(keyText);
-                root.getChildren().add(keyText);
-
+            	
+            	keyText.setText(" ");
                 keyText.setFill(key);
                 boyntonHall.setFill(Color.TRANSPARENT);
+                BuildingRolledOver = NullBuilding;
         	}
         });
-        boyntonHall.setOnMouseClicked(new EventHandler <MouseEvent>(){
-        	public void handle (MouseEvent event){
-        		if (event.isStillSincePress()) {
-        			getMapSelector(BoyntonHall, root, imageView);
-        		}
-        	}
-        });
+       
 
         NodePane.getChildren().add(boyntonHall);
         
         pause.setOnFinished(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent arg0) {
-            	if(BuildingRolledOver.equals(CampusCenter))
-    		    	getMapSelector(CampusCenter, root, imageView);
+            	if(!BuildingRolledOver.equals(NullBuilding))
+    		    	getMapSelector(BuildingRolledOver, root, imageView);
             }
         });
     }
