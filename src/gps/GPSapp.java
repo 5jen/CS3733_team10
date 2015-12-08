@@ -816,7 +816,7 @@ public class GPSapp extends Application{
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setLayoutX(820);
 		 s1.setLayoutY(110);
-		 
+		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
     		
     	//convert the route to a list of string instructions
     	stepIndicator steps = new stepIndicator(route);
@@ -828,6 +828,7 @@ public class GPSapp extends Application{
     	//iterate through the list of instructions and create labels for each one and attach to the root
     	for(int i = 0; i < directions.size(); i++){
     		HBox StepBox = new HBox(2);
+    		
     		//StepBox.setStyle("-fx-border-color: black;");
     		Label newDirection;
 
@@ -842,7 +843,8 @@ public class GPSapp extends Application{
             Image arrowImage = new Image(arrowFile.toURI().toString());
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 250, 0);
+            Line breakLine = new Line(0, 0, 255, 0);
+
             breakLine.setLayoutX(10);
             
             String style = StepBox.getStyle();
@@ -1364,10 +1366,6 @@ public class GPSapp extends Application{
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-
-		// Add transition edges
-        globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/MapTransitions.json");
-        globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	//TODO Add rest
     	    	
@@ -1375,6 +1373,7 @@ public class GPSapp extends Application{
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	return GLOBALGRAPH;
 	}
+    
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
