@@ -350,11 +350,6 @@
   "to": "CC2:Place:216:247"
  },
  {
-  "distance": 8,
-  "from": "CC2:Staircase:400:484",
-  "to": "CC2:Point:289:560"
- },
- {
   "distance": 2,
   "from": "CC2:Place:1193:604",
   "to": "CC2:Place:1193:560"
@@ -466,11 +461,6 @@
  },
  {
   "distance": 3,
-  "from": "CC1:Staircase:417:473",
-  "to": "CCStairsDown:0"
- },
- {
-  "distance": 3,
   "from": "CC3:Staircase:1056:448",
   "to": "CC2:Staircase:1051:510"
  },
@@ -478,5 +468,10 @@
   "distance": 1,
   "from": "CC1:Staircase:433:447",
   "to": "CCStairsDown:0"
+ },
+ {
+  "distance": 5,
+  "from": "CC3:Transition Point:467:472",
+  "to": "CC2:Staircase:400:484"
  }
 ]
