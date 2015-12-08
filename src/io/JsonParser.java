@@ -95,7 +95,7 @@ public class JsonParser {
         	//read one line each time until read a empty line
         	while ((tempString = reader.readLine()) != null) {
         		//show line number 
-        		System.out.println("line " + line + ": " + tempString);
+        		//System.out.println("line " + line + ": " + tempString);
         		laststr = laststr + tempString;
         		line ++;
         	}

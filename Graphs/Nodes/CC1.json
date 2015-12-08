@@ -525,9 +525,9 @@
   "isWalkable": true,
   "globalX": 1202,
   "floorMap": "Campus Center 1",
-  "name": "CC1EntranceInside",
+  "name": "CC1:Point:611:334",
   "isPlace": false,
-  "type": "Transition Point",
+  "type": "Point",
   "valz": -1,
   "building": "Campus Center",
   "valy": 334
@@ -1209,19 +1209,6 @@
   "valy": 344
  },
  {
-  "valx": 417,
-  "globalY": 648,
-  "isWalkable": true,
-  "globalX": 1209,
-  "floorMap": "Campus Center 1",
-  "name": "CC1:Staircase:417:473",
-  "isPlace": false,
-  "type": "Staircase",
-  "valz": -1,
-  "building": "Campus Center",
-  "valy": 473
- },
- {
   "valx": 1093,
   "globalY": 605,
   "isWalkable": true,
@@ -1233,5 +1220,44 @@
   "valz": -1,
   "building": "Campus Center",
   "valy": 591
+ },
+ {
+  "valx": 615,
+  "globalY": 633,
+  "isWalkable": true,
+  "globalX": 1201,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Transition Point:615:319",
+  "isPlace": false,
+  "type": "Transition Point",
+  "valz": -1,
+  "building": "Campus Center",
+  "valy": 319
+ },
+ {
+  "valx": 433,
+  "globalY": 646,
+  "isWalkable": true,
+  "globalX": 1208,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Staircase:433:447",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": -1,
+  "building": "Campus Center",
+  "valy": 447
+ },
+ {
+  "valx": 420,
+  "globalY": 647,
+  "isWalkable": true,
+  "globalX": 1209,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Point:420:470",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -1,
+  "building": "Campus Center",
+  "valy": 470
  }
 ]
