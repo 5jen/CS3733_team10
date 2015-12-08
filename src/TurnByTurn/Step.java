@@ -47,7 +47,7 @@ public class Step {
         int mLength = message.length();
         String distance = ((int) this.distance)+" ft";
         int dLength = distance.length();
-        int nSpace  = 40- mLength- dLength;
+        int nSpace  = 26- mLength- dLength;
         for (int i=0;i<nSpace;i++){
             message +=" ";
         }
