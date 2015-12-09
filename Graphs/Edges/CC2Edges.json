@@ -330,11 +330,6 @@
   "to": "CC2:Point:289:560"
  },
  {
-  "distance": 4,
-  "from": "CC2:Staircase:400:484",
-  "to": "CC2:Staircase:400:484"
- },
- {
   "distance": 6,
   "from": "CC2:Place:216:443",
   "to": "CC2:Place:216:357"
@@ -470,8 +465,8 @@
   "to": "CCStairsDown:0"
  },
  {
-  "distance": 5,
-  "from": "CC3:Transition Point:467:472",
-  "to": "CC2:Staircase:400:484"
+  "distance": 1,
+  "from": "CC1:Staircase:433:447",
+  "to": "CCStairsDown:0"
  }
 ]

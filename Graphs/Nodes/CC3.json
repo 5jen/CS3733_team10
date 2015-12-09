@@ -1051,5 +1051,18 @@
   "valz": 1,
   "building": "Campus Center",
   "valy": 793
+ },
+ {
+  "valx": 471,
+  "globalY": 644,
+  "isWalkable": true,
+  "globalX": 1209,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Staircase:471:467",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": 1,
+  "building": "Campus Center",
+  "valy": 467
  }
 ]

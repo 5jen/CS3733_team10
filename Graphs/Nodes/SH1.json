@@ -557,5 +557,31 @@
   "valz": 0,
   "building": "Stratton Hall",
   "valy": 208
+ },
+ {
+  "valx": 746,
+  "globalY": 919,
+  "isWalkable": true,
+  "globalX": 1352,
+  "floorMap": "Stratton Hall 1",
+  "name": "SH1:Point:746:266",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Stratton Hall",
+  "valy": 266
+ },
+ {
+  "valx": 746,
+  "globalY": 920,
+  "isWalkable": true,
+  "globalX": 1354,
+  "floorMap": "Stratton Hall 1",
+  "name": "SH1:Staircase:746:218",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": 0,
+  "building": "Stratton Hall",
+  "valy": 218
  }
 ]

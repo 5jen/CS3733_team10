@@ -1,1 +1,182 @@
-[]
+[
+ {
+  "distance": 1,
+  "from": "SH3:Staircase:812:203",
+  "to": "SH3:Point:812:267"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:880:267",
+  "to": "SH3:Point:812:267"
+ },
+ {
+  "distance": 3,
+  "from": "SH3:Point:880:267",
+  "to": "SH3:Point:956:267"
+ },
+ {
+  "distance": 0,
+  "from": "SH3:Point:973:267",
+  "to": "SH3:Point:956:267"
+ },
+ {
+  "distance": 3,
+  "from": "SH3:Point:973:267",
+  "to": "SH3:Point:973:360"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:973:360",
+  "to": "SH308"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:973:360",
+  "to": "SH307"
+ },
+ {
+  "distance": 3,
+  "from": "SH3:Point:889:409",
+  "to": "SH307"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:889:409",
+  "to": "SH307A"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:973:267",
+  "to": "SH309"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:956:267",
+  "to": "Stratton Hall 3rd Floor Men's Bathroom"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:880:267",
+  "to": "SH300D"
+ },
+ {
+  "distance": 0,
+  "from": "SH3:Point:973:267",
+  "to": "SH3:Point:956:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:645:267",
+  "to": "Stratton Hall 3rd Floor Women's Bathroom"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:578:267",
+  "to": "SH302B"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:645:267",
+  "to": "SH3:Point:578:267"
+ },
+ {
+  "distance": 5,
+  "from": "SH3:Point:812:267",
+  "to": "SH3:Point:645:267"
+ },
+ {
+  "distance": 3,
+  "from": "SH3:Point:578:267",
+  "to": "SH3:Point:476:267"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:441:267",
+  "to": "SH3:Point:476:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:441:267",
+  "to": "SH3:Point:378:267"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:350:267",
+  "to": "SH3:Point:378:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:378:351",
+  "to": "SH3:Point:378:267"
+ },
+ {
+  "distance": 1,
+  "from": "SH3:Point:378:351",
+  "to": "SH3:Point:340:351"
+ },
+ {
+  "distance": 3,
+  "from": "SH3:Point:240:351",
+  "to": "SH3:Point:340:351"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Point:240:351",
+  "to": "SH3:Point:172:351"
+ },
+ {
+  "distance": 4,
+  "from": "SH3:Point:32:351",
+  "to": "SH3:Point:172:351"
+ },
+ {
+  "distance": 2,
+  "from": "SH306",
+  "to": "SH3:Point:476:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH302A",
+  "to": "SH3:Point:441:267"
+ },
+ {
+  "distance": 1,
+  "from": "SH303",
+  "to": "SH3:Point:350:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH304",
+  "to": "SH3:Point:350:267"
+ },
+ {
+  "distance": 2,
+  "from": "SH305A",
+  "to": "SH3:Point:340:351"
+ },
+ {
+  "distance": 2,
+  "from": "SH305B",
+  "to": "SH3:Point:240:351"
+ },
+ {
+  "distance": 2,
+  "from": "SH305C",
+  "to": "SH3:Point:172:351"
+ },
+ {
+  "distance": 1,
+  "from": "SH305D",
+  "to": "SH3:Point:32:351"
+ },
+ {
+  "distance": 2,
+  "from": "SH3:Staircase:812:203",
+  "to": "SH2:Staircase:748:196"
+ },
+ {
+  "distance": 2,
+  "from": "SH2:Staircase:748:196",
+  "to": "SH3:Staircase:812:203"
+ }
+]

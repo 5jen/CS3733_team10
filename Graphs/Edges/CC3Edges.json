@@ -420,11 +420,6 @@
   "to": "CC3:Point:220:74"
  },
  {
-  "distance": 12,
-  "from": "CC317",
-  "to": "Hagglund Room"
- },
- {
   "distance": 1,
   "from": "CC1:Staircase:433:447",
   "to": "CCStairsDown:0"
@@ -447,6 +442,16 @@
  {
   "distance": 2,
   "from": "CC3:Point:459:501",
-  "to": "CC3:Transition Point:467:472"
+  "to": "CC3:Point:459:501"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:459:501",
+  "to": "CC3:Staircase:471:467"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Staircase:400:484",
+  "to": "CC3:Staircase:471:467"
  }
 ]
