@@ -210,6 +210,8 @@ public class GPSapp extends Application{
 	Circle exit = new Circle(10.0, Color.RED);
 
 	Building BuildingRolledOver = new Building("");
+	Building BuildingRolledOverCurrent = new Building("");
+	
 	PauseTransition pause = new PauseTransition(Duration.millis(700));
 	
 	Button ReturnToCampus = new Button("Back to Campus");
@@ -368,6 +370,8 @@ public class GPSapp extends Application{
         ReturnToCampus.setFont(Font.font ("manteka", 20));
         ReturnToCampus.setLayoutX(600);
         ReturnToCampus.setLayoutY(550);
+        
+        
 
         //Labels for the direction
         //MOVE TO METHOD AND USE FOR LOOP ONCE WE HAVE THE ROUTE CALCULATED
@@ -1928,7 +1932,34 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);*/
         
+        //BASED ON THE INITALS DETERMINE THE BUILDING WERE LOADING..
+        if(mapSelector.getValue().contains("AK"))
+        	BuildingRolledOverCurrent = AtwaterKent;
         
+        if(mapSelector.getValue().contains("BH"))
+        	BuildingRolledOverCurrent = BoyntonHall;
+        
+        if(mapSelector.getValue().contains("CC"))
+        	BuildingRolledOverCurrent = CampusCenter;
+        
+        if(mapSelector.getValue().contains("FL"))
+        	BuildingRolledOverCurrent = FullerLabs;
+        
+        if(mapSelector.getValue().contains("GL"))
+        	BuildingRolledOverCurrent = GordonLibrary;
+        
+        //Special for Higgins house
+        if(mapSelector.getValue().contains("HHAPT")||mapSelector.getValue().contains("HHGAR"))
+        	BuildingRolledOverCurrent = HigginsHouseGarage;
+        
+        if(mapSelector.getValue().contains("HH"))
+        	BuildingRolledOverCurrent = HigginsHouse;
+        
+        if(mapSelector.getValue().contains("PC"))
+        	BuildingRolledOverCurrent = ProjectCenter;
+        
+        if(mapSelector.getValue().contains("SH"))
+        	BuildingRolledOverCurrent = StrattonHall;
 
         //graph = createGraph(graph, nodeList, edgeList);
         NodePane.getChildren().clear();
@@ -2332,13 +2363,75 @@ public class GPSapp extends Application{
 	    
 	  //Place the return to campus button on screen if youre not on the campus  map
         if(!mapSelector.getValue().equals("CampusMap")){
+        	Rectangle buttonBackDrop = new Rectangle(0, 0, 210, 60);
+        	buttonBackDrop.setOpacity(.5);
+        	buttonBackDrop.setFill(Color.GRAY);
+        	buttonBackDrop.setLayoutX(590);
+        	buttonBackDrop.setLayoutY(540);
+        	
+        	root.getChildren().add(buttonBackDrop);
+        	buttonBackDrop.toFront();
+        	
         	root.getChildren().remove(ReturnToCampus);
         	root.getChildren().add(ReturnToCampus);
         	ReturnToCampus.toFront();
+        	
+        	//We also want to choose floors, find number of floors based on initials
+        	
+        	//reuse the same instance button to find the width
+        	Button tempButton = new Button();
+        	tempButton.setPrefWidth(120);
+        	//find out the max with to make the box
+        	double widthOfBox = 50;
+        	for(int i = 0; i < BuildingRolledOverCurrent.getNumMaps(); i++){
+        		tempButton = new Button(BuildingRolledOverCurrent.getName()+ " "+ BuildingRolledOverCurrent.getMaps().get(i).getFloor());
+        		
+        		final Scene snapScene = new Scene(tempButton);  
+        		snapScene.snapshot(null);  
+        		if(tempButton.getWidth() > widthOfBox)
+        			widthOfBox = tempButton.getWidth();
+        		//System.out.println(tempButton.getWidth());
+        	}
+        	widthOfBox += 5; //so extends past edge of buttons
+        	int heightOfBox = 15+BuildingRolledOverCurrent.getNumMaps()*25;
+        	Rectangle backDrop = new Rectangle(2, 2, widthOfBox, heightOfBox);
+        	backDrop.setOpacity(.5);
+        	backDrop.setFill(Color.GRAY);
+        	root.getChildren().add(backDrop);
+        	backDrop.toFront();
+        	
+        	for(int i = 0; i < BuildingRolledOverCurrent.getNumMaps(); i++){
+        		Button floorButton = new Button(BuildingRolledOverCurrent.getName()+ " "+ BuildingRolledOverCurrent.getMaps().get(i).getFloor());
+        		floorButton.setTextFill(Color.BLACK);
+        		floorButton.setFont(Font.font ("manteka", 10));
+        		floorButton.setLayoutX(10);
+        		floorButton.setLayoutY(20+i*20);
+        		
+        		root.getChildren().add(floorButton);
+        		floorButton.toFront();
+        		int floor = i;
+        		floorButton.setOnMouseClicked(new EventHandler <MouseEvent>(){
+                	public void handle (MouseEvent event){
+                        //mapSelector.setValue(value);
+                        mapSelector.setValue(BuildingRolledOverCurrent.getMaps().get(floor).getInitials() + BuildingRolledOverCurrent.getMaps().get(floor).getFloor() );
+   	     				loadMap(root, imageView);
+                	}
+                });
+        	}
+        	Label ChooseFloorLabel = new Label("Floors");
+        	ChooseFloorLabel.setTextFill(Color.BLACK);
+        	ChooseFloorLabel.setFont(Font.font ("manteka", 12));
+        	ChooseFloorLabel.setLayoutX(12);
+        	ChooseFloorLabel.setLayoutY(2);
+    		root.getChildren().add(ChooseFloorLabel);
+    		ChooseFloorLabel.toFront();
+        	//Button ReturnToCampus = new Button("Back to Campus");
         }
         else{
         	root.getChildren().remove(ReturnToCampus);
         }
+        
+        
 
     }
 
@@ -2765,8 +2858,10 @@ public class GPSapp extends Application{
         pause.setOnFinished(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent arg0) {
-            	if(!BuildingRolledOver.equals(NullBuilding))
+            	if(!BuildingRolledOver.equals(NullBuilding)){
+            		BuildingRolledOverCurrent = BuildingRolledOver;
     		    	getMapSelector(BuildingRolledOver, root, imageView);
+            	}
             }
         });
     }
