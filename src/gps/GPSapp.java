@@ -1845,7 +1845,34 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);*/
         
+        //BASED ON THE INITALS DETERMINE THE BUILDING WERE LOADING..
+        if(mapSelector.getValue().contains("AK"))
+        	BuildingRolledOverCurrent = AtwaterKent;
         
+        if(mapSelector.getValue().contains("BH"))
+        	BuildingRolledOverCurrent = BoyntonHall;
+        
+        if(mapSelector.getValue().contains("CC"))
+        	BuildingRolledOverCurrent = CampusCenter;
+        
+        if(mapSelector.getValue().contains("FL"))
+        	BuildingRolledOverCurrent = FullerLabs;
+        
+        if(mapSelector.getValue().contains("GL"))
+        	BuildingRolledOverCurrent = GordonLibrary;
+        
+        //Special for Higgins house
+        if(mapSelector.getValue().contains("HHAPT")||mapSelector.getValue().contains("HHGAR"))
+        	BuildingRolledOverCurrent = HigginsHouseGarage;
+        
+        if(mapSelector.getValue().contains("HH"))
+        	BuildingRolledOverCurrent = HigginsHouse;
+        
+        if(mapSelector.getValue().contains("PC"))
+        	BuildingRolledOverCurrent = ProjectCenter;
+        
+        if(mapSelector.getValue().contains("SH"))
+        	BuildingRolledOverCurrent = StrattonHall;
 
         //graph = createGraph(graph, nodeList, edgeList);
         NodePane.getChildren().clear();
@@ -2249,6 +2276,15 @@ public class GPSapp extends Application{
 	    
 	  //Place the return to campus button on screen if youre not on the campus  map
         if(!mapSelector.getValue().equals("CampusMap")){
+        	Rectangle buttonBackDrop = new Rectangle(0, 0, 210, 60);
+        	buttonBackDrop.setOpacity(.5);
+        	buttonBackDrop.setFill(Color.GRAY);
+        	buttonBackDrop.setLayoutX(590);
+        	buttonBackDrop.setLayoutY(540);
+        	
+        	root.getChildren().add(buttonBackDrop);
+        	buttonBackDrop.toFront();
+        	
         	root.getChildren().remove(ReturnToCampus);
         	root.getChildren().add(ReturnToCampus);
         	ReturnToCampus.toFront();
@@ -2267,7 +2303,7 @@ public class GPSapp extends Application{
         		snapScene.snapshot(null);  
         		if(tempButton.getWidth() > widthOfBox)
         			widthOfBox = tempButton.getWidth();
-        		System.out.println(tempButton.getWidth());
+        		//System.out.println(tempButton.getWidth());
         	}
         	widthOfBox += 5; //so extends past edge of buttons
         	int heightOfBox = 15+BuildingRolledOverCurrent.getNumMaps()*25;
