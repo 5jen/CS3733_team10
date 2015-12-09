@@ -80,6 +80,7 @@ public class GPSapp extends Application{
 	double mouseYposition, mouseXposition;
 	double OriginalScale = 1.0;
 	Rectangle buttonBackDrop = new Rectangle(0, 0, 210, 60);
+	Label directionsTitle = new Label("Directions");
 	
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
@@ -209,8 +210,9 @@ public class GPSapp extends Application{
     Button findNearestButton = new Button("Find Nearest");
 
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
-    ComboBox nearestDropdown = new ComboBox(typeOptions);
-    HBox nearestBox = new HBox(findNearestButton,nearestDropdown);
+    ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
+    HBox nearestBox = new HBox(5);
+    
 
     //Lists of all nodes of the types
     //TODO Actually make these types of nodes
@@ -229,7 +231,7 @@ public class GPSapp extends Application{
 	@Override
     public void start(Stage primaryStage) {
 
-
+		
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -322,11 +324,12 @@ public class GPSapp extends Application{
     	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
 
     	//create Label for directions
-		Label directionsTitle = new Label("Directions");
+		
 		directionsTitle.setTextFill(Color.WHITE);
 		directionsTitle.setFont(Font.font ("manteka", 20));
 		directionsTitle.setLayoutX(820);
-    	directionsTitle.setLayoutY(80);
+    	directionsTitle.setLayoutY(100);
+    	nearestDropdown.setValue("Dining");
 
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0);
@@ -346,11 +349,11 @@ public class GPSapp extends Application{
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.BLACK);
     	NextInstruction.setLayoutX(950);
-    	NextInstruction.setLayoutY(530);
+    	NextInstruction.setLayoutY(560);
     	
     	PrevInstruction.setTextFill(Color.BLACK);
     	PrevInstruction.setLayoutX(870);
-    	PrevInstruction.setLayoutY(530);
+    	PrevInstruction.setLayoutY(560);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -362,11 +365,15 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
         StartSearch.relocate(20, 640);
-        StartSearch.getChildren().addAll(StartText, StartList, nearestBox);
+        StartSearch.getChildren().addAll(StartText, StartList);
         DestSearch.relocate(300, 640);
         DestSearch.getChildren().addAll(DestText, DestList);
         StartList.setOpacity(0);
         DestList.setOpacity(0);
+        
+        nearestBox.getChildren().addAll(findNearestButton,nearestDropdown);
+        nearestBox.setLayoutX(820);
+        nearestBox.setLayoutY(70);
 
         //create Label for Start and Destination
         Label StartLabel = new Label("Start");
@@ -422,9 +429,9 @@ public class GPSapp extends Application{
     	File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
         Image BlurImage = new Image(keyFile.toURI().toString());
         ImageView imageViewBlur = new ImageView();
-        imageViewKey.setImage(keyImage);
-        imageViewKey.setLayoutX(0);
-        imageViewKey.setLayoutY(0);
+        imageViewBlur.setImage(BlurImage);
+        imageViewBlur.setLayoutX(0);
+        imageViewBlur.setLayoutY(0);
 
 
         
@@ -467,10 +474,11 @@ public class GPSapp extends Application{
             }
         });
         
+        //root.getChildren().add(imageViewBlur);
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-        //root.getChildren().add(imageViewBlur);
+        
 
 
         //Add images to the screen
@@ -481,7 +489,7 @@ public class GPSapp extends Application{
         root.getChildren().add(toggleKeyText);
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
-        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
+        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel,nearestBox);
         
         
 
@@ -497,7 +505,8 @@ public class GPSapp extends Application{
          
 
    		 s1.setLayoutX(820 + stageInitialWidthDifference);
-   		 s1.setLayoutY(110 + stageInitialHeightDifference);
+   		 s1.setLayoutY(140 + stageInitialHeightDifference);
+   		 s1.setPrefSize(270, 420 + stageInitialHeightDifference);
 
 
         imageView.setScaleX(0.75);
@@ -545,6 +554,10 @@ public class GPSapp extends Application{
             @Override
             public void handle(MouseEvent event) {
                 Node actualStartNode = new Node(0, 0, 0, "", "", "", false, false, "");
+                startBool = false;
+        		destBool = false;
+        		startButtonBool = false;
+        		destButtonBool = false;
                 for (Node n : globalGraph.getNodes()) {
                     if (n.getName().equals(StartText.getText())) {
                         actualStartNode = n;
@@ -699,6 +712,7 @@ public class GPSapp extends Application{
     			ReturnToCampus.setTranslateX(stageInitialWidthDifference);
     			keyText.setTranslateX(stageInitialWidthDifference);
     			buttonBackDrop.setTranslateX(stageInitialWidthDifference);
+    			nearestBox.setTranslateX(stageInitialWidthDifference);
     			
 
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
@@ -1003,6 +1017,13 @@ public class GPSapp extends Application{
                 		destButtonBool = false;
                 		root.getChildren().remove(NextInstruction);
                 		root.getChildren().remove(PrevInstruction);
+                		StartText.setText("");
+                		DestText.setText("");
+                		StartText.setPromptText("Start");
+                        DestText.setPromptText("Destination");
+                        start = false;
+                        StartList.setOpacity(0);
+                        DestList.setOpacity(0);
                     }
                                         
                 }
@@ -2087,12 +2108,12 @@ public class GPSapp extends Application{
         if(mapSelector.getValue().contains("GL"))
         	BuildingRolledOverCurrent = GordonLibrary;
         
+        if(mapSelector.getValue().contains("HH"))
+        	BuildingRolledOverCurrent = HigginsHouse;
+        
         //Special for Higgins house
         if(mapSelector.getValue().contains("HHAPT")||mapSelector.getValue().contains("HHGAR"))
         	BuildingRolledOverCurrent = HigginsHouseGarage;
-        
-        if(mapSelector.getValue().contains("HH"))
-        	BuildingRolledOverCurrent = HigginsHouse;
         
         if(mapSelector.getValue().contains("PC"))
         	BuildingRolledOverCurrent = ProjectCenter;
@@ -2507,6 +2528,7 @@ public class GPSapp extends Application{
         	buttonBackDrop.setLayoutX(590);
         	buttonBackDrop.setLayoutY(540);
         	
+        	root.getChildren().remove(buttonBackDrop);
         	root.getChildren().add(buttonBackDrop);
         	buttonBackDrop.toFront();
         	
@@ -2530,7 +2552,7 @@ public class GPSapp extends Application{
         			widthOfBox = tempButton.getWidth();
         		//System.out.println(tempButton.getWidth());
         	}
-        	widthOfBox += 5; //so extends past edge of buttons
+        	widthOfBox += 15; //so extends past edge of buttons
         	int heightOfBox = 15+BuildingRolledOverCurrent.getNumMaps()*25;
         	Rectangle backDrop = new Rectangle(2, 2, widthOfBox, heightOfBox);
         	backDrop.setOpacity(.5);
