@@ -27,6 +27,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -59,7 +61,7 @@ public class GPSapp extends Application{
 	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(3000, 2000);
     GraphicsContext gc = canvas.getGraphicsContext2D();
-	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
+	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false, mouseHasMoved = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
 	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
@@ -889,6 +891,23 @@ public class GPSapp extends Application{
 
     			}
             });
+            
+            root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                	
+                	if (event.getCode() == KeyCode.ESCAPE) {
+                		loadMap(root, imageView);
+                		startBool = false;
+                		destBool = false;
+                		startButtonBool = false;
+                		destButtonBool = false;
+                		root.getChildren().remove(NextInstruction);
+                		root.getChildren().remove(PrevInstruction);
+                    }
+                                        
+                }
+            });
 
     }
 	///END OF MAIN ***************************************************************
@@ -1040,6 +1059,7 @@ public class GPSapp extends Application{
 			root.getChildren().remove(NextInstruction);
 			root.getChildren().add(NextInstruction);
 		}
+		root.getChildren().add(s1);
     }
 
 
@@ -1161,6 +1181,8 @@ public class GPSapp extends Application{
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
    	     				//System.out.print.println(floor);
+   	     				
+   	     			if (event.isStillSincePress()) {
    	     				root.getChildren().remove(LayerGroup);
    	     				LayerGroup.getChildren().clear();
    	     				if(root.getChildren().contains(BuildingNameLabel))
@@ -1169,6 +1191,8 @@ public class GPSapp extends Application{
    	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
    	     				loadMap(root, imageView);
+   	     			}
+   	     				
    	     			}
    	     	});
    	     	g1.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -1191,6 +1215,7 @@ public class GPSapp extends Application{
    	     				g1.setEffect(shadow);
    	     			}
    	     	});
+   	     	
    	     	//Fade out the rest of the maps **START OTHER ALPHA AT LOW**
    	     	g1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	     		public void handle(MouseEvent event) {
@@ -1438,6 +1463,15 @@ public class GPSapp extends Application{
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH2Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/BHBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/BH1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/BH2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/BH3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
@@ -2001,10 +2035,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6536);
 							NodePane.setScaleY(0.6536);
-							NodePane.relocate(-212, -70);
+							NodePane.relocate(-212, 0);
 							canvas.setScaleX(0.6536);
 							canvas.setScaleY(0.6536);
-							canvas.relocate(-212, -70);
+							canvas.relocate(-212, 0);
     						buttonRescale = 1/0.6536;
 							break;
     	case "BHB":			imageView.setScaleX(0.5427);

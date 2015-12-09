@@ -1,1 +1,562 @@
-[{"distance":2,"from":"GLHall:Stairs2to1","to":"GLStaircase2to1"},{"distance":3,"from":"GLHall:Near 202rooms","to":"GLHall:202B:202S"},{"distance":1,"from":"GLHall:202B:202S","to":"GL202A"},{"distance":1,"from":"GLHall:202B:202S","to":"GL202B"},{"distance":1,"from":"GLInside224:225","to":"GLInside224:226"},{"distance":0,"from":"GLInside224:226","to":"GL224"},{"distance":0,"from":"GL225","to":"GLInside224:225"},{"distance":4,"from":"GL226","to":"GLInside224:225"},{"distance":5,"from":"GLInsideCafe:226","to":"GL226"},{"distance":1,"from":"GLInsideCafe:226","to":"GL227"},{"distance":0,"from":"GL228","to":"GLInsideCafe:228"},{"distance":1,"from":"GL229","to":"GL228"},{"distance":2,"from":"GL230","to":"GL229"},{"distance":4,"from":"GLInsideCafe:226","to":"GLInsideCafe:228"},{"distance":1,"from":"GLHall:Stairs2to1","to":"GL214"},{"distance":5,"from":"GL214","to":"GL215"},{"distance":5,"from":"GL216","to":"GL214"},{"distance":7,"from":"Class of 1970 Cafe","to":"GLHall:Cafe"},{"distance":9,"from":"GLHall:217:212","to":"GLHall:Cafe"},{"distance":1,"from":"GL217","to":"GLHall:217:212"},{"distance":4,"from":"GL218","to":"GLHall:217:212"},{"distance":5,"from":"GLHall:212:217","to":"GLHall:217:212"},{"distance":5,"from":"GLHall:212:217","to":"GL212"},{"distance":10,"from":"GLHall:212:217","to":"GLHall:Cafe"},{"distance":7,"from":"GLHall:near224","to":"GLHall:Cafe"},{"distance":13,"from":"GLHall:Near 202rooms","to":"GLHall:Stairs2to1"},{"distance":1,"from":"GLHall:Near 202rooms","to":"GLHall:202C"},{"distance":2,"from":"GLHall:202C","to":"GL202C"},{"distance":6,"from":"GLHall:Stairs2to3","to":"GLHall:Stairs2to1"},{"distance":9,"from":"GLHall:Stairs2to3","to":"GLHall:Entrance"},{"distance":2,"from":"GLHall:Stairs2to3","to":"GLStairs2to3"},{"distance":6,"from":"GLHall:near224","to":"GLHall:CafeSmallEntrance"},{"distance":5,"from":"GLHall:CafeSmallEntrance","to":"GLInsideCafe:226"},{"distance":1,"from":"GLHall:near224","to":"GLHall:224"},{"distance":4,"from":"GLHall:224","to":"GL224"},{"distance":11,"from":"GLHall:Entrance","to":"GLFrontEntranceInside"},{"distance":2,"from":"GLHall:804:461:0","to":"GLHall:Entrance"},{"distance":7,"from":"GLHall:224","to":"GLHall:804:461:0"},{"distance":8,"from":"GLHall:804:461:0","to":"GLHall:near224"},{"distance":5,"from":"GLHall:804:363:0","to":"GLHall:804:461:0"},{"distance":2,"from":"GLHall:212:217","to":"GLHall:804:363:0"},{"distance":1564,"from":"GLHall:212:217","to":"GLFrontEntranceInside"},{"distance":1698,"from":"GL Front Entrance","to":"GLFrontEntranceInside"}]
+[
+ {
+  "distance": 2,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 3,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 0,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 0,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 4,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 0,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 2,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 4,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 7,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 9,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 4,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 10,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 7,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 13,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 2,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 6,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 9,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 2,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 6,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 1,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 4,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 11,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 2,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 7,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 8,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 5,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:309:473",
+  "to": "GL2:Point:309:431"
+ },
+ {
+  "distance": 1,
+  "from": "GL203",
+  "to": "GL2:Point:45:538"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:91:538",
+  "to": "GL2:Point:45:538"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:91:538",
+  "to": "GL2:Point:133:538"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:157:538",
+  "to": "GL2:Point:133:538"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:157:538",
+  "to": "GL2:Point:178:538"
+ },
+ {
+  "distance": 1,
+  "from": "GL204",
+  "to": "GL2:Point:91:538"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:133:538",
+  "to": "GL205"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:178:538",
+  "to": "GL202A1"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:157:538",
+  "to": "GL2:Point:157:486"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:157:431",
+  "to": "GL2:Point:157:486"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:157:431",
+  "to": "GL2:Point:157:389"
+ },
+ {
+  "distance": 2,
+  "from": "GL202A",
+  "to": "GL2:Point:157:389"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:157:389",
+  "to": "GL202B"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:157:486",
+  "to": "GL202C"
+ },
+ {
+  "distance": 7,
+  "from": "GL2:Point:309:431",
+  "to": "GL2:Point:157:431"
+ },
+ {
+  "distance": 6,
+  "from": "GL2:Point:309:431",
+  "to": "GL2:Point:431:433"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:557:431",
+  "to": "GL2:Point:431:433"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:557:431",
+  "to": "GL2:Point:560:473"
+ },
+ {
+  "distance": 6,
+  "from": "GL2:Point:431:473",
+  "to": "GL2:Point:560:473"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:431:473",
+  "to": "GL2:Point:309:473"
+ },
+ {
+  "distance": 5,
+  "from": "GL214",
+  "to": "GL2:Point:309:473"
+ },
+ {
+  "distance": 3,
+  "from": "GL214",
+  "to": "GL2:Point:431:473"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:431:433",
+  "to": "GL2:Point:431:473"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:431:433",
+  "to": "GL2:Point:431:399"
+ },
+ {
+  "distance": 2,
+  "from": "GL216",
+  "to": "GL2:Point:560:588"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:474:589",
+  "to": "GL2:Point:560:588"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:474:589",
+  "to": "GL215"
+ },
+ {
+  "distance": 3,
+  "from": "GL214",
+  "to": "GL2:Point:474:589"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Staircase:559:399",
+  "to": "GL2:Point:557:431"
+ },
+ {
+  "distance": 9,
+  "from": "GL2:Point:560:473",
+  "to": "GL2:Point:761:473"
+ },
+ {
+  "distance": 9,
+  "from": "GL2:Transition Point:761:664",
+  "to": "GL2:Point:761:473"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:1058:588",
+  "to": "GL225"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:1058:588",
+  "to": "GL224"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:948:542",
+  "to": "GL224"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:948:542",
+  "to": "GL2:Point:846:474"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:761:473",
+  "to": "GL2:Point:846:474"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:775:260",
+  "to": "GL217"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:775:260",
+  "to": "GL2:Point:740:260"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:740:370",
+  "to": "GL2:Point:740:260"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:740:370",
+  "to": "GL212"
+ },
+ {
+  "distance": 3,
+  "from": "GL218",
+  "to": "GL2:Point:740:260"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:846:474",
+  "to": "GL2:Point:846:370"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:840:330",
+  "to": "GL2:Point:846:370"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:840:330",
+  "to": "GL2:Point:840:260"
+ },
+ {
+  "distance": 10,
+  "from": "GL2:Point:846:43",
+  "to": "GL2:Point:840:260"
+ },
+ {
+  "distance": 14,
+  "from": "GL2:Point:846:43",
+  "to": "GL2:Point:535:43"
+ },
+ {
+  "distance": 11,
+  "from": "GL2:Point:309:43",
+  "to": "GL2:Point:535:43"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:309:43",
+  "to": "GL2:Point:309:110"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:309:192",
+  "to": "GL2:Point:309:110"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:309:192",
+  "to": "GL Second Floor Women's Bathroom"
+ },
+ {
+  "distance": 4,
+  "from": "GL Second Floor Men's Bathroom",
+  "to": "GL2:Point:309:110"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:535:43",
+  "to": "GL211"
+ },
+ {
+  "distance": 8,
+  "from": "GL2:Point:840:330",
+  "to": "GL2:Point:1007:330"
+ },
+ {
+  "distance": 4,
+  "from": "GL Class of 1970 Cafe",
+  "to": "GL2:Point:1007:330"
+ },
+ {
+  "distance": 5,
+  "from": "GL Class of 1970 Cafe",
+  "to": "GL2:Point:1191:323"
+ },
+ {
+  "distance": 9,
+  "from": "GL226",
+  "to": "GL2:Point:1191:323"
+ },
+ {
+  "distance": 4,
+  "from": "GL226",
+  "to": "GL2:Point:1200:596"
+ },
+ {
+  "distance": 1,
+  "from": "GL227",
+  "to": "GL2:Point:1200:596"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:1297:698",
+  "to": "GL230"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:1297:698",
+  "to": "GL229"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:1298:601",
+  "to": "GL229"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:1298:601",
+  "to": "GL228"
+ },
+ {
+  "distance": 9,
+  "from": "GL2:Point:1284:324",
+  "to": "GL228"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:1284:324",
+  "to": "GL2:Point:1191:323"
+ },
+ {
+  "distance": 11,
+  "from": "GL2:Point:309:192",
+  "to": "GL2:Point:309:431"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:775:260",
+  "to": "GL2:Point:840:260"
+ },
+ {
+  "distance": 5,
+  "from": "GL2:Point:740:370",
+  "to": "GL2:Point:846:370"
+ },
+ {
+  "distance": 5,
+  "from": "GL225",
+  "to": "GL2:Point:1197:654"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:1200:596",
+  "to": "GL2:Point:1197:654"
+ },
+ {
+  "distance": 7,
+  "from": "GL2:Staircase:559:399",
+  "to": "GL1:Staircase:422:448"
+ },
+ {
+  "distance": 48,
+  "from": "GL2:Transition Point:761:664",
+  "to": "GL Front Entrance"
+ }
+]

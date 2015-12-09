@@ -447,9 +447,9 @@
   "isWalkable": true,
   "globalX": 1279,
   "floorMap": "Campus Map",
-  "name": "HL Back Entrance",
+  "name": "CampusMap:Transition Point:1279:863",
   "isPlace": true,
-  "type": "Transition Point",
+  "type": "Point",
   "valz": 0,
   "building": "Campus",
   "valy": 863
@@ -527,7 +527,7 @@
   "floorMap": "Campus Map",
   "name": "CampusMap:Point:1249:688",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 688
@@ -566,7 +566,7 @@
   "floorMap": "Campus Map",
   "name": "CampusMap:Point:1278:661",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 661
@@ -1441,5 +1441,31 @@
   "valz": 0,
   "building": "Campus",
   "valy": 414
+ },
+ {
+  "valx": 1249,
+  "globalY": 383,
+  "isWalkable": true,
+  "globalX": 1249,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Transition Point:1249:383",
+  "isPlace": false,
+  "type": "Transition Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 383
+ },
+ {
+  "valx": 1246,
+  "globalY": 707,
+  "isWalkable": true,
+  "globalX": 1246,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1246:707",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 707
  }
 ]

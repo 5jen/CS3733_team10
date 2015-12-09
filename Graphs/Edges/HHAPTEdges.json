@@ -1,1 +1,67 @@
-[]
+[
+ {
+  "distance": 1,
+  "from": "HHAPT:Staircase:895:158",
+  "to": "HHAPT:Point:802:164"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT205G",
+  "to": "HHAPT:Point:802:164"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT205G",
+  "to": "HHAPT:Point:800:267"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT204G",
+  "to": "HHAPT:Point:800:267"
+ },
+ {
+  "distance": 0,
+  "from": "HHAPT:Point:800:267",
+  "to": "HHAPT203G"
+ },
+ {
+  "distance": 10,
+  "from": "HHAPT203G",
+  "to": "HHAPT:Point:315:265"
+ },
+ {
+  "distance": 0,
+  "from": "HHAPT:Point:274:263",
+  "to": "HHAPT:Point:315:265"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT:Point:274:263",
+  "to": "HHAPT:Point:274:187"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT:Point:274:263",
+  "to": "HHAPT:Point:274:346"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT200G",
+  "to": "HHAPT:Point:274:346"
+ },
+ {
+  "distance": 1,
+  "from": "HHAPT:Point:314:346",
+  "to": "HHAPT:Point:274:346"
+ },
+ {
+  "distance": 2,
+  "from": "HHAPT:Point:314:346",
+  "to": "HHAPT:Transition Point:314:467"
+ },
+ {
+  "distance": 2,
+  "from": "HHAPT:Staircase:895:158",
+  "to": "HHGAR:Staircase:805:206"
+ }
+]

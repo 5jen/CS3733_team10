@@ -168,5 +168,10 @@
   "distance": 3,
   "from": "SH002C",
   "to": "SHB:Point:143:358"
+ },
+ {
+  "distance": 74,
+  "from": "SH Front Entrance",
+  "to": "SHB:Transition Point:889:618"
  }
 ]

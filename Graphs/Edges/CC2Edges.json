@@ -465,8 +465,13 @@
   "to": "CCStairsDown:0"
  },
  {
-  "distance": 1,
-  "from": "CC1:Staircase:433:447",
-  "to": "CCStairsDown:0"
+  "distance": 48,
+  "from": "CampusMap:Point:1278:661",
+  "to": "CC2:Point:318:825"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1249:688",
+  "to": "CC2:Transition Point:105:560"
  }
 ]
