@@ -84,14 +84,14 @@ public class stepIndicator {
 
                     message = generateMessage(x1,y1,x2,y2,x3,y3);
 
-                    if (message.compareTo("Keep straight") == 0) {icon_id = 0;}
-                    else if (message.compareTo("Turn left") == 0) {icon_id = 3;}
-                    else if (message.compareTo("Turn right") == 0) {icon_id = 4;}
-                    else if (message.compareTo("Turn sharp left") == 0) {icon_id = 33;}
-                    else if (message.compareTo("Turn sharp right") == 0) {icon_id =44;}
-                    else if (message.compareTo("Turn slight left") ==0) {icon_id = 39;}
-                    else if (message.compareTo("Turn slight right") == 0) {icon_id = 52;}
-                    else if (message.compareTo("Make a U turn") == 0){icon_id = 6;}
+                    if (message.compareTo("Keep straight for") == 0) {icon_id = 0;}
+                    else if (message.compareTo("Turn left in") == 0) {icon_id = 3;}
+                    else if (message.compareTo("Turn right in") == 0) {icon_id = 4;}
+                    else if (message.compareTo("Turn sharp left in") == 0) {icon_id = 33;}
+                    else if (message.compareTo("Turn sharp right in") == 0) {icon_id =44;}
+                    else if (message.compareTo("Turn slight left in") ==0) {icon_id = 39;}
+                    else if (message.compareTo("Turn slight right in") == 0) {icon_id = 52;}
+                    else if (message.compareTo("Make a U turn in") == 0){icon_id = 6;}
                 }
 
             }
