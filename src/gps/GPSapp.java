@@ -41,7 +41,9 @@ import node.*;
 
 import java.io.File;
 import java.util.LinkedList;
-
+import java.util.Objects;
+import java.util.TreeMap;
+import node.Graph;
 
 
 public class GPSapp extends Application{
@@ -82,19 +84,6 @@ public class GPSapp extends Application{
 	//TODO PROBABLY CHANGE THIS TO SELECT BUILDING AND THEN SUB DROP DOWN TO SELECT FLOOR
 	ObservableList<String> mapOptions = FXCollections.observableArrayList("CampusMap", "AKB", "AK1", "AK2", "AK3", "GLSB", "GLB", "GL1", "GL2", "GL3", "BHB", "BH1", "BH2", "BH3", "CC1", "CC2", "CC3", "HHB", "HH1", "HH2", "HH3", "HHAPT", "HHGAR", "PC1", "PC2", "SHB", "SH1", "SH2", "SH3", "FLSB", "FLB", "FL1", "FL2", "FL3");
 	final ComboBox<String> mapSelector = new ComboBox<String>(mapOptions);
-	
-	//Lists of all nodes of the types
-	LinkedList<Node> PointNodes = new LinkedList<Node>();
-	LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
-	LinkedList<Node> TransitionNodes = new LinkedList<Node>();
-	LinkedList<Node> VendingMachineNodes = new LinkedList<Node>();
-	LinkedList<Node> WaterFountainNodes = new LinkedList<Node>();
-	LinkedList<Node> MensBathroomNodes = new LinkedList<Node>();
-	LinkedList<Node> WomensBathroomNodes = new LinkedList<Node>();
-	LinkedList<Node> EmergencyPoleNodes = new LinkedList<Node>();
-	LinkedList<Node> DiningNodes = new LinkedList<Node>();
-	LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
-	LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
 	
 	//For Rescaling the application
 	final Pane root = new Pane();
@@ -212,8 +201,26 @@ public class GPSapp extends Application{
 	
 	Button ReturnToCampus = new Button("Back to Campus");
 
+    Button findNearestButton = new Button("Find Nearest");
+
+    //Lists of all nodes of the types
+    //TODO Actually make these types of nodes
+    //LinkedList<Node> PointNodes = new LinkedList<Node>();
+    //LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
+    //LinkedList<Node> TransitionNodes = new LinkedList<Node>();
+    //LinkedList<Node> VendingMachineNodes = createNodeTypeList("Vending Machine");
+    //LinkedList<Node> WaterFountainNodes = createNodeTypeList("Water Fountain");
+    LinkedList<Node> MensBathroomNodes = new LinkedList<>();
+    LinkedList<Node> WomensBathroomNodes = new LinkedList<>();
+    //LinkedList<Node> EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
+    LinkedList<Node> DiningNodes = new LinkedList<>();
+    //LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
+    //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
+
 	@Override
     public void start(Stage primaryStage) {
+
+
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -320,6 +327,8 @@ public class GPSapp extends Application{
     	warningBox.setLayoutY(680);
     	warningBox.getChildren().addAll(warningLabel);
 
+
+
     	
     	//Find Route Button
     	//final Button findRouteButton = new Button("Find Route");
@@ -344,7 +353,7 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
         StartSearch.relocate(20, 640);
-        StartSearch.getChildren().addAll(StartText, StartList);
+        StartSearch.getChildren().addAll(StartText, StartList, findNearestButton);
         DestSearch.relocate(300, 640);
         DestSearch.getChildren().addAll(DestText, DestList);
         StartList.setOpacity(0);
@@ -405,6 +414,7 @@ public class GPSapp extends Application{
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(0);
         imageViewKey.setLayoutY(0);
+
 
         
         //hide key
@@ -504,6 +514,40 @@ public class GPSapp extends Application{
         
       //Generate the Global map graph
         globalGraph = createGlobalGraph(globalGraph);
+
+        //Lists of all nodes of the types
+        //TODO Actually make these types of nodes
+        LinkedList<Node> PointNodes = new LinkedList<Node>();
+        LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
+        LinkedList<Node> TransitionNodes = new LinkedList<Node>();
+        //LinkedList<Node> VendingMachineNodes = createNodeTypeList("Vending Machine");
+        //LinkedList<Node> WaterFountainNodes = createNodeTypeList("Water Fountain");
+        LinkedList<Node> MensBathroomNodes = createNodeTypeList("Men's Bathroom");
+        LinkedList<Node> WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
+        //LinkedList<Node> EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
+        LinkedList<Node> DiningNodes = createNodeTypeList("Dining");
+        //LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
+        //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
+
+        //Find Nearest Button
+        findNearestButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Node actualStartNode = null;
+                for (Node n : globalGraph.getNodes()) {
+                    if (n.getName().equals(StartText.getText())) {
+                        actualStartNode = n;
+                        break;
+                    }
+                }
+                try {
+                    Node node = findNearestNode(actualStartNode, "Men's Bathroom");
+                    System.out.println(node.getName());
+                } catch (NullPointerException n){
+                    System.out.println("Node not found");
+                }
+            }
+        });
         
         //now we can create the local edge connections
         LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
@@ -2746,6 +2790,29 @@ public class GPSapp extends Application{
         value = value * factor;
         long tmp = Math.round(value);
         return (double) tmp / factor;
+    }
+
+    protected LinkedList<Node> createNodeTypeList(String s){
+        LinkedList<Node> theList = new LinkedList<>();
+        globalGraph.getNodes().stream().filter(n -> Objects.equals(n.getType(), s)).forEach(n -> theList.add(n));
+        return theList;
+    }
+
+	protected Node findNearestNode(Node start, String type){
+        LinkedList<Node> nodeTypeList = new LinkedList<>();
+        // TODO add more types
+        if (Objects.equals(type, "Men's Bathroom")){
+            nodeTypeList = MensBathroomNodes;
+        }
+        if (Objects.equals(type, "Women's Bathroom")){
+            nodeTypeList = WomensBathroomNodes;
+        }
+        if (Objects.equals(type, "Dining")){
+            nodeTypeList = DiningNodes;
+        }
+        TreeMap<Double, Node> nearestNodes = new TreeMap<>();
+        nodeTypeList.stream().forEach(n -> nearestNodes.put(Graph.d(n, start), n));
+        return nearestNodes.pollFirstEntry().getValue();
     }
 }
 
