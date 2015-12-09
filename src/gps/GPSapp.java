@@ -46,7 +46,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeMap;
 import node.Graph;
-
+import planner.v1.EmailSender;
 
 public class GPSapp extends Application{
 	public static void main(String[] args) {
@@ -227,6 +227,9 @@ public class GPSapp extends Application{
     LinkedList<Node> DiningNodes = new LinkedList<>();
     //LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
     //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
+    
+    Button EmailButton = new Button("Email");
+    TextField EmailInput = new TextField("Email");
 
 	@Override
     public void start(Stage primaryStage) {
@@ -330,6 +333,14 @@ public class GPSapp extends Application{
 		directionsTitle.setLayoutX(820);
     	directionsTitle.setLayoutY(100);
     	nearestDropdown.setValue("Dining");
+    	
+    	HBox emailBox = new HBox(5);
+    	EmailButton.setTextFill(Color.WHITE);
+    	EmailButton.setFont(Font.font ("manteka", 20));
+    	
+    	emailBox.setLayoutX(600);
+    	emailBox.setLayoutY(700);
+    	emailBox.getChildren().addAll(EmailInput, EmailButton);
 
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0);
@@ -489,10 +500,16 @@ public class GPSapp extends Application{
         root.getChildren().add(toggleKeyText);
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
-        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel,nearestBox);
+        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel,nearestBox, emailBox);
         
         
-
+        /*EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	//steps is totla route, 
+            	sendDirections(LinkedList<Step> steps, EmailInput.getText())
+            }
+        }*/
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
