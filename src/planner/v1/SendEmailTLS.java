@@ -8,7 +8,7 @@ public class SendEmailTLS {
 
     public static void sendToEmail(String msg,String destination) {
         //username and password
-        final String username = "PiNavigator@gmail.com";
+        final String username = "PiNavigatorcs3733@gmail.com";
         final String password = "wilsonwong";
 
         Properties props = new Properties();
@@ -27,7 +27,7 @@ public class SendEmailTLS {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("xy578772313@gmail.com"));
+            message.setFrom(new InternetAddress("PiNavigatorcs3733@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destination));
             message.setSubject("Testing Subject");

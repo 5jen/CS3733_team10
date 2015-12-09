@@ -229,7 +229,11 @@ public class GPSapp extends Application{
     //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
     
     Button EmailButton = new Button("Email");
-    TextField EmailInput = new TextField("Email");
+    TextField EmailInput = new TextField("");
+    
+    //global route variable
+    LinkedList<Node> route = new LinkedList<Node>();
+    LinkedList<Node> savedRoute = new LinkedList<Node>();
 
 	@Override
     public void start(Stage primaryStage) {
@@ -335,8 +339,8 @@ public class GPSapp extends Application{
     	nearestDropdown.setValue("Dining");
     	
     	HBox emailBox = new HBox(5);
-    	EmailButton.setTextFill(Color.WHITE);
-    	EmailButton.setFont(Font.font ("manteka", 20));
+    	EmailButton.setTextFill(Color.BLACK);
+    	//EmailButton.setFont(Font.font ("manteka", 20));
     	
     	emailBox.setLayoutX(600);
     	emailBox.setLayoutY(700);
@@ -360,11 +364,11 @@ public class GPSapp extends Application{
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.BLACK);
     	NextInstruction.setLayoutX(950);
-    	NextInstruction.setLayoutY(560);
+    	NextInstruction.setLayoutY(540);
     	
     	PrevInstruction.setTextFill(Color.BLACK);
     	PrevInstruction.setLayoutX(870);
-    	PrevInstruction.setLayoutY(560);
+    	PrevInstruction.setLayoutY(540);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -443,6 +447,9 @@ public class GPSapp extends Application{
         imageViewBlur.setImage(BlurImage);
         imageViewBlur.setLayoutX(0);
         imageViewBlur.setLayoutY(0);
+        
+        
+        EmailInput.setPromptText("Email");
 
 
         
@@ -503,13 +510,20 @@ public class GPSapp extends Application{
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel,nearestBox, emailBox);
         
         
-        /*EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	//steps is totla route, 
-            	sendDirections(LinkedList<Step> steps, EmailInput.getText())
+            	//steps is total route, 
+            	for(int i = 0; i < savedRoute.size(); i++){
+            		System.out.println("PATH PATH PATH"+savedRoute.get(i).getName());
+            	}
+            	
+            	stepIndicator steps = new stepIndicator(savedRoute);
+		    	
+		    	LinkedList<Step> emailDirections = steps.lInstructions();
+            	EmailSender.sendDirections(emailDirections, EmailInput.getText());
             }
-        }*/
+        });
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -523,7 +537,7 @@ public class GPSapp extends Application{
 
    		 s1.setLayoutX(820 + stageInitialWidthDifference);
    		 s1.setLayoutY(140 + stageInitialHeightDifference);
-   		 s1.setPrefSize(270, 420 + stageInitialHeightDifference);
+   		 s1.setPrefSize(270, 400 + stageInitialHeightDifference);
 
 
         imageView.setScaleX(0.75);
@@ -583,7 +597,8 @@ public class GPSapp extends Application{
                 try {
                     Node node = findNearestNode(actualStartNode, (String) nearestDropdown.getValue());
 
-                    LinkedList<Node> route = globalGraph.findRoute(actualStartNode, node);
+                    route = globalGraph.findRoute(actualStartNode, node);
+                    savedRoute = route;
                     try {
 
                         multiMap = splitRoute(route);//is endlessly looping or suttin
@@ -730,6 +745,8 @@ public class GPSapp extends Application{
     			keyText.setTranslateX(stageInitialWidthDifference);
     			buttonBackDrop.setTranslateX(stageInitialWidthDifference);
     			nearestBox.setTranslateX(stageInitialWidthDifference);
+    			EmailInput.setTranslateX(stageInitialWidthDifference);
+    			EmailButton.setTranslateX(stageInitialWidthDifference);
     			
 
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
@@ -759,12 +776,14 @@ public class GPSapp extends Application{
     			toggleKeyText.setTranslateY(stageInitialHeightDifference);
     			imageViewKey.setTranslateY(stageInitialHeightDifference);
     			keyText.setTranslateY(stageInitialHeightDifference);
-    			s1.setPrefSize(270, 420 + stageInitialHeightDifference);
+    			s1.setPrefSize(270, 400 + stageInitialHeightDifference);
     			NextInstruction.setTranslateY(stageInitialHeightDifference);
     			PrevInstruction.setTranslateY(stageInitialHeightDifference);
     			ReturnToCampus.setTranslateY(stageInitialHeightDifference);
     			BuildingNameLabel.setTranslateY(stageInitialHeightDifference);
     			buttonBackDrop.setTranslateY(stageInitialHeightDifference);
+    			EmailInput.setTranslateY(stageInitialHeightDifference);
+    			EmailButton.setTranslateY(stageInitialHeightDifference);
     			
 
     		}
@@ -837,9 +856,11 @@ public class GPSapp extends Application{
                     	//System.out.print.println("start: " + startPlace.getName());
                     	//System.out.print.println("end: " + endPlace.getName());
 
-                    	LinkedList<Node> route = new LinkedList<Node>();
+                    	route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
+                        savedRoute = route;
                         keyText.setFont(Font.font ("manteka", 20));
+                        
 
                         if(!(startPlace.equals(endPlace))) {
 
@@ -903,7 +924,7 @@ public class GPSapp extends Application{
 									NodePane.getChildren().add(endPinView);
 									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
 									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
-
+								    root.getChildren().remove(NextInstruction);
 								}
 
                                 final Group group = new Group(imageView, canvas, NodePane);
@@ -951,8 +972,9 @@ public class GPSapp extends Application{
                     	//System.out.print.println("start: " + startPlace.getName());
                     	//System.out.print.println("end: " + endPlace.getName());
 
-                    	LinkedList<Node> route = new LinkedList<Node>();
+                    	route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
+                        savedRoute = route;
                         
                         if(!(startPlace.equals(endPlace))) {
                         
@@ -999,7 +1021,7 @@ public class GPSapp extends Application{
 									NodePane.getChildren().add(endPinView);
 									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
 									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
-
+									root.getChildren().remove(NextInstruction);
 								}
                                 final Group group = new Group(imageView, canvas, NodePane);
                         	    zoomPane = createZoomPane(group);
@@ -1060,7 +1082,7 @@ public class GPSapp extends Application{
     	//create vertical box to add labels too
 
     	//add a possible scroll box for long routes..
-		 s1.setPrefSize(270, 420);
+		 s1.setPrefSize(270, 400 + stageInitialHeightDifference);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
 		 if(route.size() > 2){
@@ -1730,8 +1752,9 @@ public class GPSapp extends Application{
                             //System.out.print.println("start: " + startPlace.getName());
                             //System.out.print.println("end: " + endPlace.getName());
 
-                            LinkedList<Node> route = new LinkedList<Node>();
+                            route = new LinkedList<Node>();
                             route = globalGraph.findRoute(startPlace, endPlace);
+                            savedRoute = route;
 							keyText.setText(" ");
                             
                             if(!(startPlace.equals(endPlace))) {
