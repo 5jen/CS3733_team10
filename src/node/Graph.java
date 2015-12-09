@@ -163,7 +163,7 @@ public class Graph {
 		return edges;
 	}
 	
-	public double d(Node from, Node to){
+	public static double d(Node from, Node to){
 		return Math.sqrt( Math.pow(from.getGlobalX() - to.getGlobalX(), 2.0) + Math.pow((from.getGlobalY()-to.getGlobalY()), 2.0) + Math.pow(from.getZ() - to.getZ(),2.0));
 	}
 	
