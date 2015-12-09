@@ -88,14 +88,14 @@ public class JsonParser {
         BufferedReader reader = null;
         String laststr = "";
         try {
-        	//System.out.println("Reading one line each time");
+        	////System.out.println("Reading one line each time");
         	reader = new BufferedReader(new FileReader(file));
         	String tempString = null;
         	int line = 1;
         	//read one line each time until read a empty line
         	while ((tempString = reader.readLine()) != null) {
         		//show line number 
-        		System.out.println("line " + line + ": " + tempString);
+        		//System.out.println("line " + line + ": " + tempString);
         		laststr = laststr + tempString;
         		line ++;
         	}
@@ -141,7 +141,7 @@ public class JsonParser {
     	}
 
 
-		return array.toString();
+		return array.toString(1);
     }
     
     /**

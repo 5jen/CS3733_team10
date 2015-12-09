@@ -568,7 +568,7 @@ public class MapTool extends Application {
             	
             	saveGraphMethod();
 
-            	loadMap(root, canvas, zoomPane, NodePane, imageView);
+            	//loadMap(root, canvas, zoomPane, NodePane, imageView);
 
             }
 
@@ -934,6 +934,11 @@ public class MapTool extends Application {
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLSB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL3.json"));
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	
     	//Manually add all of the Edges

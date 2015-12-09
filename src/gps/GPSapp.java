@@ -620,8 +620,8 @@ public class GPSapp extends Application{
                         		endPlace = (globalGraph.getNodes().get(i));
                         	}
                         }
-                    	System.out.println("start: " + startPlace.getName());
-                    	System.out.println("end: " + endPlace.getName());
+                    	//System.out.print.println("start: " + startPlace.getName());
+                    	//System.out.print.println("end: " + endPlace.getName());
 
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
@@ -642,18 +642,18 @@ public class GPSapp extends Application{
                         	String initials = "";
                         	
                         	for(int i = 0; i < maps.size(); i++){
-                        		System.out.println("CURRENT ROUTE: "+ currRoute);
-                        		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		//System.out.print.println("CURRENT ROUTE: "+ currRoute);
+                        		//System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
                         		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                         			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
                         	}
-                        	System.out.println("INITIALS: "+ initials);
+                        	//System.out.print.println("INITIALS: "+ initials);
                         	gc.clearRect(0, 0, 6000, 3000);
 
                             
-                                System.out.println("Route length: " + route.size());
+                                //System.out.print.println("Route length: " + route.size());
                                 //Display the directions on the side
-                                System.out.println("Route = " + route);
+                                //System.out.print.println("Route = " + route);
                                 //if(!(route.size() <= 1)){
                                 multiMap = splitRoute(route);//is endlessly looping or suttin
                                 currRoute = 0;
@@ -665,12 +665,12 @@ public class GPSapp extends Application{
                                 root.getChildren().add(NextInstruction); //attach next button
 
                                 for (int i = 0; i < maps.size(); i++) {
-                                    System.out.println("CURRENT ROUTE: " + currRoute);
-                                    System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                    //System.out.print.println("CURRENT ROUTE: " + currRoute);
+                                    //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
                                     if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                                         initials = maps.get(i).getInitials() + maps.get(i).getFloor();
                                 }
-                                System.out.println("INITIALS: " + initials);
+                                //System.out.print.println("INITIALS: " + initials);
                                 gc.clearRect(0, 0, 6000, 3000);
 
                                 mapSelector.setValue(initials);
@@ -681,10 +681,15 @@ public class GPSapp extends Application{
 								NodePane.getChildren().add(yPinView);
 								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
 								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
-                                System.out.println(" " + route);
-                                for (int i = 0; i < route.size(); i++) {
-                                    System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                                }
+								
+								if(multiMap.size() == 1){
+									ImageView endPinView = new ImageView();
+									endPinView.setImage(yPinImage);
+									NodePane.getChildren().add(endPinView);
+									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+
+								}
 
                                 final Group group = new Group(imageView, canvas, NodePane);
                                 zoomPane = createZoomPane(group);
@@ -727,8 +732,8 @@ public class GPSapp extends Application{
                         		endPlace = (globalGraph.getNodes().get(i));
                         	}
                         }
-                    	System.out.println("start: " + startPlace.getName());
-                    	System.out.println("end: " + endPlace.getName());
+                    	//System.out.print.println("start: " + startPlace.getName());
+                    	//System.out.print.println("end: " + endPlace.getName());
 
                     	LinkedList<Node> route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
@@ -736,9 +741,9 @@ public class GPSapp extends Application{
                         if(!(startPlace.equals(endPlace))) {
                         
                         	try{
-                            	System.out.println("Route lenth: " + route.size());
+                            	//System.out.print.println("Route lenth: " + route.size());
                                 //Display the directions on the side
-                                System.out.println("Route = " + route);
+                                //System.out.print.println("Route = " + route);
                                 //if(!(route.size() <= 1)){
                                 multiMap = splitRoute(route);//is endlessly looping or suttin
                                 currRoute = 0;
@@ -754,12 +759,12 @@ public class GPSapp extends Application{
                             	String initials = "";
                 				
                             	for(int i = 0; i < maps.size(); i++){
-                            		System.out.println("CURRENT ROUTE: "+ currRoute);
-                            		System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                            		//System.out.print.println("CURRENT ROUTE: "+ currRoute);
+                            		//System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
                             		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                             			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
                             	}
-                            	System.out.println("INITIALS: "+ initials);
+                            	//System.out.print.println("INITIALS: "+ initials);
                             	gc.clearRect(0, 0, 6000, 3000);
 
                             	mapSelector.setValue(initials);
@@ -771,11 +776,14 @@ public class GPSapp extends Application{
 								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
 								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 
-								System.out.println(" " +route);
-                                for(int i = 0; i < route.size(); i++){
-                                	System.out.println("Route node: " + i + " , " + route.get(i).getName());
-                                }
+								if(multiMap.size() == 1){
+									ImageView endPinView = new ImageView();
+									endPinView.setImage(yPinImage);
+									NodePane.getChildren().add(endPinView);
+									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 
+								}
                                 final Group group = new Group(imageView, canvas, NodePane);
                         	    zoomPane = createZoomPane(group);
                         	    root.getChildren().add(zoomPane);
@@ -864,7 +872,7 @@ public class GPSapp extends Application{
                         pinView.setLayoutX(NodeX-10);
                         pinView.setLayoutY(NodeY-36);
                         if(!pinAttached){
-                        	System.out.println(NodeX + "   "+ NodeY);
+                        	//System.out.print.println(NodeX + "   "+ NodeY);
                         	NodePane.getChildren().add(pinView);
                         	pinAttached = true;
                         }
@@ -896,8 +904,8 @@ public class GPSapp extends Application{
 		
     	String initials = "";
     	for(int i = 0; i < maps.size(); i++){
-    		//System.out.println("CURRENT ROUTE: "+ currRoute);
-    		//System.out.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+    		////System.out.print.println("CURRENT ROUTE: "+ currRoute);
+    		////System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
     		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
     			initials = maps.get(i).getInitials()+maps.get(i).getFloor();
     	}
@@ -943,6 +951,7 @@ public class GPSapp extends Application{
 			root.getChildren().remove(NextInstruction);
 		}
 		else {
+			root.getChildren().remove(NextInstruction);
 			root.getChildren().add(NextInstruction);
 		}
     }
@@ -984,7 +993,7 @@ public class GPSapp extends Application{
 
     	for(int i = 1; i <= building.getNumMaps(); i++){
     		currentFloor = i-1;
-    		System.out.println("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials() + building.getMaps().get(currentFloor).getFloor() + "L.png");
+    		//System.out.print.println("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials() + building.getMaps().get(currentFloor).getFloor() + "L.png");
     		File mapFile = new File("CS3733_Graphics/LayerMap/"+building.getMaps().get(currentFloor).getInitials() + building.getMaps().get(currentFloor).getFloor() + "L.png");//Change back to above
     		Image image = new Image(mapFile.toURI().toString());
     		ImageView mapImageView = new ImageView();
@@ -1065,7 +1074,7 @@ public class GPSapp extends Application{
    	     	//Add actions to each of the layered map buttons
    	     	g1.setOnMouseClicked(new EventHandler<MouseEvent>() {
    	     			public void handle(MouseEvent event) {
-   	     				System.out.println(floor);
+   	     				//System.out.print.println(floor);
    	     				root.getChildren().remove(LayerGroup);
    	     				LayerGroup.getChildren().clear();
    	     				root.getChildren().remove(BackButton);
@@ -1233,7 +1242,7 @@ public class GPSapp extends Application{
 
     //If the route is across multiple maps we want to break it up
     private LinkedList<LinkedList<Node>> splitRoute(LinkedList<Node> route){
-    	System.out.println("routeSize = " + route.size());
+    	//System.out.print.println("routeSize = " + route.size());
     	//change this.. or check if it before splitorator
     	if(route.size() == 0){
     		   LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
@@ -1244,13 +1253,13 @@ public class GPSapp extends Application{
     	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
     	String aBuilding = route.get(0).getFloorMap();
     	int newBuildingIndex = 0;
-    	System.out.println("aBuilding = " + aBuilding);
+    	//System.out.print.println("aBuilding = " + aBuilding);
     	
     	for(int i = 0; i < route.size(); i++){
-    		System.out.println("Route.get(i)" + route.get(i).getFloorMap());
+    		//System.out.print.println("Route.get(i)" + route.get(i).getFloorMap());
     		//if the current node is in a different building, chop off the stuff before and place it in its own list
     		if(!aBuilding.equals(route.get(i).getFloorMap()) || i == route.size()-1){
-    			System.out.println("Switched Floors");
+    			//System.out.print.println("Switched Floors");
     			//add from newBuildingIndex to i-1
     			LinkedList<Node> tempRoute = new LinkedList<Node>();
     			for(int k = newBuildingIndex; k <= i; k++){
@@ -1259,7 +1268,7 @@ public class GPSapp extends Application{
     			newBuildingIndex = i;
     			aBuilding = route.get(i).getFloorMap(); //since i is the new building
     			splitRoutes.add(tempRoute);
-    			System.out.println("splitRoutesize = "+splitRoutes.size());
+    			//System.out.print.println("splitRoutesize = "+splitRoutes.size());
     		}
     		//if we haven't added any yet, route is all on 1 map
     		
@@ -1307,6 +1316,11 @@ public class GPSapp extends Application{
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
     	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLSB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLB.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL1.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL2.json"));
+    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL3.json"));
     	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
     	
     	//Manually add all of the Edges
@@ -1366,6 +1380,17 @@ public class GPSapp extends Application{
     	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
     	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
     	
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/FLSBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/FLBEdges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/FL1Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/FL2Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/FL3Edges.json");
+    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
+    	
     	//TODO Add rest
     	    	
 
@@ -1376,13 +1401,13 @@ public class GPSapp extends Application{
 
 	private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
     	g.setNodes(nodes);
-    	//System.out.print("Nodes: " + nodes);
-    	System.out.println();
-    	//System.out.print("Edges: " + edges);
-    	System.out.println("///***&&&");
+    	////System.out.print.print("Nodes: " + nodes);
+    	////System.out.print.println();
+    	////System.out.print.print("Edges: " + edges);
+    	////System.out.print.println("///***&&&");
     	//Added this way so they can be bi directionally added
     	for(int i = 0; i < edges.size(); i++){
-    		System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
+    		////System.out.print.print.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
     		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
     	}
     	return g;
@@ -1445,8 +1470,8 @@ public class GPSapp extends Application{
                                     endPlace = (globalGraph.getNodes().get(i));
                                 }
                             }
-                            System.out.println("start: " + startPlace.getName());
-                            System.out.println("end: " + endPlace.getName());
+                            //System.out.print.println("start: " + startPlace.getName());
+                            //System.out.print.println("end: " + endPlace.getName());
 
                             LinkedList<Node> route = new LinkedList<Node>();
                             route = globalGraph.findRoute(startPlace, endPlace);
@@ -1454,9 +1479,9 @@ public class GPSapp extends Application{
                             
                             if(!(startPlace.equals(endPlace))) {
                             	try {
-                                    System.out.println("Route length: " + route.size());
+                                    //System.out.print.println("Route length: " + route.size());
                                     //Display the directions on the side
-                                    System.out.println("Route = " + route);
+                                    //System.out.print.println("Route = " + route);
                                     //if(!(route.size() <= 1)){
                                     root.getChildren().remove(zoomPane);
                                     multiMap = splitRoute(route);//is endlessly looping or suttin
@@ -1469,29 +1494,29 @@ public class GPSapp extends Application{
                                         root.getChildren().add(NextInstruction); //attach next button
                                     }
                                     String initials = "";
-                                    System.out.println("MAPSIZE: " + maps.size());
+                                    //System.out.print.println("MAPSIZE: " + maps.size());
                                     for (int i = 0; i < maps.size(); i++) {
-                                        System.out.println("MAP!!!!!: " + maps.get(i).getName());
-                                        System.out.println("CURRENT ROUTE: " + currRoute);
-                                        System.out.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                        //System.out.print.println("MAP!!!!!: " + maps.get(i).getName());
+                                        //System.out.print.println("CURRENT ROUTE: " + currRoute);
+                                        //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
                                         if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
                                             initials = maps.get(i).getInitials() + maps.get(i).getFloor();
                                     }
 
-                                    System.out.println("MAP!!!!!: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                    //System.out.print.println("MAP!!!!!: " + multiMap.get(currRoute).get(0).getFloorMap());
                                     gc.clearRect(0, 0, 6000, 3000);
 
                                     mapSelector.setValue(initials);
-                                    System.out.println("initials = " + initials);
+                                    //System.out.print.println("initials = " + initials);
                                     nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
 
                                     loadMap(root, imageView);
                                     root.getChildren().remove(zoomPane);
                                     for (int h = 0; h < nodeList.size(); h++) {
-                                        System.out.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
+                                        //System.out.print.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
                                     }
                                     
-                                    System.out.println("NodeList Size = " + nodeList.size());
+                                    //System.out.print.println("NodeList Size = " + nodeList.size());
                                     drawRoute(gc, multiMap.get(currRoute));
                                     NodePane.getChildren().clear();
                                     LinkedList<Node> tempNodeList = new LinkedList<Node>();
@@ -1573,11 +1598,11 @@ public class GPSapp extends Application{
 
     	//iterate through the edges
     	for(int i = 0; i < edgeData.size(); i ++){
-    		//System.out.println("Edge Iterator: " + i);
+    		////System.out.print.println("Edge Iterator: " + i);
     		//iterate throught he nodelist to find the matching node
     		for(int j = 0; j < globalNodeList.size(); j ++){
-    			//System.out.println("NodeSize: "+nodeList.size());
-    			//System.out.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
+    			////System.out.print.println("NodeSize: "+nodeList.size());
+    			////System.out.print.println("Node: "+nodeList.get(j)+", i: "+i+" , j: "+j);
     			if(edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())){
 					from = j;
 				}
@@ -1807,7 +1832,7 @@ public class GPSapp extends Application{
    		//edgeList.clear();
         StartList.setOpacity(0);
         DestList.setOpacity(0);
-        System.out.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
+        //System.out.print.println("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + mapSelector.getValue() + ".json");
     	edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/" + mapSelector.getValue() + "Edges.json");
     	//edgeList = convertEdgeData(edgeListConversion);
