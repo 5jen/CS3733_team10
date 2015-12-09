@@ -326,11 +326,11 @@ public class GPSapp extends Application{
     	//findRouteButton.relocate(640, 640);
     	
     	//Next button (and previous)
-    	NextInstruction.setTextFill(Color.WHITE);
+    	NextInstruction.setTextFill(Color.BLACK);
     	NextInstruction.setLayoutX(950);
     	NextInstruction.setLayoutY(470);
     	
-    	PrevInstruction.setTextFill(Color.WHITE);
+    	PrevInstruction.setTextFill(Color.BLACK);
     	PrevInstruction.setLayoutX(870);
     	PrevInstruction.setLayoutY(470);
 
