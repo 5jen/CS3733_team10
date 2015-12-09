@@ -8,7 +8,7 @@
   "name": "BH Third Floor Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 237
  },
@@ -21,7 +21,7 @@
   "name": "BH301",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 286
  },
@@ -34,7 +34,7 @@
   "name": "BH302",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 404
  },
@@ -47,7 +47,7 @@
   "name": "BH301B",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 109
  },
@@ -60,7 +60,7 @@
   "name": "BH306",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 316
  },
@@ -73,7 +73,7 @@
   "name": "BH309",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -86,7 +86,7 @@
   "name": "BH307",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 179
  },
@@ -99,7 +99,7 @@
   "name": "BH307C",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 417
  },
@@ -112,7 +112,7 @@
   "name": "BH307B",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 416
  },
@@ -125,7 +125,7 @@
   "name": "BH308",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 520
  },
@@ -138,7 +138,7 @@
   "name": "BH3:Point:683:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -151,7 +151,7 @@
   "name": "BH3:Point:618:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -164,7 +164,7 @@
   "name": "BH3:Point:564:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -177,7 +177,7 @@
   "name": "BH3:Point:250:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -190,7 +190,7 @@
   "name": "BH3:Point:130:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -203,7 +203,7 @@
   "name": "BH3:Point:130:174",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 174
  },
@@ -216,7 +216,7 @@
   "name": "BH3:Point:250:407",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 407
  },
@@ -229,7 +229,7 @@
   "name": "BH3:Point:892:289",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 289
  },
@@ -242,7 +242,7 @@
   "name": "BH3:Point:892:179",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 179
  },
@@ -255,7 +255,7 @@
   "name": "BH3:Point:1274:179",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 179
  },
@@ -268,7 +268,7 @@
   "name": "BH3:Point:1351:179",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 179
  },
@@ -281,7 +281,7 @@
   "name": "BH3:Point:1429:179",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 179
  },
@@ -294,7 +294,7 @@
   "name": "BH3:Elevator:618:236",
   "isPlace": false,
   "type": "Elevator",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 236
  },
@@ -307,7 +307,7 @@
   "name": "BH3:Point:1274:496",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 496
  },
@@ -320,7 +320,7 @@
   "name": "BH3:Point:1239:496",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 496
  },
@@ -333,7 +333,7 @@
   "name": "BH3:Staircase:588:372",
   "isPlace": false,
   "type": "Staircase",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 372
  },
@@ -346,7 +346,7 @@
   "name": "BH3:Point:633:371",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Boynton Hall",
   "valy": 371
  }

@@ -1,18 +1,5 @@
 [
  {
-  "valx": 539,
-  "globalY": 156,
-  "isWalkable": true,
-  "globalX": 181,
-  "floorMap": "Atwater Kent 1",
-  "name": "123",
-  "isPlace": true,
-  "type": "Place",
-  "valz": 1,
-  "building": "Atwater Kent",
-  "valy": 312
- },
- {
   "valx": 114,
   "globalY": 543,
   "isWalkable": true,
@@ -21,7 +8,7 @@
   "name": "AK126",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 1083
  },
@@ -34,7 +21,7 @@
   "name": "AK126A",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 975
  },
@@ -47,7 +34,7 @@
   "name": "AK125",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 865
  },
@@ -60,7 +47,7 @@
   "name": "AK124",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 824
  },
@@ -73,7 +60,7 @@
   "name": "AK122",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 648
  },
@@ -86,7 +73,7 @@
   "name": "AK121",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 613
  },
@@ -99,7 +86,7 @@
   "name": "AK123",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 830
  },
@@ -112,7 +99,7 @@
   "name": "AK131",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 956
  },
@@ -125,7 +112,7 @@
   "name": "AK127",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 995
  },
@@ -138,7 +125,7 @@
   "name": "AK128",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 975
  },
@@ -151,7 +138,7 @@
   "name": "AK129",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 868
  },
@@ -164,7 +151,7 @@
   "name": "AK130",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 823
  },
@@ -177,7 +164,7 @@
   "name": "AK120D",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 562
  },
@@ -190,7 +177,7 @@
   "name": "AK120B",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 532
  },
@@ -203,7 +190,7 @@
   "name": "AK120C",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 447
  },
@@ -216,7 +203,7 @@
   "name": "AK120E",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 310
  },
@@ -229,7 +216,7 @@
   "name": "AK108A",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 234
  },
@@ -242,7 +229,7 @@
   "name": "AK109",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 234
  },
@@ -255,7 +242,7 @@
   "name": "AK119",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 550
  },
@@ -268,7 +255,7 @@
   "name": "AK118",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 632
  },
@@ -281,7 +268,7 @@
   "name": "AK117",
   "isPlace": true,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 632
  },
@@ -294,7 +281,7 @@
   "name": "AK 1st Floor Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 632
  },
@@ -307,7 +294,7 @@
   "name": "AK 1st Floor Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 632
  },
@@ -320,7 +307,7 @@
   "name": "AK113",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 458
  },
@@ -333,7 +320,7 @@
   "name": "AK113B",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 458
  },
@@ -346,7 +333,7 @@
   "name": "AK108",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -359,7 +346,7 @@
   "name": "AK106",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -372,7 +359,7 @@
   "name": "AK105",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -385,7 +372,7 @@
   "name": "AK104",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -398,7 +385,7 @@
   "name": "AK103",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -411,7 +398,7 @@
   "name": "AK102",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -424,7 +411,7 @@
   "name": "AK101",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 158
  },
@@ -437,7 +424,7 @@
   "name": "AK107",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 132
  },
@@ -450,7 +437,7 @@
   "name": "AK116",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 755
  },
@@ -463,7 +450,7 @@
   "name": "AK114",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 552
  },
@@ -476,7 +463,7 @@
   "name": "AK111",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 243
  },
@@ -489,7 +476,7 @@
   "name": "AK111A",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 319
  },
@@ -502,7 +489,7 @@
   "name": "AK112",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 335
  },
@@ -515,7 +502,7 @@
   "name": "AK112A",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 459
  },
@@ -528,7 +515,7 @@
   "name": "AK112E",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 437
  },
@@ -541,7 +528,7 @@
   "name": "AK112F",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 482
  },
@@ -554,7 +541,7 @@
   "name": "AK112B",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 548
  },
@@ -567,7 +554,7 @@
   "name": "AK112D",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 539
  },
@@ -580,7 +567,7 @@
   "name": "AK1:Staircase:1175:662",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 662
  },
@@ -593,7 +580,7 @@
   "name": "AK1:Staircase:1222:723",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 723
  },
@@ -606,7 +593,7 @@
   "name": "AK1:Staircase:1162:36",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 36
  },
@@ -619,7 +606,7 @@
   "name": "AK1:Transition Point:1055:47",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 47
  },
@@ -632,7 +619,7 @@
   "name": "AK1:Staircase:345:660",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 660
  },
@@ -645,7 +632,7 @@
   "name": "AK1:Point:445:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -658,7 +645,7 @@
   "name": "AK1:Point:597:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -671,7 +658,7 @@
   "name": "AK1:Point:693:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -684,7 +671,7 @@
   "name": "AK1:Point:739:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -697,7 +684,7 @@
   "name": "AK1:Point:832:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -710,7 +697,7 @@
   "name": "AK1:Point:876:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -723,7 +710,7 @@
   "name": "AK1:Point:962:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -736,7 +723,7 @@
   "name": "AK1:Point:1154:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -749,7 +736,7 @@
   "name": "AK1:Point:1062:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -762,7 +749,7 @@
   "name": "AK1:Point:487:192",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 192
  },
@@ -775,7 +762,7 @@
   "name": "AK1:Point:487:243",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 243
  },
@@ -788,7 +775,7 @@
   "name": "AK1:Point:487:456",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 456
  },
@@ -801,7 +788,7 @@
   "name": "AK1:Point:487:559",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 559
  },
@@ -814,7 +801,7 @@
   "name": "AK1:Point:487:653",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 653
  },
@@ -827,7 +814,7 @@
   "name": "AK1:Point:487:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -840,7 +827,7 @@
   "name": "AK1:Point:596:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -853,7 +840,7 @@
   "name": "AK1:Point:676:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -866,7 +853,7 @@
   "name": "AK1:Point:839:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -879,7 +866,7 @@
   "name": "AK1:Point:950:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -892,7 +879,7 @@
   "name": "AK1:Point:1048:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -905,7 +892,7 @@
   "name": "AK1:Point:1158:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 683
  },
@@ -918,7 +905,7 @@
   "name": "AK1:Staircase:1158:662",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 662
  },
@@ -931,7 +918,7 @@
   "name": "AK1:Point:1048:657",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 657
  },
@@ -944,7 +931,7 @@
   "name": "AK1:Point:1048:558",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 558
  },
@@ -957,7 +944,7 @@
   "name": "AK1:Point:1048:466",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 466
  },
@@ -970,7 +957,7 @@
   "name": "AK1:Point:1048:249",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 249
  },
@@ -983,7 +970,7 @@
   "name": "AK1:Point:1062:249",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 249
  },
@@ -996,7 +983,7 @@
   "name": "AK1:Point:1058:103",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 103
  },
@@ -1009,7 +996,7 @@
   "name": "AK1:Point:1134:106",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 106
  },
@@ -1022,7 +1009,7 @@
   "name": "AK1:Point:1149:106",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 106
  },
@@ -1035,7 +1022,7 @@
   "name": "AK1:Point:378:653",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 653
  },
@@ -1048,7 +1035,7 @@
   "name": "AK1:Point:378:710",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 710
  },
@@ -1061,7 +1048,7 @@
   "name": "AK1:Point:297:710",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 710
  },
@@ -1074,7 +1061,7 @@
   "name": "AK1:Point:128:710",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 710
  },
@@ -1087,7 +1074,7 @@
   "name": "AK1:Point:128:830",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 830
  },
@@ -1100,7 +1087,7 @@
   "name": "AK1:Point:128:874",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 874
  },
@@ -1113,7 +1100,7 @@
   "name": "AK1:Point:128:974",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 974
  },
@@ -1126,7 +1113,7 @@
   "name": "AK1:Point:215:974",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 974
  },
@@ -1139,7 +1126,7 @@
   "name": "AK1:Point:296:974",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 974
  },
@@ -1152,7 +1139,7 @@
   "name": "AK1:Point:296:873",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 873
  },
@@ -1165,7 +1152,7 @@
   "name": "AK1:Point:296:826",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 826
  },
@@ -1178,7 +1165,7 @@
   "name": "AK1:Point:128:654",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 654
  },
@@ -1191,7 +1178,7 @@
   "name": "AK1:Point:128:620",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 620
  },
@@ -1204,7 +1191,7 @@
   "name": "AK1:Point:140:497",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 497
  },
@@ -1217,7 +1204,7 @@
   "name": "AK1:Point:259:497",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 497
  },
@@ -1230,7 +1217,7 @@
   "name": "AK1:Point:119:244",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 244
  },
@@ -1243,7 +1230,7 @@
   "name": "AK1:Point:1188:249",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 249
  },
@@ -1256,7 +1243,7 @@
   "name": "AK1:Point:1188:351",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 351
  },
@@ -1269,7 +1256,7 @@
   "name": "AK1:Point:1292:351",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 351
  },
@@ -1282,7 +1269,7 @@
   "name": "AK1:Point:1391:351",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 351
  },
@@ -1295,7 +1282,7 @@
   "name": "AK1:Point:1391:450",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 450
  },
@@ -1308,7 +1295,7 @@
   "name": "AK1:Point:1345:450",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 450
  },
@@ -1321,7 +1308,7 @@
   "name": "AK1:Point:1448:450",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 450
  },
@@ -1334,7 +1321,7 @@
   "name": "AK1:Point:1448:469",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 469
  },
@@ -1347,7 +1334,7 @@
   "name": "AK1:Point:1448:555",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 555
  },
@@ -1360,7 +1347,7 @@
   "name": "AK1:Point:1250:450",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 450
  },
@@ -1373,7 +1360,7 @@
   "name": "AK1:Point:1250:491",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 491
  },
@@ -1386,7 +1373,7 @@
   "name": "AK1:Place:539:242",
   "isPlace": false,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 242
  },
@@ -1399,7 +1386,7 @@
   "name": "AK1:Point:215:1090",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 1090
  },
@@ -1412,7 +1399,7 @@
   "name": "AK1:Point:1158:721",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 721
  },
@@ -1425,7 +1412,7 @@
   "name": "AK1:Place:539:188",
   "isPlace": false,
   "type": "Place",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 188
  },
@@ -1438,7 +1425,7 @@
   "name": "AK1:Staircase:1339:665",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 665
  },
@@ -1451,7 +1438,7 @@
   "name": "AK1:Point:1377:667",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 667
  },
@@ -1464,7 +1451,7 @@
   "name": "AK1:Point:1381:723",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Atwater Kent",
   "valy": 723
  }

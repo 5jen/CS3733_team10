@@ -8,7 +8,7 @@
   "name": "HHAPT:Point:274:187",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 187
  },
@@ -21,7 +21,7 @@
   "name": "HHAPT:Point:274:263",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 263
  },
@@ -34,7 +34,7 @@
   "name": "HHAPT:Point:274:346",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 346
  },
@@ -47,7 +47,7 @@
   "name": "HHAPT200G",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 346
  },
@@ -60,7 +60,7 @@
   "name": "HHAPT:Point:314:346",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 346
  },
@@ -73,7 +73,7 @@
   "name": "HHAPT:Transition Point:314:467",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 467
  },
@@ -86,7 +86,7 @@
   "name": "HHAPT:Point:315:265",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 265
  },
@@ -99,7 +99,7 @@
   "name": "HHAPT203G",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 265
  },
@@ -112,7 +112,7 @@
   "name": "HHAPT204G",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 265
  },
@@ -125,7 +125,7 @@
   "name": "HHAPT205G",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 203
  },
@@ -138,7 +138,7 @@
   "name": "HHAPT:Point:800:267",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 267
  },
@@ -151,7 +151,7 @@
   "name": "HHAPT:Point:802:164",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 164
  },
@@ -164,7 +164,7 @@
   "name": "HHAPT:Staircase:895:158",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Higgins House",
   "valy": 158
  }

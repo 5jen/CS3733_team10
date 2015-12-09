@@ -8,7 +8,7 @@
   "name": "FL139",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 283
  },
@@ -21,7 +21,7 @@
   "name": "FL138",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 227
  },
@@ -34,7 +34,7 @@
   "name": "FL137",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 205
  },
@@ -47,7 +47,7 @@
   "name": "FL136",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 147
  },
@@ -60,7 +60,7 @@
   "name": "FL134",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 87
  },
@@ -73,7 +73,7 @@
   "name": "FL137A",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 93
  },
@@ -86,7 +86,7 @@
   "name": "FL132",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 87
  },
@@ -99,7 +99,7 @@
   "name": "FL131",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 89
  },
@@ -112,7 +112,7 @@
   "name": "FL130",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 89
  },
@@ -125,7 +125,7 @@
   "name": "FL127",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 88
  },
@@ -138,7 +138,7 @@
   "name": "FL147",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 89
  },
@@ -151,7 +151,7 @@
   "name": "FL145",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 130
  },
@@ -164,7 +164,7 @@
   "name": "FL144",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 130
  },
@@ -177,7 +177,7 @@
   "name": "FL143",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 131
  },
@@ -190,7 +190,7 @@
   "name": "FL142",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 131
  },
@@ -203,7 +203,7 @@
   "name": "FL141",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 130
  },
@@ -216,7 +216,7 @@
   "name": "FL140",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 220
  },
@@ -229,7 +229,7 @@
   "name": "FL1:Elevator",
   "isPlace": true,
   "type": "Elevator",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 334
  },
@@ -242,7 +242,7 @@
   "name": "FL110",
   "isPlace": true,
   "type": "Elevator",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 273
  },
@@ -255,7 +255,7 @@
   "name": "FL111",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 272
  },
@@ -268,7 +268,7 @@
   "name": "FL112",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 272
  },
@@ -281,7 +281,7 @@
   "name": "FL113",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 305
  },
@@ -294,7 +294,7 @@
   "name": "FL114",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 370
  },
@@ -307,7 +307,7 @@
   "name": "FL100",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 357
  },
@@ -320,7 +320,7 @@
   "name": "FL1:Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 459
  },
@@ -333,7 +333,7 @@
   "name": "FL1:Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 490
  },
@@ -346,7 +346,7 @@
   "name": "FL118",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 641
  },
@@ -359,7 +359,7 @@
   "name": "FL119",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 642
  },
@@ -372,7 +372,7 @@
   "name": "FL120",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 643
  },
@@ -385,7 +385,7 @@
   "name": "FL125",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 720
  },
@@ -398,7 +398,7 @@
   "name": "FL123",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 723
  },
@@ -411,7 +411,7 @@
   "name": "FL127B",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 730
  },
@@ -424,7 +424,7 @@
   "name": "FL126A",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 792
  },
@@ -437,7 +437,7 @@
   "name": "FL126B",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 791
  },
@@ -450,7 +450,7 @@
   "name": "FL1:Staircase:275:289",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 289
  },
@@ -463,7 +463,7 @@
   "name": "FL1:Staircase:272:315",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 315
  },
@@ -476,7 +476,7 @@
   "name": "FL1:Point:249:288",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 288
  },
@@ -489,7 +489,7 @@
   "name": "FL1:Point:247:315",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 315
  },
@@ -502,7 +502,7 @@
   "name": "FL1:Point:220:288",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 288
  },
@@ -515,7 +515,7 @@
   "name": "FL1:Point:220:222",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 222
  },
@@ -528,7 +528,7 @@
   "name": "FL1:Point:220:152",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 152
  },
@@ -541,7 +541,7 @@
   "name": "FL1:Point:220:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -554,7 +554,7 @@
   "name": "FL133",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 88
  },
@@ -567,7 +567,7 @@
   "name": "FL1:Point:286:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -580,7 +580,7 @@
   "name": "FL1:Point:346:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -593,7 +593,7 @@
   "name": "FL1:Point:374:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -606,7 +606,7 @@
   "name": "FL1:Point:429:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -619,7 +619,7 @@
   "name": "FL1:Point:456:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -632,7 +632,7 @@
   "name": "FL1:Point:507:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -645,7 +645,7 @@
   "name": "FL1:Point:541:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -658,7 +658,7 @@
   "name": "FL1:Point:600:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -671,7 +671,7 @@
   "name": "FL1:Point:711:113",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 113
  },
@@ -684,7 +684,7 @@
   "name": "FL1UpperPeraultLectureHall",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 521
  },
@@ -697,7 +697,7 @@
   "name": "FL1:Point:737:205",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 205
  },
@@ -710,7 +710,7 @@
   "name": "FL1:Point:737:293",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 293
  },
@@ -723,7 +723,7 @@
   "name": "FL1:Point:737:339",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 339
  },
@@ -736,7 +736,7 @@
   "name": "FL1:Point:737:464",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 464
  },
@@ -749,7 +749,7 @@
   "name": "FL1:Point:737:495",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 495
  },
@@ -762,7 +762,7 @@
   "name": "FL1:Point:737:552",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 552
  },
@@ -775,7 +775,7 @@
   "name": "FL1:Point:737:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 683
  },
@@ -788,7 +788,7 @@
   "name": "FL1:Point:783:683",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 683
  },
@@ -801,7 +801,7 @@
   "name": "FL1:Point:824:552",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 552
  },
@@ -814,7 +814,7 @@
   "name": "FL1:Point:824:621",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 621
  },
@@ -827,7 +827,7 @@
   "name": "FL1:Point:888:621",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 621
  },
@@ -840,7 +840,7 @@
   "name": "FL1:Point:949:621",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 621
  },
@@ -853,7 +853,7 @@
   "name": "FL1:Point:1012:621",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 621
  },
@@ -866,7 +866,7 @@
   "name": "FL1:Point:1012:725",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 725
  },
@@ -879,7 +879,7 @@
   "name": "FL1:Point:1012:383",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 383
  },
@@ -892,7 +892,7 @@
   "name": "FL1:Point:915:383",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 383
  },
@@ -905,7 +905,7 @@
   "name": "FL1:Point:913:294",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 294
  },
@@ -918,7 +918,7 @@
   "name": "FL1:Point:871:293",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 293
  },
@@ -931,7 +931,7 @@
   "name": "FL1:Point:968:293",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 293
  },
@@ -944,7 +944,7 @@
   "name": "FL1LowerPeraultLectureHall",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 424
  },
@@ -957,7 +957,7 @@
   "name": "FL1:Staircase:776:233",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 233
  },
@@ -970,7 +970,7 @@
   "name": "FL1:Point:776:214",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 214
  },
@@ -983,7 +983,7 @@
   "name": "FL1:Point:805:212",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 212
  },
@@ -996,7 +996,7 @@
   "name": "FL1:Staircase:807:232",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 232
  },
@@ -1009,7 +1009,7 @@
   "name": "FL1:Point:691:448",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 448
  },
@@ -1022,7 +1022,7 @@
   "name": "FL1:Point:692:551",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 551
  },
@@ -1035,7 +1035,7 @@
   "name": "FL1:Point:692:498",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Fuller Labs",
   "valy": 498
  }

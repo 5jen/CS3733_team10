@@ -8,7 +8,7 @@
   "name": "HHGAR:Point:156:149",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 149
  },
@@ -21,7 +21,7 @@
   "name": "HHGAR:Point:375:147",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 147
  },
@@ -34,7 +34,7 @@
   "name": "HHGAR:Point:570:149",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 149
  },
@@ -47,7 +47,7 @@
   "name": "HHGAR:Point:588:307",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 307
  },
@@ -60,7 +60,7 @@
   "name": "HHGAR:Point:340:305",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 305
  },
@@ -73,7 +73,7 @@
   "name": "HHGAR:Point:168:305",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 305
  },
@@ -86,7 +86,7 @@
   "name": "HHGAR:Staircase:805:206",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 206
  },
@@ -99,7 +99,7 @@
   "name": "HHGAR:Point:810:389",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 389
  },
@@ -112,7 +112,7 @@
   "name": "HHGAR101G",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 398
  },
@@ -125,7 +125,7 @@
   "name": "HHGAR:Transition Point:864:454",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 454
  }

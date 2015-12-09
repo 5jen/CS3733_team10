@@ -8,7 +8,7 @@
   "name": "SH3:Staircase:812:203",
   "isPlace": false,
   "type": "Staircase",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 203
  },
@@ -21,7 +21,7 @@
   "name": "SH3:Point:812:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -34,7 +34,7 @@
   "name": "SH3:Point:880:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -47,7 +47,7 @@
   "name": "SH3:Point:956:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -60,7 +60,7 @@
   "name": "SH3:Point:973:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -73,7 +73,7 @@
   "name": "SH3:Point:973:360",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 360
  },
@@ -86,7 +86,7 @@
   "name": "SH3:Point:645:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -99,7 +99,7 @@
   "name": "SH3:Point:578:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -112,7 +112,7 @@
   "name": "SH3:Point:476:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -125,7 +125,7 @@
   "name": "SH3:Point:441:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -138,7 +138,7 @@
   "name": "SH3:Point:378:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -151,7 +151,7 @@
   "name": "SH3:Point:350:267",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -164,7 +164,7 @@
   "name": "SH3:Point:378:351",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 351
  },
@@ -177,7 +177,7 @@
   "name": "SH3:Point:340:351",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 351
  },
@@ -190,7 +190,7 @@
   "name": "SH3:Point:240:351",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 351
  },
@@ -203,7 +203,7 @@
   "name": "SH3:Point:172:351",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 351
  },
@@ -216,7 +216,7 @@
   "name": "SH3:Point:32:351",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 351
  },
@@ -229,7 +229,7 @@
   "name": "SH300D",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 226
  },
@@ -242,7 +242,7 @@
   "name": "Stratton Hall 3rd Floor Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 223
  },
@@ -255,7 +255,7 @@
   "name": "SH309",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -268,7 +268,7 @@
   "name": "SH308",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 360
  },
@@ -281,7 +281,7 @@
   "name": "SH307",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 409
  },
@@ -294,7 +294,7 @@
   "name": "SH3:Point:889:409",
   "isPlace": false,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 409
  },
@@ -307,7 +307,7 @@
   "name": "SH307A",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 378
  },
@@ -320,7 +320,7 @@
   "name": "Stratton Hall 3rd Floor Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 214
  },
@@ -333,7 +333,7 @@
   "name": "SH302B",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 211
  },
@@ -346,7 +346,7 @@
   "name": "SH306",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 331
  },
@@ -359,7 +359,7 @@
   "name": "SH302A",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 205
  },
@@ -372,7 +372,7 @@
   "name": "SH303",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 203
  },
@@ -385,7 +385,7 @@
   "name": "SH304",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 267
  },
@@ -398,7 +398,7 @@
   "name": "SH305A",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 417
  },
@@ -411,7 +411,7 @@
   "name": "SH305B",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 418
  },
@@ -424,7 +424,7 @@
   "name": "SH305C",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 418
  },
@@ -437,7 +437,7 @@
   "name": "SH305D",
   "isPlace": true,
   "type": "Point",
-  "valz": 2,
+  "valz": 20,
   "building": "Stratton Hall",
   "valy": 416
  }

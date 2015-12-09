@@ -215,7 +215,7 @@
   "floorMap": "Gordon Library 2",
   "name": "GL Class of 1970 Cafe",
   "isPlace": true,
-  "type": "Point",
+  "type": "Dining",
   "valz": 0,
   "building": "Gordon Library",
   "valy": 319

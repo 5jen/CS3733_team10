@@ -8,7 +8,7 @@
   "name": "CC3:Point:459:501",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 501
  },
@@ -21,7 +21,7 @@
   "name": "Hagglund Room",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 617
  },
@@ -34,7 +34,7 @@
   "name": "CC3:Point:459:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -47,7 +47,7 @@
   "name": "CC3:Point:515:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -60,7 +60,7 @@
   "name": "CC3:Point:639:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -73,7 +73,7 @@
   "name": "CC3:Point:726:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -86,7 +86,7 @@
   "name": "CC3:Point:833:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -99,7 +99,7 @@
   "name": "CC3:Point:916:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -112,7 +112,7 @@
   "name": "CC3:Point:1090:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -125,7 +125,7 @@
   "name": "CC3:Point:1049:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -138,7 +138,7 @@
   "name": "CC3:Point:1035:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -151,7 +151,7 @@
   "name": "CC3:Point:1181:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -164,7 +164,7 @@
   "name": "CC3:Point:1155:542",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -177,7 +177,7 @@
   "name": "CC3:Point:1181:595",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 595
  },
@@ -190,7 +190,7 @@
   "name": "CC3:Point:1181:649",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 649
  },
@@ -203,7 +203,7 @@
   "name": "CC3:Point:1090:639",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 639
  },
@@ -216,7 +216,7 @@
   "name": "CC3:Point:1035:503",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 503
  },
@@ -229,7 +229,7 @@
   "name": "CC3:Staircase:1056:448",
   "isPlace": false,
   "type": "Staircase",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 448
  },
@@ -242,7 +242,7 @@
   "name": "CC3:Point:1090:884",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 884
  },
@@ -255,7 +255,7 @@
   "name": "CC3:Point:1046:884",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 884
  },
@@ -268,7 +268,7 @@
   "name": "CC3:Point:1046:921",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 921
  },
@@ -281,7 +281,7 @@
   "name": "CC3:Point:678:463",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 463
  },
@@ -294,7 +294,7 @@
   "name": "CC3:Point:431:622",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 622
  },
@@ -307,7 +307,7 @@
   "name": "CC3:Point:389:729",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 729
  },
@@ -320,7 +320,7 @@
   "name": "CC3:Point:333:487",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 487
  },
@@ -333,7 +333,7 @@
   "name": "CC3:Point:220:487",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 487
  },
@@ -346,7 +346,7 @@
   "name": "CC3:Point:220:441",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 441
  },
@@ -359,7 +359,7 @@
   "name": "CC3:Point:220:409",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 409
  },
@@ -372,7 +372,7 @@
   "name": "CC3:Point:220:349",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 349
  },
@@ -385,7 +385,7 @@
   "name": "CC3:Point:220:321",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 321
  },
@@ -398,7 +398,7 @@
   "name": "CC3:Point:220:188",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 188
  },
@@ -411,7 +411,7 @@
   "name": "CC3:Point:220:111",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 111
  },
@@ -424,7 +424,7 @@
   "name": "CC3:Point:220:74",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 74
  },
@@ -437,7 +437,7 @@
   "name": "CC3:Point:95:170",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 170
  },
@@ -450,7 +450,7 @@
   "name": "CC3:Point:95:145",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 145
  },
@@ -463,7 +463,7 @@
   "name": "CC3:Point:364:111",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 111
  },
@@ -476,7 +476,7 @@
   "name": "CC3:Point:393:111",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 111
  },
@@ -489,7 +489,7 @@
   "name": "CC3:Point:364:198",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 198
  },
@@ -502,7 +502,7 @@
   "name": "CC3:Point:349:198",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 198
  },
@@ -515,7 +515,7 @@
   "name": "CC3:Point:123:349",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 349
  },
@@ -528,7 +528,7 @@
   "name": "CC3:Point:313:409",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 409
  },
@@ -541,7 +541,7 @@
   "name": "CC3:Point:313:357",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 357
  },
@@ -554,7 +554,7 @@
   "name": "CC3:Point:313:330",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 330
  },
@@ -567,7 +567,7 @@
   "name": "CC3:Point:313:294",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 294
  },
@@ -580,7 +580,7 @@
   "name": "CC3:Point:444:755",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 755
  },
@@ -593,7 +593,7 @@
   "name": "CC335",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 511
  },
@@ -606,7 +606,7 @@
   "name": "CC338",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 595
  },
@@ -619,7 +619,7 @@
   "name": "CC339A",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 649
  },
@@ -632,7 +632,7 @@
   "name": "CC339",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 719
  },
@@ -645,7 +645,7 @@
   "name": "CC3:Point:1090:719",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 719
  },
@@ -658,7 +658,7 @@
   "name": "CC340",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 884
  },
@@ -671,7 +671,7 @@
   "name": "CC341A",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 921
  },
@@ -684,7 +684,7 @@
   "name": "CC Odeum A",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -697,7 +697,7 @@
   "name": "CC Odeum B",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -710,7 +710,7 @@
   "name": "CC Odeum C",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 542
  },
@@ -723,7 +723,7 @@
   "name": "CC337",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 572
  },
@@ -736,7 +736,7 @@
   "name": "CC336",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 639
  },
@@ -749,7 +749,7 @@
   "name": "Mid-Century Room",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 473
  },
@@ -762,7 +762,7 @@
   "name": "CC304",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 441
  },
@@ -775,7 +775,7 @@
   "name": "CC327",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 409
  },
@@ -788,7 +788,7 @@
   "name": "CC329",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 357
  },
@@ -801,7 +801,7 @@
   "name": "CC328",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 330
  },
@@ -814,7 +814,7 @@
   "name": "CC325",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 294
  },
@@ -827,7 +827,7 @@
   "name": "CC326",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 321
  },
@@ -840,7 +840,7 @@
   "name": "Campus Center 3rd Floor Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 297
  },
@@ -853,7 +853,7 @@
   "name": "Campus Center 3rd Floor Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 399
  },
@@ -866,7 +866,7 @@
   "name": "CC312",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 188
  },
@@ -879,7 +879,7 @@
   "name": "CC313",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 213
  },
@@ -892,7 +892,7 @@
   "name": "CC314",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 170
  },
@@ -905,7 +905,7 @@
   "name": "CC315",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 145
  },
@@ -918,7 +918,7 @@
   "name": "CC316",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 89
  },
@@ -931,7 +931,7 @@
   "name": "CC317",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 74
  },
@@ -944,7 +944,7 @@
   "name": "CC315*",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 111
  },
@@ -957,7 +957,7 @@
   "name": "CC323",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 216
  },
@@ -970,7 +970,7 @@
   "name": "CC324",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 198
  },
@@ -983,7 +983,7 @@
   "name": "CC319",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 86
  },
@@ -996,7 +996,7 @@
   "name": "CC320",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 190
  },
@@ -1009,7 +1009,7 @@
   "name": "CC3:Point:813:498",
   "isPlace": false,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 498
  },
@@ -1022,7 +1022,7 @@
   "name": "CC344",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 633
  },
@@ -1035,7 +1035,7 @@
   "name": "CC345",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 748
  },
@@ -1048,7 +1048,7 @@
   "name": "CC348",
   "isPlace": true,
   "type": "Point",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 793
  },
@@ -1061,7 +1061,7 @@
   "name": "CC3:Staircase:471:467",
   "isPlace": false,
   "type": "Staircase",
-  "valz": 1,
+  "valz": 10,
   "building": "Campus Center",
   "valy": 467
  }

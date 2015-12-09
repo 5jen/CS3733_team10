@@ -8,7 +8,7 @@
   "name": "HH1:Transition Point:226:10",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 10
  },
@@ -21,7 +21,7 @@
   "name": "HH1:Point:226:90",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 90
  },
@@ -34,7 +34,7 @@
   "name": "HH1:Point:226:175",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 175
  },
@@ -47,7 +47,7 @@
   "name": "HH1:103",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 175
  },
@@ -60,7 +60,7 @@
   "name": "HH1:Point:263:175",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 175
  },
@@ -73,7 +73,7 @@
   "name": "HH1:Point:359:175",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 175
  },
@@ -86,7 +86,7 @@
   "name": "HH1:Transition Point:359:194",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 194
  },
@@ -99,7 +99,7 @@
   "name": "HH1:Point:359:93",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 93
  },
@@ -112,7 +112,7 @@
   "name": "HH1:110",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 93
  },
@@ -125,7 +125,7 @@
   "name": "HH1:Transition Point:382:195",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -138,7 +138,7 @@
   "name": "HH1:119",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -151,7 +151,7 @@
   "name": "HH1:Point:397:195",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -164,7 +164,7 @@
   "name": "HH1:Point:497:195",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -177,7 +177,7 @@
   "name": "HH1:Point:523:195",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -190,7 +190,7 @@
   "name": "HH1:131",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -203,7 +203,7 @@
   "name": "HH1:Point:720:195",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 195
  },
@@ -216,7 +216,7 @@
   "name": "HH1:Point:760:184",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 184
  },
@@ -229,7 +229,7 @@
   "name": "HH1:133",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 184
  },
@@ -242,7 +242,7 @@
   "name": "HH1:Transition Point:582:318",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 318
  },
@@ -255,7 +255,7 @@
   "name": "HH1:Point:582:339",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 339
  },
@@ -268,7 +268,7 @@
   "name": "HH1:139",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 423
  },
@@ -281,7 +281,7 @@
   "name": "HH1:Point:582:495",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 495
  },
@@ -294,7 +294,7 @@
   "name": "HH1:Point:651:495",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 495
  },
@@ -307,7 +307,7 @@
   "name": "HH1:146",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 546
  },
@@ -320,7 +320,7 @@
   "name": "HH1:Point:364:423",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 423
  },
@@ -333,7 +333,7 @@
   "name": "HH1:135",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 423
  },
@@ -346,7 +346,7 @@
   "name": "HH1:Point:305:347",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 347
  },
@@ -359,7 +359,7 @@
   "name": "HH1:Point:305:301",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 301
  },
@@ -372,7 +372,7 @@
   "name": "HH1:Point:305:279",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 279
  },
@@ -385,7 +385,7 @@
   "name": "HH1:Point:497:318",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 318
  },
@@ -398,7 +398,7 @@
   "name": "HH1:Point:497:278",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 278
  },
@@ -411,7 +411,7 @@
   "name": "HH1:Point:397:278",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 278
  },
@@ -424,7 +424,7 @@
   "name": "HH1:142",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 474
  },
@@ -437,7 +437,7 @@
   "name": "HH1:111",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 74
  },
@@ -450,7 +450,7 @@
   "name": "HH1:114",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 93
  },
@@ -463,7 +463,7 @@
   "name": "HH1:Point:433:150",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 150
  },
@@ -476,7 +476,7 @@
   "name": "HH1:Point:305:323",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 323
  },
@@ -489,7 +489,7 @@
   "name": "HH1:Staircase:340:323",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 323
  },
@@ -502,7 +502,7 @@
   "name": "HH1:Point:146:90",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 90
  },
@@ -515,7 +515,7 @@
   "name": "HH1:Point:104:90",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 90
  },
@@ -528,7 +528,7 @@
   "name": "HH1:100",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 139
  },
@@ -541,7 +541,7 @@
   "name": "HH1:Point:104:182",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 182
  },
@@ -554,7 +554,7 @@
   "name": "HH1:Porch",
   "isPlace": true,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 63
  },
@@ -567,7 +567,7 @@
   "name": "HH1:Staircase:226:42",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 42
  },
@@ -580,7 +580,7 @@
   "name": "HH1:Point:241:473",
   "isPlace": false,
   "type": "Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 473
  },
@@ -593,7 +593,7 @@
   "name": "HH1:Transition Point:212:502",
   "isPlace": false,
   "type": "Transition Point",
-  "valz": -2,
+  "valz": -20,
   "building": "Higgins House",
   "valy": 502
  }

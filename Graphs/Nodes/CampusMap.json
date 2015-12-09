@@ -736,7 +736,7 @@
   "name": "AK Front Entrance",
   "isPlace": true,
   "type": "Transition Point",
-  "valz": -1,
+  "valz": 0,
   "building": "Campus",
   "valy": 564
  },

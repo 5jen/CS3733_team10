@@ -8,7 +8,7 @@
   "name": "GL First Floor Men's Bathroom",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 154
  },
@@ -21,7 +21,7 @@
   "name": "GL First Floor Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 231
  },
@@ -34,7 +34,7 @@
   "name": "GL106",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 115
  },
@@ -47,7 +47,7 @@
   "name": "GL108",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 305
  },
@@ -60,7 +60,7 @@
   "name": "GL109",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 368
  },
@@ -73,7 +73,7 @@
   "name": "GL110",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 408
  },
@@ -86,7 +86,7 @@
   "name": "GL111",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -99,7 +99,7 @@
   "name": "GL111A",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -112,7 +112,7 @@
   "name": "GL112",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -125,7 +125,7 @@
   "name": "GL112A",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -138,7 +138,7 @@
   "name": "GL121",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -151,7 +151,7 @@
   "name": "GL120",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -164,7 +164,7 @@
   "name": "GL119",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -177,7 +177,7 @@
   "name": "GL First Floor Men's Bathroom 2",
   "isPlace": true,
   "type": "Men's Bathroom",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 686
  },
@@ -190,7 +190,7 @@
   "name": "GL100F",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 660
  },
@@ -203,7 +203,7 @@
   "name": "GL117A",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 576
  },
@@ -216,7 +216,7 @@
   "name": "GL114",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 391
  },
@@ -229,7 +229,7 @@
   "name": "GL116",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 275
  },
@@ -242,7 +242,7 @@
   "name": "GL117",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 472
  },
@@ -255,7 +255,7 @@
   "name": "GL115",
   "isPlace": true,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 116
  },
@@ -268,7 +268,7 @@
   "name": "GL1:Staircase:422:448",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 448
  },
@@ -281,7 +281,7 @@
   "name": "GL1:Staircase:555:448",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 448
  },
@@ -294,7 +294,7 @@
   "name": "GL1:Point:422:466",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 466
  },
@@ -307,7 +307,7 @@
   "name": "GL1:Point:555:466",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 466
  },
@@ -320,7 +320,7 @@
   "name": "GL1:Point:696:466",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 466
  },
@@ -333,7 +333,7 @@
   "name": "GL1:Point:988:470",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 470
  },
@@ -346,7 +346,7 @@
   "name": "GL1:Point:988:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -359,7 +359,7 @@
   "name": "GL1:Point:923:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -372,7 +372,7 @@
   "name": "GL1:Point:884:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -385,7 +385,7 @@
   "name": "GL1:Point:721:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -398,7 +398,7 @@
   "name": "GL1:Point:679:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -411,7 +411,7 @@
   "name": "GL1:Point:557:668",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 668
  },
@@ -424,7 +424,7 @@
   "name": "GL1:Point:345:466",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 466
  },
@@ -437,7 +437,7 @@
   "name": "GL1:Point:345:234",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 234
  },
@@ -450,7 +450,7 @@
   "name": "GL1:Point:345:158",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 158
  },
@@ -463,7 +463,7 @@
   "name": "GL1:Point:345:82",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 82
  },
@@ -476,7 +476,7 @@
   "name": "GL1:Point:520:82",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 82
  },
@@ -489,7 +489,7 @@
   "name": "GL1:Point:696:82",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 82
  },
@@ -502,7 +502,7 @@
   "name": "GL1:Point:696:304",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 304
  },
@@ -515,7 +515,7 @@
   "name": "GL1:Point:696:366",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 366
  },
@@ -528,7 +528,7 @@
   "name": "GL1:Point:696:408",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 408
  },
@@ -541,7 +541,7 @@
   "name": "GL1:Point:989:82",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 82
  },
@@ -554,7 +554,7 @@
   "name": "GL1:Point:1103:82",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 82
  },
@@ -567,7 +567,7 @@
   "name": "GL1:Point:1070:470",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 470
  },
@@ -580,7 +580,7 @@
   "name": "GL1:Point:1070:655",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 655
  },
@@ -593,7 +593,7 @@
   "name": "GL1:Point:1174:655",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 655
  },
@@ -606,7 +606,7 @@
   "name": "GL1:Point:1240:655",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 655
  },
@@ -619,7 +619,7 @@
   "name": "GL1:Point:1321:655",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 655
  },
@@ -632,7 +632,7 @@
   "name": "GL1:Point:1174:577",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 577
  },
@@ -645,7 +645,7 @@
   "name": "GL1:Point:1174:473",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 473
  },
@@ -658,7 +658,7 @@
   "name": "GL1:Point:1174:395",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 395
  },
@@ -671,7 +671,7 @@
   "name": "GL1:Point:1245:390",
   "isPlace": false,
   "type": "Point",
-  "valz": -1,
+  "valz": -10,
   "building": "Gordon Library",
   "valy": 390
  }
