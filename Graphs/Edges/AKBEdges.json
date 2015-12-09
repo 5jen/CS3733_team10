@@ -1,1 +1,347 @@
-[{"distance":0,"from":"AKB:Point:968:351","to":"AKB:Point:977:351"},{"distance":3,"from":"AK024A","to":"AKB:Point:78:321"},{"distance":1,"from":"AK024B","to":"AKB:Point:78:321"},{"distance":1,"from":"AKB:Point:78:321","to":"AK024B"},{"distance":1,"from":"AKB:Point:78:321","to":"AK024B"},{"distance":7,"from":"AKB:Point:78:321","to":"AKB:Point:194:321"},{"distance":2,"from":"AKB:Point:194:278","to":"AKB:Point:194:321"},{"distance":2,"from":"AKB:Point:194:278","to":"AKB:Point:194:250"},{"distance":1,"from":"AK026","to":"AKB:Point:194:250"},{"distance":1,"from":"AKB:Point:194:278","to":"AK025"},{"distance":1,"from":"AK027","to":"AKB:Point:194:321"},{"distance":2,"from":"AK027","to":"AKB:Point:197:382"},{"distance":0,"from":"AKB:Point:185:382","to":"AKB:Point:197:382"},{"distance":4,"from":"AKB:Point:185:382","to":"AKB:Point:119:382"},{"distance":2,"from":"AKB:Point:119:356","to":"AKB:Point:119:382"},{"distance":4,"from":"AKB:Point:119:356","to":"AK023"},{"distance":3,"from":"AKB:Point:197:382","to":"AKB:Point:241:382"},{"distance":5,"from":"AKB:Point:346:382","to":"AKB:Point:241:382"},{"distance":2,"from":"AKB:Point:346:382","to":"AKB:Point:346:351"},{"distance":2,"from":"AKB:Staircase:312:351","to":"AKB:Point:346:351"},{"distance":2,"from":"AKB:Point:186:679","to":"AK015"},{"distance":2,"from":"AKB:Point:186:679","to":"AKB:Point:186:712"},{"distance":2,"from":"AKB:Point:145:712","to":"AKB:Point:186:712"},{"distance":1,"from":"AKB:Point:145:712","to":"AKB:Point:119:712"},{"distance":8,"from":"AK018","to":"AKB:Point:119:712"},{"distance":0,"from":"AK018","to":"AKB:Point:119:567"},{"distance":3,"from":"AKB:Point:119:523","to":"AKB:Point:119:567"},{"distance":2,"from":"AKB:Point:119:523","to":"AKB:Point:119:483"},{"distance":5,"from":"AKB:Point:119:382","to":"AKB:Point:119:483"},{"distance":1,"from":"AK020","to":"AKB:Point:119:483"},{"distance":1,"from":"AK019","to":"AKB:Point:119:523"},{"distance":2,"from":"AKB:Point:185:382","to":"AK014"},{"distance":3,"from":"AKB:Point:186:484","to":"AK014"},{"distance":3,"from":"AKB:Point:186:484","to":"AKB:Point:241:484"},{"distance":1,"from":"AK013","to":"AKB:Point:241:484"},{"distance":12,"from":"AKB:Point:186:679","to":"AKB:Point:186:484"},{"distance":2,"from":"AKB:Point:380:351","to":"AKB:Point:346:351"},{"distance":16,"from":"AKB:Point:380:351","to":"AKB:Point:636:351"},{"distance":1,"from":"AK00G","to":"AKB:Point:636:351"},{"distance":13,"from":"AKB:Point:636:351","to":"AKB:Point:845:351"},{"distance":8,"from":"AKB:Point:968:351","to":"AKB:Point:845:351"},{"distance":10,"from":"AKB:Point:968:351","to":"AKB:Point:968:182"},{"distance":3,"from":"AK001","to":"AKB:Point:968:182"},{"distance":1,"from":"AK001","to":"AKB:Point:1045:182"},{"distance":3,"from":"AKB:Point:1045:130","to":"AKB:Point:1045:182"},{"distance":2,"from":"AKB:Point:1045:130","to":"AK001B"},{"distance":4,"from":"AKB:Point:948:106","to":"AK001B"},{"distance":0,"from":"AKB:Point:968:351","to":"AKB:Point:977:351"},{"distance":2,"from":"AKB:Point:977:394","to":"AKB:Point:977:351"},{"distance":3,"from":"AKB:Point:977:394","to":"AKB:Point:977:449"},{"distance":6,"from":"AKB:Point:977:562","to":"AKB:Point:977:449"},{"distance":2,"from":"AKB:Point:977:562","to":"AKB:Point:977:599"},{"distance":3,"from":"AKB:Point:977:654","to":"AKB:Point:977:599"},{"distance":1,"from":"AKB:Point:977:654","to":"AKB:Point:977:673"},{"distance":0,"from":"AK009","to":"AKB:Point:977:673"},{"distance":0,"from":"AK012","to":"AKB:Point:977:449"},{"distance":2,"from":"AK005","to":"AKB:Point:977:449"},{"distance":1,"from":"AK011","to":"AKB:Point:977:562"},{"distance":1,"from":"AK006","to":"AKB:Point:977:562"},{"distance":1,"from":"AK010","to":"AKB:Point:977:599"},{"distance":1,"from":"AK007","to":"AKB:Point:977:599"},{"distance":1,"from":"AKB:Point:977:654","to":"AK008"},{"distance":5,"from":"AKB:Point:1074:394","to":"AKB:Point:977:394"},{"distance":1,"from":"AKB:Point:1074:394","to":"AKB004"},{"distance":1,"from":"AKB:Point:1074:374","to":"AKB:Point:1074:394"},{"distance":1,"from":"AKB:Point:1074:374","to":"AK003"},{"distance":2,"from":"AKB:Staircase:1010:351","to":"AKB:Point:977:351"},{"distance":6,"from":"AKB:Point:241:382","to":"AKB:Point:241:484"}]
+[
+ {
+  "distance": 0,
+  "from": "AKB:Point:968:351",
+  "to": "AKB:Point:977:351"
+ },
+ {
+  "distance": 3,
+  "from": "AK024A",
+  "to": "AKB:Point:78:321"
+ },
+ {
+  "distance": 1,
+  "from": "AK024B",
+  "to": "AKB:Point:78:321"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:78:321",
+  "to": "AK024B"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:78:321",
+  "to": "AK024B"
+ },
+ {
+  "distance": 7,
+  "from": "AKB:Point:78:321",
+  "to": "AKB:Point:194:321"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:194:278",
+  "to": "AKB:Point:194:321"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:194:278",
+  "to": "AKB:Point:194:250"
+ },
+ {
+  "distance": 1,
+  "from": "AK026",
+  "to": "AKB:Point:194:250"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:194:278",
+  "to": "AK025"
+ },
+ {
+  "distance": 1,
+  "from": "AK027",
+  "to": "AKB:Point:194:321"
+ },
+ {
+  "distance": 2,
+  "from": "AK027",
+  "to": "AKB:Point:197:382"
+ },
+ {
+  "distance": 0,
+  "from": "AKB:Point:185:382",
+  "to": "AKB:Point:197:382"
+ },
+ {
+  "distance": 4,
+  "from": "AKB:Point:185:382",
+  "to": "AKB:Point:119:382"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:119:356",
+  "to": "AKB:Point:119:382"
+ },
+ {
+  "distance": 4,
+  "from": "AKB:Point:119:356",
+  "to": "AK023"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:197:382",
+  "to": "AKB:Point:241:382"
+ },
+ {
+  "distance": 5,
+  "from": "AKB:Point:346:382",
+  "to": "AKB:Point:241:382"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:346:382",
+  "to": "AKB:Point:346:351"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Staircase:312:351",
+  "to": "AKB:Point:346:351"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:186:679",
+  "to": "AK015"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:186:679",
+  "to": "AKB:Point:186:712"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:145:712",
+  "to": "AKB:Point:186:712"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:145:712",
+  "to": "AKB:Point:119:712"
+ },
+ {
+  "distance": 8,
+  "from": "AK018",
+  "to": "AKB:Point:119:712"
+ },
+ {
+  "distance": 0,
+  "from": "AK018",
+  "to": "AKB:Point:119:567"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:119:523",
+  "to": "AKB:Point:119:567"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:119:523",
+  "to": "AKB:Point:119:483"
+ },
+ {
+  "distance": 5,
+  "from": "AKB:Point:119:382",
+  "to": "AKB:Point:119:483"
+ },
+ {
+  "distance": 1,
+  "from": "AK020",
+  "to": "AKB:Point:119:483"
+ },
+ {
+  "distance": 1,
+  "from": "AK019",
+  "to": "AKB:Point:119:523"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:185:382",
+  "to": "AK014"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:186:484",
+  "to": "AK014"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:186:484",
+  "to": "AKB:Point:241:484"
+ },
+ {
+  "distance": 1,
+  "from": "AK013",
+  "to": "AKB:Point:241:484"
+ },
+ {
+  "distance": 12,
+  "from": "AKB:Point:186:679",
+  "to": "AKB:Point:186:484"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:380:351",
+  "to": "AKB:Point:346:351"
+ },
+ {
+  "distance": 16,
+  "from": "AKB:Point:380:351",
+  "to": "AKB:Point:636:351"
+ },
+ {
+  "distance": 1,
+  "from": "AK00G",
+  "to": "AKB:Point:636:351"
+ },
+ {
+  "distance": 13,
+  "from": "AKB:Point:636:351",
+  "to": "AKB:Point:845:351"
+ },
+ {
+  "distance": 8,
+  "from": "AKB:Point:968:351",
+  "to": "AKB:Point:845:351"
+ },
+ {
+  "distance": 10,
+  "from": "AKB:Point:968:351",
+  "to": "AKB:Point:968:182"
+ },
+ {
+  "distance": 3,
+  "from": "AK001",
+  "to": "AKB:Point:968:182"
+ },
+ {
+  "distance": 1,
+  "from": "AK001",
+  "to": "AKB:Point:1045:182"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:1045:130",
+  "to": "AKB:Point:1045:182"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:1045:130",
+  "to": "AK001B"
+ },
+ {
+  "distance": 4,
+  "from": "AKB:Point:948:106",
+  "to": "AK001B"
+ },
+ {
+  "distance": 0,
+  "from": "AKB:Point:968:351",
+  "to": "AKB:Point:977:351"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:977:394",
+  "to": "AKB:Point:977:351"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:977:394",
+  "to": "AKB:Point:977:449"
+ },
+ {
+  "distance": 6,
+  "from": "AKB:Point:977:562",
+  "to": "AKB:Point:977:449"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Point:977:562",
+  "to": "AKB:Point:977:599"
+ },
+ {
+  "distance": 3,
+  "from": "AKB:Point:977:654",
+  "to": "AKB:Point:977:599"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:977:654",
+  "to": "AKB:Point:977:673"
+ },
+ {
+  "distance": 0,
+  "from": "AK009",
+  "to": "AKB:Point:977:673"
+ },
+ {
+  "distance": 0,
+  "from": "AK012",
+  "to": "AKB:Point:977:449"
+ },
+ {
+  "distance": 2,
+  "from": "AK005",
+  "to": "AKB:Point:977:449"
+ },
+ {
+  "distance": 1,
+  "from": "AK011",
+  "to": "AKB:Point:977:562"
+ },
+ {
+  "distance": 1,
+  "from": "AK006",
+  "to": "AKB:Point:977:562"
+ },
+ {
+  "distance": 1,
+  "from": "AK010",
+  "to": "AKB:Point:977:599"
+ },
+ {
+  "distance": 1,
+  "from": "AK007",
+  "to": "AKB:Point:977:599"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:977:654",
+  "to": "AK008"
+ },
+ {
+  "distance": 5,
+  "from": "AKB:Point:1074:394",
+  "to": "AKB:Point:977:394"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:1074:394",
+  "to": "AKB004"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:1074:374",
+  "to": "AKB:Point:1074:394"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:1074:374",
+  "to": "AK003"
+ },
+ {
+  "distance": 2,
+  "from": "AKB:Staircase:1010:351",
+  "to": "AKB:Point:977:351"
+ },
+ {
+  "distance": 6,
+  "from": "AKB:Point:241:382",
+  "to": "AKB:Point:241:484"
+ },
+ {
+  "distance": 11,
+  "from": "AK1:Staircase:345:660",
+  "to": "AKB:Staircase:312:351"
+ }
+]

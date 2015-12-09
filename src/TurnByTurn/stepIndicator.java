@@ -260,14 +260,14 @@ public class stepIndicator {
        // System.out.println(angleDifference);
 
 
-        if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left";
-        else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left";
-        else if ((angleDifference>120) && (angleDifference<=160)) return "Turn sharp left";
-        else if ((angleDifference>160) && (angleDifference<=200)) return "Make a U turn";
-        else if ((angleDifference>200) && (angleDifference<=240)) return "Turn sharp right";
-        else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right";
-        else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right";
-        else return "Keep straight";
+        if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left in";
+        else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left in";
+        else if ((angleDifference>120) && (angleDifference<=160)) return "Turn sharp left in";
+        else if ((angleDifference>160) && (angleDifference<=200)) return "Make a U turn in";
+        else if ((angleDifference>200) && (angleDifference<=240)) return "Turn sharp right in";
+        else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right in";
+        else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right in";
+        else return "Keep straight for";
 
     }
 
