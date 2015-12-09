@@ -1,1 +1,142 @@
-[]
+[
+ {
+  "distance": 3,
+  "from": "BH3:Point:130:174",
+  "to": "BH301B"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:130:174",
+  "to": "BH3:Point:130:289"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:250:289",
+  "to": "BH3:Point:130:289"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:250:289",
+  "to": "BH301"
+ },
+ {
+  "distance": 8,
+  "from": "BH3:Point:564:289",
+  "to": "BH301"
+ },
+ {
+  "distance": 2,
+  "from": "BH3:Point:564:289",
+  "to": "BH3:Point:618:289"
+ },
+ {
+  "distance": 3,
+  "from": "BH3:Point:683:289",
+  "to": "BH3:Point:618:289"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:683:289",
+  "to": "BH309"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:892:289",
+  "to": "BH309"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:892:289",
+  "to": "BH3:Point:892:179"
+ },
+ {
+  "distance": 2,
+  "from": "BH307",
+  "to": "BH3:Point:892:179"
+ },
+ {
+  "distance": 13,
+  "from": "BH307",
+  "to": "BH3:Point:1274:179"
+ },
+ {
+  "distance": 3,
+  "from": "BH3:Point:1351:179",
+  "to": "BH3:Point:1274:179"
+ },
+ {
+  "distance": 3,
+  "from": "BH3:Point:1351:179",
+  "to": "BH3:Point:1429:179"
+ },
+ {
+  "distance": 9,
+  "from": "BH307C",
+  "to": "BH3:Point:1429:179"
+ },
+ {
+  "distance": 9,
+  "from": "BH307B",
+  "to": "BH3:Point:1351:179"
+ },
+ {
+  "distance": 1,
+  "from": "BH3:Point:683:289",
+  "to": "BH306"
+ },
+ {
+  "distance": 2,
+  "from": "BH3:Elevator:618:236",
+  "to": "BH3:Point:618:289"
+ },
+ {
+  "distance": 2,
+  "from": "BH3:Point:564:289",
+  "to": "BH Third Floor Men's Bathroom"
+ },
+ {
+  "distance": 4,
+  "from": "BH3:Point:250:407",
+  "to": "BH3:Point:250:289"
+ },
+ {
+  "distance": 3,
+  "from": "BH3:Point:250:407",
+  "to": "BH302"
+ },
+ {
+  "distance": 1,
+  "from": "BH308",
+  "to": "BH3:Point:1239:496"
+ },
+ {
+  "distance": 1,
+  "from": "BH3:Point:1274:496",
+  "to": "BH3:Point:1239:496"
+ },
+ {
+  "distance": 12,
+  "from": "BH3:Point:1274:496",
+  "to": "BH3:Point:1274:179"
+ },
+ {
+  "distance": 1,
+  "from": "BH3:Staircase:588:372",
+  "to": "BH2:Staircase:587:400"
+ },
+ {
+  "distance": 1,
+  "from": "BH3:Point:633:371",
+  "to": "BH3:Staircase:588:372"
+ },
+ {
+  "distance": 3,
+  "from": "BH3:Point:633:371",
+  "to": "BH3:Point:618:289"
+ },
+ {
+  "distance": 1,
+  "from": "BH3:Staircase:588:372",
+  "to": "BH2:Staircase:590:356"
+ }
+]

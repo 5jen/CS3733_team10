@@ -1,1 +1,477 @@
-[{"distance":38,"from":"CampusCenter2Entrance","to":"CC:216:560:0"},{"distance":14,"from":"CC:216:560:0","to":"CCHall:430:560:0"},{"distance":17,"from":"CCHall:430:560:0","to":"CC:709:560:0"},{"distance":11,"from":"CC:903:560:0","to":"CC:709:560:0"},{"distance":8,"from":"CC:903:560:0","to":"CC:1027:560:0"},{"distance":3,"from":"CCHall:430:560:0","to":"CCStairsDown:0"},{"distance":40,"from":"CC:903:560:0","to":"CC252"},{"distance":4,"from":"CC:1027:506:0","to":"CC:1027:560:0"},{"distance":3,"from":"CC:1027:506:0","to":"CCBackStairs0"}]
+[
+ {
+  "distance": 24,
+  "from": "CC2:Point:709:717",
+  "to": "CC2:Point:1090:717"
+ },
+ {
+  "distance": 5,
+  "from": "CC250",
+  "to": "CC2:Point:1090:717"
+ },
+ {
+  "distance": 1,
+  "from": "CC250",
+  "to": "CC249"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Point:1090:717",
+  "to": "CC2:Point:1193:717"
+ },
+ {
+  "distance": 3,
+  "from": "CC245",
+  "to": "CC2:Place:1193:604"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:1193:560",
+  "to": "CC2:Place:1193:604"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:1193:560",
+  "to": "CC2:Place:1170:560"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:360:704",
+  "to": "CC2:Point:406:711"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Point:442:760",
+  "to": "CC2:Point:406:711"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Point:442:760",
+  "to": "CC254"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:442:845",
+  "to": "CC254"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Point:442:845",
+  "to": "CC2:Point:453:845"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Point:477:845",
+  "to": "CC2:Point:453:845"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Point:477:845",
+  "to": "CC2:Point:546:845"
+ },
+ {
+  "distance": 4,
+  "from": "CC255",
+  "to": "CC2:Point:546:845"
+ },
+ {
+  "distance": 2,
+  "from": "CC256",
+  "to": "CC2:Point:546:845"
+ },
+ {
+  "distance": 3,
+  "from": "CC257",
+  "to": "CC2:Point:477:845"
+ },
+ {
+  "distance": 2,
+  "from": "CC258",
+  "to": "CC2:Point:453:845"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:1144:560",
+  "to": "CC244"
+ },
+ {
+  "distance": 2,
+  "from": "CC242",
+  "to": "CC2:Place:1170:560"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:349:742",
+  "to": "CC2:Point:360:704"
+ },
+ {
+  "distance": 4,
+  "from": "Class of 1946 Lounge",
+  "to": "CC2:Point:360:704"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Point:318:825",
+  "to": "CC2:Point:349:742"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:216:466",
+  "to": "CC2:Place:216:443"
+ },
+ {
+  "distance": 4,
+  "from": "CC207",
+  "to": "CC2:Place:216:443"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Place:142:345",
+  "to": "CC2:Place:216:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:142:345",
+  "to": "CC2:Place:115:345"
+ },
+ {
+  "distance": 3,
+  "from": "Campus Center 2nd Floor Men's Bathroom",
+  "to": "CC2:Place:115:345"
+ },
+ {
+  "distance": 3,
+  "from": "Campus Center 2nd Floor Women's Bathroom",
+  "to": "CC2:Place:115:345"
+ },
+ {
+  "distance": 3,
+  "from": "CC214",
+  "to": "CC2:Place:142:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:216:247",
+  "to": "CC218"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:216:247",
+  "to": "CC232"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:281:247",
+  "to": "CC232"
+ },
+ {
+  "distance": 1,
+  "from": "CC234",
+  "to": "CC2:Place:281:247"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Place:358:247",
+  "to": "CC2:Place:281:247"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:358:247",
+  "to": "CC2:Point:358:268"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:358:247",
+  "to": "CC231"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:358:247",
+  "to": "CC2:Point:358:215"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:358:215",
+  "to": "CC230"
+ },
+ {
+  "distance": 2,
+  "from": "CC229B",
+  "to": "CC2:Point:358:215"
+ },
+ {
+  "distance": 4,
+  "from": "CC229B",
+  "to": "CC229A"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:358:114",
+  "to": "CC229A"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:358:114",
+  "to": "CC2:Place:358:79"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:358:79",
+  "to": "CC227"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:358:114",
+  "to": "CC228"
+ },
+ {
+  "distance": 7,
+  "from": "CC2:Place:358:79",
+  "to": "CC226"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:216:80",
+  "to": "CC226"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:216:80",
+  "to": "CC2:Place:216:72"
+ },
+ {
+  "distance": 1,
+  "from": "CC223",
+  "to": "CC2:Place:216:72"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:216:80",
+  "to": "CC2:Place:216:113"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Place:116:113",
+  "to": "CC2:Place:216:113"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:116:113",
+  "to": "CC2:Place:92:113"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Place:92:180",
+  "to": "CC2:Place:92:113"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:92:180",
+  "to": "CC2:Place:92:205"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Place:92:252",
+  "to": "CC2:Place:92:205"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:92:252",
+  "to": "CC219"
+ },
+ {
+  "distance": 1,
+  "from": "CC220",
+  "to": "CC2:Place:92:205"
+ },
+ {
+  "distance": 1,
+  "from": "CC222",
+  "to": "CC2:Place:92:180"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:92:113",
+  "to": "CC225"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:116:113",
+  "to": "CC221"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Place:216:357",
+  "to": "CC235"
+ },
+ {
+  "distance": 8,
+  "from": "CC2:Place:216:247",
+  "to": "CC2:Place:216:113"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Staircase:400:484",
+  "to": "CC2:Point:378:560"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Point:378:560",
+  "to": "CC2:Point:289:560"
+ },
+ {
+  "distance": 8,
+  "from": "CC2:Point:378:560",
+  "to": "CC2:Point:360:704"
+ },
+ {
+  "distance": 5,
+  "from": "Information Desk",
+  "to": "CC2:Point:289:560"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Place:216:443",
+  "to": "CC2:Place:216:357"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Place:216:345",
+  "to": "CC2:Place:216:357"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Place:216:345",
+  "to": "CC2:Place:216:247"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:1193:604",
+  "to": "CC2:Place:1193:560"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Place:1193:604",
+  "to": "CC246"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:1193:717",
+  "to": "CC246"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:1170:560",
+  "to": "CC2:Place:1144:560"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Point:709:717",
+  "to": "Campus Center Bookstore"
+ },
+ {
+  "distance": 8,
+  "from": "CC2:Point:903:560",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 7,
+  "from": "CC2:Place:1144:560",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 1,
+  "from": "CC2:Point:903:560",
+  "to": "CC252"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Staircase:1051:510",
+  "to": "CC2:Point:1027:510"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Staircase:1049:445",
+  "to": "CC2:Point:1027:510"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:1027:510",
+  "to": "CC2:Point:1027:560"
+ },
+ {
+  "distance": 4,
+  "from": "CC2:Point:903:560",
+  "to": "Dunkin' Donuts"
+ },
+ {
+  "distance": 8,
+  "from": "Dunkin' Donuts",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 5,
+  "from": "Campus Center Bookstore",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Point:429:558",
+  "to": "CC2:Point:378:560"
+ },
+ {
+  "distance": 6,
+  "from": "CCStairsDown:0",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Point:507:557",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 10,
+  "from": "CC2:Point:360:704",
+  "to": "CC2:Point:429:558"
+ },
+ {
+  "distance": 13,
+  "from": "CC2:Point:507:557",
+  "to": "CC2:Point:709:559"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Place:216:559",
+  "to": "CC2:Point:289:560"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Place:216:466",
+  "to": "CC2:Place:216:559"
+ },
+ {
+  "distance": 6,
+  "from": "CC2:Transition Point:105:560",
+  "to": "CC2:Place:216:559"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Staircase:1056:448",
+  "to": "CC2:Staircase:1051:510"
+ },
+ {
+  "distance": 1,
+  "from": "CC1:Staircase:433:447",
+  "to": "CCStairsDown:0"
+ },
+ {
+  "distance": 48,
+  "from": "CampusMap:Point:1278:661",
+  "to": "CC2:Point:318:825"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1249:688",
+  "to": "CC2:Transition Point:105:560"
+ }
+]

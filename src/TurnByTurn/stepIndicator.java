@@ -84,14 +84,14 @@ public class stepIndicator {
 
                     message = generateMessage(x1,y1,x2,y2,x3,y3);
 
-                    if (message.compareTo("Keep straight") == 0) {icon_id = 0;}
-                    else if (message.compareTo("Turn left") == 0) {icon_id = 3;}
-                    else if (message.compareTo("Turn right") == 0) {icon_id = 4;}
-                    else if (message.compareTo("Turn sharp left") == 0) {icon_id = 33;}
-                    else if (message.compareTo("Turn sharp right") == 0) {icon_id =44;}
-                    else if (message.compareTo("Turn slight left") ==0) {icon_id = 39;}
-                    else if (message.compareTo("Turn slight right") == 0) {icon_id = 52;}
-                    else if (message.compareTo("Make a U turn") == 0){icon_id = 6;}
+                    if (message.compareTo("Keep straight for") == 0) {icon_id = 0;}
+                    else if (message.compareTo("Turn left in") == 0) {icon_id = 3;}
+                    else if (message.compareTo("Turn right in") == 0) {icon_id = 4;}
+                    else if (message.compareTo("Turn sharp left in") == 0) {icon_id = 33;}
+                    else if (message.compareTo("Turn sharp right in") == 0) {icon_id =44;}
+                    else if (message.compareTo("Turn slight left in") ==0) {icon_id = 39;}
+                    else if (message.compareTo("Turn slight right in") == 0) {icon_id = 52;}
+                    else if (message.compareTo("Make a U turn in") == 0){icon_id = 6;}
                 }
 
             }
@@ -260,14 +260,14 @@ public class stepIndicator {
        // System.out.println(angleDifference);
 
 
-        if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left";
-        else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left";
-        else if ((angleDifference>120) && (angleDifference<=160)) return "Turn sharp left";
-        else if ((angleDifference>160) && (angleDifference<=200)) return "Make a U turn";
-        else if ((angleDifference>200) && (angleDifference<=240)) return "Turn sharp right";
-        else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right";
-        else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right";
-        else return "Keep straight";
+        if ((angleDifference > 20)&&(angleDifference <= 45)) return "Turn slight left in";
+        else if ((angleDifference >45) && (angleDifference<=120)) return "Turn left in";
+        else if ((angleDifference>120) && (angleDifference<=160)) return "Turn sharp left in";
+        else if ((angleDifference>160) && (angleDifference<=200)) return "Make a U turn in";
+        else if ((angleDifference>200) && (angleDifference<=240)) return "Turn sharp right in";
+        else if ((angleDifference>240) && (angleDifference<=315)) return "Turn right in";
+        else if ((angleDifference>315) && (angleDifference<=340)) return "Turn slight right in";
+        else return "Keep straight for";
 
     }
 

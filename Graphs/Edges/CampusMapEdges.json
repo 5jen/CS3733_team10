@@ -1,1 +1,722 @@
-[{"distance":50,"from":"CampusMap:Point:945:792","to":"CampusMap:Point:918:835"},{"distance":43,"from":"CampusMap:Point:934:948","to":"CampusMap:Point:976:958"},{"distance":95,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:976:958"},{"distance":41,"from":"CampusMap:Point:912:876","to":"CampusMap:Point:918:835"},{"distance":98,"from":"CampusMap:Point:945:792","to":"CampusMap:Point:1008:868"},{"distance":26,"from":"CampusMap:Point:912:876","to":"CampusMap:Point:913:902"},{"distance":22,"from":"CampusMap:Point:913:902","to":"CampusMap:Point:917:924"},{"distance":29,"from":"CampusMap:Point:934:948","to":"CampusMap:Point:917:924"},{"distance":106,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:917:924"},{"distance":29,"from":"CampusMap:Point:976:958","to":"Daniels Hall"},{"distance":41,"from":"CampusMap:Point:917:924","to":"Morgan Hall"},{"distance":38,"from":"CampusMap:Point:945:792","to":"Sports and Recreation Center"},{"distance":111,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1103:809"},{"distance":94,"from":"CampusMap:Point:976:958","to":"CampusMap:Point:1070:971"},{"distance":19,"from":"CampusMap:Point:1070:971","to":"CampusMap:Point:1085:959"},{"distance":119,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1085:959"},{"distance":30,"from":"CampusMap:Point:945:792","to":"CampusMap:Point:972:777"},{"distance":32,"from":"CampusMap:Point:972:777","to":"CampusMap:Point:1004:778"},{"distance":64,"from":"CampusMap:Point:1004:778","to":"CampusMap:Point:1068:788"},{"distance":18,"from":"CampusMap:Point:1004:778","to":"Harrington Auditorium"},{"distance":40,"from":"CampusMap:Point:1103:809","to":"CampusMap:Point:1068:788"},{"distance":24,"from":"CampusMap:Point:1103:809","to":"CampusMap:Point:1119:827"},{"distance":26,"from":"CampusMap:Point:1127:852","to":"CampusMap:Point:1119:827"},{"distance":16,"from":"CampusMap:Point:1127:852","to":"CampusMap:Point:1125:868"},{"distance":18,"from":"CampusMap:Point:1125:868","to":"CampusMap:Point:1122:886"},{"distance":38,"from":"CampusMap:Point:1125:868","to":"CampusMap:Point:1118:906"},{"distance":20,"from":"CampusMap:Point:1116:926","to":"CampusMap:Point:1118:906"},{"distance":30,"from":"CampusMap:Point:1116:926","to":"CampusMap:Point:1097:950"},{"distance":15,"from":"CampusMap:Point:1097:950","to":"CampusMap:Point:1085:959"},{"distance":99,"from":"CampusMap:Point:1103:809","to":"CampusMap:Point:1200:829"},{"distance":26,"from":"CampusMap:Point:1068:788","to":"CampusMap:Point:1070:762"},{"distance":23,"from":"CampusMap:Point:1070:762","to":"CampusMap:Point:1093:761"},{"distance":14,"from":"CampusMap:Point:1159:769","to":"Alumni Gym"},{"distance":72,"from":"CampusMap:Point:1159:769","to":"CampusMap:Point:1231:781"},{"distance":66,"from":"CampusMap:Point:1159:769","to":"CampusMap:Point:1093:761"},{"distance":26,"from":"CampusMap:Point:1226:807","to":"CampusMap:Point:1231:781"},{"distance":42,"from":"CampusMap:Point:1226:807","to":"CampusMap:Point:1230:849"},{"distance":50,"from":"HL Back Entrance","to":"CampusMap:Point:1230:849"},{"distance":27,"from":"CampusMap:Point:1352:849","to":"CampusMap:Point:1348:876"},{"distance":58,"from":"CampusMap:Point:1352:849","to":"CampusMap:Point:1362:791"},{"distance":80,"from":"Fountain","to":"CampusMap:Point:1362:791"},{"distance":98,"from":"Fountain","to":"CampusMap:Point:1279:694"},{"distance":94,"from":"CampusMap:Point:1249:688","to":"CampusMap:Point:1231:781"},{"distance":34,"from":"CampusMap:Point:1279:694","to":"HL Front Entrance"},{"distance":36,"from":"CampusMap:Point:1200:829","to":"CampusMap:Point:1230:849"},{"distance":34,"from":"CampusMap:Point:1200:829","to":"CampusMap:Point:1226:807"},{"distance":49,"from":"CampusMap:Point:1381:675","to":"CampusMap:Point:1389:626"},{"distance":61,"from":"CampusMap:Point:1381:675","to":"CampusMap:Point:1390:614"},{"distance":34,"from":"CampusMap:Point:1390:614","to":"CampusMap:Point:1397:580"},{"distance":65,"from":"CampusMap:Point:1390:614","to":"CampusMap:Point:1400:549"},{"distance":31,"from":"CampusMap:Point:1400:549","to":"CampusMap:Point:1397:580"},{"distance":46,"from":"CampusMap:Point:1397:580","to":"CampusMap:Point:1389:626"},{"distance":49,"from":"CampusMap:Point:1389:626","to":"CampusMap:Point:1381:675"},{"distance":14,"from":"CampusMap:Point:1226:807","to":"HL Side Entrance 1"},{"distance":41,"from":"HL Side Entrance 2","to":"CampusMap:Point:1362:791"},{"distance":33,"from":"CampusMap:Point:1278:661","to":"CampusMap:Point:1279:694"},{"distance":63,"from":"CampusMap:Point:1381:675","to":"SL Front Entrance"},{"distance":58,"from":"SL Front Entrance","to":"CampusMap:Point:1389:626"},{"distance":85,"from":"SL Front Entrance","to":"CampusMap:Point:1397:580"},{"distance":15,"from":"CampusMap:Point:1352:849","to":"SH Front Entrance"},{"distance":33,"from":"CampusMap:Point:1390:614","to":"CampusMap:Point:1357:609"},{"distance":21,"from":"SL Front Entrance","to":"CampusMap:Point:1436:632"},{"distance":28,"from":"CampusMap:Point:1481:597","to":"CampusMap:Point:1505:581"},{"distance":34,"from":"CampusMap:Point:1505:581","to":"AK Front Entrance"},{"distance":80,"from":"CampusMap:Point:1505:581","to":"CampusMap:Point:1435:541"},{"distance":33,"from":"CampusMap:Point:1435:541","to":"CampusMap:Point:1402:533"},{"distance":59,"from":"CampusMap:Point:1410:719","to":"CampusMap:Point:1469:728"},{"distance":44,"from":"CampusMap:Point:1541:758","to":"GL Front Entrance"},{"distance":14,"from":"CampusMap:Point:1554:680","to":"CampusMap:Point:1540:678"},{"distance":37,"from":"Fountain","to":"CampusMap:Point:1381:675"},{"distance":16,"from":"CampusMap:Point:1402:533","to":"CampusMap:Point:1400:549"},{"distance":41,"from":"CampusMap:Point:1529:601","to":"FL Front Entrance"},{"distance":31,"from":"CampusMap:Point:1505:581","to":"CampusMap:Point:1529:601"},{"distance":65,"from":"FL Front Entrance","to":"CampusMap:Point:1554:680"},{"distance":79,"from":"CampusMap:Point:1541:758","to":"CampusMap:Point:1554:680"},{"distance":24,"from":"CampusMap:Point:1541:758","to":"CampusMap:Point:1517:754"},{"distance":50,"from":"CampusMap:Point:1467:746","to":"CampusMap:Point:1517:754"},{"distance":18,"from":"CampusMap:Point:1467:746","to":"CampusMap:Point:1469:728"},{"distance":34,"from":"CampusMap:Point:1410:719","to":"Fountain"},{"distance":22,"from":"CampusMap:Point:1436:632","to":"CampusMap:Point:1442:610"},{"distance":41,"from":"CampusMap:Point:1481:597","to":"CampusMap:Point:1442:610"},{"distance":55,"from":"CampusMap:Point:1152:959","to":"CampusMap:Point:1097:950"},{"distance":54,"from":"CampusMap:Point:1152:959","to":"Riley Hall"},{"distance":27,"from":"CampusMap:Point:1152:959","to":"CampusMap:Point:1179:963"},{"distance":135,"from":"CampusMap:Point:1200:829","to":"CampusMap:Point:1179:963"},{"distance":20,"from":"CampusMap:Point:1179:963","to":"CampusMap:Point:1199:965"},{"distance":42,"from":"CampusMap:Point:1226:955","to":"Alden Memorial"},{"distance":120,"from":"CampusMap:Point:1230:849","to":"CampusMap:Point:1199:965"},{"distance":28,"from":"CampusMap:Point:1226:955","to":"CampusMap:Point:1199:965"},{"distance":31,"from":"HL Back Entrance","to":"CampusMap:Point:1309:871"},{"distance":39,"from":"CampusMap:Point:1309:871","to":"CampusMap:Point:1348:876"},{"distance":39,"from":"CampusMap:Point:1348:876","to":"CampusMap:Point:1309:871"},{"distance":37,"from":"Alden Memorial","to":"CampusMap:Point:1296:935"},{"distance":16,"from":"CampusMap:Point:1410:719","to":"PC Front Entrance"},{"distance":38,"from":"FL Front Entrance","to":"CampusMap:Point:1579:653"},{"distance":21,"from":"GL Front Entrance","to":"CampusMap:Point:1563:763"},{"distance":118,"from":"Alden Memorial","to":"CampusMap:Point:1385:978"},{"distance":98,"from":"CampusMap:Point:1385:978","to":"BH Front Entrance"},{"distance":116,"from":"CampusMap:Point:1508:992","to":"CampusMap:Point:1531:878"},{"distance":30,"from":"CampusMap:Point:1279:694","to":"CampusMap:Point:1309:699"},{"distance":18,"from":"CampusMap:Point:1278:661","to":"CampusMap:Point:1290:647"},{"distance":21,"from":"CampusMap:Point:1290:647","to":"CampusMap:Point:1306:661"},{"distance":134,"from":"CampusMap:Point:1290:647","to":"CampusMap:Point:1313:514"},{"distance":24,"from":"CampusMap:Point:1251:505","to":"CampusMap:Point:1235:523"},{"distance":42,"from":"CampusMap:Point:1225:565","to":"CampusMap:Point:1202:601"},{"distance":38,"from":"CampusMap:Point:1237:485","to":"CampusMap:Point:1235:523"},{"distance":26,"from":"CampusMap:Point:1313:514","to":"CampusMap:Point:1317:488"},{"distance":65,"from":"CampusMap:Point:1309:871","to":"CampusMap:Point:1296:935"},{"distance":30,"from":"CampusMap:Point:1249:688","to":"CampusMap:Point:1279:694"},{"distance":16,"from":"CampusMap:Point:1210:615","to":"CampusMap:Point:1202:601"},{"distance":43,"from":"CampusMap:Point:1225:565","to":"CampusMap:Point:1235:523"},{"distance":24,"from":"CampusMap:Point:1251:505","to":"CampusMap:Point:1237:485"},{"distance":62,"from":"CampusMap:Point:1251:505","to":"CampusMap:Point:1313:514"},{"distance":36,"from":"CampusMap:Point:1317:488","to":"CampusMap:Point:1353:489"},{"distance":51,"from":"CampusMap:Point:1403:500","to":"CampusMap:Point:1353:489"},{"distance":33,"from":"CampusMap:Point:1403:500","to":"CampusMap:Point:1402:533"},{"distance":35,"from":"CampusMap:Point:1243:450","to":"CampusMap:Point:1237:485"},{"distance":18,"from":"CampusMap:Point:1353:489","to":"GH Front Entrance"},{"distance":31,"from":"CampusMap:Point:1317:488","to":"CampusMap:Point:1314:457"},{"distance":71,"from":"CampusMap:Point:1314:457","to":"CampusMap:Point:1243:450"},{"distance":15,"from":"CampusMap:Point:1308:684","to":"CampusMap:Point:1309:699"},{"distance":14,"from":"CampusMap:Point:1308:684","to":"CampusMap:Point:1319:675"},{"distance":23,"from":"CampusMap:Point:1306:661","to":"CampusMap:Point:1308:684"},{"distance":19,"from":"CampusMap:Point:1319:675","to":"CampusMap:Point:1306:661"},{"distance":25,"from":"CampusMap:Point:1319:675","to":"CampusMap:Point:1341:663"},{"distance":22,"from":"CampusMap:Point:1363:663","to":"CampusMap:Point:1341:663"},{"distance":21,"from":"CampusMap:Point:1363:663","to":"CampusMap:Point:1381:675"},{"distance":67,"from":"CampusMap:Point:1319:675","to":"Fountain"},{"distance":21,"from":"CampusMap:Point:1469:728","to":"SL Side Entrance"},{"distance":32,"from":"CampusMap:Point:1579:653","to":"CampusMap:Point:1578:685"},{"distance":79,"from":"CampusMap:Point:1563:763","to":"CampusMap:Point:1578:685"},{"distance":51,"from":"CampusMap:Point:1563:763","to":"CampusMap:Point:1545:811"},{"distance":68,"from":"CampusMap:Point:1531:878","to":"CampusMap:Point:1545:811"},{"distance":98,"from":"CampusMap:Point:1385:978","to":"BH Front Entrance"},{"distance":26,"from":"CampusMap:Point:1508:992","to":"BH Front Entrance"},{"distance":64,"from":"CampusMap:Point:1243:450","to":"CampusMap:Point:1189:414"},{"distance":32,"from":"CampusMap:Point:1189:414","to":"HH Front Entrance"},{"distance":26,"from":"CampusMap:Point:1517:754","to":"CampusMap:Point:1513:780"},{"distance":1698,"from":"GLFrontEntranceInside","to":"GL Front Entrance"}]
+[
+ {
+  "distance": 50,
+  "from": "CampusMap:Point:945:792",
+  "to": "CampusMap:Point:918:835"
+ },
+ {
+  "distance": 43,
+  "from": "CampusMap:Point:934:948",
+  "to": "CampusMap:Point:976:958"
+ },
+ {
+  "distance": 95,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:976:958"
+ },
+ {
+  "distance": 41,
+  "from": "CampusMap:Point:912:876",
+  "to": "CampusMap:Point:918:835"
+ },
+ {
+  "distance": 98,
+  "from": "CampusMap:Point:945:792",
+  "to": "CampusMap:Point:1008:868"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:912:876",
+  "to": "CampusMap:Point:913:902"
+ },
+ {
+  "distance": 22,
+  "from": "CampusMap:Point:913:902",
+  "to": "CampusMap:Point:917:924"
+ },
+ {
+  "distance": 29,
+  "from": "CampusMap:Point:934:948",
+  "to": "CampusMap:Point:917:924"
+ },
+ {
+  "distance": 106,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:917:924"
+ },
+ {
+  "distance": 29,
+  "from": "CampusMap:Point:976:958",
+  "to": "Daniels Hall"
+ },
+ {
+  "distance": 41,
+  "from": "CampusMap:Point:917:924",
+  "to": "Morgan Hall"
+ },
+ {
+  "distance": 38,
+  "from": "CampusMap:Point:945:792",
+  "to": "Sports and Recreation Center"
+ },
+ {
+  "distance": 111,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1103:809"
+ },
+ {
+  "distance": 94,
+  "from": "CampusMap:Point:976:958",
+  "to": "CampusMap:Point:1070:971"
+ },
+ {
+  "distance": 19,
+  "from": "CampusMap:Point:1070:971",
+  "to": "CampusMap:Point:1085:959"
+ },
+ {
+  "distance": 119,
+  "from": "CampusMap:Point:1008:868",
+  "to": "CampusMap:Point:1085:959"
+ },
+ {
+  "distance": 30,
+  "from": "CampusMap:Point:945:792",
+  "to": "CampusMap:Point:972:777"
+ },
+ {
+  "distance": 32,
+  "from": "CampusMap:Point:972:777",
+  "to": "CampusMap:Point:1004:778"
+ },
+ {
+  "distance": 64,
+  "from": "CampusMap:Point:1004:778",
+  "to": "CampusMap:Point:1068:788"
+ },
+ {
+  "distance": 18,
+  "from": "CampusMap:Point:1004:778",
+  "to": "Harrington Auditorium"
+ },
+ {
+  "distance": 40,
+  "from": "CampusMap:Point:1103:809",
+  "to": "CampusMap:Point:1068:788"
+ },
+ {
+  "distance": 24,
+  "from": "CampusMap:Point:1103:809",
+  "to": "CampusMap:Point:1119:827"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1127:852",
+  "to": "CampusMap:Point:1119:827"
+ },
+ {
+  "distance": 16,
+  "from": "CampusMap:Point:1127:852",
+  "to": "CampusMap:Point:1125:868"
+ },
+ {
+  "distance": 18,
+  "from": "CampusMap:Point:1125:868",
+  "to": "CampusMap:Point:1122:886"
+ },
+ {
+  "distance": 38,
+  "from": "CampusMap:Point:1125:868",
+  "to": "CampusMap:Point:1118:906"
+ },
+ {
+  "distance": 20,
+  "from": "CampusMap:Point:1116:926",
+  "to": "CampusMap:Point:1118:906"
+ },
+ {
+  "distance": 30,
+  "from": "CampusMap:Point:1116:926",
+  "to": "CampusMap:Point:1097:950"
+ },
+ {
+  "distance": 15,
+  "from": "CampusMap:Point:1097:950",
+  "to": "CampusMap:Point:1085:959"
+ },
+ {
+  "distance": 99,
+  "from": "CampusMap:Point:1103:809",
+  "to": "CampusMap:Point:1200:829"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1068:788",
+  "to": "CampusMap:Point:1070:762"
+ },
+ {
+  "distance": 23,
+  "from": "CampusMap:Point:1070:762",
+  "to": "CampusMap:Point:1093:761"
+ },
+ {
+  "distance": 14,
+  "from": "CampusMap:Point:1159:769",
+  "to": "Alumni Gym"
+ },
+ {
+  "distance": 72,
+  "from": "CampusMap:Point:1159:769",
+  "to": "CampusMap:Point:1231:781"
+ },
+ {
+  "distance": 66,
+  "from": "CampusMap:Point:1159:769",
+  "to": "CampusMap:Point:1093:761"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1226:807",
+  "to": "CampusMap:Point:1231:781"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1226:807",
+  "to": "CampusMap:Point:1230:849"
+ },
+ {
+  "distance": 27,
+  "from": "CampusMap:Point:1352:849",
+  "to": "CampusMap:Point:1348:876"
+ },
+ {
+  "distance": 58,
+  "from": "CampusMap:Point:1352:849",
+  "to": "CampusMap:Point:1362:791"
+ },
+ {
+  "distance": 80,
+  "from": "Fountain",
+  "to": "CampusMap:Point:1362:791"
+ },
+ {
+  "distance": 98,
+  "from": "Fountain",
+  "to": "CampusMap:Point:1279:694"
+ },
+ {
+  "distance": 34,
+  "from": "CampusMap:Point:1279:694",
+  "to": "HL Front Entrance"
+ },
+ {
+  "distance": 36,
+  "from": "CampusMap:Point:1200:829",
+  "to": "CampusMap:Point:1230:849"
+ },
+ {
+  "distance": 34,
+  "from": "CampusMap:Point:1200:829",
+  "to": "CampusMap:Point:1226:807"
+ },
+ {
+  "distance": 49,
+  "from": "CampusMap:Point:1381:675",
+  "to": "CampusMap:Point:1389:626"
+ },
+ {
+  "distance": 61,
+  "from": "CampusMap:Point:1381:675",
+  "to": "CampusMap:Point:1390:614"
+ },
+ {
+  "distance": 34,
+  "from": "CampusMap:Point:1390:614",
+  "to": "CampusMap:Point:1397:580"
+ },
+ {
+  "distance": 65,
+  "from": "CampusMap:Point:1390:614",
+  "to": "CampusMap:Point:1400:549"
+ },
+ {
+  "distance": 31,
+  "from": "CampusMap:Point:1400:549",
+  "to": "CampusMap:Point:1397:580"
+ },
+ {
+  "distance": 46,
+  "from": "CampusMap:Point:1397:580",
+  "to": "CampusMap:Point:1389:626"
+ },
+ {
+  "distance": 49,
+  "from": "CampusMap:Point:1389:626",
+  "to": "CampusMap:Point:1381:675"
+ },
+ {
+  "distance": 14,
+  "from": "CampusMap:Point:1226:807",
+  "to": "HL Side Entrance 1"
+ },
+ {
+  "distance": 41,
+  "from": "HL Side Entrance 2",
+  "to": "CampusMap:Point:1362:791"
+ },
+ {
+  "distance": 33,
+  "from": "CampusMap:Point:1278:661",
+  "to": "CampusMap:Point:1279:694"
+ },
+ {
+  "distance": 63,
+  "from": "CampusMap:Point:1381:675",
+  "to": "SL Front Entrance"
+ },
+ {
+  "distance": 58,
+  "from": "SL Front Entrance",
+  "to": "CampusMap:Point:1389:626"
+ },
+ {
+  "distance": 85,
+  "from": "SL Front Entrance",
+  "to": "CampusMap:Point:1397:580"
+ },
+ {
+  "distance": 15,
+  "from": "CampusMap:Point:1352:849",
+  "to": "SH Front Entrance"
+ },
+ {
+  "distance": 33,
+  "from": "CampusMap:Point:1390:614",
+  "to": "CampusMap:Point:1357:609"
+ },
+ {
+  "distance": 21,
+  "from": "SL Front Entrance",
+  "to": "CampusMap:Point:1436:632"
+ },
+ {
+  "distance": 28,
+  "from": "CampusMap:Point:1481:597",
+  "to": "CampusMap:Point:1505:581"
+ },
+ {
+  "distance": 34,
+  "from": "CampusMap:Point:1505:581",
+  "to": "AK Front Entrance"
+ },
+ {
+  "distance": 80,
+  "from": "CampusMap:Point:1505:581",
+  "to": "CampusMap:Point:1435:541"
+ },
+ {
+  "distance": 33,
+  "from": "CampusMap:Point:1435:541",
+  "to": "CampusMap:Point:1402:533"
+ },
+ {
+  "distance": 59,
+  "from": "CampusMap:Point:1410:719",
+  "to": "CampusMap:Point:1469:728"
+ },
+ {
+  "distance": 44,
+  "from": "CampusMap:Point:1541:758",
+  "to": "GL Front Entrance"
+ },
+ {
+  "distance": 14,
+  "from": "CampusMap:Point:1554:680",
+  "to": "CampusMap:Point:1540:678"
+ },
+ {
+  "distance": 37,
+  "from": "Fountain",
+  "to": "CampusMap:Point:1381:675"
+ },
+ {
+  "distance": 16,
+  "from": "CampusMap:Point:1402:533",
+  "to": "CampusMap:Point:1400:549"
+ },
+ {
+  "distance": 41,
+  "from": "CampusMap:Point:1529:601",
+  "to": "FL Front Entrance"
+ },
+ {
+  "distance": 31,
+  "from": "CampusMap:Point:1505:581",
+  "to": "CampusMap:Point:1529:601"
+ },
+ {
+  "distance": 65,
+  "from": "FL Front Entrance",
+  "to": "CampusMap:Point:1554:680"
+ },
+ {
+  "distance": 79,
+  "from": "CampusMap:Point:1541:758",
+  "to": "CampusMap:Point:1554:680"
+ },
+ {
+  "distance": 24,
+  "from": "CampusMap:Point:1541:758",
+  "to": "CampusMap:Point:1517:754"
+ },
+ {
+  "distance": 50,
+  "from": "CampusMap:Point:1467:746",
+  "to": "CampusMap:Point:1517:754"
+ },
+ {
+  "distance": 18,
+  "from": "CampusMap:Point:1467:746",
+  "to": "CampusMap:Point:1469:728"
+ },
+ {
+  "distance": 34,
+  "from": "CampusMap:Point:1410:719",
+  "to": "Fountain"
+ },
+ {
+  "distance": 22,
+  "from": "CampusMap:Point:1436:632",
+  "to": "CampusMap:Point:1442:610"
+ },
+ {
+  "distance": 41,
+  "from": "CampusMap:Point:1481:597",
+  "to": "CampusMap:Point:1442:610"
+ },
+ {
+  "distance": 55,
+  "from": "CampusMap:Point:1152:959",
+  "to": "CampusMap:Point:1097:950"
+ },
+ {
+  "distance": 54,
+  "from": "CampusMap:Point:1152:959",
+  "to": "Riley Hall"
+ },
+ {
+  "distance": 27,
+  "from": "CampusMap:Point:1152:959",
+  "to": "CampusMap:Point:1179:963"
+ },
+ {
+  "distance": 135,
+  "from": "CampusMap:Point:1200:829",
+  "to": "CampusMap:Point:1179:963"
+ },
+ {
+  "distance": 20,
+  "from": "CampusMap:Point:1179:963",
+  "to": "CampusMap:Point:1199:965"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1226:955",
+  "to": "Alden Memorial"
+ },
+ {
+  "distance": 120,
+  "from": "CampusMap:Point:1230:849",
+  "to": "CampusMap:Point:1199:965"
+ },
+ {
+  "distance": 28,
+  "from": "CampusMap:Point:1226:955",
+  "to": "CampusMap:Point:1199:965"
+ },
+ {
+  "distance": 31,
+  "from": "CampusMap:Point:1226:955",
+  "to": "CampusMap:Point:1309:871"
+ },
+ {
+  "distance": 39,
+  "from": "CampusMap:Point:1309:871",
+  "to": "CampusMap:Point:1348:876"
+ },
+ {
+  "distance": 39,
+  "from": "CampusMap:Point:1348:876",
+  "to": "CampusMap:Point:1309:871"
+ },
+ {
+  "distance": 37,
+  "from": "Alden Memorial",
+  "to": "CampusMap:Point:1296:935"
+ },
+ {
+  "distance": 16,
+  "from": "CampusMap:Point:1410:719",
+  "to": "PC Front Entrance"
+ },
+ {
+  "distance": 38,
+  "from": "FL Front Entrance",
+  "to": "CampusMap:Point:1579:653"
+ },
+ {
+  "distance": 21,
+  "from": "GL Front Entrance",
+  "to": "CampusMap:Point:1563:763"
+ },
+ {
+  "distance": 118,
+  "from": "Alden Memorial",
+  "to": "CampusMap:Point:1385:978"
+ },
+ {
+  "distance": 98,
+  "from": "CampusMap:Point:1385:978",
+  "to": "BH Front Entrance"
+ },
+ {
+  "distance": 116,
+  "from": "CampusMap:Point:1508:992",
+  "to": "CampusMap:Point:1531:878"
+ },
+ {
+  "distance": 30,
+  "from": "CampusMap:Point:1279:694",
+  "to": "CampusMap:Point:1309:699"
+ },
+ {
+  "distance": 18,
+  "from": "CampusMap:Point:1278:661",
+  "to": "CampusMap:Point:1290:647"
+ },
+ {
+  "distance": 21,
+  "from": "CampusMap:Point:1290:647",
+  "to": "CampusMap:Point:1306:661"
+ },
+ {
+  "distance": 134,
+  "from": "CampusMap:Point:1290:647",
+  "to": "CampusMap:Point:1313:514"
+ },
+ {
+  "distance": 24,
+  "from": "CampusMap:Point:1251:505",
+  "to": "CampusMap:Point:1235:523"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1225:565",
+  "to": "CampusMap:Point:1202:601"
+ },
+ {
+  "distance": 38,
+  "from": "CampusMap:Point:1237:485",
+  "to": "CampusMap:Point:1235:523"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1313:514",
+  "to": "CampusMap:Point:1317:488"
+ },
+ {
+  "distance": 65,
+  "from": "CampusMap:Point:1309:871",
+  "to": "CampusMap:Point:1296:935"
+ },
+ {
+  "distance": 30,
+  "from": "CampusMap:Point:1249:688",
+  "to": "CampusMap:Point:1279:694"
+ },
+ {
+  "distance": 16,
+  "from": "CampusMap:Point:1210:615",
+  "to": "CampusMap:Point:1202:601"
+ },
+ {
+  "distance": 43,
+  "from": "CampusMap:Point:1225:565",
+  "to": "CampusMap:Point:1235:523"
+ },
+ {
+  "distance": 24,
+  "from": "CampusMap:Point:1251:505",
+  "to": "CampusMap:Point:1237:485"
+ },
+ {
+  "distance": 62,
+  "from": "CampusMap:Point:1251:505",
+  "to": "CampusMap:Point:1313:514"
+ },
+ {
+  "distance": 36,
+  "from": "CampusMap:Point:1317:488",
+  "to": "CampusMap:Point:1353:489"
+ },
+ {
+  "distance": 51,
+  "from": "CampusMap:Point:1403:500",
+  "to": "CampusMap:Point:1353:489"
+ },
+ {
+  "distance": 33,
+  "from": "CampusMap:Point:1403:500",
+  "to": "CampusMap:Point:1402:533"
+ },
+ {
+  "distance": 35,
+  "from": "CampusMap:Point:1243:450",
+  "to": "CampusMap:Point:1237:485"
+ },
+ {
+  "distance": 18,
+  "from": "CampusMap:Point:1353:489",
+  "to": "GH Front Entrance"
+ },
+ {
+  "distance": 31,
+  "from": "CampusMap:Point:1317:488",
+  "to": "CampusMap:Point:1314:457"
+ },
+ {
+  "distance": 71,
+  "from": "CampusMap:Point:1314:457",
+  "to": "CampusMap:Point:1243:450"
+ },
+ {
+  "distance": 15,
+  "from": "CampusMap:Point:1308:684",
+  "to": "CampusMap:Point:1309:699"
+ },
+ {
+  "distance": 14,
+  "from": "CampusMap:Point:1308:684",
+  "to": "CampusMap:Point:1319:675"
+ },
+ {
+  "distance": 23,
+  "from": "CampusMap:Point:1306:661",
+  "to": "CampusMap:Point:1308:684"
+ },
+ {
+  "distance": 19,
+  "from": "CampusMap:Point:1319:675",
+  "to": "CampusMap:Point:1306:661"
+ },
+ {
+  "distance": 25,
+  "from": "CampusMap:Point:1319:675",
+  "to": "CampusMap:Point:1341:663"
+ },
+ {
+  "distance": 22,
+  "from": "CampusMap:Point:1363:663",
+  "to": "CampusMap:Point:1341:663"
+ },
+ {
+  "distance": 21,
+  "from": "CampusMap:Point:1363:663",
+  "to": "CampusMap:Point:1381:675"
+ },
+ {
+  "distance": 67,
+  "from": "CampusMap:Point:1319:675",
+  "to": "Fountain"
+ },
+ {
+  "distance": 21,
+  "from": "CampusMap:Point:1469:728",
+  "to": "SL Side Entrance"
+ },
+ {
+  "distance": 32,
+  "from": "CampusMap:Point:1579:653",
+  "to": "CampusMap:Point:1578:685"
+ },
+ {
+  "distance": 79,
+  "from": "CampusMap:Point:1563:763",
+  "to": "CampusMap:Point:1578:685"
+ },
+ {
+  "distance": 51,
+  "from": "CampusMap:Point:1563:763",
+  "to": "CampusMap:Point:1545:811"
+ },
+ {
+  "distance": 68,
+  "from": "CampusMap:Point:1531:878",
+  "to": "CampusMap:Point:1545:811"
+ },
+ {
+  "distance": 98,
+  "from": "CampusMap:Point:1385:978",
+  "to": "BH Front Entrance"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1508:992",
+  "to": "BH Front Entrance"
+ },
+ {
+  "distance": 64,
+  "from": "CampusMap:Point:1243:450",
+  "to": "CampusMap:Point:1189:414"
+ },
+ {
+  "distance": 32,
+  "from": "CampusMap:Point:1189:414",
+  "to": "HH Front Entrance"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Point:1517:754",
+  "to": "CampusMap:Point:1513:780"
+ },
+ {
+  "distance": 23,
+  "from": "BH1:Transition Point:593:593",
+  "to": "BH Front Entrance"
+ },
+ {
+  "distance": 67,
+  "from": "CampusMap:Point:1243:450",
+  "to": "CampusMap:Transition Point:1249:383"
+ },
+ {
+  "distance": 50,
+  "from": "CampusMap:Transition Point:1279:863",
+  "to": "CampusMap:Point:1230:849"
+ },
+ {
+  "distance": 75,
+  "from": "CampusMap:Point:1231:781",
+  "to": "CampusMap:Point:1246:707"
+ },
+ {
+  "distance": 19,
+  "from": "CampusMap:Point:1249:688",
+  "to": "CampusMap:Point:1246:707"
+ },
+ {
+  "distance": 35,
+  "from": "CampusMap:Point:1279:694",
+  "to": "CampusMap:Point:1246:707"
+ },
+ {
+  "distance": 48,
+  "from": "CampusMap:Point:1290:647",
+  "to": "CampusMap:Point:1279:694"
+ },
+ {
+  "distance": 53,
+  "from": "FL2:Transition Point:755:1079",
+  "to": "FL Front Entrance"
+ }
+]

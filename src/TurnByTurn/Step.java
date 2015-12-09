@@ -45,7 +45,11 @@ public class Step {
 
     public void formatMessage(){
         int mLength = message.length();
-        String distance = ((int) this.distance)+" ft";
+        String distance;
+        if (this.distance == 0) {
+        	distance = "";
+        } else 
+        	distance = ((int) this.distance)+" ft";
         int dLength = distance.length();
         int nSpace  = 26- mLength- dLength;
         for (int i=0;i<nSpace;i++){
