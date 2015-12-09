@@ -397,6 +397,14 @@ public class GPSapp extends Application{
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(830);
         imageViewKey.setLayoutY(570);
+        
+        //Loading screen blurred
+    	File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
+        Image BlurImage = new Image(keyFile.toURI().toString());
+        ImageView imageViewBlur = new ImageView();
+        imageViewKey.setImage(keyImage);
+        imageViewKey.setLayoutX(0);
+        imageViewKey.setLayoutY(0);
 
         
         //hide key
@@ -438,7 +446,10 @@ public class GPSapp extends Application{
             }
         });
         
-        
+        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        //root.getChildren().add(imageViewBlur);
 
 
         //Add images to the screen
@@ -450,24 +461,14 @@ public class GPSapp extends Application{
         root.getChildren().add(StartSearch);
         root.getChildren().add(DestSearch);
         root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
+        
+        
 
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
 
-        //Generate the Global map graph
-        globalGraph = createGlobalGraph(globalGraph);
         
-        //now we can create the local edge connections
-        LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
-
-        //generate the local map graph
-        //graph = createGraph(graph, nodeList, edgeList);
-      //Initialize the Drop down menu for initial Map
-    	for(int i = 0; i < globalNodeList.size() ; i ++){
-    		if(globalNodeList.get(i).getIsPlace())
-    			LocationOptions.add((globalNodeList.get(i)).getName());
-        }
     	
     	
     	 stageInitialWidthDifference = scene.getWidth()-1100;
@@ -497,12 +498,26 @@ public class GPSapp extends Application{
 	   // scrollContent.setTranslateX(-517);
     	//scrollContent.setTranslateY(-236);
 	    
-
-
-	    //add to load map...
-	    
-	 
 	    root.getChildren().add(zoomPane);
+	    
+
+        
+      //Generate the Global map graph
+        globalGraph = createGlobalGraph(globalGraph);
+        
+        //now we can create the local edge connections
+        LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+        
+        //root.getChildren().remove(imageViewBlur);
+
+        //generate the local map graph
+        //graph = createGraph(graph, nodeList, edgeList);
+      //Initialize the Drop down menu for initial Map
+    	for(int i = 0; i < globalNodeList.size() ; i ++){
+    		if(globalNodeList.get(i).getIsPlace())
+    			LocationOptions.add((globalNodeList.get(i)).getName());
+        }	 
+	    
 	    
 	    
         //Add actions to the Load Map button
@@ -533,9 +548,7 @@ public class GPSapp extends Application{
 
         
         
-        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        
         
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             
@@ -552,6 +565,7 @@ public class GPSapp extends Application{
     			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
     			s1.setTranslateX(stageInitialWidthDifference);
     			ReturnToCampus.setTranslateX(stageInitialWidthDifference);
+    			keyText.setTranslateX(stageInitialWidthDifference);
 
     		}
     	});
@@ -574,6 +588,8 @@ public class GPSapp extends Application{
     			NextInstruction.setTranslateY(stageInitialHeightDifference);
     			PrevInstruction.setTranslateY(stageInitialHeightDifference);
     			ReturnToCampus.setTranslateY(stageInitialHeightDifference);
+    			BuildingNameLabel.setTranslateY(stageInitialHeightDifference);
+    			
 
     		}
     	});
@@ -626,6 +642,7 @@ public class GPSapp extends Application{
     				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
     				startBool = true;
     				if(destBool && startBool) {
+    					directionBox.getChildren().clear();
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
     					keyText.setText("");
@@ -696,6 +713,7 @@ public class GPSapp extends Application{
 
                                 mapSelector.setValue(initials);
                                 loadMap(root, imageView);
+                                if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
                                 drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
@@ -738,6 +756,7 @@ public class GPSapp extends Application{
     				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
     				destBool = true;
     				if(destBool && startBool) {
+    					directionBox.getChildren().clear();
     					gc.clearRect(0, 0, 8000, 6000); // Clears old path
     					root.getChildren().remove(zoomPane);
     					keyText.setText("");
@@ -790,6 +809,7 @@ public class GPSapp extends Application{
 
                             	mapSelector.setValue(initials);
                             	loadMap(root, imageView);
+                            	if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
                             	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
@@ -843,77 +863,80 @@ public class GPSapp extends Application{
 		 s1.setPrefSize(270, 420);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
+		 if(route.size() > 2){
+			 stepIndicator steps = new stepIndicator(route);
+		    	
+		    	LinkedList<Step> directions = steps.lInstructions();
+		    	if(currRoute == 0)
+		    		directions.addFirst(new Step(0,"Walk Straight",0, directions.get(0).getX(),directions.get(0).getY()));
+
+		    	//iterate through the list of instructions and create labels for each one and attach to the root
+		    	for(int i = 0; i < directions.size(); i++){
+		    		HBox StepBox = new HBox(2);
+		    		
+		    		//StepBox.setStyle("-fx-border-color: black;");
+		    		Label newDirection;
+
+		    		//if(directions.get(i).getDistance() == 0.0) {
+		    			newDirection = new Label(directions.get(i).getMessage());
+					    newDirection.setFont(Font.font("Menlo"));
+		    		//} else {
+		    		//	newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
+		    		//}
+
+		    		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
+		            Image arrowImage = new Image(arrowFile.toURI().toString());
+		            ImageView arrowView = new ImageView();
+		            arrowView.setImage(arrowImage);
+		            Line breakLine = new Line(0, 0, 255, 0);
+
+		            breakLine.setLayoutX(10);
+		            
+		            String style = StepBox.getStyle();
+		            
+		            int currentInstruction = i;
+		            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
+		            	public void handle(MouseEvent event) {
+		            		if(currentInstruction >= 0){
+		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
+		                		//highlight the current path
+		                		int NodeX = directions.get(currentInstruction).getX();
+		                		int NodeY = directions.get(currentInstruction).getY();
+		                		//attach an image, or do an animation on this current node
+		                		File PinFile = new File("CS3733_Graphics/pin.png");
+		                        Image pinImage = new Image(PinFile.toURI().toString());
+		                       
+		                        pinView.setImage(pinImage);
+		                        pinView.setLayoutX(NodeX-10);
+		                        pinView.setLayoutY(NodeY-36);
+		                        if(!pinAttached){
+		                        	//System.out.print.println(NodeX + "   "+ NodeY);
+		                        	NodePane.getChildren().add(pinView);
+		                        	pinAttached = true;
+		                        }
+		            		}
+		            		
+		            	}
+		            });
+		            StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+		            	public void handle(MouseEvent event) {
+		            		StepBox.setStyle(style);
+		            		NodePane.getChildren().remove(pinView);
+		                    pinAttached = false;
+		            	}
+		            });
+
+		    		StepBox.getChildren().addAll(arrowView, newDirection);
+		    		directionBox.getChildren().addAll(StepBox, breakLine);
+		    	}
+		    	
+		    	root.getChildren().remove(s1);
+		    	s1.setContent(directionBox);
+		    	root.getChildren().add(s1);
+		 }
     		
     	//convert the route to a list of string instructions
-    	stepIndicator steps = new stepIndicator(route);
     	
-    	LinkedList<Step> directions = steps.lInstructions();
-    	if(currRoute == 0)
-    		directions.addFirst(new Step(0,"Walk Straight",0, directions.get(0).getX(),directions.get(0).getY()));
-
-    	//iterate through the list of instructions and create labels for each one and attach to the root
-    	for(int i = 0; i < directions.size(); i++){
-    		HBox StepBox = new HBox(2);
-    		
-    		//StepBox.setStyle("-fx-border-color: black;");
-    		Label newDirection;
-
-    		//if(directions.get(i).getDistance() == 0.0) {
-    			newDirection = new Label(directions.get(i).getMessage());
-			    newDirection.setFont(Font.font("Menlo"));
-    		//} else {
-    		//	newDirection = new Label(directions.get(i).getMessage() + " and go for " + round(directions.get(i).getDistance(), 1) + " ft");
-    		//}
-
-    		File arrowFile = new File("CS3733_Graphics/DirectionImages/"+directions.get(i).getIconID()+".png");
-            Image arrowImage = new Image(arrowFile.toURI().toString());
-            ImageView arrowView = new ImageView();
-            arrowView.setImage(arrowImage);
-            Line breakLine = new Line(0, 0, 255, 0);
-
-            breakLine.setLayoutX(10);
-            
-            String style = StepBox.getStyle();
-            
-            int currentInstruction = i;
-            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
-            	public void handle(MouseEvent event) {
-            		if(currentInstruction >= 0){
-            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
-                		//highlight the current path
-                		int NodeX = directions.get(currentInstruction).getX();
-                		int NodeY = directions.get(currentInstruction).getY();
-                		//attach an image, or do an animation on this current node
-                		File PinFile = new File("CS3733_Graphics/pin.png");
-                        Image pinImage = new Image(PinFile.toURI().toString());
-                       
-                        pinView.setImage(pinImage);
-                        pinView.setLayoutX(NodeX-10);
-                        pinView.setLayoutY(NodeY-36);
-                        if(!pinAttached){
-                        	//System.out.print.println(NodeX + "   "+ NodeY);
-                        	NodePane.getChildren().add(pinView);
-                        	pinAttached = true;
-                        }
-            		}
-            		
-            	}
-            });
-            StepBox.setOnMouseExited(new EventHandler<MouseEvent>() {
-            	public void handle(MouseEvent event) {
-            		StepBox.setStyle(style);
-            		NodePane.getChildren().remove(pinView);
-                    pinAttached = false;
-            	}
-            });
-
-    		StepBox.getChildren().addAll(arrowView, newDirection);
-    		directionBox.getChildren().addAll(StepBox, breakLine);
-    	}
-    	
-    	root.getChildren().remove(s1);
-    	s1.setContent(directionBox);
-    	root.getChildren().add(s1);
     	return;
 
     }
@@ -1471,6 +1494,7 @@ public class GPSapp extends Application{
                     	}
                     	
                     	if(startButtonBool && destButtonBool) {
+                    		directionBox.getChildren().clear();
                             destButtonBool = false;
                             startButtonBool = false;
                             gc.clearRect(0, 0, 8000, 6000); // Clears old path
@@ -1529,6 +1553,7 @@ public class GPSapp extends Application{
                                     nodeList = JsonParser.getJsonContent("Graphs/Nodes/" + initials + ".json");
 
                                     loadMap(root, imageView);
+                                    if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
                                     root.getChildren().remove(zoomPane);
                                     for (int h = 0; h < nodeList.size(); h++) {
                                         //System.out.print.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
@@ -1836,7 +1861,7 @@ public class GPSapp extends Application{
 
 
     private void loadMap(Pane root, ImageView imageView){
-
+    	root.getChildren().remove(s1);	
     	k = 0; // Reset Zoom Variable
 	    root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
