@@ -77,6 +77,7 @@ public class GPSapp extends Application{
 	ScrollPane s1 = new ScrollPane();
 	double mouseYposition, mouseXposition;
 	double OriginalScale = 1.0;
+	Rectangle buttonBackDrop = new Rectangle(0, 0, 210, 60);
 	
 	//Groups to attach layered map
 	Group LayerGroup = new Group();
@@ -572,6 +573,18 @@ public class GPSapp extends Application{
     			s1.setTranslateX(stageInitialWidthDifference);
     			ReturnToCampus.setTranslateX(stageInitialWidthDifference);
     			keyText.setTranslateX(stageInitialWidthDifference);
+    			buttonBackDrop.setTranslateX(stageInitialWidthDifference);
+    			
+
+    			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			
 
     		}
     	});
@@ -595,6 +608,7 @@ public class GPSapp extends Application{
     			PrevInstruction.setTranslateY(stageInitialHeightDifference);
     			ReturnToCampus.setTranslateY(stageInitialHeightDifference);
     			BuildingNameLabel.setTranslateY(stageInitialHeightDifference);
+    			buttonBackDrop.setTranslateY(stageInitialHeightDifference);
     			
 
     		}
@@ -2363,7 +2377,6 @@ public class GPSapp extends Application{
 	    
 	  //Place the return to campus button on screen if youre not on the campus  map
         if(!mapSelector.getValue().equals("CampusMap")){
-        	Rectangle buttonBackDrop = new Rectangle(0, 0, 210, 60);
         	buttonBackDrop.setOpacity(.5);
         	buttonBackDrop.setFill(Color.GRAY);
         	buttonBackDrop.setLayoutX(590);
