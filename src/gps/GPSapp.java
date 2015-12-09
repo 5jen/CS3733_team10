@@ -205,6 +205,10 @@ public class GPSapp extends Application{
 
     Button findNearestButton = new Button("Find Nearest");
 
+    ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
+    ComboBox nearestDropdown = new ComboBox(typeOptions);
+    HBox nearestBox = new HBox(findNearestButton,nearestDropdown);
+
     //Lists of all nodes of the types
     //TODO Actually make these types of nodes
     //LinkedList<Node> PointNodes = new LinkedList<Node>();
@@ -355,7 +359,7 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
         StartSearch.relocate(20, 640);
-        StartSearch.getChildren().addAll(StartText, StartList, findNearestButton);
+        StartSearch.getChildren().addAll(StartText, StartList, nearestBox);
         DestSearch.relocate(300, 640);
         DestSearch.getChildren().addAll(DestText, DestList);
         StartList.setOpacity(0);
@@ -524,10 +528,10 @@ public class GPSapp extends Application{
         LinkedList<Node> TransitionNodes = new LinkedList<Node>();
         //LinkedList<Node> VendingMachineNodes = createNodeTypeList("Vending Machine");
         //LinkedList<Node> WaterFountainNodes = createNodeTypeList("Water Fountain");
-        LinkedList<Node> MensBathroomNodes = createNodeTypeList("Men's Bathroom");
-        LinkedList<Node> WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
+        MensBathroomNodes = createNodeTypeList("Men's Bathroom");
+        WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
         //LinkedList<Node> EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
-        LinkedList<Node> DiningNodes = createNodeTypeList("Dining");
+        DiningNodes = createNodeTypeList("Dining");
         //LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
         //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
 
@@ -535,15 +539,92 @@ public class GPSapp extends Application{
         findNearestButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Node actualStartNode = null;
+                Node actualStartNode = new Node(0, 0, 0, "", "", "", false, false, "");
                 for (Node n : globalGraph.getNodes()) {
                     if (n.getName().equals(StartText.getText())) {
                         actualStartNode = n;
-                        break;
                     }
                 }
                 try {
-                    Node node = findNearestNode(actualStartNode, "Men's Bathroom");
+                    Node node = findNearestNode(actualStartNode, (String) nearestDropdown.getValue());
+
+                    LinkedList<Node> route = globalGraph.findRoute(actualStartNode, node);
+                    try {
+
+                        multiMap = splitRoute(route);//is endlessly looping or suttin
+                        currRoute = 0;
+
+                        //if the entire route is only on 1 map, display all instruction at once
+                        displayInstructions(multiMap.get(currRoute), root);
+                        if(currRoute > 0){
+                            root.getChildren().remove(PrevInstruction);
+                            root.getChildren().add(PrevInstruction);
+                        }
+                        root.getChildren().remove(NextInstruction);
+                        root.getChildren().add(NextInstruction); //attach next button
+                        String initials = "";
+
+                        for(int i = 0; i < maps.size(); i++){
+                            //System.out.print.println("CURRENT ROUTE: "+ currRoute);
+                            //System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                            if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                                initials = maps.get(i).getInitials()+maps.get(i).getFloor();
+                        }
+                        //System.out.print.println("INITIALS: "+ initials);
+                        gc.clearRect(0, 0, 6000, 3000);
+
+
+                        //System.out.print.println("Route length: " + route.size());
+                        //Display the directions on the side
+                        //System.out.print.println("Route = " + route);
+                        //if(!(route.size() <= 1)){
+                        multiMap = splitRoute(route);//is endlessly looping or suttin
+                        currRoute = 0;
+
+                        //}
+                        //if the entire route is only on 1 map, display all instruction at once
+                        displayInstructions(multiMap.get(currRoute), root);
+                        root.getChildren().remove(NextInstruction);
+                        root.getChildren().add(NextInstruction); //attach next button
+
+                        for (int i = 0; i < maps.size(); i++) {
+                            //System.out.print.println("CURRENT ROUTE: " + currRoute);
+                            //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                            if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                                initials = maps.get(i).getInitials() + maps.get(i).getFloor();
+                        }
+                        //System.out.print.println("INITIALS: " + initials);
+                        gc.clearRect(0, 0, 6000, 3000);
+
+                        mapSelector.setValue(initials);
+                        loadMap(root, imageView);
+                        if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
+                        drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                        drawRoute(gc, multiMap.get(currRoute));
+
+                        NodePane.getChildren().add(yPinView);
+                        yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+                        yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+                        if(multiMap.size() == 1){
+                            ImageView endPinView = new ImageView();
+                            endPinView.setImage(yPinImage);
+                            NodePane.getChildren().add(endPinView);
+                            endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+                            endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+
+                        }
+
+                        final Group group = new Group(imageView, canvas, NodePane);
+                        zoomPane = createZoomPane(group);
+                        root.getChildren().add(zoomPane);
+
+                        route = new LinkedList<Node>();
+                    } catch (NullPointerException n){
+                        keyText.setText("Path not Found");
+                        keyText.setFill(Color.RED);
+                        loadMap(root, imageView);
+                    }
                     System.out.println(node.getName());
                 } catch (NullPointerException n){
                     System.out.println("Node not found");
