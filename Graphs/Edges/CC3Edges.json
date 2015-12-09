@@ -1,1 +1,457 @@
-[{"distance":4,"from":"CC3:Point:310:496","to":"CC3:Point:310:557"},{"distance":5,"from":"CC3:Point:310:496","to":"CC3:Point:376:552"},{"distance":6,"from":"CC3:Point:376:552","to":"CC3:Point:477:552"},{"distance":12,"from":"CC3:Point:376:552","to":"CC3:Point:573:552"},{"distance":4,"from":"CC3:Point:573:552","to":"CC3:Point:635:552"},{"distance":12,"from":"CC3:Point:573:552","to":"CC3:Point:751:552"},{"distance":4,"from":"CC3:Point:751:552","to":"CC3:Point:828:552"},{"distance":9,"from":"CC3:Point:751:552","to":"CC3:Point:918:552"},{"distance":8,"from":"CC3:Point:918:552","to":"CC3:Point:1043:552"},{"distance":11,"from":"CC3:Point:918:552","to":"CC3:Point:1088:552"},{"distance":7,"from":"CC3:Point:1088:552","to":"CC3:Point:1188:552"},{"distance":9,"from":"CC3:Point:1088:552","to":"CC3:Point:1188:644"},{"distance":4,"from":"CC3:Point:230:491","to":"CC3:Point:223:434"},{"distance":4,"from":"CC3:Point:223:434","to":"CC3:Point:223:367"},{"distance":8,"from":"CC3:Point:223:434","to":"CC3:Point:223:307"},{"distance":6,"from":"CC3:Point:223:307","to":"CC3:Point:223:220"},{"distance":11,"from":"CC3:Point:223:307","to":"CC3:Point:223:140"},{"distance":5,"from":"CC3:Point:223:140","to":"CC3:Point:223:67"}]
+[
+ {
+  "distance": 3,
+  "from": "CC3:Point:220:74",
+  "to": "CC3:Point:220:111"
+ },
+ {
+  "distance": 5,
+  "from": "CC3:Point:220:188",
+  "to": "CC3:Point:220:111"
+ },
+ {
+  "distance": 8,
+  "from": "CC3:Point:220:188",
+  "to": "CC3:Point:220:321"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:220:349",
+  "to": "CC3:Point:220:321"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:220:349",
+  "to": "CC3:Point:220:409"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:220:441",
+  "to": "CC3:Point:220:409"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:220:441",
+  "to": "CC3:Point:220:487"
+ },
+ {
+  "distance": 7,
+  "from": "CC3:Point:333:487",
+  "to": "CC3:Point:220:487"
+ },
+ {
+  "distance": 5,
+  "from": "CC3:Point:459:542",
+  "to": "CC3:Point:431:622"
+ },
+ {
+  "distance": 7,
+  "from": "CC3:Point:389:729",
+  "to": "CC3:Point:431:622"
+ },
+ {
+  "distance": 8,
+  "from": "CC3:Point:389:729",
+  "to": "Hagglund Room"
+ },
+ {
+  "distance": 8,
+  "from": "CC3:Point:431:622",
+  "to": "Hagglund Room"
+ },
+ {
+  "distance": 10,
+  "from": "Hagglund Room",
+  "to": "CC3:Point:459:542"
+ },
+ {
+  "distance": 8,
+  "from": "CC3:Point:333:487",
+  "to": "Hagglund Room"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:515:542",
+  "to": "CC3:Point:459:542"
+ },
+ {
+  "distance": 11,
+  "from": "CC3:Point:678:463",
+  "to": "CC3:Point:515:542"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:515:542",
+  "to": "CC Odeum A"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:639:542",
+  "to": "CC Odeum A"
+ },
+ {
+  "distance": 5,
+  "from": "CC3:Point:639:542",
+  "to": "CC3:Point:726:542"
+ },
+ {
+  "distance": 4,
+  "from": "CC Odeum B",
+  "to": "CC3:Point:726:542"
+ },
+ {
+  "distance": 3,
+  "from": "CC Odeum B",
+  "to": "CC3:Point:833:542"
+ },
+ {
+  "distance": 6,
+  "from": "CC3:Point:916:542",
+  "to": "CC3:Point:833:542"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:916:542",
+  "to": "CC Odeum C"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:1035:542",
+  "to": "CC Odeum C"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:1035:542",
+  "to": "CC3:Point:1035:503"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Staircase:1056:448",
+  "to": "CC3:Point:1035:503"
+ },
+ {
+  "distance": 1,
+  "from": "CC3:Point:1035:542",
+  "to": "CC3:Point:1049:542"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:1049:542",
+  "to": "CC3:Point:1090:542"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:1090:542",
+  "to": "CC3:Point:1155:542"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:1181:542",
+  "to": "CC3:Point:1155:542"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:1181:542",
+  "to": "CC3:Point:1181:595"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:1181:649",
+  "to": "CC3:Point:1181:595"
+ },
+ {
+  "distance": 7,
+  "from": "CC3:Point:1090:639",
+  "to": "CC3:Point:1090:542"
+ },
+ {
+  "distance": 2,
+  "from": "CC337",
+  "to": "CC3:Point:1155:542"
+ },
+ {
+  "distance": 2,
+  "from": "CC335",
+  "to": "CC3:Point:1181:542"
+ },
+ {
+  "distance": 2,
+  "from": "CC338",
+  "to": "CC3:Point:1181:595"
+ },
+ {
+  "distance": 2,
+  "from": "CC339A",
+  "to": "CC3:Point:1181:649"
+ },
+ {
+  "distance": 5,
+  "from": "CC339",
+  "to": "CC3:Point:1181:649"
+ },
+ {
+  "distance": 6,
+  "from": "CC339",
+  "to": "CC3:Point:1090:719"
+ },
+ {
+  "distance": 5,
+  "from": "CC3:Point:1090:639",
+  "to": "CC3:Point:1090:719"
+ },
+ {
+  "distance": 1,
+  "from": "CC336",
+  "to": "CC3:Point:1090:639"
+ },
+ {
+  "distance": 10,
+  "from": "CC3:Point:1090:884",
+  "to": "CC3:Point:1090:719"
+ },
+ {
+  "distance": 6,
+  "from": "CC340",
+  "to": "CC3:Point:1090:884"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:1046:884",
+  "to": "CC3:Point:1090:884"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:1046:921",
+  "to": "CC3:Point:1046:884"
+ },
+ {
+  "distance": 2,
+  "from": "CC341A",
+  "to": "CC3:Point:1046:921"
+ },
+ {
+  "distance": 5,
+  "from": "Mid-Century Room",
+  "to": "CC3:Point:726:542"
+ },
+ {
+  "distance": 5,
+  "from": "Mid-Century Room",
+  "to": "CC3:Point:678:463"
+ },
+ {
+  "distance": 4,
+  "from": "CC3:Point:813:498",
+  "to": "Mid-Century Room"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:813:498",
+  "to": "CC3:Point:833:542"
+ },
+ {
+  "distance": 2,
+  "from": "CC345",
+  "to": "CC3:Point:389:729"
+ },
+ {
+  "distance": 2,
+  "from": "CC345",
+  "to": "CC3:Point:444:755"
+ },
+ {
+  "distance": 3,
+  "from": "CC348",
+  "to": "CC3:Point:444:755"
+ },
+ {
+  "distance": 2,
+  "from": "CC344",
+  "to": "CC3:Point:431:622"
+ },
+ {
+  "distance": 2,
+  "from": "CC304",
+  "to": "CC3:Point:220:441"
+ },
+ {
+  "distance": 3,
+  "from": "CC327",
+  "to": "CC3:Point:220:409"
+ },
+ {
+  "distance": 3,
+  "from": "CC327",
+  "to": "CC3:Point:313:409"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:313:357",
+  "to": "CC3:Point:313:409"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:313:357",
+  "to": "CC329"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:313:330",
+  "to": "CC328"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:313:330",
+  "to": "CC3:Point:313:294"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:313:330",
+  "to": "CC3:Point:313:357"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:313:294",
+  "to": "CC325"
+ },
+ {
+  "distance": 6,
+  "from": "CC3:Point:220:349",
+  "to": "CC3:Point:123:349"
+ },
+ {
+  "distance": 3,
+  "from": "Campus Center 3rd Floor Women's Bathroom",
+  "to": "CC3:Point:123:349"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:123:349",
+  "to": "Campus Center 3rd Floor Men's Bathroom"
+ },
+ {
+  "distance": 2,
+  "from": "CC326",
+  "to": "CC3:Point:220:321"
+ },
+ {
+  "distance": 3,
+  "from": "CC312",
+  "to": "CC3:Point:220:188"
+ },
+ {
+  "distance": 5,
+  "from": "CC312",
+  "to": "CC3:Point:95:170"
+ },
+ {
+  "distance": 2,
+  "from": "CC314",
+  "to": "CC3:Point:95:170"
+ },
+ {
+  "distance": 3,
+  "from": "CC313",
+  "to": "CC3:Point:95:170"
+ },
+ {
+  "distance": 1,
+  "from": "CC3:Point:95:170",
+  "to": "CC3:Point:95:145"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:95:145",
+  "to": "CC315"
+ },
+ {
+  "distance": 4,
+  "from": "CC316",
+  "to": "CC3:Point:95:145"
+ },
+ {
+  "distance": 3,
+  "from": "CC315*",
+  "to": "CC3:Point:220:111"
+ },
+ {
+  "distance": 7,
+  "from": "CC3:Point:364:111",
+  "to": "CC315*"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:364:111",
+  "to": "CC3:Point:393:111"
+ },
+ {
+  "distance": 2,
+  "from": "CC319",
+  "to": "CC3:Point:393:111"
+ },
+ {
+  "distance": 6,
+  "from": "CC3:Point:364:198",
+  "to": "CC3:Point:364:111"
+ },
+ {
+  "distance": 1,
+  "from": "CC3:Point:364:198",
+  "to": "CC3:Point:349:198"
+ },
+ {
+  "distance": 1,
+  "from": "CC323",
+  "to": "CC3:Point:349:198"
+ },
+ {
+  "distance": 3,
+  "from": "CC324",
+  "to": "CC3:Point:349:198"
+ },
+ {
+  "distance": 5,
+  "from": "CC320",
+  "to": "CC3:Point:393:111"
+ },
+ {
+  "distance": 2,
+  "from": "CC317",
+  "to": "CC3:Point:220:74"
+ },
+ {
+  "distance": 1,
+  "from": "CC1:Staircase:433:447",
+  "to": "CCStairsDown:0"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:459:542",
+  "to": "CC3:Point:459:501"
+ },
+ {
+  "distance": 8,
+  "from": "CC3:Point:333:487",
+  "to": "CC3:Point:459:501"
+ },
+ {
+  "distance": 12,
+  "from": "Hagglund Room",
+  "to": "CC3:Point:459:501"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:459:501",
+  "to": "CC3:Point:459:501"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Point:459:501",
+  "to": "CC3:Staircase:471:467"
+ },
+ {
+  "distance": 5,
+  "from": "CC2:Staircase:400:484",
+  "to": "CC3:Staircase:471:467"
+ }
+]

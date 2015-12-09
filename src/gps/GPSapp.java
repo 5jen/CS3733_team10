@@ -211,6 +211,8 @@ public class GPSapp extends Application{
 
 	Building BuildingRolledOver = new Building("");
 	PauseTransition pause = new PauseTransition(Duration.millis(700));
+	
+	Button ReturnToCampus = new Button("Back to Campus");
 
 	@Override
     public void start(Stage primaryStage) {
@@ -361,6 +363,11 @@ public class GPSapp extends Application{
         DestLabel.setFont(Font.font ("manteka", 20));
         DestLabel.setLayoutX(300);
         DestLabel.setLayoutY(610);
+        
+        ReturnToCampus.setTextFill(Color.BLACK);
+        ReturnToCampus.setFont(Font.font ("manteka", 20));
+        ReturnToCampus.setLayoutX(600);
+        ReturnToCampus.setLayoutY(550);
 
         //Labels for the direction
         //MOVE TO METHOD AND USE FOR LOOP ONCE WE HAVE THE ROUTE CALCULATED
@@ -423,6 +430,13 @@ public class GPSapp extends Application{
             		toggle = true;
             	}
 
+            }
+        });
+        
+        ReturnToCampus.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+               	mapSelector.setValue("CampusMap");
+               	loadMap(root, imageView);
             }
         });
         
@@ -852,6 +866,7 @@ public class GPSapp extends Application{
             ImageView arrowView = new ImageView();
             arrowView.setImage(arrowImage);
             Line breakLine = new Line(0, 0, 255, 0);
+
             breakLine.setLayoutX(10);
             
             String style = StepBox.getStyle();
@@ -1851,6 +1866,8 @@ public class GPSapp extends Application{
         }
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);*/
+        
+        
 
         //graph = createGraph(graph, nodeList, edgeList);
         NodePane.getChildren().clear();
@@ -2251,6 +2268,16 @@ public class GPSapp extends Application{
         final Group group = new Group(imageView, canvas, NodePane);
         zoomPane = createZoomPane(group);
 	    root.getChildren().add(zoomPane);
+	    
+	  //Place the return to campus button on screen if youre not on the campus  map
+        if(!mapSelector.getValue().equals("CampusMap")){
+        	root.getChildren().remove(ReturnToCampus);
+        	root.getChildren().add(ReturnToCampus);
+        	ReturnToCampus.toFront();
+        }
+        else{
+        	root.getChildren().remove(ReturnToCampus);
+        }
 
     }
 

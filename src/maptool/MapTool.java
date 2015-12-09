@@ -65,7 +65,6 @@ public class MapTool extends Application {
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
 
-
     Map AtwaterKentB = new Map("Atwater Kent B", "AK", "CS3733_Graphics/AKB.png", "Graphs/Nodes/AKB.json", "Graphs/Edges/AKBEdges.json", -2.617, 1548, 594, 0.1627, "B");
     Map AtwaterKent1 = new Map("Atwater Kent 1", "AK", "CS3733_Graphics/AK1.png", "Graphs/Nodes/AK1.json", "Graphs/Edges/AK1Edges.json", -2.617, 1548, 594, 0.1312, "1");
     Map AtwaterKent2 = new Map("Atwater Kent 2", "AK", "CS3733_Graphics/AK2.png", "Graphs/Nodes/AK2.json", "Graphs/Edges/AK2Edges.json", -2.617, 1548, 594, 0.1692, "2");
@@ -547,7 +546,7 @@ public class MapTool extends Application {
             	if(updateNode){
 
             		for(int i = 0; i < nodeList.size(); i++){
-                		if(nodeReference == nodeList.get(i).getName()){
+                		if(Objects.equals(nodeReference, nodeList.get(i).getName())){
                 			//root.getChildren().remove(nodeButtonReference);
                             // TODO If a node is updated the edges also have to be updated
                 			nodeList.get(i).setX(x);
@@ -556,6 +555,13 @@ public class MapTool extends Application {
                 			nodeList.get(i).setName(nameField.getText());
                 			nodeList.get(i).setIsPlace(isPlace.isSelected());
                 			nodeList.get(i).setType(typeSelector.getValue());
+                            nodeList.get(i).setGlobalX((int) (((x * Math.cos(currentlySelectedMap.getRotationalConstant())
+                                    - y * Math.sin(currentlySelectedMap.getRotationalConstant())) * (currentlySelectedMap.getConversionRatio()) +
+                                    currentlySelectedMap.getGlobalToLocalOffsetX())
+                            ));
+                            nodeList.get(i).setGlobalY((int) (((x * Math.sin(currentlySelectedMap.getRotationalConstant())
+                                    + y * Math.cos(currentlySelectedMap.getRotationalConstant())) * (currentlySelectedMap.getConversionRatio())
+                                    + currentlySelectedMap.getGlobalToLocalOffsetY())));
                 			
                 			nodeButtonReference.relocate(x, y);
                 		}
@@ -1198,21 +1204,19 @@ public class MapTool extends Application {
         for (int i = 0; i < edgeData.size(); i++) {
             //iterate throught he nodelist to find the matching node
             for (int j = 0; j < globalNodeList.size(); j++) {
-            	if(edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())){
-					from = j;
-				}
-				if(edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())){
-					to = j;
-				}
+                if (edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())) {
+                    from = j;
+                }
+                if (edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())) {
+                    to = j;
+                }
             }
 
-    		Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
+            Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
 
             //Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
-           	edgeList.add(newEdge);
-            
+            edgeList.add(newEdge);
         }
-
         return edgeList;
     }
 
