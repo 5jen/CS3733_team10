@@ -182,8 +182,6 @@ public class GPSapp extends Application{
 	LinkedList<Building> buildings = new LinkedList<>();
 	LinkedList<Map> maps = new LinkedList<>();
 
-	final Button BackButton = new Button("Back");
-
     Text keyText = new Text(600, 640,"");
     Text toggleKeyText = new Text(1045, 740,"Show Key");
 	
@@ -330,11 +328,11 @@ public class GPSapp extends Application{
     	//Next button (and previous)
     	NextInstruction.setTextFill(Color.BLACK);
     	NextInstruction.setLayoutX(950);
-    	NextInstruction.setLayoutY(470);
+    	NextInstruction.setLayoutY(530);
     	
     	PrevInstruction.setTextFill(Color.BLACK);
     	PrevInstruction.setLayoutX(870);
-    	PrevInstruction.setLayoutY(470);
+    	PrevInstruction.setLayoutY(530);
 
     	//Searchable text boxes
     	VBox StartSearch = new VBox();
@@ -474,6 +472,10 @@ public class GPSapp extends Application{
     	
     	 stageInitialWidthDifference = scene.getWidth()-1100;
          stageInitialHeightDifference = scene.getHeight()-750;
+         
+
+   		 s1.setLayoutX(820 + stageInitialWidthDifference);
+   		 s1.setLayoutY(110 + stageInitialHeightDifference);
 
 
         imageView.setScaleX(0.75);
@@ -549,6 +551,7 @@ public class GPSapp extends Application{
     			toggleKeyText.setTranslateX(stageInitialWidthDifference);
     			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
     			s1.setTranslateX(stageInitialWidthDifference);
+    			ReturnToCampus.setTranslateX(stageInitialWidthDifference);
 
     		}
     	});
@@ -567,6 +570,10 @@ public class GPSapp extends Application{
     			toggleKeyText.setTranslateY(stageInitialHeightDifference);
     			imageViewKey.setTranslateY(stageInitialHeightDifference);
     			keyText.setTranslateY(stageInitialHeightDifference);
+    			s1.setPrefSize(270, 420 + stageInitialHeightDifference);
+    			NextInstruction.setTranslateY(stageInitialHeightDifference);
+    			PrevInstruction.setTranslateY(stageInitialHeightDifference);
+    			ReturnToCampus.setTranslateY(stageInitialHeightDifference);
 
     		}
     	});
@@ -818,6 +825,7 @@ public class GPSapp extends Application{
 
     			}
             });
+
     }
 	///END OF MAIN ***************************************************************
 
@@ -830,14 +838,10 @@ public class GPSapp extends Application{
     	//s1 = new ScrollPane();
     	
     	//create vertical box to add labels too
-    	directionBox.setLayoutX(820);
-    	directionBox.setLayoutY(100);
 
     	//add a possible scroll box for long routes..
-		 s1.setPrefSize(270, 360);
+		 s1.setPrefSize(270, 420);
 		 s1.setStyle("-fx-background-color: transparent");
-		 s1.setLayoutX(820);
-		 s1.setLayoutY(110);
 		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
     		
     	//convert the route to a list of string instructions
@@ -1092,7 +1096,6 @@ public class GPSapp extends Application{
    	     				//System.out.print.println(floor);
    	     				root.getChildren().remove(LayerGroup);
    	     				LayerGroup.getChildren().clear();
-   	     				root.getChildren().remove(BackButton);
    	     				if(root.getChildren().contains(BuildingNameLabel))
    	     					root.getChildren().remove(BuildingNameLabel);
    	     				screenFadeBack(imageView);
@@ -1835,7 +1838,6 @@ public class GPSapp extends Application{
     private void loadMap(Pane root, ImageView imageView){
 
     	k = 0; // Reset Zoom Variable
-    	root.getChildren().remove(BackButton);
 	    root.getChildren().remove(zoomPane);
 	    root.getChildren().remove(canvas);
 	    imageView.setScaleX(1);
