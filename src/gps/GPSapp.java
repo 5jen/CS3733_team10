@@ -1861,12 +1861,13 @@ public class GPSapp extends Application{
         if(mapSelector.getValue().contains("GL"))
         	BuildingRolledOverCurrent = GordonLibrary;
         
+        if(mapSelector.getValue().contains("HH"))
+        	BuildingRolledOverCurrent = HigginsHouse;
+        
         //Special for Higgins house
         if(mapSelector.getValue().contains("HHAPT")||mapSelector.getValue().contains("HHGAR"))
         	BuildingRolledOverCurrent = HigginsHouseGarage;
         
-        if(mapSelector.getValue().contains("HH"))
-        	BuildingRolledOverCurrent = HigginsHouse;
         
         if(mapSelector.getValue().contains("PC"))
         	BuildingRolledOverCurrent = ProjectCenter;
