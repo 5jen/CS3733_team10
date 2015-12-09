@@ -910,7 +910,7 @@ public class GPSapp extends Application{
     			}
             });
             DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
+            	
     			public void handle(MouseEvent arg0) {
     				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
     				destBool = true;
@@ -949,10 +949,12 @@ public class GPSapp extends Application{
 
                                 //if the entire route is only on 1 map, display all instruction at once
                                 displayInstructions(multiMap.get(currRoute), root);
+                                
                                 if(currRoute > 0){
                                 	root.getChildren().remove(PrevInstruction);
                                 	root.getChildren().add(PrevInstruction);
                                 }
+                                
                                 root.getChildren().remove(NextInstruction);
                             	root.getChildren().add(NextInstruction); //attach next button
                             	String initials = "";
@@ -1733,6 +1735,8 @@ public class GPSapp extends Application{
                                         root.getChildren().remove(NextInstruction);
                                         root.getChildren().add(NextInstruction); //attach next button
                                     }
+                                    
+                                    
                                     String initials = "";
                                     //System.out.print.println("MAPSIZE: " + maps.size());
                                     for (int i = 0; i < maps.size(); i++) {
