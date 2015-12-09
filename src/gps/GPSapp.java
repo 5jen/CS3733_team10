@@ -6,7 +6,6 @@ import io.JsonParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +21,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
@@ -40,6 +38,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import node.*;
+import planner.v1.EmailSender;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -876,6 +875,7 @@ public class GPSapp extends Application{
     private void displayInstructions(LinkedList<Node> route, Pane root){
 
     	directionBox.getChildren().clear();
+
     	//nooooo
     	//clear current instructions
     	//s1 = new ScrollPane();
@@ -888,7 +888,7 @@ public class GPSapp extends Application{
 		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
 		 if(route.size() > 2){
 			 stepIndicator steps = new stepIndicator(route);
-		    	
+			 EmailSender.sendDirections(steps.lInstructions(),"yxu4@wpi.edu");
 		    	LinkedList<Step> directions = steps.lInstructions();
 		    	if(currRoute == 0)
 		    		directions.addFirst(new Step(0,"Walk Straight",0, directions.get(0).getX(),directions.get(0).getY()));
