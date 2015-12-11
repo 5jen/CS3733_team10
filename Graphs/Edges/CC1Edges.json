@@ -311,7 +311,7 @@
  },
  {
   "distance": 2,
-  "from": "CC1:Point:1082:777",
+  "from": "CC150",
   "to": "CC1:Place:1082:739"
  },
  {
@@ -506,7 +506,7 @@
  },
  {
   "distance": 3,
-  "from": "CC1:Point:114:394",
+  "from": "Campus Center 1 Women's Bathroom",
   "to": "CC1:Point:114:344"
  },
  {
