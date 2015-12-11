@@ -435,7 +435,7 @@
   "to": "CampusMap:Point:1199:965"
  },
  {
-  "distance": 31,
+  "distance": 118,
   "from": "CampusMap:Point:1226:955",
   "to": "CampusMap:Point:1309:871"
  },
@@ -718,5 +718,10 @@
   "distance": 53,
   "from": "FL2:Transition Point:755:1079",
   "to": "FL Front Entrance"
+ },
+ {
+  "distance": 31,
+  "from": "Higgins Back Entrance",
+  "to": "CampusMap:Point:1309:871"
  }
 ]

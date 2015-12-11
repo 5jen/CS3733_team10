@@ -36,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.scene.web.*;
 import javafx.util.Duration;
 import node.*;
 
@@ -240,7 +241,11 @@ public class GPSapp extends Application{
 	@Override
     public void start(Stage primaryStage) {
 
-		
+		scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+		File iconFile = new File("CS3733_Graphics/PI.png");
+        Image iconImage = new Image(iconFile.toURI().toString());
+		primaryStage.getIcons().add(iconImage);
+		primaryStage.setTitle("PiNavigator");
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -327,6 +332,8 @@ public class GPSapp extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
+    	LoadMapButton.setId("DarkStyle");
+
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
     	mapSelectionBoxV.setLayoutY(10);
@@ -495,7 +502,7 @@ public class GPSapp extends Application{
         });
         
         //root.getChildren().add(imageViewBlur);
-        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+        
         primaryStage.setScene(scene);
         primaryStage.show();
         
@@ -705,6 +712,8 @@ public class GPSapp extends Application{
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	loadMap( root, imageView);
+            	root.getChildren().remove(PrevInstruction);
+            	root.getChildren().remove(NextInstruction);
 
             }
         });

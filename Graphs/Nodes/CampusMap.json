@@ -124,7 +124,7 @@
   "floorMap": "Campus Map",
   "name": "Morgan Hall",
   "isPlace": true,
-  "type": "Point",
+  "type": "Dining",
   "valz": 0,
   "building": "Campus",
   "valy": 947
