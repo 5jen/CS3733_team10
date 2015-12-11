@@ -6,7 +6,6 @@ import io.JsonParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +21,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
@@ -235,6 +233,7 @@ public class GPSapp extends Application{
     LinkedList<Node> route = new LinkedList<Node>();
     LinkedList<Node> savedRoute = new LinkedList<Node>();
 
+	@SuppressWarnings("unused")
 	@Override
     public void start(Stage primaryStage) {
 
@@ -589,6 +588,7 @@ public class GPSapp extends Application{
         		destBool = false;
         		startButtonBool = false;
         		destButtonBool = false;
+        		root.getChildren().remove(zoomPane);
                 for (Node n : globalGraph.getNodes()) {
                     if (n.getName().equals(StartText.getText())) {
                         actualStartNode = n;
@@ -600,6 +600,7 @@ public class GPSapp extends Application{
                     route = globalGraph.findRoute(actualStartNode, node);
                     savedRoute = route;
                     try {
+                    	
 
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
@@ -664,15 +665,15 @@ public class GPSapp extends Application{
                             endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 
                         }
-
+                        /*
                         final Group group = new Group(imageView, canvas, NodePane);
                         zoomPane = createZoomPane(group);
-                        root.getChildren().add(zoomPane);
+                        root.getChildren().add(zoomPane);*/
 
                         route = new LinkedList<Node>();
                     } catch (NullPointerException n){
                         keyText.setText("Path not Found");
-                        keyText.setFill(Color.RED);
+                        keyText.setFill(Color.WHITE);
                         loadMap(root, imageView);
                     }
                     System.out.println(node.getName());
@@ -927,20 +928,21 @@ public class GPSapp extends Application{
 								    root.getChildren().remove(NextInstruction);
 								}
 
+								/*
                                 final Group group = new Group(imageView, canvas, NodePane);
                                 zoomPane = createZoomPane(group);
-                                root.getChildren().add(zoomPane);
+                                root.getChildren().add(zoomPane);*/
 
                                 route = new LinkedList<Node>();
                             } catch (NullPointerException n){
                                 keyText.setText("Path not Found");
-                                keyText.setFill(Color.RED);
+                                keyText.setFill(Color.WHITE);
                                 loadMap(root, imageView);
                             }
         				} else {
         					loadMap(root, imageView);
         					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.RED);
+        					keyText.setFill(Color.WHITE);
         					keyText.setText("Your Start and Destination are the same");
         				}
     				}
@@ -1025,20 +1027,21 @@ public class GPSapp extends Application{
 									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 									root.getChildren().remove(NextInstruction);
 								}
+								/*
                                 final Group group = new Group(imageView, canvas, NodePane);
                         	    zoomPane = createZoomPane(group);
                         	    root.getChildren().add(zoomPane);
-                                route = new LinkedList<Node>();
+                                route = new LinkedList<Node>();*/
                                 
             				} catch (NullPointerException n){
             					keyText.setText("Path not Found");
-            					keyText.setFill(Color.RED);
+            					keyText.setFill(Color.WHITE);
             					loadMap(root, imageView);
                             }
         				} else {
         					loadMap(root, imageView);
         					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.RED);
+        					keyText.setFill(Color.WHITE);
         					keyText.setText("Your Start and Destination are the same");
         				}
 				}
@@ -1814,7 +1817,7 @@ public class GPSapp extends Application{
 									NodePane.getChildren().add(yPinView);
 									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
 									yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
-
+									
 									if(multiMap.size() == 1){
 										ImageView endPinView = new ImageView();
 										endPinView.setImage(yPinImage);
@@ -2646,7 +2649,7 @@ public class GPSapp extends Application{
         ds.setOffsetX(3.0);
         ds.setColor(Color.GRAY);
 
-        Color BuildingName = new Color(1,0,0,1);
+        Color BuildingName = new Color(1,1,1,1);
         Color key = new Color(1,1,1,0.5);
         Polygon cc = new Polygon();
         double xOffset = 0.0;
