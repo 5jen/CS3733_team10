@@ -395,7 +395,7 @@
   "isWalkable": true,
   "globalX": 1157,
   "floorMap": "Higgins House B",
-  "name": "HHB:Staircase:178:146",
+  "name": "HHB004",
   "isPlace": true,
   "type": "Point",
   "valz": -30,

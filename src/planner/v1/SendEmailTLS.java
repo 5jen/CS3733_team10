@@ -30,7 +30,7 @@ public class SendEmailTLS {
             message.setFrom(new InternetAddress("PiNavigatorcs3733@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destination));
-            message.setSubject("Testing Subject");
+            message.setSubject("PiNavigator Instructions");
             message.setText(msg);
 
             Transport.send(message);

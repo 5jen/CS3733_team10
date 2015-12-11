@@ -11,7 +11,7 @@
  },
  {
   "distance": 95,
-  "from": "CampusMap:Point:1008:868",
+  "from": "Seal",
   "to": "CampusMap:Point:976:958"
  },
  {
@@ -22,7 +22,7 @@
  {
   "distance": 98,
   "from": "CampusMap:Point:945:792",
-  "to": "CampusMap:Point:1008:868"
+  "to": "Seal"
  },
  {
   "distance": 26,
@@ -41,7 +41,7 @@
  },
  {
   "distance": 106,
-  "from": "CampusMap:Point:1008:868",
+  "from": "Seal",
   "to": "CampusMap:Point:917:924"
  },
  {
@@ -61,7 +61,7 @@
  },
  {
   "distance": 111,
-  "from": "CampusMap:Point:1008:868",
+  "from": "Seal",
   "to": "CampusMap:Point:1103:809"
  },
  {
@@ -76,7 +76,7 @@
  },
  {
   "distance": 119,
-  "from": "CampusMap:Point:1008:868",
+  "from": "Seal",
   "to": "CampusMap:Point:1085:959"
  },
  {
@@ -122,7 +122,7 @@
  {
   "distance": 18,
   "from": "CampusMap:Point:1125:868",
-  "to": "CampusMap:Point:1122:886"
+  "to": "Bartlett Center"
  },
  {
   "distance": 38,
@@ -266,7 +266,7 @@
  },
  {
   "distance": 33,
-  "from": "CampusMap:Point:1278:661",
+  "from": "Campus Center Entrance B",
   "to": "CampusMap:Point:1279:694"
  },
  {
@@ -292,7 +292,7 @@
  {
   "distance": 33,
   "from": "CampusMap:Point:1390:614",
-  "to": "CampusMap:Point:1357:609"
+  "to": "Olin Hall Main Entrance"
  },
  {
   "distance": 21,
@@ -332,7 +332,7 @@
  {
   "distance": 14,
   "from": "CampusMap:Point:1554:680",
-  "to": "CampusMap:Point:1540:678"
+  "to": "Salisbury Back Entrance"
  },
  {
   "distance": 37,
@@ -435,7 +435,7 @@
   "to": "CampusMap:Point:1199:965"
  },
  {
-  "distance": 31,
+  "distance": 118,
   "from": "CampusMap:Point:1226:955",
   "to": "CampusMap:Point:1309:871"
  },
@@ -482,7 +482,7 @@
  {
   "distance": 116,
   "from": "CampusMap:Point:1508:992",
-  "to": "CampusMap:Point:1531:878"
+  "to": "Washburn Labs Side Entrance"
  },
  {
   "distance": 30,
@@ -491,13 +491,13 @@
  },
  {
   "distance": 18,
-  "from": "CampusMap:Point:1278:661",
+  "from": "Campus Center Entrance B",
   "to": "CampusMap:Point:1290:647"
  },
  {
   "distance": 21,
   "from": "CampusMap:Point:1290:647",
-  "to": "CampusMap:Point:1306:661"
+  "to": "Olin Hall Side Entrance"
  },
  {
   "distance": 134,
@@ -531,12 +531,12 @@
  },
  {
   "distance": 30,
-  "from": "CampusMap:Point:1249:688",
+  "from": "Campus Center Entrance A",
   "to": "CampusMap:Point:1279:694"
  },
  {
   "distance": 16,
-  "from": "CampusMap:Point:1210:615",
+  "from": "Campus Center Back Entrance",
   "to": "CampusMap:Point:1202:601"
  },
  {
@@ -601,13 +601,13 @@
  },
  {
   "distance": 23,
-  "from": "CampusMap:Point:1306:661",
+  "from": "Olin Hall Side Entrance",
   "to": "CampusMap:Point:1308:684"
  },
  {
   "distance": 19,
   "from": "CampusMap:Point:1319:675",
-  "to": "CampusMap:Point:1306:661"
+  "to": "Olin Hall Side Entrance"
  },
  {
   "distance": 25,
@@ -651,7 +651,7 @@
  },
  {
   "distance": 68,
-  "from": "CampusMap:Point:1531:878",
+  "from": "Washburn Labs Side Entrance",
   "to": "CampusMap:Point:1545:811"
  },
  {
@@ -677,7 +677,7 @@
  {
   "distance": 26,
   "from": "CampusMap:Point:1517:754",
-  "to": "CampusMap:Point:1513:780"
+  "to": "Washburn Labs Main Entrance"
  },
  {
   "distance": 23,
@@ -691,7 +691,7 @@
  },
  {
   "distance": 50,
-  "from": "CampusMap:Transition Point:1279:863",
+  "from": "Higgins Back Entrance",
   "to": "CampusMap:Point:1230:849"
  },
  {
@@ -701,7 +701,7 @@
  },
  {
   "distance": 19,
-  "from": "CampusMap:Point:1249:688",
+  "from": "Campus Center Entrance A",
   "to": "CampusMap:Point:1246:707"
  },
  {
@@ -718,5 +718,10 @@
   "distance": 53,
   "from": "FL2:Transition Point:755:1079",
   "to": "FL Front Entrance"
+ },
+ {
+  "distance": 31,
+  "from": "Higgins Back Entrance",
+  "to": "CampusMap:Point:1309:871"
  }
 ]

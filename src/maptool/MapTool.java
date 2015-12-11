@@ -112,6 +112,8 @@ public class MapTool extends Application {
         launch(args);
     }
 
+    
+    
     JsonParser json = new JsonParser();
     LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
@@ -178,6 +180,9 @@ public class MapTool extends Application {
     public void start(Stage primaryStage) {
     	
     	
+    	File iconFile = new File("CS3733_Graphics/PI.png");
+        Image iconImage = new Image(iconFile.toURI().toString());
+		primaryStage.getIcons().add(iconImage);
     	
         //Add Maps to buildings
         Campus.addMap(CampusMap);

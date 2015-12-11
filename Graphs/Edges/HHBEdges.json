@@ -131,12 +131,12 @@
  },
  {
   "distance": 1,
-  "from": "HHB:Staircase:178:146",
+  "from": "HHB004",
   "to": "HHB:Staircase:211:146"
  },
  {
   "distance": 2,
-  "from": "HHB:Staircase:178:146",
+  "from": "HHB004",
   "to": "HHB:Point:143:146"
  },
  {

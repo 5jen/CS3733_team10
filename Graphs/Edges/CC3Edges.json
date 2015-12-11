@@ -192,12 +192,12 @@
  {
   "distance": 6,
   "from": "CC339",
-  "to": "CC3:Point:1090:719"
+  "to": "CC345"
  },
  {
   "distance": 5,
   "from": "CC3:Point:1090:639",
-  "to": "CC3:Point:1090:719"
+  "to": "CC345"
  },
  {
   "distance": 1,
@@ -207,7 +207,7 @@
  {
   "distance": 10,
   "from": "CC3:Point:1090:884",
-  "to": "CC3:Point:1090:719"
+  "to": "CC345"
  },
  {
   "distance": 6,

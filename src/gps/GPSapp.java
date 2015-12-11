@@ -6,7 +6,6 @@ import io.JsonParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +21,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
@@ -40,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.web.*;
 import javafx.util.Duration;
 import node.*;
 
@@ -209,7 +208,7 @@ public class GPSapp extends Application{
 	Building BuildingRolledOver = new Building("");
 	Building BuildingRolledOverCurrent = new Building("");
 	
-	PauseTransition pause = new PauseTransition(Duration.millis(700));
+	PauseTransition pause = new PauseTransition(Duration.millis(0));
 	
 	Button ReturnToCampus = new Button("Back to Campus");
 
@@ -243,10 +242,15 @@ public class GPSapp extends Application{
     LinkedList<Node> route = new LinkedList<Node>();
     LinkedList<Node> savedRoute = new LinkedList<Node>();
 
+	@SuppressWarnings("unused")
 	@Override
     public void start(Stage primaryStage) {
 
-		
+		scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+		File iconFile = new File("CS3733_Graphics/PI.png");
+        Image iconImage = new Image(iconFile.toURI().toString());
+		primaryStage.getIcons().add(iconImage);
+		primaryStage.setTitle("PiNavigator");
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -334,6 +338,8 @@ public class GPSapp extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
+    	LoadMapButton.setId("DarkStyle");
+
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
     	mapSelectionBoxV.setLayoutY(10);
@@ -530,7 +536,7 @@ public class GPSapp extends Application{
         });
         
         //root.getChildren().add(imageViewBlur);
-        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+        
         primaryStage.setScene(scene);
         primaryStage.show();
         
@@ -630,6 +636,7 @@ public class GPSapp extends Application{
         		destBool = false;
         		startButtonBool = false;
         		destButtonBool = false;
+        		root.getChildren().remove(zoomPane);
                 for (Node n : globalGraph.getNodes()) {
                     if (n.getName().equals(StartText.getText())) {
                         actualStartNode = n;
@@ -641,6 +648,7 @@ public class GPSapp extends Application{
                     route = globalGraph.findRoute(actualStartNode, node);
                     savedRoute = route;
                     try {
+                    	
 
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
@@ -705,15 +713,15 @@ public class GPSapp extends Application{
                             endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 
                         }
-
+                        /*
                         final Group group = new Group(imageView, canvas, NodePane);
                         zoomPane = createZoomPane(group);
-                        root.getChildren().add(zoomPane);
+                        root.getChildren().add(zoomPane);*/
 
                         route = new LinkedList<Node>();
                     } catch (NullPointerException n){
                         keyText.setText("Path not Found");
-                        keyText.setFill(Color.RED);
+                        keyText.setFill(Color.WHITE);
                         loadMap(root, imageView);
                     }
                     System.out.println(node.getName());
@@ -742,6 +750,8 @@ public class GPSapp extends Application{
         LoadMapButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
             	loadMap( root, imageView);
+            	root.getChildren().remove(PrevInstruction);
+            	root.getChildren().remove(NextInstruction);
 
             }
         });
@@ -972,20 +982,21 @@ public class GPSapp extends Application{
 								    root.getChildren().remove(NextInstruction);
 								}
 
+								/*
                                 final Group group = new Group(imageView, canvas, NodePane);
                                 zoomPane = createZoomPane(group);
-                                root.getChildren().add(zoomPane);
+                                root.getChildren().add(zoomPane);*/
 
                                 route = new LinkedList<Node>();
                             } catch (NullPointerException n){
                                 keyText.setText("Path not Found");
-                                keyText.setFill(Color.RED);
+                                keyText.setFill(Color.WHITE);
                                 loadMap(root, imageView);
                             }
         				} else {
         					loadMap(root, imageView);
         					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.RED);
+        					keyText.setFill(Color.WHITE);
         					keyText.setText("Your Start and Destination are the same");
         				}
     				}
@@ -1070,20 +1081,21 @@ public class GPSapp extends Application{
 									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 									root.getChildren().remove(NextInstruction);
 								}
+								/*
                                 final Group group = new Group(imageView, canvas, NodePane);
                         	    zoomPane = createZoomPane(group);
                         	    root.getChildren().add(zoomPane);
-                                route = new LinkedList<Node>();
+                                route = new LinkedList<Node>();*/
                                 
             				} catch (NullPointerException n){
             					keyText.setText("Path not Found");
-            					keyText.setFill(Color.RED);
+            					keyText.setFill(Color.WHITE);
             					loadMap(root, imageView);
                             }
         				} else {
         					loadMap(root, imageView);
         					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.RED);
+        					keyText.setFill(Color.WHITE);
         					keyText.setText("Your Start and Destination are the same");
         				}
 				}
@@ -1565,7 +1577,7 @@ public class GPSapp extends Application{
     		   return splitRoutes;
     	}
 ;
-    	
+
     	LinkedList<LinkedList<Node>> splitRoutes = new LinkedList<LinkedList<Node>>();
     	String aBuilding = route.get(0).getFloorMap();
     	int newBuildingIndex = 0;
@@ -1758,7 +1770,7 @@ public class GPSapp extends Application{
 									NodePane.getChildren().add(yPinView);
 									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
 									yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
-
+									
 									if(multiMap.size() == 1){
 										ImageView endPinView = new ImageView();
 										endPinView.setImage(yPinImage);
@@ -1788,6 +1800,7 @@ public class GPSapp extends Application{
                     	
     				}
                 });
+                newNodeButton.setTooltip(new Tooltip(newNode.getName()));
             	NodePane.getChildren().add(newNodeButton);
     		} else if(!nodes.get(i).getIsPlace()){
     			//Do nothing
@@ -2590,7 +2603,9 @@ public class GPSapp extends Application{
         ds.setOffsetX(3.0);
         ds.setColor(Color.GRAY);
 
-        Color BuildingName = new Color(1,0,0,1);
+        Tooltip tooltip = new Tooltip("Click to show building floors");
+
+        Color BuildingName = new Color(1,1,1,1);
         Color key = new Color(1,1,1,0.5);
         Polygon cc = new Polygon();
         double xOffset = 0.0;
@@ -2633,9 +2648,13 @@ public class GPSapp extends Application{
                 keyText.setText("Campus Center");
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = CampusCenter;
-                pause.play(); //At the end of play, pause runs a method to show layered maps
-               
         	}
+        });
+        cc.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         cc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2701,8 +2720,13 @@ public class GPSapp extends Application{
                 keyText.setText("Stratton Hall");
                 keyText.setFill(BuildingName);
                 BuildingRolledOver = StrattonHall;
-                pause.play();
         	}
+        });
+        stratton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         stratton.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2743,8 +2767,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		library.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = GordonLibrary;
-                pause.play();
         	}
+        });
+        library.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         library.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2786,8 +2815,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		ak.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = AtwaterKent;
-                pause.play();  
         	}
+        });
+        ak.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         ak.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2820,8 +2854,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		cdc.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = ProjectCenter;
-                pause.play();
         	}
+        });
+        cdc.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         cdc.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2869,8 +2908,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		higginsHouse.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = HigginsHouse;
-                pause.play();        	
                 }
+        });
+        higginsHouse.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         higginsHouse.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2903,8 +2947,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
                 higginsHouseGAR.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 BuildingRolledOver = HigginsHouseGarage;
-                pause.play();               
                }
+        });
+        higginsHouseGAR.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         higginsHouseGAR.setOnMouseExited(new EventHandler <MouseEvent>(){
         	public void handle (MouseEvent event){
@@ -2946,8 +2995,13 @@ public class GPSapp extends Application{
                 keyText.setFill(BuildingName);
         		boyntonHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
         		BuildingRolledOver = BoyntonHall;
-                pause.play();        		
         		}
+        });
+        boyntonHall.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
+            }
         });
         boyntonHall.setOnMouseExited(new EventHandler <MouseEvent>(){
 
@@ -2986,10 +3040,14 @@ public class GPSapp extends Application{
         	public void handle (MouseEvent event){
                 keyText.setText("Fuller Labs");
                 keyText.setFill(BuildingName);
-
                 fullerLabs.setFill(new Color(1.0, 1.0, 0.0, 0.2));
                 BuildingRolledOver = FullerLabs;
-                pause.play(); 
+            }
+        });
+        fullerLabs.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                pause.play();
             }
         });
         fullerLabs.setOnMouseExited(new EventHandler <MouseEvent>(){
@@ -3001,8 +3059,20 @@ public class GPSapp extends Application{
                 BuildingRolledOver = NullBuilding;
         	}
         });
-
         NodePane.getChildren().add(fullerLabs);
+
+        Tooltip.install(fullerLabs, tooltip);
+        Tooltip.install(cc, tooltip);
+        Tooltip.install(ak, tooltip);
+        Tooltip.install(boyntonHall, tooltip);
+        Tooltip.install(higginsHouse, tooltip);
+        Tooltip.install(higginsHouseGAR, tooltip);
+        Tooltip.install(cdc, tooltip);
+        Tooltip.install(library, tooltip);
+        Tooltip.install(stratton, tooltip);
+
+
+
         pause.setOnFinished(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent arg0) {

@@ -1,1 +1,32 @@
-[{"distance":2,"from":"HHGAR:Point:588:307","to":"HHGAR:Point:570:149"},{"distance":4,"from":"HHGAR:Point:570:149","to":"HHGAR:Point:375:147"},{"distance":8,"from":"HHGAR:Point:570:149","to":"HHGAR:Point:156:149"},{"distance":2,"from":"HHGAR:Point:156:149","to":"HHGAR:Point:168:305"},{"distance":5,"from":"HHGAR:Point:156:149","to":"HHGAR:Point:340:305"},{"distance":3,"from":"HHGAR:Point:340:305","to":"HHGAR:Point:375:147"},{"distance": 81,"from": "HHGAR:Point:588:307","to": "HHGAR101G"},{"distance": 1,"from": "HHGAR:Point:810:389","to": "HHGAR101G"},{"distance": 3,"from": "HHGAR:Point:810:389","to": "HHGAR:Staircase:805:206"},{"distance": 17,"from": "CampusMap:Transition Point:1249:383","to": "HHGAR:Transition Point:864:454"},{"distance": 1,"from": "HHGAR:Point:810:389","to": "HHGAR:Transition Point:864:454"},{"distance": 2,"from": "HHGAR101G","to": "HHGAR:Transition Point:864:454"}]
+[
+ {
+  "distance": 1,
+  "from": "HHGAR:Point:810:389",
+  "to": "HHGAR101G"
+ },
+ {
+  "distance": 3,
+  "from": "HHGAR:Point:810:389",
+  "to": "HHGAR:Staircase:805:206"
+ },
+ {
+  "distance": 26,
+  "from": "CampusMap:Transition Point:1249:383",
+  "to": "HHGAR:Transition Point:864:454"
+ },
+ {
+  "distance": 1,
+  "from": "HHGAR:Point:810:389",
+  "to": "HHGAR:Transition Point:864:454"
+ },
+ {
+  "distance": 2,
+  "from": "HHGAR101G",
+  "to": "HHGAR:Transition Point:864:454"
+ },
+ {
+  "distance": 7,
+  "from": "Higgins House Garage",
+  "to": "HHGAR101G"
+ }
+]
