@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.io.File;
+
 public class EdgeTest {
 
 	@Test
@@ -36,5 +38,15 @@ public class EdgeTest {
 	private int getDistance(Node n1, Node n2){
     	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)));
     }
+
+	@Test
+	public void  testFileIteration(){
+		File edgeFolder = new File("Graphs/Edges");
+		for (File file : edgeFolder.listFiles()){
+			if (file.getName().endsWith(".json")){
+				System.out.println(file.getName());
+			}
+		}
+	}
 
 }
