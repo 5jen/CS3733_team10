@@ -2,6 +2,7 @@ package maptool;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -170,6 +171,7 @@ public class MapTool extends Application {
     ImageView imageView = new ImageView();
 
     Graph globalGraph = new Graph();
+    HashMap<String, Node> globalNodeHashMap = new HashMap<>();
     LinkedList<Node> globalNodeList = new LinkedList<Node>();
 
     @Override
@@ -243,7 +245,7 @@ public class MapTool extends Application {
         mapOptions.addAll(maps);
         
       //Generate the Global map graph
-        globalGraph = createGlobalGraph(globalGraph);
+        createGlobalGraph();
         
       //now we can create the local edge connections
         
@@ -904,123 +906,48 @@ public class MapTool extends Application {
         }
     }
     
-    private Graph createGlobalGraph(Graph GLOBALGRAPH) {
+    private void createGlobalGraph() {
 
     	//create Global nodes and edges list to pass to other createGraph method
-    	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
     	LinkedList<EdgeDataConversion> globalEdgeListConversion = new LinkedList<EdgeDataConversion>();
 
     	//Manually add all of the Nodes...
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AKB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLSB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/Gl3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHAPT.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHGAR.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLSB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL3.json"));
-    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-    	
-    	//Manually add all of the Edges
-    	/*globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SHBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHAPTEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHGAREdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	//TODO Add rest
-    	    	
+        File nodeFolder = new File("Graphs/Nodes");
+        for (File file : nodeFolder.listFiles()){
+            if (file.getName().endsWith(".json")){
+                globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
+                System.out.println(file.getName());
+            }
+        }
 
-    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);*/
-    	return GLOBALGRAPH;
+        globalGraph.setNodes(globalNodeList);
+
+        File edgeFolder = new File("Graphs/Edges");
+        for (File file : edgeFolder.listFiles()){
+            if (file.getName().endsWith(".json")){
+                globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
+                System.out.println(file.getName());
+            }
+        }
+
+        globalGraph.setNodes(globalNodeList);
+
+        //Create HashMap of every node in the globalNodeList
+        globalNodeHashMap = new HashMap<>();
+        for (Node n : globalNodeList){
+            globalNodeHashMap.put(n.getName(), n);
+        }
+
+        // Create edges and add them to the graph
+        for (EdgeDataConversion edc : globalEdgeListConversion){
+            Node fromNode = globalNodeHashMap.get(edc.getFrom());
+            Node toNode = globalNodeHashMap.get(edc.getTo());
+            if (fromNode == null || toNode == null){
+                continue;
+            }
+            globalGraph.addEdge(fromNode, toNode);
+        }
 	}
-    
-    private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
-    	g.setNodes(nodes);
-    	
-    	//Added this way so they can be bi directionally added
-    	for(int i = 0; i < edges.size(); i++){
-    		//System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
-    		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
-    	}
-    	return g;
-    }
 
     //Change where we call drawEdges to just change the drawEdgeBool to true;
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane nodePane) {
@@ -1198,25 +1125,17 @@ public class MapTool extends Application {
 
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
         LinkedList<Edge> edgeList = new LinkedList<Edge>();
-        int from = 0, to = 0;
-
         //iterate through the edges
-        for (int i = 0; i < edgeData.size(); i++) {
-            //iterate throught he nodelist to find the matching node
-            for (int j = 0; j < globalNodeList.size(); j++) {
-                if (edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())) {
-                    from = j;
-                }
-                if (edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())) {
-                    to = j;
-                }
+        for (EdgeDataConversion edc : edgeData){
+            Node fromNode = globalNodeHashMap.get(edc.getFrom());
+            Node toNode = globalNodeHashMap.get(edc.getTo());
+            if (fromNode == null || toNode == null){
+                continue;
             }
-
-            Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
-
-            //Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
+            Edge newEdge = new Edge(fromNode, toNode, (int) Graph.d(fromNode, toNode));
             edgeList.add(newEdge);
         }
+
         return edgeList;
     }
 
@@ -1371,7 +1290,7 @@ public class MapTool extends Application {
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView) {
         
     	//Generate the Global map graph
-        globalGraph = createGlobalGraph(globalGraph);
+        createGlobalGraph();
     	
     	k = 0; // Reset Zoom Variable
         disableKey = false;

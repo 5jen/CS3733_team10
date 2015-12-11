@@ -87,8 +87,8 @@ public class Graph {
 		//System.out.println("Nodes: "+nodes);
 		//System.out.println("Index1: "+index1);
 		
-		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
-		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
+		//System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
+		//System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
 
 		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2), dist);
 		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1), dist);

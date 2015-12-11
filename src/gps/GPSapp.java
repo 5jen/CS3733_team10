@@ -213,6 +213,8 @@ public class GPSapp extends Application{
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
     ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
     HBox nearestBox = new HBox(5);
+
+    HashMap<String, Node> globalNodeHashMap = new HashMap<>();
     
 
     //Lists of all nodes of the types
@@ -1577,7 +1579,7 @@ public class GPSapp extends Application{
         }
 
         //Create HashMap of every node in the globalNodeList
-        HashMap<String, Node> globalNodeHashMap = new HashMap<>();
+        globalNodeHashMap = new HashMap<>();
         for (Node n : globalNodeList){
             globalNodeHashMap.put(n.getName(), n);
         }
