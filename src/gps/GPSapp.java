@@ -489,8 +489,6 @@ public class GPSapp extends Application{
         
         EmailInput.setPromptText("Email");
         EmailInput.setTooltip(new Tooltip("Enter your email here"));
-
-
         
         //hide key
         toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
