@@ -708,12 +708,12 @@ public class MapTool extends Application {
     public void createEdge(Pane NodePane) {
         if (!(fromNode == null) || !(toNode == null)) {
             if (Objects.equals(fromNode.getName(), toNode.getName())) {
-                System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
+                //System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
                 warningLabel.setText("Cannot Create Edge");
             } else {
                 Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-                System.out.println(fromNode.getName());
-                System.out.println(toNode.getName());
+                //System.out.println(fromNode.getName());
+                //System.out.println(toNode.getName());
                 edgeList.add(newEdge);
                 if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
                     Line line = new Line();
@@ -906,7 +906,7 @@ public class MapTool extends Application {
     //Create Hot Key events
     public void buttonPressed(KeyEvent e) {
         if (e.getCode().toString().equals("ENTER")) {
-            System.out.println("asdasdasdasdasdasdasdasda)");
+            //System.out.println("asdasdasdasdasdasdasdasda)");
             //createNodeButton.setOnAction(CreateHandler);
         }
     }
@@ -921,7 +921,7 @@ public class MapTool extends Application {
         for (File file : nodeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
@@ -931,7 +931,7 @@ public class MapTool extends Application {
         for (File file : edgeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
