@@ -565,6 +565,7 @@ public class GPSapp extends Application{
 		    	
 		    	LinkedList<Step> emailDirections = steps.lInstructions();
             	EmailSender.sendDirections(emailDirections, EmailInput.getText());
+                keyText.setText("Email Sent");
             }
         });
 
@@ -864,7 +865,7 @@ public class GPSapp extends Application{
 
             DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
             	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-            		if (newPropertyValue) {
+                    if (newPropertyValue) {
             			DestList.setOpacity(100);
             			destBool = false;
                     }
@@ -1122,6 +1123,17 @@ public class GPSapp extends Application{
                         start = false;
                         StartList.setOpacity(0);
                         DestList.setOpacity(0);
+                        keyText.setText("");
+                    }
+
+                    if (event.getCode() == KeyCode.S && event.isShortcutDown()){
+                        StartText.requestFocus();
+                    }
+                    if (event.getCode() == KeyCode.D && event.isShortcutDown()){
+                        DestText.requestFocus();
+                    }
+                    if (event.getCode() == KeyCode.E && event.isShortcutDown()){
+                        EmailInput.requestFocus();
                     }
                                         
                 }
