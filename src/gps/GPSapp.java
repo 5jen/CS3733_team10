@@ -7,6 +7,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Preloader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,6 +37,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.web.*;
 import javafx.util.Duration;
 import node.*;
@@ -45,13 +47,31 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeMap;
+
+import com.sun.javafx.application.LauncherImpl;
+
 import node.Graph;
 import planner.v1.EmailSender;
+import gps.MyPreloader;
 
 public class GPSapp extends Application{
 	public static void main(String[] args) {
-        launch(args);
+		LauncherImpl.launchApplication(GPSapp.class, MyPreloader.class, args);
     }
+	
+	
+	
+    public GPSapp() {
+        // Constructor is called after BEFORE_LOAD.
+        //System.out.println(GPSapp.STEP() + "MyApplication constructor called, thread: " + Thread.currentThread().getName());
+    }
+
+    
+	
+	
+	
+	
+	
 
 	//Load up the JSON data and create the nodes for the map
 	JsonParser json = new JsonParser();
@@ -237,15 +257,19 @@ public class GPSapp extends Application{
     LinkedList<Node> route = new LinkedList<Node>();
     LinkedList<Node> savedRoute = new LinkedList<Node>();
 
-	@SuppressWarnings("unused")
-	@Override
-    public void start(Stage primaryStage) {
+	
+    @Override
+    public void init() throws Exception {
+        //System.out.println(GPSapp.STEP() + "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
 
-		scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-		File iconFile = new File("CS3733_Graphics/PI.png");
-        Image iconImage = new Image(iconFile.toURI().toString());
-		primaryStage.getIcons().add(iconImage);
-		primaryStage.setTitle("PiNavigator");
+        // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
+        for (int i = 0; i < 10000; i++) {
+            double progress = (100 * i) / 10000;
+            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
+        }
+        scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
+		
+		
 
     	//Add Maps to buildings
     	Campus.addMap(CampusMap);
@@ -316,7 +340,53 @@ public class GPSapp extends Application{
         }
         
         
-    	double width = 80;
+    	
+        
+        
+        EmailInput.setPromptText("Email");
+        
+      //Generate the Global map graph
+        createGlobalGraph();
+
+        //Lists of all nodes of the types
+        //TODO Actually make these types of nodes
+//        PointNodes = new LinkedList<Node>();
+//        StaircaseNodes = new LinkedList<Node>();
+//        TransitionNodes = new LinkedList<Node>();
+        //VendingMachineNodes = createNodeTypeList("Vending Machine");
+        //WaterFountainNodes = createNodeTypeList("Water Fountain");
+        MensBathroomNodes = createNodeTypeList("Men's Bathroom");
+        WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
+        //EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
+        DiningNodes = createNodeTypeList("Dining");
+        //ElevatorNodes = new LinkedList<Node>();
+        //ComputerLabNodes = new LinkedList<Node>();
+        
+      //now we can create the local edge connections
+        LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
+        
+        //root.getChildren().remove(imageViewBlur);
+
+        //generate the local map graph
+        //graph = createGraph(graph, nodeList, edgeList);
+      //Initialize the Drop down menu for initial Map
+    	for(int i = 0; i < globalNodeList.size() ; i ++){
+    		if(globalNodeList.get(i).getIsPlace())
+    			LocationOptions.add((globalNodeList.get(i)).getName());
+        }	 
+
+    }
+    
+    
+	@Override
+    public void start(Stage primaryStage) {
+
+		File iconFile = new File("CS3733_Graphics/PI.png");
+        Image iconImage = new Image(iconFile.toURI().toString());
+		primaryStage.getIcons().add(iconImage);
+		primaryStage.setTitle("PiNavigator");
+		
+		double width = 80;
 	    double height = 60;
     	pt = setCorners(pt);
     	ptFuller = setCornersFuller(ptFuller);
@@ -332,7 +402,7 @@ public class GPSapp extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load Map");
-    	LoadMapButton.setId("DarkStyle");
+    	LoadMapButton.setId("dark-blue");
 
     	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.setLayoutX(820);
@@ -354,6 +424,7 @@ public class GPSapp extends Application{
     	emailBox.setLayoutX(600);
     	emailBox.setLayoutY(700);
     	emailBox.getChildren().addAll(EmailInput, EmailButton);
+    	EmailButton.setId("dark-blue");
 
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0);
@@ -449,18 +520,7 @@ public class GPSapp extends Application{
         imageViewKey.setLayoutX(830);
         imageViewKey.setLayoutY(570);
         
-        //Loading screen blurred
-    	File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
-        Image BlurImage = new Image(keyFile.toURI().toString());
-        ImageView imageViewBlur = new ImageView();
-        imageViewBlur.setImage(BlurImage);
-        imageViewBlur.setLayoutX(0);
-        imageViewBlur.setLayoutY(0);
         
-        
-        EmailInput.setPromptText("Email");
-
-
         
         //hide key
         toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
@@ -503,8 +563,7 @@ public class GPSapp extends Application{
         
         //root.getChildren().add(imageViewBlur);
         
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        
         
 
 
@@ -524,7 +583,7 @@ public class GPSapp extends Application{
             public void handle(MouseEvent event) {
             	//steps is total route, 
             	for(int i = 0; i < savedRoute.size(); i++){
-            		System.out.println("PATH PATH PATH"+savedRoute.get(i).getName());
+            		//System.out.println("PATH PATH PATH"+savedRoute.get(i).getName());
             	}
             	
             	stepIndicator steps = new stepIndicator(savedRoute);
@@ -570,24 +629,10 @@ public class GPSapp extends Application{
 	    
 	    root.getChildren().add(zoomPane);
 	    
-
+	    primaryStage.setScene(scene);
+        primaryStage.show();
         
-      //Generate the Global map graph
-        createGlobalGraph();
-
-        //Lists of all nodes of the types
-        //TODO Actually make these types of nodes
-//        PointNodes = new LinkedList<Node>();
-//        StaircaseNodes = new LinkedList<Node>();
-//        TransitionNodes = new LinkedList<Node>();
-        //VendingMachineNodes = createNodeTypeList("Vending Machine");
-        //WaterFountainNodes = createNodeTypeList("Water Fountain");
-        MensBathroomNodes = createNodeTypeList("Men's Bathroom");
-        WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
-        //EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
-        DiningNodes = createNodeTypeList("Dining");
-        //ElevatorNodes = new LinkedList<Node>();
-        //ComputerLabNodes = new LinkedList<Node>();
+      
 
         //Find Nearest Button
         findNearestButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -686,25 +731,14 @@ public class GPSapp extends Application{
                         keyText.setFill(Color.WHITE);
                         loadMap(root, imageView);
                     }
-                    System.out.println(node.getName());
+                    //System.out.println(node.getName());
                 } catch (NullPointerException n){
-                    System.out.println("Node not found");
+                    //System.out.println("Node not found");
                 }
             }
         });
         
-        //now we can create the local edge connections
-        LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
         
-        //root.getChildren().remove(imageViewBlur);
-
-        //generate the local map graph
-        //graph = createGraph(graph, nodeList, edgeList);
-      //Initialize the Drop down menu for initial Map
-    	for(int i = 0; i < globalNodeList.size() ; i ++){
-    		if(globalNodeList.get(i).getIsPlace())
-    			LocationOptions.add((globalNodeList.get(i)).getName());
-        }	 
 	    
 	    
 	    
@@ -1576,7 +1610,7 @@ public class GPSapp extends Application{
         for (File file : nodeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
@@ -1586,7 +1620,7 @@ public class GPSapp extends Application{
         for (File file : edgeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
@@ -2948,6 +2982,7 @@ public class GPSapp extends Application{
         	    1573.0 - xOffset, 563.0 - yOffset,
         	    1582.0 - xOffset, 580.0 - yOffset});
 
+        
         fullerLabs.setFill(Color.TRANSPARENT);
 
         fullerLabs.setStroke(Color.TRANSPARENT);

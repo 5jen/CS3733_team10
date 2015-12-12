@@ -26,8 +26,8 @@ public class vector {
      * @return a double represents the cos value
      */
     public double getCos(){
-        System.out.println(x);
-        System.out.println(y);
+        //System.out.println(x);
+        //System.out.println(y);
 
         if ((x==0)&&(y==0)) return 0;
         return (x/(Math.sqrt(x*x+y*y)));
@@ -52,7 +52,7 @@ public class vector {
 
         int degree = (int) (180*Math.acos(cos)/(Math.PI));
 
-        System.out.println(degree);
+        //System.out.println(degree);
 
         if  (sin>=0) return degree;
         else return 360-degree;

@@ -38,7 +38,7 @@ public class stepIndicator {
             //the type for a node
             String type = route.get(i).getType();
             String name = route.get(i).getName();
-            System.out.println(name);
+            //System.out.println(name);
             int x1;//previous x
             int y1;//previous y
             int x2;//current x
@@ -161,7 +161,7 @@ public class stepIndicator {
         int bc_y = y3 - y2;
 
         int dot_product = (ba_x * bc_x) + (ba_y * bc_y);
-        if (false) {System.out.println(dot_product);}
+        
 
         double absMA =  Math.sqrt((ba_x*ba_x)+(ba_y*ba_y));
         double absMB =  Math.sqrt((bc_x*bc_x)+(bc_y*bc_y));
@@ -182,7 +182,7 @@ public class stepIndicator {
     public double getSlope(int x1,int y1, int x2, int y2){
         double result;
         result = (double)(y2-y1)/(x2-x1);
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }
 
