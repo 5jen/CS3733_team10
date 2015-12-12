@@ -234,6 +234,7 @@ public class GPSapp extends Application{
 
     Button findNearestButton = new Button("Find Nearest");
 
+    //TODO Add Vending Machines and Water Fountains when nodes are made for those types
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
     ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
     HBox nearestBox = new HBox(5);
@@ -246,8 +247,8 @@ public class GPSapp extends Application{
     //LinkedList<Node> PointNodes = new LinkedList<Node>();
     //LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
     //LinkedList<Node> TransitionNodes = new LinkedList<Node>();
-    //LinkedList<Node> VendingMachineNodes = createNodeTypeList("Vending Machine");
-    //LinkedList<Node> WaterFountainNodes = createNodeTypeList("Water Fountain");
+    LinkedList<Node> VendingMachineNodes = new LinkedList<>();
+    LinkedList<Node> WaterFountainNodes = new LinkedList<>();
     LinkedList<Node> MensBathroomNodes = new LinkedList<>();
     LinkedList<Node> WomensBathroomNodes = new LinkedList<>();
     //LinkedList<Node> EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
@@ -359,8 +360,8 @@ public class GPSapp extends Application{
 //        PointNodes = new LinkedList<Node>();
 //        StaircaseNodes = new LinkedList<Node>();
 //        TransitionNodes = new LinkedList<Node>();
-        //VendingMachineNodes = createNodeTypeList("Vending Machine");
-        //WaterFountainNodes = createNodeTypeList("Water Fountain");
+        VendingMachineNodes = createNodeTypeList("Vending Machine");
+        WaterFountainNodes = createNodeTypeList("Water Fountain");
         MensBathroomNodes = createNodeTypeList("Men's Bathroom");
         WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
         //EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
@@ -879,8 +880,7 @@ public class GPSapp extends Application{
 
     		}
     	});
-	    
-        
+
 
         DestText.textProperty().addListener(
                 new ChangeListener<Object>() {
@@ -3160,6 +3160,12 @@ public class GPSapp extends Application{
         }
         if (Objects.equals(type, "Dining")){
             nodeTypeList = DiningNodes;
+        }
+        if (Objects.equals(type, "Vending Machine")){
+            nodeTypeList = VendingMachineNodes;
+        }
+        if (Objects.equals(type, "Water Fountain")){
+            nodeTypeList = WaterFountainNodes;
         }
         TreeMap<Double, Node> nearestNodes = new TreeMap<>();
         nodeTypeList.stream().forEach(n -> nearestNodes.put(Graph.d(n, start), n));
