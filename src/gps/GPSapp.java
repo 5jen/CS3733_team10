@@ -83,7 +83,7 @@ public class GPSapp extends Application{
 	//LinkedList<Edge> edgeList = convertEdgeData(edgeListConversion);
 	Canvas canvas = new Canvas(3000, 2000);
     GraphicsContext gc = canvas.getGraphicsContext2D();
-	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false, mouseHasMoved = false;
+	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
 	ObservableList<Node> LocationOptions = FXCollections.observableArrayList();
@@ -767,16 +767,15 @@ public class GPSapp extends Application{
                                 drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
-								NodePane.getChildren().add(yPinView);
-								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
-								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+                                NodePane.getChildren().add(redPinView);
+                                redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
+                                redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
 
-								if(multiMap.size() == 1){
-									ImageView endPinView = new ImageView();
-									endPinView.setImage(yPinImage);
-									NodePane.getChildren().add(endPinView);
-									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
-									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+                                if(multiMap.size() == 1){
+
+                                    NodePane.getChildren().add(greenPinView);
+                                    greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
+                                    greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
 								    root.getChildren().remove(NextInstruction);
 								}
 
@@ -1283,6 +1282,7 @@ public class GPSapp extends Application{
                     StartText.setPromptText("Start");
                     DestText.setPromptText("Destination");
                     start = false;
+                    end = false;
                     StartList.setOpacity(0);
                     DestList.setOpacity(0);
                     keyText.setText("");
