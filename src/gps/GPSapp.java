@@ -1050,9 +1050,24 @@ public class GPSapp extends Application{
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (DestText.isFocused()) {
                     DestSearch.getChildren().add(DestList);
+                    if (StartSearch.getChildren().contains(StartList)){
+                        StartSearch.getChildren().remove(StartList);
+                    }
                 }
                 else {
 //                    DestSearch.getChildren().remove(DestList);
+                }
+            }
+        });
+
+        DestText.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.DOWN){
+                    DestList.requestFocus();
+                }
+                if (event.getCode() == KeyCode.ENTER){
+                    //TODO Add findroute method here
                 }
             }
         });
@@ -1061,9 +1076,21 @@ public class GPSapp extends Application{
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (StartText.isFocused()) {
                     StartSearch.getChildren().add(StartList);
+                    if (DestSearch.getChildren().contains(DestList)){
+                        DestSearch.getChildren().remove(DestList);
+                    }
                 }
                 else {
 //                    StartSearch.getChildren().remove(StartList);
+                }
+            }
+        });
+
+        StartText.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.DOWN){
+                    StartList.requestFocus();
                 }
             }
         });
@@ -1074,12 +1101,34 @@ public class GPSapp extends Application{
                 StartSearch.getChildren().remove(StartList);
             }
         });
+        StartList.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER){
+                    StartText.setText(StartList.getFocusModel().getFocusedItem().getName());
+                    StartSearch.getChildren().remove(StartList);
+                    DestText.requestFocus();
+                }
+            }
+        });
         DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent arg0) {
                 DestText.setText(DestList.getSelectionModel().getSelectedItem().getName());
                 DestSearch.getChildren().remove(DestList);
             }
         });
+        DestList.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER){
+                    DestText.setText(DestList.getFocusModel().getFocusedItem().getName());
+                    DestSearch.getChildren().remove(DestList);
+                    DestText.requestFocus();
+                }
+            }
+        });
+
+
             
         root.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
