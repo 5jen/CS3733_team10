@@ -699,6 +699,7 @@ public class GPSapp extends Application{
                     	route = new LinkedList<Node>();
                         route = globalGraph.findRoute(startPlace, endPlace);
                         savedRoute = route;
+                        multiMap = splitRoute(route);
                         keyText.setFont(Font.font ("manteka", 20));
 
 
