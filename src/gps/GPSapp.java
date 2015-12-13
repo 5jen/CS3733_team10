@@ -1965,6 +1965,7 @@ public class GPSapp extends Application{
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
+            	entryText = entryText + entry.getBuilding() + entry.getFloorMap() + entry.getType();
                 if ( ! entryText.toUpperCase().contains(part) ) {
                     match = false;
                     break;
@@ -2019,6 +2020,7 @@ public class GPSapp extends Application{
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
+            	entryText = entryText + entry.getBuilding() + entry.getFloorMap() + entry.getType();
                 if ( ! entryText.toUpperCase().contains(part) ) {
                     match = false;
                     break;
