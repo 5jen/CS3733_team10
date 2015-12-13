@@ -967,10 +967,10 @@
   "isWalkable": true,
   "globalX": 1619,
   "floorMap": "Fuller Labs 2",
-  "name": "FL2:Point:710:643",
+  "name": "FL2:Staircase:710:643",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -10,
+  "valz": -14,
   "building": "Fuller Labs",
   "valy": 643
  },
@@ -980,10 +980,10 @@
   "isWalkable": true,
   "globalX": 1614,
   "floorMap": "Fuller Labs 2",
-  "name": "FL2:Point:711:738",
+  "name": "FL2:Staircase:711:738",
   "isPlace": false,
   "type": "Staircase",
-  "valz": -10,
+  "valz": -12,
   "building": "Fuller Labs",
   "valy": 738
  },
@@ -1009,7 +1009,7 @@
   "name": "FL2:Point:710:691",
   "isPlace": false,
   "type": "Point",
-  "valz": -10,
+  "valz": -13,
   "building": "Fuller Labs",
   "valy": 691
  },
@@ -1022,7 +1022,7 @@
   "name": "FL2:Point:712:776",
   "isPlace": false,
   "type": "Point",
-  "valz": -10,
+  "valz": -11,
   "building": "Fuller Labs",
   "valy": 776
  },

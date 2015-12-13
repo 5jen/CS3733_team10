@@ -86,9 +86,9 @@ public class GPSapp extends Application{
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false, mouseHasMoved = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
-	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
-	ListView<String> StartList = new ListView<String>();
-    ListView<String> DestList = new ListView<String>();
+	ObservableList<Node> LocationOptions = FXCollections.observableArrayList();
+	ListView<Node> StartList = new ListView<>();
+    ListView<Node> DestList = new ListView<>();
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
@@ -234,6 +234,7 @@ public class GPSapp extends Application{
 
     Button findNearestButton = new Button("Find Nearest");
 
+    //TODO Add Vending Machines and Water Fountains when nodes are made for those types
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
     ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
     HBox nearestBox = new HBox(5);
@@ -246,8 +247,8 @@ public class GPSapp extends Application{
     //LinkedList<Node> PointNodes = new LinkedList<Node>();
     //LinkedList<Node> StaircaseNodes = new LinkedList<Node>();
     //LinkedList<Node> TransitionNodes = new LinkedList<Node>();
-    //LinkedList<Node> VendingMachineNodes = createNodeTypeList("Vending Machine");
-    //LinkedList<Node> WaterFountainNodes = createNodeTypeList("Water Fountain");
+    LinkedList<Node> VendingMachineNodes = new LinkedList<>();
+    LinkedList<Node> WaterFountainNodes = new LinkedList<>();
     LinkedList<Node> MensBathroomNodes = new LinkedList<>();
     LinkedList<Node> WomensBathroomNodes = new LinkedList<>();
     //LinkedList<Node> EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
@@ -359,8 +360,8 @@ public class GPSapp extends Application{
 //        PointNodes = new LinkedList<Node>();
 //        StaircaseNodes = new LinkedList<Node>();
 //        TransitionNodes = new LinkedList<Node>();
-        //VendingMachineNodes = createNodeTypeList("Vending Machine");
-        //WaterFountainNodes = createNodeTypeList("Water Fountain");
+        VendingMachineNodes = createNodeTypeList("Vending Machine");
+        WaterFountainNodes = createNodeTypeList("Water Fountain");
         MensBathroomNodes = createNodeTypeList("Men's Bathroom");
         WomensBathroomNodes = createNodeTypeList("Women's Bathroom");
         //EmergencyPoleNodes = createNodeTypeList("Emergency Pole");
@@ -378,7 +379,7 @@ public class GPSapp extends Application{
       //Initialize the Drop down menu for initial Map
     	for(int i = 0; i < globalNodeList.size() ; i ++){
     		if(globalNodeList.get(i).getIsPlace())
-    			LocationOptions.add((globalNodeList.get(i)).getName());
+    			LocationOptions.add(globalNodeList.get(i));
         }	 
 
     }
@@ -554,9 +555,7 @@ public class GPSapp extends Application{
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(830);
         imageViewKey.setLayoutY(570);
-        
-        
-
+    
         EmailInput.setPromptText("Email");
         EmailInput.setTooltip(new Tooltip("Enter your email here"));
 
@@ -628,6 +627,7 @@ public class GPSapp extends Application{
 		    	
 		    	LinkedList<Step> emailDirections = steps.lInstructions();
             	EmailSender.sendDirections(emailDirections, EmailInput.getText());
+                keyText.setText("Email Sent");
             }
         });
 
@@ -881,8 +881,42 @@ public class GPSapp extends Application{
 
     		}
     	});
-	    
-        
+
+        StartList.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+            @Override
+            public ListCell<Node> call(ListView<Node> param) {
+                ListCell cell = new ListCell<Node>() {
+                    @Override
+                    protected void updateItem(Node node, boolean empty) {
+                        super.updateItem(node, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(node.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
+        DestList.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+            @Override
+            public ListCell<Node> call(ListView<Node> param) {
+                ListCell cell = new ListCell<Node>() {
+                    @Override
+                    protected void updateItem(Node node, boolean empty) {
+                        super.updateItem(node, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(node.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
 
         DestText.textProperty().addListener(
                 new ChangeListener<Object>() {
@@ -902,7 +936,7 @@ public class GPSapp extends Application{
 
             DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
             	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-            		if (newPropertyValue) {
+                    if (newPropertyValue) {
             			DestList.setOpacity(100);
             			destBool = false;
                     }
@@ -927,7 +961,7 @@ public class GPSapp extends Application{
             StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
     			public void handle(MouseEvent arg0) {
-    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
+    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem().getName());
     				startBool = true;
     				if(destBool && startBool) {
     					directionBox.getChildren().clear();
@@ -1044,7 +1078,7 @@ public class GPSapp extends Application{
             DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	
     			public void handle(MouseEvent arg0) {
-    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
+    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem().getName());
     				destBool = true;
     				if(destBool && startBool) {
     					directionBox.getChildren().clear();
@@ -1160,6 +1194,17 @@ public class GPSapp extends Application{
                         start = false;
                         StartList.setOpacity(0);
                         DestList.setOpacity(0);
+                        keyText.setText("");
+                    }
+
+                    if (event.getCode() == KeyCode.S && event.isShortcutDown()){
+                        StartText.requestFocus();
+                    }
+                    if (event.getCode() == KeyCode.D && event.isShortcutDown()){
+                        DestText.requestFocus();
+                    }
+                    if (event.getCode() == KeyCode.E && event.isShortcutDown()){
+                        EmailInput.requestFocus();
                     }
                                         
                 }
@@ -1217,7 +1262,7 @@ public class GPSapp extends Application{
 		            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
 		            	public void handle(MouseEvent event) {
 		            		if(currentInstruction >= 0){
-		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
+//		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
 		                		//highlight the current path
 		                		int NodeX = directions.get(currentInstruction).getX();
 		                		int NodeY = directions.get(currentInstruction).getY();
@@ -1656,7 +1701,6 @@ public class GPSapp extends Application{
         for (File file : nodeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
-
             }
         }
 
@@ -1666,7 +1710,6 @@ public class GPSapp extends Application{
         for (File file : edgeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
-
             }
         }
 
@@ -1914,13 +1957,14 @@ public class GPSapp extends Application{
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        for ( Object entry: StartList.getItems() ) {
+        ObservableList<Node> subentries = FXCollections.observableArrayList();
+        for ( Node entry: StartList.getItems() ) {
             boolean match = true;
-            String entryText = (String)entry;
+            String entryText = entry.getName();
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
+            	entryText = entryText + entry.getBuilding() + entry.getFloorMap() + entry.getType();
                 if ( ! entryText.toUpperCase().contains(part) ) {
                     match = false;
                     break;
@@ -1928,7 +1972,7 @@ public class GPSapp extends Application{
             }
 
             if ( match ) {
-                subentries.add(entryText);
+                subentries.add(entry);
             }
             if(subentries.size() *25 < 75)
             	StartList.setMaxHeight(subentries.size() *25);
@@ -1968,14 +2012,14 @@ public class GPSapp extends Application{
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        String entryText = "";
-        for ( Object entry: DestList.getItems() ) {
+        ObservableList<Node> subentries = FXCollections.observableArrayList();
+        for ( Node entry: DestList.getItems() ) {
             boolean match = true;
-            entryText = (String)entry;
+            String entryText = entry.getName();
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
+            	entryText = entryText + entry.getBuilding() + entry.getFloorMap() + entry.getType();
                 if ( ! entryText.toUpperCase().contains(part) ) {
                     match = false;
                     break;
@@ -1983,7 +2027,7 @@ public class GPSapp extends Application{
             }
 
             if ( match ) {
-                subentries.add(entryText);
+                subentries.add(entry);
             }
             if(subentries.size() *25 < 75)
             	DestList.setMaxHeight(subentries.size() *25);
@@ -3136,7 +3180,7 @@ public class GPSapp extends Application{
 
     protected LinkedList<Node> createNodeTypeList(String s){
         LinkedList<Node> theList = new LinkedList<>();
-        globalGraph.getNodes().stream().filter(n -> Objects.equals(n.getType(), s)).forEach(n -> theList.add(n));
+        globalGraph.getNodes().stream().filter(n -> Objects.equals(n.getType(), s)).forEach(theList::add);
         return theList;
     }
 
@@ -3151,6 +3195,12 @@ public class GPSapp extends Application{
         }
         if (Objects.equals(type, "Dining")){
             nodeTypeList = DiningNodes;
+        }
+        if (Objects.equals(type, "Vending Machine")){
+            nodeTypeList = VendingMachineNodes;
+        }
+        if (Objects.equals(type, "Water Fountain")){
+            nodeTypeList = WaterFountainNodes;
         }
         TreeMap<Double, Node> nearestNodes = new TreeMap<>();
         nodeTypeList.stream().forEach(n -> nearestNodes.put(Graph.d(n, start), n));
