@@ -52,6 +52,9 @@ public class MapTool extends Application {
     int k = 0; // Set Max zoom Variable
     boolean disableKey = false;
     double mouseYposition, mouseXposition;
+    double stageInitialWidthDifference = 100;
+    double stageInitialHeightDifference = 100;
+    ScrollPane scrollPane = new ScrollPane();
 
     // Buildings
     // TODO Add more buildings
@@ -264,7 +267,8 @@ public class MapTool extends Application {
         final Pane root = new Pane();
         Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-
+        stageInitialWidthDifference = scene.getWidth()-1100;
+        stageInitialHeightDifference = scene.getHeight()-700;
 
         //Set default Type
         typeSelector.setValue("Point");
@@ -418,7 +422,7 @@ public class MapTool extends Application {
         final Label lockLabel = new Label("Lock");
         lockLabel.setFont(Font.font("manteka", 12));
         lockLabel.setTextFill(Color.WHITE);
-        lockLabel.setLayoutX(1050);
+        lockLabel.setLayoutX(1040);
         lockLabel.setLayoutY(20);
 
 
@@ -480,7 +484,6 @@ public class MapTool extends Application {
 
         final Group group = new Group(imageView, NodePane);
         Parent zoomPane = createZoomPane(group);
-
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
@@ -612,6 +615,45 @@ public class MapTool extends Application {
                 disableKey = true;
             }
         });
+        
+scene.widthProperty().addListener(new ChangeListener<Number>() {
+            
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+    				Number oldValue, Number newValue) {
+    			stageInitialWidthDifference = scene.getWidth()- 1100;    			
+    			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+    			
+    			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
+    			controlLabels.setTranslateX(stageInitialWidthDifference);
+    			edgeControls.setTranslateX(stageInitialWidthDifference);
+    			lockLabel.setTranslateX(stageInitialWidthDifference);
+    			
+    			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			
+
+    		}
+    	});
+
+	    scene.heightProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+                   Number oldValue, Number newValue) {
+    	        stageInitialHeightDifference = scene.getHeight()-700;
+    	        scrollPane.setPrefViewportHeight(700 + stageInitialHeightDifference);
+    			//s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+    			
+    			
+
+    		}
+    	});
 
 
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1176,7 +1218,6 @@ public class MapTool extends Application {
     private Parent createZoomPane(final Group group) {
         final double SCALE_DELTA = 1.1;
         final StackPane zoomPane = new StackPane();
-        final ScrollPane scrollPane = new ScrollPane();
 
         zoomPane.getChildren().add(group);
 
