@@ -21,6 +21,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
@@ -34,7 +35,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.scene.web.*;
 import javafx.util.Duration;
@@ -164,6 +167,8 @@ public class GPSapp extends Application{
 	final DropShadow shadow = new DropShadow();
 	final DropShadow shadowFuller = new DropShadow();
 	final FadeTransition fader = new FadeTransition();
+	final DropShadow buildingLabelShadow = new DropShadow();
+	
 
 	Path g1path = new Path();
 	MoveTo g1moveTo = new MoveTo();
@@ -211,7 +216,7 @@ public class GPSapp extends Application{
 
     ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
     ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
-    HBox nearestBox = new HBox(5);
+    VBox nearestBox = new VBox(5);
 
     HashMap<String, Node> globalNodeHashMap = new HashMap<>();
     
@@ -236,7 +241,20 @@ public class GPSapp extends Application{
     //global route variable
     LinkedList<Node> route = new LinkedList<Node>();
     LinkedList<Node> savedRoute = new LinkedList<Node>();
-
+    
+    //MENU OBJECTS
+    boolean menuIsOut = false;
+    boolean menuEmailIsOut = false;
+    boolean setMenuTransformation = false;
+    
+    boolean directionsAreOut = false;
+    
+    //UI Panes
+	Pane menuPane = new Pane();
+	Pane fullMenuPane = new Pane();
+	Pane directionsPane = new Pane();
+    
+    
 	@SuppressWarnings("unused")
 	@Override
     public void start(Stage primaryStage) {
@@ -324,37 +342,12 @@ public class GPSapp extends Application{
     	shadowFuller.setInput(ptFuller);
     	
 
-    	//Create a Building selection drop down menu
-    	final VBox mapSelectionBoxV = new VBox(5);
-    	final Label mapSelectorLabel = new Label("Choose map");
-    	mapSelectorLabel.setTextFill(Color.WHITE);
-    	mapSelectorLabel.setFont(Font.font ("manteka", 20));
-    	mapSelectorLabel.setTextFill(Color.WHITE);
-    	final HBox mapSelectionBoxH = new HBox(5);
-    	final Button LoadMapButton = new Button("Load Map");
-    	LoadMapButton.setId("DarkStyle");
-
-    	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
-    	mapSelectionBoxV.setLayoutX(820);
-    	mapSelectionBoxV.setLayoutY(10);
-    	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
-
-    	//create Label for directions
-		
-		directionsTitle.setTextFill(Color.WHITE);
-		directionsTitle.setFont(Font.font ("manteka", 20));
-		directionsTitle.setLayoutX(820);
-    	directionsTitle.setLayoutY(100);
-    	nearestDropdown.setValue("Dining");
     	
-    	HBox emailBox = new HBox(5);
-    	EmailButton.setTextFill(Color.BLACK);
-    	//EmailButton.setFont(Font.font ("manteka", 20));
     	
-    	emailBox.setLayoutX(600);
-    	emailBox.setLayoutY(700);
-    	emailBox.getChildren().addAll(EmailInput, EmailButton);
-
+    	
+    	
+    	
+    	
     	//Create a label and box for warnings, ie when the coordinates are outside the name
     	final HBox warningBox = new HBox(0);
     	final Label warningLabel = new Label("");
@@ -380,34 +373,16 @@ public class GPSapp extends Application{
     	PrevInstruction.setLayoutY(540);
 
     	//Searchable text boxes
-    	VBox StartSearch = new VBox();
-        VBox DestSearch = new VBox();
-        StartText.setPromptText("Start");
-        DestText.setPromptText("Destination");
-        StartList.setMaxHeight(75);
-        DestList.setMaxHeight(75);
-        StartList.setItems(LocationOptions);
-        DestList.setItems(LocationOptions);
-        StartSearch.relocate(20, 640);
-        StartSearch.getChildren().addAll(StartText, StartList);
-        DestSearch.relocate(300, 640);
-        DestSearch.getChildren().addAll(DestText, DestList);
-        StartList.setOpacity(0);
-        DestList.setOpacity(0);
-        
-        nearestBox.getChildren().addAll(findNearestButton,nearestDropdown);
-        nearestBox.setLayoutX(820);
-        nearestBox.setLayoutY(70);
 
         //create Label for Start and Destination
-        Label StartLabel = new Label("Start");
-        StartLabel.setTextFill(Color.WHITE);
-        StartLabel.setFont(Font.font ("manteka", 20));
+        Label StartLabel = new Label(" Start");
+        StartLabel.setTextFill(Color.BLACK);
+        StartLabel.setFont(Font.font ("manteka", 15));
         StartLabel.setLayoutX(20);
         StartLabel.setLayoutY(610);
-        Label DestLabel = new Label("Destination");
-        DestLabel.setTextFill(Color.WHITE);
-        DestLabel.setFont(Font.font ("manteka", 20));
+        Label DestLabel = new Label(" Destination");
+        DestLabel.setTextFill(Color.BLACK);
+        DestLabel.setFont(Font.font ("manteka", 15));
         DestLabel.setLayoutX(300);
         DestLabel.setLayoutY(610);
         
@@ -441,63 +416,28 @@ public class GPSapp extends Application{
 		pinView.setImage(pinImage);
 		yPinView.setImage(yPinImage);
 
-		//Create a keyimage to place the map key on screen
-    	File keyFile = new File("CS3733_Graphics/Key.png");
-        Image keyImage = new Image(keyFile.toURI().toString());
-        ImageView imageViewKey = new ImageView();
-        imageViewKey.setImage(keyImage);
-        imageViewKey.setLayoutX(830);
-        imageViewKey.setLayoutY(570);
+		
         
         //Loading screen blurred
-    	File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
-        Image BlurImage = new Image(keyFile.toURI().toString());
+    	/*File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
+        Image BlurImage = new Image(BlurFile.toURI().toString());
         ImageView imageViewBlur = new ImageView();
         imageViewBlur.setImage(BlurImage);
         imageViewBlur.setLayoutX(0);
-        imageViewBlur.setLayoutY(0);
+        imageViewBlur.setLayoutY(0);*/
         
         
         EmailInput.setPromptText("Email");
 
 
         
-        //hide key
-        toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
-        toggleKeyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-
-
-            	toggleKeyText.setFill(new Color(1, 1, 1, 1));
-
-            }
-        });
-        toggleKeyText.setOnMouseExited(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-
-            	toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
-
-            }
-        });
-
-        toggleKeyText.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-               	if(toggle) {
-            		root.getChildren().add(imageViewKey);
-            		toggle = false;
-            	}
-            	else {
-            		root.getChildren().remove(imageViewKey);
-            		toggle = true;
-            	}
-
-            }
-        });
+        
         
         ReturnToCampus.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                	mapSelector.setValue("CampusMap");
                	loadMap(root, imageView);
+               	fixUI();
             }
         });
         
@@ -510,23 +450,24 @@ public class GPSapp extends Application{
 
         //Add images to the screen
         root.getChildren().add(bgView); //Must add background image first!
-        root.getChildren().add(mapSelectionBoxV);
+        //root.getChildren().add(mapSelectionBoxV);
         //root.getChildren().add(imageView);
         root.getChildren().add(keyText);
         root.getChildren().add(toggleKeyText);
-        root.getChildren().add(StartSearch);
-        root.getChildren().add(DestSearch);
-        root.getChildren().addAll(directionsTitle, DestLabel, StartLabel,nearestBox, emailBox);
         
+        //root.getChildren().addAll(directionsTitle, DestLabel, StartLabel);
+        
+        
+    	root.getChildren().remove(buttonBackDrop);
+    	root.getChildren().add(buttonBackDrop);
         
         EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
             	//steps is total route, 
             	for(int i = 0; i < savedRoute.size(); i++){
-            		System.out.println("PATH PATH PATH"+savedRoute.get(i).getName());
+            		//System.out.println("PATH PATH PATH"+savedRoute.get(i).getName());
             	}
-            	
             	stepIndicator steps = new stepIndicator(savedRoute);
 		    	
 		    	LinkedList<Step> emailDirections = steps.lInstructions();
@@ -538,15 +479,13 @@ public class GPSapp extends Application{
         //primaryStage.initStyle(StageStyle.UNDECORATED);
 
         
-    	
-    	
     	 stageInitialWidthDifference = scene.getWidth()-1100;
          stageInitialHeightDifference = scene.getHeight()-750;
          
 
-   		 s1.setLayoutX(820 + stageInitialWidthDifference);
-   		 s1.setLayoutY(140 + stageInitialHeightDifference);
-   		 s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+   		 s1.setLayoutX(0 + stageInitialWidthDifference);
+   		 s1.setLayoutY(40 + stageInitialHeightDifference);
+   		 s1.setPrefSize(270, 300 + stageInitialHeightDifference);
 
 
         imageView.setScaleX(0.75);
@@ -570,6 +509,266 @@ public class GPSapp extends Application{
 	    
 	    root.getChildren().add(zoomPane);
 	    
+	    //*******MUST MOVE TO SEPARATE METHOD SO THAT IT CAN BE REATTACHED OVER
+	    //**********
+	  //********TESTING NEW UI******************************
+	    //********TOP BAR UI******************************
+	    menuPane.setPrefSize(490, 70);
+	    menuPane.setStyle("-fx-background-color: #ffffff;"
+        				+ "-fx-border-radius: 15 2 15 2;"
+        				+ "-fx-background-radius: 15 2 15 2;"
+        				+ "box-shadow: 10px 10px 5px #888888;"
+        				+ "-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
+	    menuPane.setOpacity(1);
+	    menuPane.relocate(10, 10);
+        
+        File menuFile = new File("CS3733_Graphics/MenuGraphics/MenuButton.png");
+        Image menuButtonImage = new Image(menuFile.toURI().toString());
+        ImageView menuView = new ImageView();
+        menuView.setImage(menuButtonImage);
+        menuView.setFitWidth(50);
+        menuView.setFitHeight(50);
+        menuView.relocate(5, 5);
+        menuView.setStyle(" -fx-border-radius: 10 10 10 0;"
+        				+ "-fx-background-radius: 10 10 10 0;"
+        		+ "-fx-border-image-slice: 4 4 4 4 fill;  ");
+        
+        File pinFile = new File("CS3733_Graphics/MenuGraphics/simplepin.png");
+        Image pinImage = new Image(pinFile.toURI().toString());
+        ImageView pinView1 = new ImageView(pinImage);
+        ImageView pinView2 = new ImageView(pinImage);
+        pinView1.setFitWidth(20); pinView1.setFitHeight(25);
+        pinView1.relocate(220, 25);
+        pinView2.setFitWidth(20); pinView2.setFitHeight(25);
+        pinView2.relocate(410, 25);
+        
+        File findRouteFile = new File("CS3733_Graphics/MenuGraphics/findRouteButton.png");
+        Image findRouteImage = new Image(findRouteFile.toURI().toString());
+        ImageView findRouteView = new ImageView(findRouteImage);
+        findRouteView.resize(15, 15);
+        findRouteView.setFitWidth(40);
+        findRouteView.setFitHeight(40);
+        
+        //*****
+        VBox StartSearch = new VBox();
+        VBox DestSearch = new VBox();
+        
+        StartText.setPromptText("Location");
+        StartText.setStyle("-fx-background-color: CADETBLUE , white , white;"
+				 + "-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;");
+
+        DestText.setPromptText("Destination");
+        DestText.setStyle("-fx-background-color: CADETBLUE , white , white;"
+				 + "-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;");
+
+        
+        StartList.setMaxHeight(75);
+        StartList.setMaxWidth(180);
+        DestList.setMaxHeight(75);
+        DestList.setMaxWidth(180);
+        
+        StartList.setItems(LocationOptions);
+        DestList.setItems(LocationOptions);
+        
+        StartSearch.getChildren().addAll(StartText, StartList);
+        DestSearch.getChildren().addAll(DestText, DestList);
+        
+        StartList.setOpacity(0); DestList.setOpacity(0);
+        //*****
+        
+        VBox startTestBox = new VBox();
+        startTestBox.getChildren().addAll(StartLabel, StartSearch);
+        
+        VBox endTestBox = new VBox();
+        endTestBox.getChildren().addAll(DestLabel, DestSearch);
+
+        //Hbox containing both start and end input fields
+        HBox inputBox = new HBox(5);
+        inputBox.getChildren().addAll(startTestBox, endTestBox, findRouteView);
+        inputBox.relocate(70, 5);
+        
+        menuPane.getChildren().addAll(menuView, inputBox, pinView1, pinView2);
+        
+        root.getChildren().remove( menuPane);
+        root.getChildren().addAll( menuPane);
+    	
+    	//********************************************************
+	   
+        
+        
+        //********SLIDE OUT MENU UI******************************
+        fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
+        fullMenuPane.setStyle("-fx-background-color: #515151;" );
+	    fullMenuPane.relocate(-200, 0);
+	    
+	    //Title and icon
+	    final Label menuTitle = new Label("Navigator");
+	    menuTitle.setTextFill(Color.WHITE);
+	    menuTitle.setFont(Font.font ("manteka", 16));
+	    menuTitle.relocate(35, 5);
+	    File menuIconFile = new File("CS3733_Graphics/PI.png");
+        Image menuImage = new Image(menuIconFile.toURI().toString());
+        ImageView menuImageView = new ImageView(menuImage);
+        menuImageView.setFitHeight(20); menuImageView.setFitWidth(20);
+        menuImageView.relocate(5, 5);
+        
+        //***Load map and route finding features Here *******
+        //Create a Building selection drop down menu
+    	final VBox mapSelectionBoxV = new VBox(5);
+    	final Label mapSelectorLabel = new Label("Choose map");
+    	mapSelectorLabel.setTextFill(Color.WHITE);
+    	mapSelectorLabel.setFont(Font.font ("manteka", 20));
+    	mapSelectorLabel.setTextFill(Color.WHITE);
+    	final HBox mapSelectionBoxH = new HBox(5);
+    	final Button LoadMapButton = new Button("Load");
+
+    	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
+    	mapSelectionBoxV.relocate(5, 50);
+    	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
+
+    	//***Find nearest function ****
+    	nearestDropdown.setValue("Dining");
+    	nearestBox.getChildren().addAll(nearestDropdown,findNearestButton);
+        nearestBox.relocate(5, 130);
+        
+        
+	    //**BUTTONS***
+        File menuEmailButtonFile = new File("CS3733_Graphics/MenuGraphics/emailButton.png");
+        Image menuEmailButtonImage = new Image(menuEmailButtonFile.toURI().toString());
+        ImageView menuEmailButton = new ImageView(menuEmailButtonImage);
+        menuEmailButton.setFitHeight(40); menuEmailButton.setFitWidth(40);
+        menuEmailButton.relocate(10, 700 + stageInitialHeightDifference);
+        
+        //Create a keyimageButton to place the map key on screen
+    	File keyButtonFile = new File("CS3733_Graphics/MenuGraphics/showKeyButton.png");
+        Image keyButtonImage = new Image(keyButtonFile.toURI().toString());
+        ImageView keyImageButton = new ImageView(keyButtonImage);
+        keyImageButton.setFitHeight(40); keyImageButton.setFitWidth(40);
+        keyImageButton.relocate(60, 700 + stageInitialHeightDifference);
+        
+        //Create an about me button
+    	File aboutMeButtonFile = new File("CS3733_Graphics/MenuGraphics/aboutMeButton.png");
+        Image aboutMeButtonImage = new Image(aboutMeButtonFile.toURI().toString());
+        ImageView aboutMeButton = new ImageView(aboutMeButtonImage);
+        aboutMeButton.setFitHeight(40); aboutMeButton.setFitWidth(40);
+        aboutMeButton.relocate(110, 700 + stageInitialHeightDifference);
+        //***********
+        
+        //Pop up key on map
+    	File keyFile = new File("CS3733_Graphics/MenuGraphics/key.png");
+        Image keyImagePic = new Image(keyFile.toURI().toString());
+        ImageView keyImage = new ImageView(keyImagePic);
+        //keyImage.setFitHeight(40); keyImageButton.setFitWidth(40);
+        keyImage.relocate(780, 610);
+        
+        //POP up email box
+	    HBox emailBox = new HBox(5);
+    	EmailButton.setTextFill(Color.BLACK);
+    	emailBox.setStyle("-fx-background-color: #515151;" );
+    	emailBox.relocate(250, 600);
+    	emailBox.getChildren().addAll(EmailInput, EmailButton);
+    	
+    	
+	    
+    	//Attach things to this for in the side bar
+    	fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, menuEmailButton, keyImageButton, aboutMeButton);
+    	
+    	root.getChildren().remove(fullMenuPane);
+	    root.getChildren().addAll(fullMenuPane);
+        
+	    Group menuGroup = new Group();
+	    menuGroup.getChildren().addAll(menuPane, fullMenuPane);
+	    
+	    root.getChildren().addAll(menuGroup);
+	    
+	  //********DIRECTIONS SLIDE OUT MENU UI******************************
+	    
+        directionsPane.setPrefSize(270, 350 + stageInitialHeightDifference);
+        directionsPane.setStyle("-fx-background-color: #515151;" );
+        directionsPane.relocate(830, 710);
+        
+        //Attach direction slider button to the corner
+        File dirSliderButtonFile = new File("CS3733_Graphics/MenuGraphics/directionSliderButton.png");
+        Image dirSliderImage = new Image(dirSliderButtonFile.toURI().toString());
+        ImageView dirSliderButton = new ImageView(dirSliderImage);
+        dirSliderButton.setFitHeight(30); dirSliderButton.setFitWidth(30);
+        dirSliderButton.setRotate(90);
+        dirSliderButton.relocate(230, 5 + stageInitialHeightDifference);
+        
+        //create Label for directions
+      	directionsTitle.setTextFill(Color.WHITE);
+      	directionsTitle.setFont(Font.font ("manteka", 15));
+      	directionsTitle.relocate(50, 10);
+      	
+      	directionsPane.getChildren().addAll(dirSliderButton, directionsTitle);
+      	
+      	root.getChildren().remove(directionsPane);
+      	root.getChildren().addAll(directionsPane);
+      	
+      	Group directionsGroup = new Group();
+      	directionsGroup.getChildren().addAll(directionsPane);
+      	
+      	root.getChildren().addAll(directionsGroup);
+        
+        //******************ACTIONS MENUS******************************
+        menuView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	//apply animation
+            	if(!menuIsOut){
+            		menuAnimation(menuGroup);
+            		menuIsOut = true;
+            	}
+            	else{
+            		menuAnimation(menuGroup);
+            		menuIsOut = false;
+            	}
+            }
+        });
+        dirSliderButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	//apply animation
+            	if(!directionsAreOut){
+            		menuDirectionsAnimation(directionsGroup);
+            		dirSliderButton.setRotate(-90);
+            		//System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
+            		directionsAreOut = true;
+            	}
+            	else{
+            		menuDirectionsAnimation(directionsGroup);
+            		dirSliderButton.setRotate(90);
+            		directionsAreOut = false;
+            	}
+            }
+        });
+        menuEmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	if(!menuEmailIsOut){
+            		root.getChildren().addAll(emailBox);
+            		menuEmailIsOut = true;
+            	}
+            	else{
+            		root.getChildren().remove(emailBox);
+            		menuEmailIsOut = false;
+            	}
+            }
+        });
+        keyImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		if(toggle) {
+        			root.getChildren().add(keyImage);
+            		toggle = false;
+            	}
+            	else {
+            		root.getChildren().remove(keyImage);
+            		toggle = true;
+            	}
+
+            }
+        });
+        //********************************************************
 
         
       //Generate the Global map graph
@@ -610,13 +809,11 @@ public class GPSapp extends Application{
                     route = globalGraph.findRoute(actualStartNode, node);
                     savedRoute = route;
                     try {
-                    	
-
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
 
                         //if the entire route is only on 1 map, display all instruction at once
-                        displayInstructions(multiMap.get(currRoute), root);
+                        displayInstructions(multiMap.get(currRoute), directionsPane);
                         if(currRoute > 0){
                             root.getChildren().remove(PrevInstruction);
                             root.getChildren().add(PrevInstruction);
@@ -634,7 +831,6 @@ public class GPSapp extends Application{
                         //System.out.print.println("INITIALS: "+ initials);
                         gc.clearRect(0, 0, 6000, 3000);
 
-
                         //System.out.print.println("Route length: " + route.size());
                         //Display the directions on the side
                         //System.out.print.println("Route = " + route);
@@ -642,9 +838,8 @@ public class GPSapp extends Application{
                         multiMap = splitRoute(route);//is endlessly looping or suttin
                         currRoute = 0;
 
-                        //}
                         //if the entire route is only on 1 map, display all instruction at once
-                        displayInstructions(multiMap.get(currRoute), root);
+                        displayInstructions(multiMap.get(currRoute), directionsPane);
                         root.getChildren().remove(NextInstruction);
                         root.getChildren().add(NextInstruction); //attach next button
 
@@ -690,6 +885,7 @@ public class GPSapp extends Application{
                 } catch (NullPointerException n){
                     System.out.println("Node not found");
                 }
+                fixUI();
             }
         });
         
@@ -714,7 +910,7 @@ public class GPSapp extends Application{
             	loadMap( root, imageView);
             	root.getChildren().remove(PrevInstruction);
             	root.getChildren().remove(NextInstruction);
-
+            	fixUI();
             }
         });
         
@@ -723,6 +919,7 @@ public class GPSapp extends Application{
 			public void handle(MouseEvent event) {
 				currRoute++;
 				changeInstructions(NodePane,  root,  imageView);
+				fixUI();
 			}
 	    });
 
@@ -732,13 +929,11 @@ public class GPSapp extends Application{
 				if(currRoute > 0 || currRoute < currMaps){
 					currRoute--;
 					changeInstructions(NodePane,  root,  imageView);
+					fixUI();
 				}
 			}
 	    });
 
-        
-        
-        
         
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             
@@ -746,20 +941,17 @@ public class GPSapp extends Application{
     		public void changed(ObservableValue<? extends Number> observable,
     				Number oldValue, Number newValue) {
     			stageInitialWidthDifference = scene.getWidth()- 1100;    			
-    			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
-    			imageViewKey.setTranslateX(stageInitialWidthDifference);
+    			scrollPane.setPrefViewportWidth(1100 + stageInitialWidthDifference);
+    			keyImage.setTranslateX(stageInitialWidthDifference);
     			NextInstruction.setTranslateX(stageInitialWidthDifference);
     			PrevInstruction.setTranslateX(stageInitialWidthDifference);
     			directionsTitle.setTranslateX(stageInitialWidthDifference);
     			toggleKeyText.setTranslateX(stageInitialWidthDifference);
-    			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
     			s1.setTranslateX(stageInitialWidthDifference);
     			ReturnToCampus.setTranslateX(stageInitialWidthDifference);
     			keyText.setTranslateX(stageInitialWidthDifference);
     			buttonBackDrop.setTranslateX(stageInitialWidthDifference);
-    			nearestBox.setTranslateX(stageInitialWidthDifference);
-    			EmailInput.setTranslateX(stageInitialWidthDifference);
-    			EmailButton.setTranslateX(stageInitialWidthDifference);
+    			
     			
 
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
@@ -780,25 +972,24 @@ public class GPSapp extends Application{
     		public void changed(ObservableValue<? extends Number> observable,
                    Number oldValue, Number newValue) {
     	        stageInitialHeightDifference = scene.getHeight()-750;
-    			scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
+    			scrollPane.setPrefViewportHeight(750 + stageInitialHeightDifference);
     			
-    			DestLabel.setTranslateY(stageInitialHeightDifference);
-    			StartLabel.setTranslateY(stageInitialHeightDifference);
-    			DestSearch.setTranslateY(stageInitialHeightDifference);
-    			StartSearch.setTranslateY(stageInitialHeightDifference);
+    			
     			toggleKeyText.setTranslateY(stageInitialHeightDifference);
-    			imageViewKey.setTranslateY(stageInitialHeightDifference);
+    			keyImage.setTranslateY(stageInitialHeightDifference);
     			keyText.setTranslateY(stageInitialHeightDifference);
     			s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+    			fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
     			NextInstruction.setTranslateY(stageInitialHeightDifference);
     			PrevInstruction.setTranslateY(stageInitialHeightDifference);
     			ReturnToCampus.setTranslateY(stageInitialHeightDifference);
     			BuildingNameLabel.setTranslateY(stageInitialHeightDifference);
     			buttonBackDrop.setTranslateY(stageInitialHeightDifference);
-    			EmailInput.setTranslateY(stageInitialHeightDifference);
-    			EmailButton.setTranslateY(stageInitialHeightDifference);
-    			
-
+    			aboutMeButton.setTranslateY(stageInitialHeightDifference);
+    	        keyImageButton.setTranslateY(stageInitialHeightDifference);
+    	        menuEmailButton.setTranslateY(stageInitialHeightDifference);
+    	        emailBox.setTranslateY(stageInitialHeightDifference);
+    	        
     		}
     	});
 	    
@@ -880,7 +1071,7 @@ public class GPSapp extends Application{
                             try {
                             	
                             //if the entire route is only on 1 map, display all instruction at once
-                            displayInstructions(multiMap.get(currRoute), root);
+                            displayInstructions(multiMap.get(currRoute), directionsPane);
                             if(currRoute > 0){
                             	root.getChildren().remove(PrevInstruction);
                             	root.getChildren().add(PrevInstruction);
@@ -908,7 +1099,7 @@ public class GPSapp extends Application{
 
                                 //}
                                 //if the entire route is only on 1 map, display all instruction at once
-                                displayInstructions(multiMap.get(currRoute), root);
+                                displayInstructions(multiMap.get(currRoute), directionsPane);
                                 root.getChildren().remove(NextInstruction);
                                 root.getChildren().add(NextInstruction); //attach next button
 
@@ -958,7 +1149,7 @@ public class GPSapp extends Application{
         					keyText.setText("Your Start and Destination are the same");
         				}
     				}
-
+    				fixUI();
     			}
             });
             DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1001,7 +1192,7 @@ public class GPSapp extends Application{
                                 currRoute = 0;
 
                                 //if the entire route is only on 1 map, display all instruction at once
-                                displayInstructions(multiMap.get(currRoute), root);
+                                displayInstructions(multiMap.get(currRoute), directionsPane);
                                 
                                 if(currRoute > 0){
                                 	root.getChildren().remove(PrevInstruction);
@@ -1056,8 +1247,8 @@ public class GPSapp extends Application{
         					keyText.setFill(Color.WHITE);
         					keyText.setText("Your Start and Destination are the same");
         				}
-				}
-
+    				}
+    				fixUI();
     			}
             });
             
@@ -1081,25 +1272,89 @@ public class GPSapp extends Application{
                         StartList.setOpacity(0);
                         DestList.setOpacity(0);
                     }
-                                        
+                	fixUI();              
                 }
             });
 
     }
 	///END OF MAIN ***************************************************************
 
+	//Bring the UI to the front of the screen
+	public void fixUI(){
+		root.getChildren().removeAll(directionsPane, fullMenuPane, menuPane);
+		root.getChildren().addAll(directionsPane, fullMenuPane, menuPane);
+
+		 directionsPane.toFront();
+		 fullMenuPane.toFront();
+		 menuPane.toFront();
+	}
+	
+	//Menu Animations
+	private void menuAnimation(Group menuGroup){
+		 Path g1path = new Path();
+		 MoveTo g1moveTo = new MoveTo();
+		 if(!menuIsOut)
+			 g1moveTo.setX(150);
+		 else
+			 g1moveTo.setX(355);
+		 g1moveTo.setY(375 + stageInitialHeightDifference/2);
+		 LineTo g1lineTo = new LineTo();
+		 if(!menuIsOut)
+			 g1lineTo.setX(355);
+		 else
+			 g1lineTo.setX(150);
+		 g1lineTo.setY(375 + stageInitialHeightDifference/2);
+		 g1path.getElements().add(g1moveTo);
+		 g1path.getElements().add(g1lineTo);
+		 PathTransition g1pt = new PathTransition();
+		 g1pt.setDuration(Duration.millis(500));
+		 g1pt.setPath(g1path);
+		 g1pt.setNode(menuGroup);
+		 g1pt.setAutoReverse(true);
+		 g1pt.play();
+    }
+	
+	//Menu Direction Animations
+	//Direction relocate    (830, 400); //up
+	//Direction scroll pane  = 270x 350
+	private void menuDirectionsAnimation(Group directionsGroup){
+		 Path g1path = new Path();
+		 MoveTo g1moveTo = new MoveTo();
+		 
+		 g1moveTo.setX(830 + 135 + stageInitialWidthDifference/2);
+		 if(!directionsAreOut)
+			 g1moveTo.setY(750 + 135 );
+		 else
+			 g1moveTo.setY(750 -175 );
+		 LineTo g1lineTo = new LineTo();
+		 
+		g1lineTo.setX(830 + 135 + stageInitialWidthDifference/2);
+		if(!directionsAreOut)
+			 g1lineTo.setY(750 - 175 );
+		else
+			 g1lineTo.setY(750 + 135 );
+
+		 
+		g1path.getElements().add(g1moveTo);
+		g1path.getElements().add(g1lineTo);
+		PathTransition g1pt = new PathTransition();
+		g1pt.setDuration(Duration.millis(500));
+		g1pt.setPath(g1path);
+		g1pt.setNode(directionsGroup);
+		g1pt.setAutoReverse(true);
+		g1pt.play();
+	}
+	
+	
+	
     //Display all of the instructions on screen
-    private void displayInstructions(LinkedList<Node> route, Pane root){
+    private void displayInstructions(LinkedList<Node> route, Pane directionsPane){
 
     	directionBox.getChildren().clear();
-    	//nooooo
-    	//clear current instructions
-    	//s1 = new ScrollPane();
     	
-    	//create vertical box to add labels too
 
     	//add a possible scroll box for long routes..
-		 s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+		 s1.setPrefSize(270, 300 + stageInitialHeightDifference);
 		 s1.setStyle("-fx-background-color: transparent");
 		 s1.setHbarPolicy(ScrollBarPolicy.NEVER);
 		 if(route.size() > 2){
@@ -1169,9 +1424,9 @@ public class GPSapp extends Application{
 		    		directionBox.getChildren().addAll(StepBox, breakLine);
 		    	}
 		    	
-		    	root.getChildren().remove(s1);
+		    	directionsPane.getChildren().remove(s1);
 		    	s1.setContent(directionBox);
-		    	root.getChildren().add(s1);
+		    	directionsPane.getChildren().add(s1);
 		 }
     		
     	//convert the route to a list of string instructions
@@ -1181,6 +1436,8 @@ public class GPSapp extends Application{
     }
     
     public void changeInstructions(Pane NodePane, Pane root, ImageView imageView){
+    	
+    	
     	displayInstructions(multiMap.get(currRoute), root);
 		
     	String initials = "";
@@ -1236,6 +1493,8 @@ public class GPSapp extends Application{
 			root.getChildren().add(NextInstruction);
 		}
 		root.getChildren().add(s1);
+		
+		fixUI();
     }
 
 
@@ -1261,11 +1520,12 @@ public class GPSapp extends Application{
 		//Attach Building label
 		BuildingNameLabel.setText(building.getName());
 		BuildingNameLabel.setTextFill(Color.BLACK);
-		BuildingNameLabel.setFont(Font.font ("manteka", 30));
-		BuildingNameLabel.setLayoutX(20);
-		BuildingNameLabel.setLayoutY(560);
-		root.getChildren().remove(BuildingNameLabel);
-    	root.getChildren().add(BuildingNameLabel);
+		BuildingNameLabel.setFont(Font.font ("manteka", 20));
+		buildingLabelShadow.setOffsetY(3.0f);
+		buildingLabelShadow.setColor(Color.GRAY);
+		BuildingNameLabel.setEffect(buildingLabelShadow);
+		NodePane.getChildren().remove(BuildingNameLabel);
+    	NodePane.getChildren().add(BuildingNameLabel);
 
     	
     	//Load the layered Maps
@@ -1361,10 +1621,10 @@ public class GPSapp extends Application{
    	     			if (event.isStillSincePress()) {
    	     				root.getChildren().remove(LayerGroup);
    	     				LayerGroup.getChildren().clear();
-   	     				if(root.getChildren().contains(BuildingNameLabel))
-   	     					root.getChildren().remove(BuildingNameLabel);
+   	     				if(NodePane.getChildren().contains(BuildingNameLabel))
+   	     					NodePane.getChildren().remove(BuildingNameLabel);
    	     				screenFadeBack(imageView);
-   	     				BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
+   	     				//BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     				mapSelector.setValue(building.getMaps().get(floor).getInitials() + building.getMaps().get(floor).getFloor() );
    	     				loadMap(root, imageView);
    	     			}
@@ -1383,6 +1643,7 @@ public class GPSapp extends Application{
    	     	});
    	     	g1.setOnMouseMoved(new EventHandler<MouseEvent>() {
    	     		public void handle(MouseEvent event) {
+   	     			BuildingNameLabel.relocate(g1.getLayoutX()-700, mouseYposition+150);
    	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
    	     			
    	     			if(building.equals(FullerLabs))
@@ -1395,7 +1656,9 @@ public class GPSapp extends Application{
    	     	//Fade out the rest of the maps **START OTHER ALPHA AT LOW**
    	     	g1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	     		public void handle(MouseEvent event) {
+	     			BuildingNameLabel.relocate(g1.getLayoutX()-700, mouseYposition+150);
 	     			BuildingNameLabel.setText(building.getName()+" " + building.getMaps().get(floor).getFloor());
+	     			System.out.println("X: "+g1.getLayoutX() + ", Y: "+g1.getLayoutY());
 	     			if(building.equals(FullerLabs))
    	     				g1.setEffect(shadowFuller);
    	     			else
@@ -1411,8 +1674,8 @@ public class GPSapp extends Application{
 	    LayerGroup.setOnMouseExited(new EventHandler<MouseEvent>() {
      		public void handle(MouseEvent event) {
      			BuildingNameLabel.setText("..");
-     			if(root.getChildren().contains(BuildingNameLabel))
-     				root.getChildren().remove(BuildingNameLabel);
+     			if(NodePane.getChildren().contains(BuildingNameLabel))
+     				NodePane.getChildren().remove(BuildingNameLabel);
      			screenFadeBack(imageView);
      			///Change to fade out of the layered group
      			fadeOutLayeredGroup(LayerGroup);
@@ -1435,6 +1698,7 @@ public class GPSapp extends Application{
 			    });
 			}
      	});
+	    fixUI();
 	}
 	
 	private void shortFadeOut(Group g1){
@@ -1764,6 +2028,7 @@ public class GPSapp extends Application{
     		}
 
     	}
+    	fixUI();
     }
 
     private void drawRoute(GraphicsContext gc, LinkedList<Node> route) {
@@ -1789,6 +2054,7 @@ public class GPSapp extends Application{
     		
 
     	}
+    	fixUI();
     }
 
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
@@ -1920,8 +2186,8 @@ public class GPSapp extends Application{
     private Parent createZoomPane(final Group group) {
 	    final StackPane zoomPane = new StackPane();
 	    scrollPane = new ScrollPane();
-	    scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
-  	  	scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
+	    scrollPane.setPrefViewportWidth(1100 + stageInitialWidthDifference);
+  	  	scrollPane.setPrefViewportHeight(750 + stageInitialHeightDifference);
 
 	    zoomPane.getChildren().add(group);
 
@@ -1930,8 +2196,8 @@ public class GPSapp extends Application{
 	    scrollPane.setContent(scrollContent);
 	    
 	    if(mapSelector.getValue().equals("CampusMap")) {
-		    scrollContent.setTranslateX(-517);
-	    	scrollContent.setTranslateY(-236);
+		    scrollContent.setTranslateX(-340);
+	    	scrollContent.setTranslateY(-165);
 	    }
 	    //Removes Scroll bars
 	    scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -1941,8 +2207,8 @@ public class GPSapp extends Application{
 	      @Override
 	      public void changed(ObservableValue<? extends Bounds> observable,
 	          Bounds oldValue, Bounds newValue) {
-	    	  scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
-	    	  scrollPane.setPrefViewportHeight(605 + stageInitialHeightDifference);
+	    	  scrollPane.setPrefViewportWidth(1100 + stageInitialWidthDifference);
+	    	  scrollPane.setPrefViewportHeight(750 + stageInitialHeightDifference);
 	    	  zoomPane.setMinSize(newValue.getWidth(), newValue.getHeight());
 	        
 	      }
@@ -2011,7 +2277,7 @@ public class GPSapp extends Application{
             	event.consume();
             	}
         });
-
+	    fixUI(); 
 	    return scrollPane;
 	}
 
@@ -2482,7 +2748,7 @@ public class GPSapp extends Application{
 	  //Place the return to campus button on screen if youre not on the campus  map
         if(!mapSelector.getValue().equals("CampusMap")){
         	buttonBackDrop.setOpacity(.5);
-        	buttonBackDrop.setFill(Color.GRAY);
+        	buttonBackDrop.setFill(Color.AZURE);
         	buttonBackDrop.setLayoutX(590);
         	buttonBackDrop.setLayoutY(540);
         	
@@ -2548,9 +2814,8 @@ public class GPSapp extends Application{
         else{
         	root.getChildren().remove(ReturnToCampus);
         }
+        fixUI();
         
-        
-
     }
 
     public void highLight(Pane NodePane, ImageView imageView, Pane root, Text keyText){
@@ -2982,6 +3247,7 @@ public class GPSapp extends Application{
             	}
             }
         });
+        fixUI();
     }
     
     public static double round(double value, int places) {
