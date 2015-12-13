@@ -221,14 +221,6 @@ public class GPSapp extends Application{
 	Image yPinImage = new Image(yPinFile.toURI().toString());
 	ImageView yPinView = new ImageView();
 
-	File redPinFile = new File("CS3733_Graphics/redPin.png");
-	Image redPinImage = new Image(redPinFile.toURI().toString());
-	ImageView redPinView = new ImageView();
-
-	File greenPinFile = new File("CS3733_Graphics/greenPin.png");
-	Image greenPinImage = new Image(greenPinFile.toURI().toString());
-	ImageView greenPinView = new ImageView();
-
 	boolean pinAttached = false;
 	Circle enter = new Circle(10.0, Color.GREEN);
 	Circle exit = new Circle(10.0, Color.RED);
@@ -555,9 +547,6 @@ public class GPSapp extends Application{
 
 		pinView.setImage(pinImage);
 		yPinView.setImage(yPinImage);
-		redPinView.setImage(redPinImage);
-		greenPinView.setImage(greenPinImage);
-
 
 		//Create a keyimage to place the map key on screen
     	File keyFile = new File("CS3733_Graphics/Key.png");
@@ -760,14 +749,16 @@ public class GPSapp extends Application{
                         drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                         drawRoute(gc, multiMap.get(currRoute));
 
-                        NodePane.getChildren().add(redPinView);
-                        redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-                        redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+                        NodePane.getChildren().add(yPinView);
+                        yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+                        yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 
                         if(multiMap.size() == 1){
-                            NodePane.getChildren().add(greenPinView);
-                            greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-                            greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+                            ImageView endPinView = new ImageView();
+                            endPinView.setImage(yPinImage);
+                            NodePane.getChildren().add(endPinView);
+                            endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+                            endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 
                         }
                         /*
@@ -1014,15 +1005,16 @@ public class GPSapp extends Application{
                                 drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
-								NodePane.getChildren().add(redPinView);
-								redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-								redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 								
 								if(multiMap.size() == 1){
-
-									NodePane.getChildren().add(greenPinView);
-									greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-									greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+									ImageView endPinView = new ImageView();
+									endPinView.setImage(yPinImage);
+									NodePane.getChildren().add(endPinView);
+									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 								    root.getChildren().remove(NextInstruction);
 								}
 
@@ -1113,15 +1105,16 @@ public class GPSapp extends Application{
                             	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
                                 drawRoute(gc, multiMap.get(currRoute));
 
-								NodePane.getChildren().add(redPinView);
-								redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-								redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 
 								if(multiMap.size() == 1){
-
-									NodePane.getChildren().add(greenPinView);
-									greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-									greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+									ImageView endPinView = new ImageView();
+									endPinView.setImage(yPinImage);
+									NodePane.getChildren().add(endPinView);
+									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 									root.getChildren().remove(NextInstruction);
 								}
 								/*
@@ -1303,9 +1296,9 @@ public class GPSapp extends Application{
 
 		}
 		else{
-			NodePane.getChildren().add(redPinView);
-			redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-			redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+			yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 		}
 
 		//Determine which buttons to display when changing instructions
@@ -1321,9 +1314,9 @@ public class GPSapp extends Application{
 		if (currRoute >= currMaps-1){
 			NodePane.getChildren().remove(exit);
 
-			NodePane.getChildren().add(greenPinView);
-			greenPinView.setLayoutX(multiMap.getLast().getLast().getX() - 18);
-			greenPinView.setLayoutY(multiMap.getLast().getLast().getY() - 55);
+			NodePane.getChildren().add(yPinView);
+			yPinView.setLayoutX(multiMap.getLast().getLast().getX() - 12);
+			yPinView.setLayoutY(multiMap.getLast().getLast().getY() - 37);
 
 			root.getChildren().remove(NextInstruction);
 		}
@@ -1821,15 +1814,16 @@ public class GPSapp extends Application{
                                     //Draws only the start and end nodes of the route
                                     drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
 
-									NodePane.getChildren().add(redPinView);
-									redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-									redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+									NodePane.getChildren().add(yPinView);
+									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+									yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
 									
 									if(multiMap.size() == 1){
-
-										NodePane.getChildren().add(greenPinView);
-										greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-										greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+										ImageView endPinView = new ImageView();
+										endPinView.setImage(yPinImage);
+										NodePane.getChildren().add(endPinView);
+										endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+										endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
 
 									}
 
