@@ -86,9 +86,9 @@ public class GPSapp extends Application{
 	boolean start, end = false, toggle = true, startBool = false, destBool = false, startButtonBool = false, destButtonBool = false, mouseHasMoved = false;
 	String startNode, endNode;
 	Graph graph = new Graph();
-	ObservableList<String> LocationOptions = FXCollections.observableArrayList();
-	ListView<String> StartList = new ListView<String>();
-    ListView<String> DestList = new ListView<String>();
+	ObservableList<Node> LocationOptions = FXCollections.observableArrayList();
+	ListView<Node> StartList = new ListView<>();
+    ListView<Node> DestList = new ListView<>();
     TextField StartText = new TextField();
 	TextField DestText = new TextField();
 	int k = 0; // Set Max zoom Variable
@@ -379,7 +379,7 @@ public class GPSapp extends Application{
       //Initialize the Drop down menu for initial Map
     	for(int i = 0; i < globalNodeList.size() ; i ++){
     		if(globalNodeList.get(i).getIsPlace())
-    			LocationOptions.add((globalNodeList.get(i)).getName());
+    			LocationOptions.add(globalNodeList.get(i));
         }	 
 
     }
@@ -881,6 +881,41 @@ public class GPSapp extends Application{
     		}
     	});
 
+        StartList.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+            @Override
+            public ListCell<Node> call(ListView<Node> param) {
+                ListCell cell = new ListCell<Node>() {
+                    @Override
+                    protected void updateItem(Node node, boolean empty) {
+                        super.updateItem(node, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(node.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
+        DestList.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+            @Override
+            public ListCell<Node> call(ListView<Node> param) {
+                ListCell cell = new ListCell<Node>() {
+                    @Override
+                    protected void updateItem(Node node, boolean empty) {
+                        super.updateItem(node, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(node.getName());
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
 
         DestText.textProperty().addListener(
                 new ChangeListener<Object>() {
@@ -925,7 +960,7 @@ public class GPSapp extends Application{
             StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
     			public void handle(MouseEvent arg0) {
-    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem());
+    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem().getName());
     				startBool = true;
     				if(destBool && startBool) {
     					directionBox.getChildren().clear();
@@ -1042,7 +1077,7 @@ public class GPSapp extends Application{
             DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             	
     			public void handle(MouseEvent arg0) {
-    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem());
+    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem().getName());
     				destBool = true;
     				if(destBool && startBool) {
     					directionBox.getChildren().clear();
