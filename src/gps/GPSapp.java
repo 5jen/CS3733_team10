@@ -1261,7 +1261,7 @@ public class GPSapp extends Application{
 		            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
 		            	public void handle(MouseEvent event) {
 		            		if(currentInstruction >= 0){
-		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
+//		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
 		                		//highlight the current path
 		                		int NodeX = directions.get(currentInstruction).getX();
 		                		int NodeY = directions.get(currentInstruction).getY();
@@ -1958,10 +1958,10 @@ public class GPSapp extends Application{
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        for ( Object entry: StartList.getItems() ) {
+        ObservableList<Node> subentries = FXCollections.observableArrayList();
+        for ( Node entry: StartList.getItems() ) {
             boolean match = true;
-            String entryText = (String)entry;
+            String entryText = entry.getName();
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
@@ -1972,7 +1972,7 @@ public class GPSapp extends Application{
             }
 
             if ( match ) {
-                subentries.add(entryText);
+                subentries.add(entry);
             }
             if(subentries.size() *25 < 75)
             	StartList.setMaxHeight(subentries.size() *25);
@@ -2012,11 +2012,10 @@ public class GPSapp extends Application{
         String[] parts = newVal.toUpperCase().split(" ");
 
         // Filter out the entries that don't contain the entered text
-        ObservableList<String> subentries = FXCollections.observableArrayList();
-        String entryText = "";
-        for ( Object entry: DestList.getItems() ) {
+        ObservableList<Node> subentries = FXCollections.observableArrayList();
+        for ( Node entry: DestList.getItems() ) {
             boolean match = true;
-            entryText = (String)entry;
+            String entryText = entry.getName();
             for ( String part: parts ) {
                 // The entry needs to contain all portions of the
                 // search string *but* in any order
@@ -2027,7 +2026,7 @@ public class GPSapp extends Application{
             }
 
             if ( match ) {
-                subentries.add(entryText);
+                subentries.add(entry);
             }
             if(subentries.size() *25 < 75)
             	DestList.setMaxHeight(subentries.size() *25);
