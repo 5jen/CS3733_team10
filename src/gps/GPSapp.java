@@ -445,7 +445,7 @@ public class GPSapp extends Application{
 
     	
     	//Find Route Button
-    	//final Button findRouteButton = new Button("Find Route");
+    	final Button findRouteButton = new Button("Find Route");
     	//findRouteButton.relocate(640, 640);
     	
     	//Next button (and previous)
@@ -467,9 +467,9 @@ public class GPSapp extends Application{
         StartList.setItems(LocationOptions);
         DestList.setItems(LocationOptions);
         StartSearch.relocate(20, 640);
-        StartSearch.getChildren().addAll(StartText, StartList);
+        StartSearch.getChildren().addAll(StartText);
         DestSearch.relocate(300, 640);
-        DestSearch.getChildren().addAll(DestText, DestList);
+        DestSearch.getChildren().addAll(DestText, findRouteButton);
         StartList.setOpacity(0);
         DestList.setOpacity(0);
         
@@ -672,8 +672,120 @@ public class GPSapp extends Application{
 	    
 	    primaryStage.setScene(scene);
         primaryStage.show();
-        
-      
+
+
+        findRouteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                directionBox.getChildren().clear();
+    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
+    					root.getChildren().remove(zoomPane);
+    					keyText.setText("");
+
+                    	// Need to string compare from
+                    	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
+                    	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
+                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
+                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
+                        		startPlace = (globalGraph.getNodes().get(i));
+                        	}
+                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
+                        		endPlace = (globalGraph.getNodes().get(i));
+                        	}
+                        }
+                    	//System.out.print.println("start: " + startPlace.getName());
+                    	//System.out.print.println("end: " + endPlace.getName());
+
+                    	route = new LinkedList<Node>();
+                        route = globalGraph.findRoute(startPlace, endPlace);
+                        savedRoute = route;
+                        keyText.setFont(Font.font ("manteka", 20));
+
+
+                        if(!(startPlace.equals(endPlace))) {
+
+                            try {
+
+                            //if the entire route is only on 1 map, display all instruction at once
+                            displayInstructions(multiMap.get(currRoute), root);
+                            if(currRoute > 0){
+                            	root.getChildren().remove(PrevInstruction);
+                            	root.getChildren().add(PrevInstruction);
+                            }
+                            root.getChildren().remove(NextInstruction);
+                        	root.getChildren().add(NextInstruction); //attach next button
+                        	Map initials = null;
+
+                        	for(int i = 0; i < maps.size(); i++){
+                        		//System.out.print.println("CURRENT ROUTE: "+ currRoute);
+                        		//System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
+                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                        			initials = maps.get(i);
+                        	}
+                        	//System.out.print.println("INITIALS: "+ initials);
+                        	gc.clearRect(0, 0, 6000, 3000);
+
+
+                                //System.out.print.println("Route length: " + route.size());
+                                //Display the directions on the side
+                                //System.out.print.println("Route = " + route);
+                                //if(!(route.size() <= 1)){
+                                multiMap = splitRoute(route);//is endlessly looping or suttin
+                                currRoute = 0;
+
+                                //}
+                                //if the entire route is only on 1 map, display all instruction at once
+                                displayInstructions(multiMap.get(currRoute), root);
+                                root.getChildren().remove(NextInstruction);
+                                root.getChildren().add(NextInstruction); //attach next button
+
+                                for (int i = 0; i < maps.size(); i++) {
+                                    //System.out.print.println("CURRENT ROUTE: " + currRoute);
+                                    //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
+                                    if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
+                                        initials = maps.get(i);
+                                }
+                                //System.out.print.println("INITIALS: " + initials);
+                                gc.clearRect(0, 0, 6000, 3000);
+
+                                mapSelector.setValue(initials);
+                                loadMap(root, imageView);
+                                if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
+                                drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+                                drawRoute(gc, multiMap.get(currRoute));
+
+								NodePane.getChildren().add(yPinView);
+								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
+								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
+
+								if(multiMap.size() == 1){
+									ImageView endPinView = new ImageView();
+									endPinView.setImage(yPinImage);
+									NodePane.getChildren().add(endPinView);
+									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
+									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
+								    root.getChildren().remove(NextInstruction);
+								}
+
+								/*
+                                final Group group = new Group(imageView, canvas, NodePane);
+                                zoomPane = createZoomPane(group);
+                                root.getChildren().add(zoomPane);*/
+
+                                route = new LinkedList<Node>();
+                            } catch (NullPointerException n){
+                                keyText.setText("Path not Found");
+                                keyText.setFill(Color.WHITE);
+                                loadMap(root, imageView);
+                            }
+        				} else {
+        					loadMap(root, imageView);
+        					keyText.setFont(Font.font ("manteka", 14));
+        					keyText.setFill(Color.WHITE);
+        					keyText.setText("Your Start and Destination are the same");
+        				}
+            }
+        });
 
         //Find Nearest Button
         findNearestButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -918,296 +1030,90 @@ public class GPSapp extends Application{
         });
 
         DestText.textProperty().addListener(
+            new ChangeListener<Object>() {
+                public void changed(ObservableValue<?> observable2,
+                                    Object oldVal2, Object newVal2) {
+                    handleSearchByKeyDest((String)oldVal2, (String)newVal2);
+                }
+            });
+
+        StartText.textProperty().addListener(
                 new ChangeListener<Object>() {
-                    public void changed(ObservableValue<?> observable2,
-                                        Object oldVal2, Object newVal2) {
-                        handleSearchByKeyDest((String)oldVal2, (String)newVal2);
+                    public void changed(ObservableValue<?> observable,
+                                        Object oldVal, Object newVal) {
+                        handleSearchByKeyStart((String)oldVal, (String)newVal);
                     }
                 });
 
-            StartText.textProperty().addListener(
-                    new ChangeListener<Object>() {
-                        public void changed(ObservableValue<?> observable,
-                                            Object oldVal, Object newVal) {
-                            handleSearchByKeyStart((String)oldVal, (String)newVal);
-                        }
-                    });
-
-            DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                    if (newPropertyValue) {
-            			DestList.setOpacity(100);
-            			destBool = false;
-                    }
-                    else {
-                    	DestList.setOpacity(0);
-                    }
-            	}
-            });
-
-            StartText.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            	public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-            		if (newPropertyValue) {
-            			StartList.setOpacity(100);
-            			startBool= false;
-                    }
-                    else {
-                    	StartList.setOpacity(0);
-                    }
-            	}
-            });
-
-            StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-    			public void handle(MouseEvent arg0) {
-    				StartText.setText((String) StartList.getSelectionModel().getSelectedItem().getName());
-    				startBool = true;
-    				if(destBool && startBool) {
-    					directionBox.getChildren().clear();
-    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
-    					root.getChildren().remove(zoomPane);
-    					keyText.setText("");
-
-                    	// Need to string compare from
-                    	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
-                    	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
-                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (globalGraph.getNodes().get(i));
-                        	}
-                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (globalGraph.getNodes().get(i));
-                        	}
-                        }
-                    	//System.out.print.println("start: " + startPlace.getName());
-                    	//System.out.print.println("end: " + endPlace.getName());
-
-                    	route = new LinkedList<Node>();
-                        route = globalGraph.findRoute(startPlace, endPlace);
-                        savedRoute = route;
-                        keyText.setFont(Font.font ("manteka", 20));
-                        
-
-                        if(!(startPlace.equals(endPlace))) {
-
-                            try {
-                            	
-                            //if the entire route is only on 1 map, display all instruction at once
-                            displayInstructions(multiMap.get(currRoute), root);
-                            if(currRoute > 0){
-                            	root.getChildren().remove(PrevInstruction);
-                            	root.getChildren().add(PrevInstruction);
-                            }
-                            root.getChildren().remove(NextInstruction);
-                        	root.getChildren().add(NextInstruction); //attach next button
-                        	Map initials = null;
-                        	
-                        	for(int i = 0; i < maps.size(); i++){
-                        		//System.out.print.println("CURRENT ROUTE: "+ currRoute);
-                        		//System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-                        		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                        			initials = maps.get(i);
-                        	}
-                        	//System.out.print.println("INITIALS: "+ initials);
-                        	gc.clearRect(0, 0, 6000, 3000);
-
-                            
-                                //System.out.print.println("Route length: " + route.size());
-                                //Display the directions on the side
-                                //System.out.print.println("Route = " + route);
-                                //if(!(route.size() <= 1)){
-                                multiMap = splitRoute(route);//is endlessly looping or suttin
-                                currRoute = 0;
-
-                                //}
-                                //if the entire route is only on 1 map, display all instruction at once
-                                displayInstructions(multiMap.get(currRoute), root);
-                                root.getChildren().remove(NextInstruction);
-                                root.getChildren().add(NextInstruction); //attach next button
-
-                                for (int i = 0; i < maps.size(); i++) {
-                                    //System.out.print.println("CURRENT ROUTE: " + currRoute);
-                                    //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
-                                    if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                                        initials = maps.get(i);
-                                }
-                                //System.out.print.println("INITIALS: " + initials);
-                                gc.clearRect(0, 0, 6000, 3000);
-
-                                mapSelector.setValue(initials);
-                                loadMap(root, imageView);
-                                if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
-                                drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                                drawRoute(gc, multiMap.get(currRoute));
-
-								NodePane.getChildren().add(yPinView);
-								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
-								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
-								
-								if(multiMap.size() == 1){
-									ImageView endPinView = new ImageView();
-									endPinView.setImage(yPinImage);
-									NodePane.getChildren().add(endPinView);
-									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
-									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
-								    root.getChildren().remove(NextInstruction);
-								}
-
-								/*
-                                final Group group = new Group(imageView, canvas, NodePane);
-                                zoomPane = createZoomPane(group);
-                                root.getChildren().add(zoomPane);*/
-
-                                route = new LinkedList<Node>();
-                            } catch (NullPointerException n){
-                                keyText.setText("Path not Found");
-                                keyText.setFill(Color.WHITE);
-                                loadMap(root, imageView);
-                            }
-        				} else {
-        					loadMap(root, imageView);
-        					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.WHITE);
-        					keyText.setText("Your Start and Destination are the same");
-        				}
-    				}
-
-    			}
-            });
-            DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            	
-    			public void handle(MouseEvent arg0) {
-    				DestText.setText((String) DestList.getSelectionModel().getSelectedItem().getName());
-    				destBool = true;
-    				if(destBool && startBool) {
-    					directionBox.getChildren().clear();
-    					gc.clearRect(0, 0, 8000, 6000); // Clears old path
-    					root.getChildren().remove(zoomPane);
-    					keyText.setText("");
-
-                    	// Need to string compare from
-                    	Node startPlace = new Node(0, 0, 0, "","", "", false, false, "");
-                    	Node endPlace = new Node(0, 0, 0, "","","", false, false, "");
-                    	for(int i = 0; i < globalGraph.getNodes().size(); i ++){
-                        	if((globalGraph.getNodes().get(i)).getName().equals(StartText.getText())) {
-                        		startPlace = (globalGraph.getNodes().get(i));
-                        	}
-                        	if((globalGraph.getNodes().get(i)).getName().equals(DestText.getText())) {
-                        		endPlace = (globalGraph.getNodes().get(i));
-                        	}
-                        }
-                    	//System.out.print.println("start: " + startPlace.getName());
-                    	//System.out.print.println("end: " + endPlace.getName());
-
-                    	route = new LinkedList<Node>();
-                        route = globalGraph.findRoute(startPlace, endPlace);
-                        savedRoute = route;
-                        
-                        if(!(startPlace.equals(endPlace))) {
-                        
-                        	try{
-                            	//System.out.print.println("Route lenth: " + route.size());
-                                //Display the directions on the side
-                                //System.out.print.println("Route = " + route);
-                                //if(!(route.size() <= 1)){
-                                multiMap = splitRoute(route);//is endlessly looping or suttin
-                                currRoute = 0;
-
-                                //if the entire route is only on 1 map, display all instruction at once
-                                displayInstructions(multiMap.get(currRoute), root);
-                                
-                                if(currRoute > 0){
-                                	root.getChildren().remove(PrevInstruction);
-                                	root.getChildren().add(PrevInstruction);
-                                }
-                                
-                                root.getChildren().remove(NextInstruction);
-                            	root.getChildren().add(NextInstruction); //attach next button
-                            	Map initials = null;
-                				
-                            	for(int i = 0; i < maps.size(); i++){
-                            		//System.out.print.println("CURRENT ROUTE: "+ currRoute);
-                            		//System.out.print.println("multiMap.get(currRouteE: "+ multiMap.get(currRoute).get(0).getFloorMap());
-                            		if(maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-                            			initials = maps.get(i);
-                            	}
-                            	//System.out.print.println("INITIALS: "+ initials);
-                            	gc.clearRect(0, 0, 6000, 3000);
-
-                            	mapSelector.setValue(initials);
-                            	loadMap(root, imageView);
-                            	if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
-                            	drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
-                                drawRoute(gc, multiMap.get(currRoute));
-
-								NodePane.getChildren().add(yPinView);
-								yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
-								yPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 37);
-
-								if(multiMap.size() == 1){
-									ImageView endPinView = new ImageView();
-									endPinView.setImage(yPinImage);
-									NodePane.getChildren().add(endPinView);
-									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
-									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
-									root.getChildren().remove(NextInstruction);
-								}
-								/*
-                                final Group group = new Group(imageView, canvas, NodePane);
-                        	    zoomPane = createZoomPane(group);
-                        	    root.getChildren().add(zoomPane);
-                                route = new LinkedList<Node>();*/
-                                
-            				} catch (NullPointerException n){
-            					keyText.setText("Path not Found");
-            					keyText.setFill(Color.WHITE);
-            					loadMap(root, imageView);
-                            }
-        				} else {
-        					loadMap(root, imageView);
-        					keyText.setFont(Font.font ("manteka", 14));
-        					keyText.setFill(Color.WHITE);
-        					keyText.setText("Your Start and Destination are the same");
-        				}
-				}
-
-    			}
-            });
-            
-            root.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent event) {
-                	
-                	if (event.getCode() == KeyCode.ESCAPE) {
-                		loadMap(root, imageView);
-                		startBool = false;
-                		destBool = false;
-                		startButtonBool = false;
-                		destButtonBool = false;
-                		root.getChildren().remove(NextInstruction);
-                		root.getChildren().remove(PrevInstruction);
-                		StartText.setText("");
-                		DestText.setText("");
-                		StartText.setPromptText("Start");
-                        DestText.setPromptText("Destination");
-                        start = false;
-                        StartList.setOpacity(0);
-                        DestList.setOpacity(0);
-                        keyText.setText("");
-                    }
-
-                    if (event.getCode() == KeyCode.S && event.isShortcutDown()){
-                        StartText.requestFocus();
-                    }
-                    if (event.getCode() == KeyCode.D && event.isShortcutDown()){
-                        DestText.requestFocus();
-                    }
-                    if (event.getCode() == KeyCode.E && event.isShortcutDown()){
-                        EmailInput.requestFocus();
-                    }
-                                        
+        DestText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (DestText.isFocused()) {
+                    DestSearch.getChildren().add(DestList);
                 }
-            });
+                else {
+//                    DestSearch.getChildren().remove(DestList);
+                }
+            }
+        });
+
+        StartText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (StartText.isFocused()) {
+                    StartSearch.getChildren().add(StartList);
+                }
+                else {
+//                    StartSearch.getChildren().remove(StartList);
+                }
+            }
+        });
+
+        StartList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent arg0) {
+                StartText.setText(StartList.getSelectionModel().getSelectedItem().getName());
+                StartSearch.getChildren().remove(StartList);
+            }
+        });
+        DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent arg0) {
+                DestText.setText(DestList.getSelectionModel().getSelectedItem().getName());
+                DestSearch.getChildren().remove(DestList);
+            }
+        });
+            
+        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    loadMap(root, imageView);
+                    startBool = false;
+                    destBool = false;
+                    startButtonBool = false;
+                    destButtonBool = false;
+                    root.getChildren().remove(NextInstruction);
+                    root.getChildren().remove(PrevInstruction);
+                    StartText.setText("");
+                    DestText.setText("");
+                    StartText.setPromptText("Start");
+                    DestText.setPromptText("Destination");
+                    start = false;
+                    StartList.setOpacity(0);
+                    DestList.setOpacity(0);
+                    keyText.setText("");
+                }
+
+                if (event.getCode() == KeyCode.S && event.isShortcutDown()){
+                    StartText.requestFocus();
+                }
+                if (event.getCode() == KeyCode.D && event.isShortcutDown()){
+                    DestText.requestFocus();
+                }
+                if (event.getCode() == KeyCode.E && event.isShortcutDown()){
+                    EmailInput.requestFocus();
+                }
+
+            }
+        });
 
     }
 	///END OF MAIN ***************************************************************
