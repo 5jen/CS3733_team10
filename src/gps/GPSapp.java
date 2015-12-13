@@ -38,8 +38,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.scene.web.*;
 import javafx.util.Duration;
 import node.*;
@@ -555,9 +555,10 @@ public class GPSapp extends Application{
         imageViewKey.setImage(keyImage);
         imageViewKey.setLayoutX(830);
         imageViewKey.setLayoutY(570);
-
+    
         EmailInput.setPromptText("Email");
         EmailInput.setTooltip(new Tooltip("Enter your email here"));
+
         //hide key
         toggleKeyText.setFill(new Color(1, 1, 1, 0.5));
         toggleKeyText.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -1785,7 +1786,6 @@ public class GPSapp extends Application{
         for (File file : nodeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
-                //System.out.println(file.getName());
             }
         }
 
@@ -1795,7 +1795,6 @@ public class GPSapp extends Application{
         for (File file : edgeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
-                //System.out.println(file.getName());
             }
         }
 
