@@ -31,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import node.*;
@@ -50,6 +51,10 @@ public class MapTool extends Application {
     double startX, startY, startZ, endX, endY, endZ = 0.0, buttonRescale = 1 / 0.75;
     int k = 0; // Set Max zoom Variable
     boolean disableKey = false;
+    double mouseYposition, mouseXposition;
+    double stageInitialWidthDifference = 100;
+    double stageInitialHeightDifference = 100;
+    ScrollPane scrollPane = new ScrollPane();
 
     // Buildings
     // TODO Add more buildings
@@ -183,6 +188,7 @@ public class MapTool extends Application {
     	File iconFile = new File("CS3733_Graphics/PI.png");
         Image iconImage = new Image(iconFile.toURI().toString());
 		primaryStage.getIcons().add(iconImage);
+		primaryStage.setTitle("PiEditor");
     	
         //Add Maps to buildings
         Campus.addMap(CampusMap);
@@ -261,7 +267,8 @@ public class MapTool extends Application {
         final Pane root = new Pane();
         Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-
+        stageInitialWidthDifference = scene.getWidth()-1100;
+        stageInitialHeightDifference = scene.getHeight()-700;
 
         //Set default Type
         typeSelector.setValue("Point");
@@ -358,6 +365,22 @@ public class MapTool extends Application {
         isPlaceName.setFont(Font.font("manteka", 12));
 
 
+      //AutoCreation node button
+        final Label autoCreationNodeButton = new Label("Auto Node Mode");
+        autoCreationNodeButton.setTextFill(Color.WHITE);
+        autoCreationNodeButton.setFont(Font.font("manteka", 12));
+        HBox autoNodeModeHBox = new HBox(5);
+        autoNodeModeHBox.getChildren().addAll(autoNodeCreate, autoCreationNodeButton);
+
+        final Label autoCreationEdgeButton = new Label("Auto Edge Mode");
+        autoCreationEdgeButton.setTextFill(Color.WHITE);
+        autoCreationEdgeButton.setFont(Font.font("manteka", 12));
+        HBox autoEdgeModeHBox = new HBox(5);
+        autoEdgeModeHBox.getChildren().addAll(autoEdgeCreate, autoCreationEdgeButton);
+
+        
+        
+        
         //final Label updateNodeLabel = new Label("Node");
         updateNodeLabel.setTextFill(Color.WHITE);
         updateNodeLabel.setFont(Font.font("manteka", 12));
@@ -368,12 +391,16 @@ public class MapTool extends Application {
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
         final Button createNodeButton = new Button("Create Node");
-        NodeCreationBox.getChildren().addAll(createNodeButton, updateNodeButton);
         final Button deleteNodeButton = new Button("Delete Node");
+        NodeCreationBox.getChildren().addAll(createNodeButton, deleteNodeButton);
+        
+        HBox NodeUpdateBox = new HBox(5);
+        NodeUpdateBox.getChildren().addAll(updateNodeButton, autoNodeModeHBox);
+        
 
         controlLabels.setLayoutX(830);
         controlLabels.setLayoutY(20);
-        controlLabels.getChildren().addAll(xFieldName, xFieldBox, yFieldName, yFieldBox, zFieldName, zFieldBox, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox, deleteNodeButton);
+        controlLabels.getChildren().addAll(xFieldName, xFieldBox, yFieldName, yFieldBox, zFieldName, zFieldBox, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox, NodeUpdateBox);
 
         //attach the cross image
         cross.setImage(crossImage);
@@ -395,7 +422,7 @@ public class MapTool extends Application {
         final Label lockLabel = new Label("Lock");
         lockLabel.setFont(Font.font("manteka", 12));
         lockLabel.setTextFill(Color.WHITE);
-        lockLabel.setLayoutX(1050);
+        lockLabel.setLayoutX(1040);
         lockLabel.setLayoutY(20);
 
 
@@ -406,15 +433,19 @@ public class MapTool extends Application {
         toField.setFont(Font.font("manteka", 12));
         toField.setTextFill(Color.WHITE);
         toBox.getChildren().addAll(toName, toField);
+        
+        
 
         HBox EdgeCreationBox = new HBox(5);
         final Button createEdgeButton = new Button("Create Edge");
         final Button deleteEdgeButton = new Button("Delete Edge");
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
+        final HBox SaveBox = new HBox(5);
+        SaveBox.getChildren().addAll(saveGraph, autoEdgeModeHBox);
         edgeControls.setLayoutX(830);
         edgeControls.setLayoutY(460);
-        edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, saveGraph);
+        edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, SaveBox);
 
         imageView.setImage(mapImage);
         imageView.setLayoutX(0);
@@ -428,23 +459,7 @@ public class MapTool extends Application {
         bgView.setLayoutX(0);
         bgView.setLayoutY(0);
 
-        //AutoCreation node button
-        VBox autoModeBox = new VBox(5);
-        final Label autoCreationNodeButton = new Label("Auto Node Mode");
-        autoCreationNodeButton.setTextFill(Color.WHITE);
-        autoCreationNodeButton.setFont(Font.font("manteka", 12));
-        HBox autoNodeModeHBox = new HBox(5);
-        autoNodeModeHBox.getChildren().addAll(autoNodeCreate, autoCreationNodeButton);
-
-        final Label autoCreationEdgeButton = new Label("Auto Edge Mode");
-        autoCreationEdgeButton.setTextFill(Color.WHITE);
-        autoCreationEdgeButton.setFont(Font.font("manteka", 12));
-        HBox autoEdgeModeHBox = new HBox(5);
-        autoEdgeModeHBox.getChildren().addAll(autoEdgeCreate, autoCreationEdgeButton);
-
-        autoModeBox.getChildren().addAll(autoNodeModeHBox, autoEdgeModeHBox);
-        autoModeBox.setLayoutX(600);
-        autoModeBox.setLayoutY(620);
+        
 
         //Attach everything to the screen
         root.getChildren().add(bgView);
@@ -452,7 +467,6 @@ public class MapTool extends Application {
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
-        root.getChildren().add(autoModeBox);
         root.getChildren().addAll(lockLabel);
 
         root.getChildren().add(warningBox);
@@ -470,7 +484,6 @@ public class MapTool extends Application {
 
         final Group group = new Group(imageView, NodePane);
         Parent zoomPane = createZoomPane(group);
-
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
@@ -602,6 +615,45 @@ public class MapTool extends Application {
                 disableKey = true;
             }
         });
+        
+scene.widthProperty().addListener(new ChangeListener<Number>() {
+            
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+    				Number oldValue, Number newValue) {
+    			stageInitialWidthDifference = scene.getWidth()- 1100;    			
+    			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+    			
+    			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
+    			controlLabels.setTranslateX(stageInitialWidthDifference);
+    			edgeControls.setTranslateX(stageInitialWidthDifference);
+    			lockLabel.setTranslateX(stageInitialWidthDifference);
+    			
+    			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			
+
+    		}
+    	});
+
+	    scene.heightProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+                   Number oldValue, Number newValue) {
+    	        stageInitialHeightDifference = scene.getHeight()-700;
+    	        scrollPane.setPrefViewportHeight(700 + stageInitialHeightDifference);
+    			//s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+    			
+    			
+
+    		}
+    	});
 
 
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -708,12 +760,12 @@ public class MapTool extends Application {
     public void createEdge(Pane NodePane) {
         if (!(fromNode == null) || !(toNode == null)) {
             if (Objects.equals(fromNode.getName(), toNode.getName())) {
-                System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
+                //System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
                 warningLabel.setText("Cannot Create Edge");
             } else {
                 Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-                System.out.println(fromNode.getName());
-                System.out.println(toNode.getName());
+                //System.out.println(fromNode.getName());
+                //System.out.println(toNode.getName());
                 edgeList.add(newEdge);
                 if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
                     Line line = new Line();
@@ -906,7 +958,7 @@ public class MapTool extends Application {
     //Create Hot Key events
     public void buttonPressed(KeyEvent e) {
         if (e.getCode().toString().equals("ENTER")) {
-            System.out.println("asdasdasdasdasdasdasdasda)");
+            //System.out.println("asdasdasdasdasdasdasdasda)");
             //createNodeButton.setOnAction(CreateHandler);
         }
     }
@@ -921,7 +973,7 @@ public class MapTool extends Application {
         for (File file : nodeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
@@ -931,7 +983,7 @@ public class MapTool extends Application {
         for (File file : edgeFolder.listFiles()){
             if (file.getName().endsWith(".json")){
                 globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
-                System.out.println(file.getName());
+                //System.out.println(file.getName());
             }
         }
 
@@ -1166,13 +1218,19 @@ public class MapTool extends Application {
     private Parent createZoomPane(final Group group) {
         final double SCALE_DELTA = 1.1;
         final StackPane zoomPane = new StackPane();
-        final ScrollPane scrollPane = new ScrollPane();
 
         zoomPane.getChildren().add(group);
 
 
         final Group scrollContent = new Group(zoomPane);
         scrollPane.setContent(scrollContent);
+        
+        
+        if(mapSelector.getValue().getInitials().equals("CampusMap")) {
+		    scrollContent.setTranslateX(-517);
+	    	scrollContent.setTranslateY(-196);
+	    }
+        
         //Removes Scroll bars
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -1186,111 +1244,80 @@ public class MapTool extends Application {
         });
 
         scrollPane.setPrefViewportWidth(800);
-        scrollPane.setPrefViewportHeight(605);
+        scrollPane.setPrefViewportHeight(700);
 
+        
+        class DragContext {
 
-        zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-                event.consume();
+            double mouseAnchorX;
+            double mouseAnchorY;
 
-                if (event.getDeltaY() == 0) {
-                    return;
-                }
+            double translateAnchorX;
+            double translateAnchorY;
 
-                double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
-                        : 1 / SCALE_DELTA;
+        }
 
-                if (scaleFactor < 1 && k > -1) {
-                    k--;
-                    // amount of scrolling in each direction in scrollContent coordinate
-                    // units
-                    Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-
-                    group.setScaleX(group.getScaleX() * scaleFactor);
-                    group.setScaleY(group.getScaleY() * scaleFactor);
-
-                    // move viewport so that old center remains in the center after the
-                    // scaling
-                    repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-                }
-                if (scaleFactor > 1 && k < 8) {
-                    k++;
-                    // amount of scrolling in each direction in scrollContent coordinate
-                    // units
-                    Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-
-                    group.setScaleX(group.getScaleX() * scaleFactor);
-                    group.setScaleY(group.getScaleY() * scaleFactor);
-
-                    // move viewport so that old center remains in the center after the
-                    // scaling
-                    repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-                }
-
-            }
+        
+        zoomPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		mouseYposition = event.getY();
+        		mouseXposition = event.getX();
+        		
+        	}
         });
+        
+        
+        zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
+  	      @Override
+  	      public void handle(ScrollEvent event) {
+  	    	  double zoomFactor = 1.1;
+  	    	  
+  	    	  
+  	          if (event.getDeltaY() <= 0) {
+  	              // zoom out
+  	              zoomFactor = 1 / zoomFactor;
+  	              
+  	          }
+  	          Scale scale = new Scale(zoomFactor, zoomFactor, mouseXposition, mouseYposition);
+  	          
+  	          if ( zoomFactor > 1 && k < 10) {
+  	        	  
+  		          scrollContent.getTransforms().add(scale);
+  	        	  k++;
+  	          }
+  	          if (zoomFactor < 1 && k > -5 ){
+  		          scrollContent.getTransforms().add(scale);
+  	        	  k--;
+  	          }
+  	                    
+  	          event.consume();
+  	      }
+  	    });
 
         // Panning via drag....
-        final ObjectProperty<Point2D> lastMouseCoordinates = new SimpleObjectProperty<Point2D>();
+        DragContext sceneDragContext = new DragContext();
         scrollContent.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                lastMouseCoordinates.set(new Point2D(event.getX(), event.getY()));
-            }
-        });
+  	      @Override
+  	      public void handle(MouseEvent event) {
+  	    	  sceneDragContext.mouseAnchorX = event.getSceneX();
+  	            sceneDragContext.mouseAnchorY = event.getSceneY();
+
+  	            sceneDragContext.translateAnchorX = scrollContent.getTranslateX();
+  	            sceneDragContext.translateAnchorY = scrollContent.getTranslateY();
+  	      }
+  	    });
 
         scrollContent.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                double deltaX = event.getX() - lastMouseCoordinates.get().getX();
-                double extraWidth = scrollContent.getLayoutBounds().getWidth() - scrollPane.getViewportBounds().getWidth();
-                double deltaH = deltaX * (scrollPane.getHmax() - scrollPane.getHmin()) / extraWidth;
-                double desiredH = scrollPane.getHvalue() - deltaH;
-                scrollPane.setHvalue(Math.max(0, Math.min(scrollPane.getHmax(), desiredH)));
-
-                double deltaY = event.getY() - lastMouseCoordinates.get().getY();
-                double extraHeight = scrollContent.getLayoutBounds().getHeight() - scrollPane.getViewportBounds().getHeight();
-                double deltaV = deltaY * (scrollPane.getHmax() - scrollPane.getHmin()) / extraHeight;
-                double desiredV = scrollPane.getVvalue() - deltaV;
-                scrollPane.setVvalue(Math.max(0, Math.min(scrollPane.getVmax(), desiredV)));
-            }
+            	scrollContent.setTranslateX(sceneDragContext.translateAnchorX + event.getSceneX() - sceneDragContext.mouseAnchorX);
+            	scrollContent.setTranslateY(sceneDragContext.translateAnchorY + event.getSceneY() - sceneDragContext.mouseAnchorY);
+            	event.consume();
+            	}
         });
 
         return scrollPane;
     }
-
-    private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
-        double scrollXOffset = scrollOffset.getX();
-        double scrollYOffset = scrollOffset.getY();
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        if (extraWidth > 0) {
-            double halfWidth = scroller.getViewportBounds().getWidth() / 2;
-            double newScrollXOffset = (scaleFactor - 1) * halfWidth + scaleFactor * scrollXOffset;
-            scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
-        } else {
-            scroller.setHvalue(scroller.getHmin());
-        }
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        if (extraHeight > 0) {
-            double halfHeight = scroller.getViewportBounds().getHeight() / 2;
-            double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
-            scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
-        } else {
-            scroller.setHvalue(scroller.getHmin());
-        }
-    }
-
-    private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
-        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
-        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
-        return new Point2D(scrollXOffset, scrollYOffset);
-    }
-
 
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView) {
         

@@ -440,11 +440,6 @@
   "to": "FL2:Staircase:791:336"
  },
  {
-  "distance": 3,
-  "from": "FL2:Point:711:738",
-  "to": "FL2UpperPeraultLectureHallB"
- },
- {
   "distance": 2,
   "from": "FL2:Point:716:818",
   "to": "FL2:Point:755:829"
@@ -470,16 +465,6 @@
   "to": "FL2:Point:712:776"
  },
  {
-  "distance": 2,
-  "from": "FL2:Point:711:738",
-  "to": "FL2:Point:712:776"
- },
- {
-  "distance": 3,
-  "from": "FL2:Point:711:738",
-  "to": "FL2:Point:710:691"
- },
- {
   "distance": 10,
   "from": "FL2:Point:716:862",
   "to": "FL250"
@@ -501,12 +486,32 @@
  },
  {
   "distance": 3,
-  "from": "FL2:Point:710:643",
-  "to": "FL2:UpperPeraultLectureHallC"
+  "from": "FL2:UpperPeraultLectureHallC",
+  "to": "FL2:Staircase:710:643"
  },
  {
   "distance": 2,
   "from": "FL2:Point:710:691",
-  "to": "FL2:Point:710:643"
+  "to": "FL2:Staircase:710:643"
+ },
+ {
+  "distance": 3,
+  "from": "FL2:Staircase:711:738",
+  "to": "FL2UpperPeraultLectureHallB"
+ },
+ {
+  "distance": 3,
+  "from": "FL2:Staircase:711:738",
+  "to": "FL2:Point:710:691"
+ },
+ {
+  "distance": 2,
+  "from": "FL2:Point:712:776",
+  "to": "FL2:Staircase:711:738"
+ },
+ {
+  "distance": 3,
+  "from": "FL2:Point:716:818",
+  "to": "FL2:Point:712:776"
  }
 ]
