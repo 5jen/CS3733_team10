@@ -187,9 +187,15 @@ public class GPSapp extends Application{
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
 	int currMaps = 0;
 	int currRoute = 0;
-	Button NextInstruction = new Button("Next");
-	Button PrevInstruction = new Button("Prev");
-
+	//Button NextInstruction = new Button("Next");
+	//Button PrevInstruction = new Button("Prev");
+	
+	File NextButtonFile = new File("CS3733_Graphics/MenuGraphics/nextButton.png");
+	Image NextButtonImage = new Image(NextButtonFile.toURI().toString());
+	ImageView NextInstruction = new ImageView(NextButtonImage);
+	ImageView PrevInstruction = new ImageView(NextButtonImage);
+	
+	
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
 	//create pin image
 	File pinFile = new File("CS3733_Graphics/pin.png");
@@ -412,21 +418,8 @@ public class GPSapp extends Application{
 		yPinView.setImage(yPinImage);
 
 		
-        
-        //Loading screen blurred
-    	/*File BlurFile = new File("CS3733_Graphics/CampusMapBlurred.png");
-        Image BlurImage = new Image(BlurFile.toURI().toString());
-        ImageView imageViewBlur = new ImageView();
-        imageViewBlur.setImage(BlurImage);
-        imageViewBlur.setLayoutX(0);
-        imageViewBlur.setLayoutY(0);*/
-        
-        
         EmailInput.setPromptText("Email");
 
-
-        
-        
         
         ReturnToCampus.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -436,7 +429,6 @@ public class GPSapp extends Application{
             }
         });
         
-        //root.getChildren().add(imageViewBlur);
         
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -692,11 +684,11 @@ public class GPSapp extends Application{
       	directionsTitle.relocate(5, 10);
       	
       	//Next button (and previous)
-    	NextInstruction.setTextFill(Color.BLACK);
     	NextInstruction.relocate(180, 5);
-    	
-    	PrevInstruction.setTextFill(Color.BLACK);
+    	NextInstruction.setFitHeight(30); NextInstruction.setFitWidth(30);
     	PrevInstruction.relocate(120, 5);
+    	PrevInstruction.setFitHeight(30); PrevInstruction.setFitWidth(30);
+
     	
     	directionsPane.getChildren().addAll(directionsTitle, NextInstruction, PrevInstruction, dirSliderButton);
       	
@@ -923,6 +915,7 @@ public class GPSapp extends Application{
 			}
 	    });
 
+	    PrevInstruction.setRotate(180);
 	  //Next instruction button actions
 	    PrevInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
@@ -1225,7 +1218,7 @@ public class GPSapp extends Application{
 									NodePane.getChildren().add(endPinView);
 									endPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 12);
 									endPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 37);
-									//root.getChildren().remove(NextInstruction);
+									//root.getChildren().remove(ruction);
 								}
 								/*
                                 final Group group = new Group(imageView, canvas, NodePane);
