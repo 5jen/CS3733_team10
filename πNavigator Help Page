@@ -1,0 +1,65 @@
+πNavigator Help Page
+
+Thank you for using πNavigator! Here is an explanation of the features included in the program
+
+Entering Start and End Locations
+
+	Using the searchable text fields:
+
+	You can search for any place on campus by typing in the location name into the "Start" and "Destination" fields. A dropdown menu will appear listing the location name as you type, and you can select a location in this list to set that location.
+
+	You can select these fields by clicking them or by pressing "Windows Key + S" on your keyboard to enter the Start field or Windows Key + D to enter the destination field. (For Mac OSX, use "Command" instead of "Windows Key")
+
+	Clicking points on the map:
+
+	You can also set the Start and Destination locations by clicking on the nodes on the map. You can hover over the node to see the name of the node.
+
+Selecting maps
+
+	Dropdown menu:
+
+	To select a map using the dropdown menu, click on the button to the left of the Start field, click the dropdown menu, and click "Load Map" to load the selected map.
+
+	Selecting buildings:
+
+	If you are on the campus map, you can click on the buildings to view the floors in that building. You can then select one to have it take you to that floor.
+
+	If you are viewing a building floor, a small menu will appear showing the other building floors. You can click on one of these to switch to that floor
+
+Navigation
+
+	When a route is found, a path will display on the screen showing the way to your destination.
+
+	There are multiple ways to navigate between points on the campus:
+
+	1. Clicking the button next to the destination text field to find your route. Make sure both text fields are filled properly. 
+
+	2. Hitting "Enter" on your keyboard while the Destination field is selected calculates the route between the places in the Start and Destination text fields. Make sure both text fields are filled properly.
+
+	3. Clicking two points on the maps will automatically find the route between the two points. This can be done for nodes on different maps as well
+
+	Turn-By-Turn Directions:
+
+	When a route is calculated, the Turn-By-Turn window will slide up to show the steps necessary to reach your destination. Hovering over each instruction will show you where the on path the instruction should be followed.
+
+	If the route traverses multiple maps, you can switch between them using the Next and Previous buttons at the top of the Directions window. The turn-by-turn directions will also update for the steps necessary for the map currently being viewed.
+
+	Finding Nearest Location
+
+	You can also find the nearest type of location relative to your start destination. Men's and women's bathrooms, dining locations, vending machines, and water fountains can be searched for. To use this:
+
+	1. Enter in a location in the Start text field
+
+	2. Select the type of location you want to find in the Find Nearest dropdown menu
+
+	3. Click the find nearest button. A route will be calculated between your start location and the nearest location of the specified type.
+
+	Email Directions:
+
+	Once you have found a route, you can email yourself the directions. This requires an internet connection. To do so:
+
+	1. Click the email button at the top of the Directions window. A text field will slide out from the Directions window.
+
+	2. Enter your email address. Make sure it is correct.
+
+	3. Click the email button. You will recieve an email containing the directions to your destination.
