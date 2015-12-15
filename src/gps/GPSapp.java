@@ -641,7 +641,10 @@ public class GPSapp extends Application{
 			ImageView EventIconImage = new ImageView(EventIconImagePic);
 			EventIconImage.setFitWidth(35); EventIconImage.setFitHeight(35);
 			tempEvent.setIcon(EventIconImage);
-			
+			//add the tool tips to the event icons
+			Tooltip tempToolTip = new Tooltip(tempEvent.getSummary());
+			Tooltip.install(EventIconImage, tempToolTip);
+					
 			
 			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
 		}
