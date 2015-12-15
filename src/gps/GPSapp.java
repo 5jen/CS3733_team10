@@ -229,6 +229,10 @@ public class GPSapp extends Application{
 	Image greenPinImage = new Image(greenPinFile.toURI().toString());
 	ImageView greenPinView = new ImageView();
 
+	File goatFile = new File("CS3733_Graphics/goat.png");
+	Image goatImage = new Image(goatFile.toURI().toString());
+	ImageView goatView = new ImageView();
+
 	boolean pinAttached = false;
 	Circle enter = new Circle(10.0, Color.GREEN);
 	Circle exit = new Circle(10.0, Color.RED);
@@ -557,6 +561,7 @@ public class GPSapp extends Application{
 		yPinView.setImage(yPinImage);
 		redPinView.setImage(redPinImage);
 		greenPinView.setImage(greenPinImage);
+		goatView.setImage(goatImage);
 
 
 		//Create a keyimage to place the map key on screen
@@ -1624,13 +1629,11 @@ public class GPSapp extends Application{
                                     
                                     //System.out.print.println("NodeList Size = " + nodeList.size());
                                     drawRoute(gc, multiMap.get(currRoute));
-                                    NodePane.getChildren().clear();
-                                    LinkedList<Node> tempNodeList = new LinkedList<Node>();
-                                    tempNodeList.add(multiMap.get(currRoute).get(0));
-                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 1));
-                                    
+                                    ////NodePane.getChildren().clear();
+
+
                                     //Draws only the start and end nodes of the route
-                                    drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
+                                    //drawNodes(globalNodeList, NodePane, root, StartText, DestText, imageView);
 
 									NodePane.getChildren().add(redPinView);
 									redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
@@ -1674,8 +1677,12 @@ public class GPSapp extends Application{
     }
 
     private void drawRoute(GraphicsContext gc, LinkedList<Node> route) {
-    	 Color customBlue = Color.web("0x00b3fd");
+		NodePane.getChildren().remove(goatView);
+
+		Color customBlue = Color.web("0x00b3fd");
     	 gc.setLineCap(StrokeLineCap.ROUND);
+			Path path = new Path();
+		path.getElements().add(new MoveTo(route.getFirst().getX(), route.getFirst().getY()));
     	//iterate through the route drawing a connection between nodes
     	for(int i = 1; i < route.size(); i ++){
     		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")) 
@@ -1692,10 +1699,19 @@ public class GPSapp extends Application{
     			gc.setLineWidth(3*buttonRescale);
                 gc.setStroke(customBlue);
     	  		gc.strokeLine(route.get(i - 1).getX(), route.get(i - 1).getY(), route.get(i).getX(), route.get(i).getY());
+				path.getElements().add(new LineTo( route.get(i).getX(), route.get(i).getY()));
     		}
-    		
-
     	}
+
+		//add line follower
+
+			NodePane.getChildren().add(goatView);
+			PathTransition pathTransition = new PathTransition();
+			pathTransition.setDuration(Duration.millis(600*route.size()));
+			pathTransition.setPath(path);
+			pathTransition.setNode(goatView);
+			pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+			pathTransition.play();
     }
 
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
