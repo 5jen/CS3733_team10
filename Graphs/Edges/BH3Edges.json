@@ -120,7 +120,7 @@
   "to": "BH3:Point:1274:179"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "BH3:Staircase:588:372",
   "to": "BH2:Staircase:587:400"
  },
@@ -135,8 +135,23 @@
   "to": "BH3:Point:618:289"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "BH3:Staircase:588:372",
   "to": "BH2:Staircase:590:356"
+ },
+ {
+  "distance": 30,
+  "from": "BHB:Elevator:572:267",
+  "to": "BH3:Elevator:618:236"
+ },
+ {
+  "distance": 39,
+  "from": "BH1:Elevator:600:302",
+  "to": "BH3:Elevator:618:236"
+ },
+ {
+  "distance": 1,
+  "from": "BH2:Elevator:603:228",
+  "to": "BH3:Elevator:618:236"
  }
 ]
