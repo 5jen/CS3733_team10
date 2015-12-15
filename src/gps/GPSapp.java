@@ -1377,7 +1377,7 @@ public class GPSapp extends Application {
 				keyText.setTranslateX(stageInitialWidthDifference);
 				directionsPane.setTranslateX(stageInitialWidthDifference);
 				emailPane.setTranslateX(stageInitialWidthDifference);
-				aboutPane.setTranslateX(stageInitialWidthDifference);
+				//aboutPane.setTranslateX(stageInitialWidthDifference/2);
 				scrollContent.setTranslateX(initialPanAmountX + stageInitialWidthDifference / 2);
 				descriptionGroup.setTranslateX(stageInitialWidthDifference);
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
@@ -1411,7 +1411,7 @@ public class GPSapp extends Application {
 				keyImageButton.setTranslateY(stageInitialHeightDifference);
 				emailPane.setTranslateY(stageInitialHeightDifference);
 				directionsPane.setTranslateY(stageInitialHeightDifference);
-				aboutPane.setTranslateY(stageInitialHeightDifference);
+				aboutPane.setTranslateY(stageInitialHeightDifference/2);
 				scrollContent.setTranslateY(initialPanAmountY + stageInitialHeightDifference / 2);
 
     		}
