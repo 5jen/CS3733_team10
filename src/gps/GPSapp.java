@@ -520,6 +520,7 @@ public class GPSapp extends Application{
 
         //Create the map image
         File mapFile = new File("CS3733_Graphics/CampusMap.png");
+        mapSelector.setPrefWidth(180);
         mapSelector.setValue(mapSelector.getItems().get(0)); // Default Map when App is opened
         mapSelector.setCellFactory(new Callback<ListView<Map>, ListCell<Map>>() {
             @Override
