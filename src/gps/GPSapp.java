@@ -58,7 +58,6 @@ import java.util.TreeMap;
 import com.sun.javafx.application.LauncherImpl;
 
 import Calendar.CalendarEvents;
-import Calendar.EventMatcher;
 import Calendar.MyEvent;
 import node.Graph;
 import planner.v1.EmailSender;
@@ -335,11 +334,19 @@ public class GPSapp extends Application{
     
     //Create the EventMatchers
     
-    LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
-    EventMatcher FoodEvent = new EventMatcher("Food", FoodWords);
+    LinkedList<String> WPIWords = new LinkedList<String>(Arrays.asList("WPI", "event", "event", "Gompei", "Soccom", "sga", "talent", "show", "perform", "goat", "cdc", "acm"));
     
-    LinkedList<String> WPIWords = new LinkedList<String>(Arrays.asList("WPI", "Soccom", "sga", "talent", "show", "perform", "goat", "cdc", "acm"));
-    EventMatcher WPIEvent = new EventMatcher("WPI", WPIWords);
+    LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
+    
+    //ADD THESE TO THE PARSER!!!
+    LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
+
+    LinkedList<String> AwardWords = new LinkedList<String>(Arrays.asList("award", "ceremony", "trophy", "honor", "banquet", "Humanities", "awarding", "prize", "certificates"));
+    
+    LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "showing", "theater"));
+
+
+    
     //CREATE THE REST OF THE EVENTMATCHERS
     
     //***
@@ -525,9 +532,31 @@ public class GPSapp extends Application{
 			//Get location of event 
 			//MIGHT NEED TO DO CUSTOM LOCATION DEPENDING ON WHERE THE OFFSET IS SET TO
 			//SINCE IT MIGHT BE ON A DIFFERENT CORNER THAN THE BOTTOM RIGHT HAND SIDE
-			tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX());
+			//** IF 2 or more EVENTS HAVE THE SAME LOCATION MOVE ONE OVER
+			//iterate through to count how many events are already at that location,
+			//relocate them based on how many there are
+			int numEvents = 0;
+			for(int n = 0; n < myEvents.size(); n++){
+				if(myEvents.get(n).getLocation().equals(tempEvent.getLocation())){
+					numEvents++;
+				}
+			}
+			//*numEvents
+			tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
 			tempEvent.setlocationY(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-
+			//ADD CUSTOM OFFSETS TO PLACE IN CENTER OF BUILINGS
+			/*
+			 * CC ^30 >60
+			 * FL down90 >30
+			 * AK ^50 <40
+			 * SL ^30 >30
+			 * SH ^60 >10
+			 * RC X829 Y787 (rec center, hard code this building)
+			 * HA down50 >50 (harrington, )
+			 * AH ^90 >30
+			 */
+			
+			
 			//Get the start and end time of the event
 			//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
 			//NOT VITAL BUT WOULD BE NICE...****
@@ -544,13 +573,26 @@ public class GPSapp extends Application{
 			System.out.println(tempDescription); //works time to parse
 			//parse through and search for key words
 			for(int f = 0; f < WPIWords.size();f ++){
-				if(tempDescription.contains(WPIWords.get(i)))
+				if(tempDescription.contains(WPIWords.get(f)))
 					WPIEventCount++;
 			}
 			for(int f = 0; f < FoodWords.size();f ++){
-				if(tempDescription.contains(FoodWords.get(i)))
+				if(tempDescription.contains(FoodWords.get(f)))
 					foodCount++;
 			}
+			for(int f = 0; f < SportWords.size();f ++){
+				if(tempDescription.contains(SportWords.get(f)))
+					sportCount++;
+			}
+			for(int f = 0; f < AwardWords.size();f ++){
+				if(tempDescription.contains(AwardWords.get(f)))
+					awardCount++;
+			}
+			for(int f = 0; f < MovieWords.size();f ++){
+				if(tempDescription.contains(MovieWords.get(f)))
+					movieCount++;
+			}
+			
 			//Add the rest of the parsers once we get this working!!!!!
 			//Depending on which count is the highest at the point, choose the event type
 			tempType  = determineEventType(awardCount, foodCount, movieCount, WPIEventCount , sportCount);
@@ -558,20 +600,19 @@ public class GPSapp extends Application{
 			
 			//depending on the type, set the image icon as well
 			File eventIconFile = new File("CS3733_Graphics/EventImages/"+ tempType +".png");
-	        Image EventIconImagePic = new Image(eventIconFile.toURI().toString());
-			tempEvent.setIcon(new ImageView(EventIconImagePic));
+			//File eventIconFile = new File("CS3733_Graphics/DirectionImages/10.png");
+
+			Image EventIconImagePic = new Image(eventIconFile.toURI().toString());
+			ImageView EventIconImage = new ImageView(EventIconImagePic);
+			EventIconImage.setFitWidth(35); EventIconImage.setFitHeight(35);
+			tempEvent.setIcon(EventIconImage);
 			
 			
 			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
 		}
 		System.out.println("myEvents.size() :  " + myEvents.size());
-		for(int i = 0; i < myEvents.size();i++){
-			//System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
-			//System.out.println("Desc: " + myEvents.get(i).getDescription());
-			//System.out.println("X: " + myEvents.get(i).getlocationX());
-			//System.out.println("Y: " + myEvents.get(i).getlocationY());
-			//*** ATTACH IMAGES IN THE PROPER PLACES ON THE CORRECT PANE***
-		}
+		
+		//MOVE IMAGE ATTACHING TO THE END
 		
 		//******************* PROBABLY MOVE ABOUT TO METHOD AND CALL.. BUT ONLY NEEDS TO BE CALLED ON LAUNCH**********
 
@@ -1415,6 +1456,10 @@ public class GPSapp extends Application{
                 }
             }
         });
+        
+       
+        
+        fixUI();
 
     }
 	
@@ -1457,14 +1502,16 @@ public class GPSapp extends Application{
 
 	private String determineEventType(int awardCount, int foodCount, int movieCount, int WPIEventCount, int sportCount) {
 		//give WPI events more weight, or whatever, depends on order
-		//POSSIBLY delte the = sign to give better image recognition
-		if(WPIEventCount >= awardCount && WPIEventCount >= foodCount && WPIEventCount >= movieCount && WPIEventCount >= sportCount)
+		//POSSIBLY delte the = sign to give better image recognition to add weight
+		 if(movieCount > 0) //movie words are pretty unique
+			return "Movie";
+		else if(WPIEventCount > awardCount && WPIEventCount > foodCount && WPIEventCount > movieCount && WPIEventCount > sportCount)
 			return "WPIEvent";
-		else if(foodCount >= awardCount  && foodCount >= movieCount && foodCount >= sportCount)
+		else if(foodCount > awardCount  && foodCount > movieCount && foodCount > sportCount)
 			return "Food";
-		else if(sportCount >= awardCount  && sportCount >= movieCount)
+		else if(sportCount > awardCount  && sportCount > movieCount)
 			return "Sport";
-		else if(awardCount >= movieCount)
+		else if(awardCount > movieCount)
 			return "Award";
 		else if(movieCount > 0)
 			return "Movie";
@@ -1474,6 +1521,21 @@ public class GPSapp extends Application{
 	
 	//Bring the UI to the front of the screen
 	public void fixUI(){
+		//put the event images onto of the map
+		for(int i = 0; i < myEvents.size();i++){
+			System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
+			System.out.println("Type: " + myEvents.get(i).getType());
+			System.out.println("Desc: " + myEvents.get(i).getDescription());
+			System.out.println("Location: " + myEvents.get(i).getLocation());
+			System.out.println("X: " + myEvents.get(i).getlocationX());
+			System.out.println("Y: " + myEvents.get(i).getlocationY());
+			
+			ImageView eventIcon = myEvents.get(i).getIcon();
+			eventIcon.relocate(myEvents.get(i).getlocationX(), myEvents.get(i).getlocationY());
+			NodePane.getChildren().remove(myEvents.get(i).getIcon()); //incase we already attached it
+			NodePane.getChildren().addAll(myEvents.get(i).getIcon());
+			myEvents.get(i).getIcon().toFront();
+		}
 		aboutGroup.toFront();
 		emailGroup.toFront();
 		directionsGroup.toFront();
