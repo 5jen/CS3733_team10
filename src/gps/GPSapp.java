@@ -541,21 +541,56 @@ public class GPSapp extends Application{
 					numEvents++;
 				}
 			}
-			//*numEvents
+			//*numEvents MUST ADDD
 			tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
 			tempEvent.setlocationY(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
 			//ADD CUSTOM OFFSETS TO PLACE IN CENTER OF BUILINGS
-			/*
-			 * CC ^30 >60
-			 * FL down90 >30
-			 * AK ^50 <40
-			 * SL ^30 >30
-			 * SH ^60 >10
-			 * RC X829 Y787 (rec center, hard code this building)
-			 * HA down50 >50 (harrington, )
-			 * AH ^90 >30
-			 */
 			
+			// CC ^40 >30
+			if(tempEvent.getLocation().equals("Campus Center")){
+				tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//FL down90 >30
+			if(tempEvent.getLocation().equals("Fuller Labs")){
+				tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(+90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//AK ^50 <40
+			if(tempEvent.getLocation().equals("Atwater Kent")){
+				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//SL ^30 >30
+			if(tempEvent.getLocation().equals("Salisbury Labs")){
+				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//SH ^60 >10
+			if(tempEvent.getLocation().equals("Stratton Hall")){
+				tempEvent.setlocationX(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(-60+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//RC X829 Y787 (rec center, hard code this building)
+			if(tempEvent.getLocation().equals("Rec Center")){
+				tempEvent.setlocationX(829+(numEvents*37));
+				tempEvent.setlocationY(787);
+			}
+			//HA down50 >50 (harrington, )
+			if(tempEvent.getLocation().equals("Harrington Auditorium")){
+				tempEvent.setlocationX(50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//AH ^90 >30
+			if(tempEvent.getLocation().equals("Alden Hall")){
+				tempEvent.setlocationX(20+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(-90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
+			//PC down10 <40
+			if(tempEvent.getLocation().equals("Project Center")){
+				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+			}
 			
 			//Get the start and end time of the event
 			//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
@@ -1457,7 +1492,8 @@ public class GPSapp extends Application{
             }
         });
         
-       
+       //set initial map
+        //BuildingRolledOver = 
         
         fixUI();
 
@@ -1522,20 +1558,25 @@ public class GPSapp extends Application{
 	//Bring the UI to the front of the screen
 	public void fixUI(){
 		//put the event images onto of the map
-		for(int i = 0; i < myEvents.size();i++){
-			System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
-			System.out.println("Type: " + myEvents.get(i).getType());
-			System.out.println("Desc: " + myEvents.get(i).getDescription());
-			System.out.println("Location: " + myEvents.get(i).getLocation());
-			System.out.println("X: " + myEvents.get(i).getlocationX());
-			System.out.println("Y: " + myEvents.get(i).getlocationY());
-			
-			ImageView eventIcon = myEvents.get(i).getIcon();
-			eventIcon.relocate(myEvents.get(i).getlocationX(), myEvents.get(i).getlocationY());
-			NodePane.getChildren().remove(myEvents.get(i).getIcon()); //incase we already attached it
-			NodePane.getChildren().addAll(myEvents.get(i).getIcon());
-			myEvents.get(i).getIcon().toFront();
+		//ONly do this on the campus map
+		//System.out.println("ROLLED OVER*****   "+mapSelector.getValue().getName());
+		if(mapSelector.getValue().getName().equals("Campus Map")){
+			for(int i = 0; i < myEvents.size();i++){
+				System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
+				System.out.println("Type: " + myEvents.get(i).getType());
+				System.out.println("Desc: " + myEvents.get(i).getDescription());
+				System.out.println("Location: " + myEvents.get(i).getLocation());
+				System.out.println("X: " + myEvents.get(i).getlocationX());
+				System.out.println("Y: " + myEvents.get(i).getlocationY());
+				
+				ImageView eventIcon = myEvents.get(i).getIcon();
+				eventIcon.relocate(myEvents.get(i).getlocationX(), myEvents.get(i).getlocationY());
+				NodePane.getChildren().remove(myEvents.get(i).getIcon()); //incase we already attached it
+				NodePane.getChildren().addAll(myEvents.get(i).getIcon());
+				myEvents.get(i).getIcon().toFront();
+			}
 		}
+		
 		aboutGroup.toFront();
 		emailGroup.toFront();
 		directionsGroup.toFront();
@@ -2010,7 +2051,7 @@ public class GPSapp extends Application{
 			    });
 			}
      	});
-	    fixUI();
+	    //fixUI(); //removed so that the layered maps were infront of the event icons
 	}
 	
 	private void shortFadeOut(Group g1){
