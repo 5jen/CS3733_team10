@@ -323,7 +323,7 @@ public class GPSapp extends Application {
 	// TODO Add Vending Machines and Water Fountains when nodes are made for
 	// those types
 	ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom",
-			"Dining");
+			"Dining", "Vending Machine", "Water Fountain");
 	ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
 	VBox nearestBox = new VBox(5);
 
@@ -2517,7 +2517,6 @@ public class GPSapp extends Application {
                                     //Display the directions on the side
                                     //System.out.print.println("Route = " + route);
                                     //if(!(route.size() <= 1)){
-                                    root.getChildren().remove(zoomPane);
                                     multiMap = splitRoute(route);//is endlessly looping or suttin
                                     currRoute = 0;
                                     
@@ -2545,9 +2544,6 @@ public class GPSapp extends Application {
                                     loadMap(root, imageView);
                                     //if(multiMap.get(currRoute).size() > 2) root.getChildren().add(s1);
                                     root.getChildren().remove(zoomPane);
-                                    for (int h = 0; h < nodeList.size(); h++) {
-                                        //System.out.print.println("NodeList!!! = " + nodeList.get(h).getIsPlace());
-                                    }
                                     
                                     //System.out.print.println("NodeList Size = " + nodeList.size());
                                     drawRoute(gc, multiMap.get(currRoute));
@@ -2574,11 +2570,6 @@ public class GPSapp extends Application {
                                         dirSliderButton.setRotate(-90);
                                         //System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
                                         directionsAreOut = true;
-                                    }
-                                    else {
-                                        menuDirectionsAnimation(directionsGroup);
-                                        dirSliderButton.setRotate(90);
-                                        directionsAreOut = false;
                                     }
                                     
                                 } catch (NullPointerException n){
@@ -4137,6 +4128,7 @@ public class GPSapp extends Application {
 	public void findAndDisplayRoute(ImageView imageView) {
 		directionBox.getChildren().clear();
 		gc.clearRect(0, 0, 8000, 6000); // Clears old path
+        root.getChildren().remove(zoomPane);
 		keyText.setText("");
 
 		// Need to string compare from
@@ -4156,7 +4148,6 @@ public class GPSapp extends Application {
 		route = new LinkedList<Node>();
 		route = globalGraph.findRoute(startPlace, endPlace);
 		savedRoute = route;
-		multiMap = splitRoute(route);
 		keyText.setFont(Font.font("manteka", 20));
 
 		if (!(startPlace.equals(endPlace))) {
@@ -4164,14 +4155,10 @@ public class GPSapp extends Application {
 			try {
 				// if the entire route is only on 1 map, display all instruction
 				// at once
+                multiMap = splitRoute(route);//is endlessly looping or suttin
+                currRoute = 0;
 				displayInstructions(multiMap.get(currRoute), root);
 				root.getChildren().remove(zoomPane);
-				if (currRoute > 0) {
-					root.getChildren().remove(PrevInstruction);
-					root.getChildren().add(PrevInstruction);
-				}
-				root.getChildren().remove(NextInstruction);
-				root.getChildren().add(NextInstruction); // attach next button
 				Map initials = null;
 
 				for (Map map : maps) {
@@ -4184,34 +4171,10 @@ public class GPSapp extends Application {
 				// System.out.print.println("INITIALS: "+ initials);
 				gc.clearRect(0, 0, 6000, 3000);
 
-				// System.out.print.println("Route length: " + route.size());
-				// Display the directions on the side
-				// System.out.print.println("Route = " + route);
-				// if(!(route.size() <= 1)){
-				multiMap = splitRoute(route);// is endlessly looping or suttin
-				currRoute = 0;
-
-				// }
-				// if the entire route is only on 1 map, display all instruction
-				// at once
-				displayInstructions(multiMap.get(currRoute), root);
-				root.getChildren().remove(NextInstruction);
-				root.getChildren().add(NextInstruction); // attach next button
-
-				for (int i = 0; i < maps.size(); i++) {
-					// System.out.print.println("CURRENT ROUTE: " + currRoute);
-					// System.out.print.println("multiMap.get(currRouteE: " +
-					// multiMap.get(currRoute).get(0).getFloorMap());
-					if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-						initials = maps.get(i);
-				}
-				// System.out.print.println("INITIALS: " + initials);
-				gc.clearRect(0, 0, 6000, 3000);
-
 				mapSelector.setValue(initials);
 				loadMap(root, imageView);
-				if (multiMap.get(currRoute).size() > 2)
-					root.getChildren().add(s1);
+//				if (multiMap.get(currRoute).size() > 2)
+//					root.getChildren().add(s1);
 				drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 				drawRoute(gc, multiMap.get(currRoute));
 
@@ -4224,7 +4187,6 @@ public class GPSapp extends Application {
 					NodePane.getChildren().add(greenPinView);
 					greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
 					greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
-					root.getChildren().remove(NextInstruction);
 				}
 
 				/*
@@ -4234,6 +4196,12 @@ public class GPSapp extends Application {
 				 */
 
 				route = new LinkedList<Node>();
+                if(!directionsAreOut){
+                    menuDirectionsAnimation(directionsGroup);
+                    dirSliderButton.setRotate(-90);
+                    //System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
+                    directionsAreOut = true;
+                }
 			} catch (NullPointerException n) {
 				keyText.setText("Path not Found");
 				keyText.setFill(Color.WHITE);
@@ -4272,12 +4240,6 @@ public class GPSapp extends Application {
 				// if the entire route is only on 1 map, display all instruction
 				// at once
 				displayInstructions(multiMap.get(currRoute), root);
-				if (currRoute > 0) {
-					root.getChildren().remove(PrevInstruction);
-					root.getChildren().add(PrevInstruction);
-				}
-				root.getChildren().remove(NextInstruction);
-				root.getChildren().add(NextInstruction); // attach next button
 				Map initials = null;
 
 				for (int i = 0; i < maps.size(); i++) {
@@ -4290,34 +4252,10 @@ public class GPSapp extends Application {
 				// System.out.print.println("INITIALS: "+ initials);
 				gc.clearRect(0, 0, 6000, 3000);
 
-				// System.out.print.println("Route length: " + route.size());
-				// Display the directions on the side
-				// System.out.print.println("Route = " + route);
-				// if(!(route.size() <= 1)){
-				multiMap = splitRoute(route);// is endlessly looping or suttin
-				currRoute = 0;
-
-				// }
-				// if the entire route is only on 1 map, display all instruction
-				// at once
-				displayInstructions(multiMap.get(currRoute), root);
-				root.getChildren().remove(NextInstruction);
-				root.getChildren().add(NextInstruction); // attach next button
-
-				for (int i = 0; i < maps.size(); i++) {
-					// System.out.print.println("CURRENT ROUTE: " + currRoute);
-					// System.out.print.println("multiMap.get(currRouteE: " +
-					// multiMap.get(currRoute).get(0).getFloorMap());
-					if (maps.get(i).getName().equals(multiMap.get(currRoute).get(0).getFloorMap()))
-						initials = maps.get(i);
-				}
-				// System.out.print.println("INITIALS: " + initials);
-				gc.clearRect(0, 0, 6000, 3000);
-
 				mapSelector.setValue(initials);
 				loadMap(root, imageView);
-				if (multiMap.get(currRoute).size() > 2)
-					root.getChildren().add(s1);
+//				if (multiMap.get(currRoute).size() > 2)
+//					root.getChildren().add(s1);
 				drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 				drawRoute(gc, multiMap.get(currRoute));
 
@@ -4331,6 +4269,13 @@ public class GPSapp extends Application {
 					greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
 
 				}
+
+                if(!directionsAreOut){
+                    menuDirectionsAnimation(directionsGroup);
+                    dirSliderButton.setRotate(-90);
+                    //System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
+                    directionsAreOut = true;
+                }
 				/*
 				 * final Group group = new Group(imageView, canvas, NodePane);
 				 * zoomPane = createZoomPane(group);
