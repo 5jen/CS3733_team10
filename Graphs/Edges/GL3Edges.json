@@ -1,1 +1,407 @@
-[{"distance":1,"from":"GL3:Point:192:261","to":"GL301"},{"distance":6,"from":"GL3:Point:192:261","to":"GL3:Point:316:261"},{"distance":3,"from":"GL3:Point:316:197","to":"GL3:Point:316:261"},{"distance":4,"from":"GL3:Point:316:197","to":"GL3:Point:316:120"},{"distance":3,"from":"GL3:Point:316:60","to":"GL3:Point:316:120"},{"distance":9,"from":"GL3:Point:316:60","to":"GL3:Point:472:60"},{"distance":8,"from":"GL3:Point:641:60","to":"GL3:Point:472:60"},{"distance":9,"from":"GL3:Point:641:60","to":"GL3:Point:810:60"},{"distance":3,"from":"GL3:Point:810:120","to":"GL3:Point:810:60"},{"distance":2,"from":"GL3:Point:810:120","to":"GL3:Point:810:157"},{"distance":3,"from":"GL3:Point:810:219","to":"GL3:Point:810:157"},{"distance":2,"from":"GL3:Point:810:219","to":"GL3:Point:810:249"},{"distance":3,"from":"GL3:Point:810:314","to":"GL3:Point:810:249"},{"distance":2,"from":"GL3:Point:810:314","to":"GL3:Point:810:355"},{"distance":5,"from":"GL3:Point:810:439","to":"GL3:Point:810:355"},{"distance":8,"from":"GL3:Point:810:439","to":"GL3:Point:645:436"},{"distance":3,"from":"GL3:Point:645:379","to":"GL3:Point:645:436"},{"distance":2,"from":"GL3:Point:645:379","to":"GL3:Point:645:352"},{"distance":1,"from":"GL3:Point:645:320","to":"GL3:Point:645:352"},{"distance":1,"from":"GL3:Point:645:320","to":"GL3:Point:645:300"},{"distance":2,"from":"GL3:Point:645:300","to":"GL3:Point:645:264"},{"distance":1,"from":"GL3:Point:645:248","to":"GL3:Point:645:264"},{"distance":1,"from":"GL3:Point:645:248","to":"GL3:Point:645:222"},{"distance":4,"from":"GL3:Point:645:154","to":"GL3:Point:645:222"},{"distance":2,"from":"GL3:Point:645:154","to":"GL3:Point:645:117"},{"distance":3,"from":"GL3:Point:641:60","to":"GL3:Point:645:117"},{"distance":1,"from":"GL3:Point:544:569","to":"GL309"},{"distance":5,"from":"GL3:Point:544:569","to":"GL3:Point:643:568"},{"distance":2,"from":"GL310","to":"GL3:Point:643:568"},{"distance":1,"from":"GL310","to":"GL3:Point:642:515"},{"distance":4,"from":"GL3:Point:645:436","to":"GL3:Point:642:515"},{"distance":10,"from":"GL3:Point:645:436","to":"GL3:Point:449:436"},{"distance":4,"from":"GL3:Point:453:515","to":"GL3:Point:449:436"},{"distance":2,"from":"GL3:Point:453:515","to":"GL307A"},{"distance":1,"from":"GL3:Point:454:569","to":"GL307A"},{"distance":2,"from":"GL3:Point:454:569","to":"GL308"},{"distance":3,"from":"GL3:Point:544:569","to":"GL308"},{"distance":3,"from":"GL3:Point:231:667","to":"GL304"},{"distance":7,"from":"GL3:Point:231:667","to":"GL306"},{"distance":1,"from":"GL3:Point:234:515","to":"GL306"},{"distance":4,"from":"GL3:Point:234:515","to":"GL3:Point:322:515"},{"distance":4,"from":"GL3:Point:390:515","to":"GL3:Point:322:515"},{"distance":3,"from":"GL3:Point:390:515","to":"GL3:Point:453:515"},{"distance":4,"from":"GL3:Point:449:436","to":"GL3:Point:390:436"},{"distance":3,"from":"GL3:Point:320:436","to":"GL3:Point:390:436"},{"distance":5,"from":"GL3:Point:320:436","to":"GL3:Point:228:436"},{"distance":2,"from":"GL3:Point:192:436","to":"GL3:Point:228:436"},{"distance":1,"from":"GL3:Point:192:436","to":"GL3:Point:192:416"},{"distance":2,"from":"GL3:Point:192:375","to":"GL3:Point:192:416"},{"distance":6,"from":"GL3:Point:192:375","to":"GL3:Point:192:261"},{"distance":1,"from":"GL3:Point:322:515","to":"GL306F"},{"distance":4,"from":"GL3:Point:322:515","to":"GL3:Point:320:436"},{"distance":2,"from":"GL3:Staircase:390:386","to":"GL3:Point:390:436"},{"distance":4,"from":"GL3:Point:390:515","to":"GL3:Point:390:436"},{"distance":4,"from":"GL3:Point:234:515","to":"GL3:Point:228:436"},{"distance":1,"from":"GL3:Point:192:416","to":"GL303"},{"distance":1,"from":"GL3:Point:192:375","to":"GL302"},{"distance":2,"from":"GL Third Floor Women's Bathroom","to":"GL3:Point:316:197"},{"distance":2,"from":"GL Third Floor Men's Bathroom","to":"GL3:Point:316:120"},{"distance":2,"from":"GL313","to":"GL3:Point:472:60"},{"distance":1,"from":"GL356","to":"GL3:Point:645:117"},{"distance":1,"from":"GL355","to":"GL3:Point:645:154"},{"distance":1,"from":"GL354","to":"GL3:Point:645:222"},{"distance":1,"from":"GL353","to":"GL3:Point:645:248"},{"distance":2,"from":"GL3:Point:645:264","to":"GL3214"},{"distance":1,"from":"GL3:Point:645:300","to":"GL315"},{"distance":1,"from":"GL352","to":"GL3:Point:645:320"},{"distance":1,"from":"GL351","to":"GL3:Point:645:352"},{"distance":1,"from":"GL3:Point:645:379","to":"GL316"},{"distance":0,"from":"GL3:Point:810:355","to":"GL3512"},{"distance":1,"from":"GL3:Point:810:314","to":"GL3511"},{"distance":0,"from":"GL3:Point:810:249","to":"GL3510"},{"distance":1,"from":"GL3:Point:810:219","to":"GL359"},{"distance":0,"from":"GL3:Point:810:157","to":"GL358"},{"distance":1,"from":"GL3:Point:810:120","to":"GL357"},{"distance": 2,"from": "GL3:Staircase:390:386","to":"GL2:Point:431:399"}]
+[
+ {
+  "distance": 1,
+  "from": "GL3:Point:192:261",
+  "to": "GL301"
+ },
+ {
+  "distance": 6,
+  "from": "GL3:Point:192:261",
+  "to": "GL3:Point:316:261"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:316:197",
+  "to": "GL3:Point:316:261"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:316:197",
+  "to": "GL3:Point:316:120"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:316:60",
+  "to": "GL3:Point:316:120"
+ },
+ {
+  "distance": 9,
+  "from": "GL3:Point:316:60",
+  "to": "GL3:Point:472:60"
+ },
+ {
+  "distance": 8,
+  "from": "GL3:Point:641:60",
+  "to": "GL3:Point:472:60"
+ },
+ {
+  "distance": 9,
+  "from": "GL3:Point:641:60",
+  "to": "GL3:Point:810:60"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:810:120",
+  "to": "GL3:Point:810:60"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:810:120",
+  "to": "GL3:Point:810:157"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:810:219",
+  "to": "GL3:Point:810:157"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:810:219",
+  "to": "GL3:Point:810:249"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:810:314",
+  "to": "GL3:Point:810:249"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:810:314",
+  "to": "GL3:Point:810:355"
+ },
+ {
+  "distance": 5,
+  "from": "GL3:Point:810:439",
+  "to": "GL3:Point:810:355"
+ },
+ {
+  "distance": 8,
+  "from": "GL3:Point:810:439",
+  "to": "GL3:Point:645:436"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:645:379",
+  "to": "GL3:Point:645:436"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:645:379",
+  "to": "GL3:Point:645:352"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:320",
+  "to": "GL3:Point:645:352"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:320",
+  "to": "GL3:Point:645:300"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:645:300",
+  "to": "GL3:Point:645:264"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:248",
+  "to": "GL3:Point:645:264"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:248",
+  "to": "GL3:Point:645:222"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:645:154",
+  "to": "GL3:Point:645:222"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:645:154",
+  "to": "GL3:Point:645:117"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:641:60",
+  "to": "GL3:Point:645:117"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:544:569",
+  "to": "GL309"
+ },
+ {
+  "distance": 5,
+  "from": "GL3:Point:544:569",
+  "to": "GL3:Point:643:568"
+ },
+ {
+  "distance": 2,
+  "from": "GL310",
+  "to": "GL3:Point:643:568"
+ },
+ {
+  "distance": 1,
+  "from": "GL310",
+  "to": "GL3:Point:642:515"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:645:436",
+  "to": "GL3:Point:642:515"
+ },
+ {
+  "distance": 10,
+  "from": "GL3:Point:645:436",
+  "to": "GL3:Point:449:436"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:453:515",
+  "to": "GL3:Point:449:436"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:453:515",
+  "to": "GL307A"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:454:569",
+  "to": "GL307A"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:454:569",
+  "to": "GL308"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:544:569",
+  "to": "GL308"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:231:667",
+  "to": "GL304"
+ },
+ {
+  "distance": 7,
+  "from": "GL3:Point:231:667",
+  "to": "GL306"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:234:515",
+  "to": "GL306"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:234:515",
+  "to": "GL3:Point:322:515"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:390:515",
+  "to": "GL3:Point:322:515"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:390:515",
+  "to": "GL3:Point:453:515"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:449:436",
+  "to": "GL3:Point:390:436"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Point:320:436",
+  "to": "GL3:Point:390:436"
+ },
+ {
+  "distance": 5,
+  "from": "GL3:Point:320:436",
+  "to": "GL3:Point:228:436"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:192:436",
+  "to": "GL3:Point:228:436"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:192:436",
+  "to": "GL3:Point:192:416"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:192:375",
+  "to": "GL3:Point:192:416"
+ },
+ {
+  "distance": 6,
+  "from": "GL3:Point:192:375",
+  "to": "GL3:Point:192:261"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:322:515",
+  "to": "GL306F"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:322:515",
+  "to": "GL3:Point:320:436"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Staircase:390:386",
+  "to": "GL3:Point:390:436"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:390:515",
+  "to": "GL3:Point:390:436"
+ },
+ {
+  "distance": 4,
+  "from": "GL3:Point:234:515",
+  "to": "GL3:Point:228:436"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:192:416",
+  "to": "GL303"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:192:375",
+  "to": "GL302"
+ },
+ {
+  "distance": 2,
+  "from": "GL Third Floor Women's Bathroom",
+  "to": "GL3:Point:316:197"
+ },
+ {
+  "distance": 2,
+  "from": "GL Third Floor Men's Bathroom",
+  "to": "GL3:Point:316:120"
+ },
+ {
+  "distance": 2,
+  "from": "GL313",
+  "to": "GL3:Point:472:60"
+ },
+ {
+  "distance": 1,
+  "from": "GL356",
+  "to": "GL3:Point:645:117"
+ },
+ {
+  "distance": 1,
+  "from": "GL355",
+  "to": "GL3:Point:645:154"
+ },
+ {
+  "distance": 1,
+  "from": "GL354",
+  "to": "GL3:Point:645:222"
+ },
+ {
+  "distance": 1,
+  "from": "GL353",
+  "to": "GL3:Point:645:248"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:645:264",
+  "to": "GL3214"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:300",
+  "to": "GL315"
+ },
+ {
+  "distance": 1,
+  "from": "GL352",
+  "to": "GL3:Point:645:320"
+ },
+ {
+  "distance": 1,
+  "from": "GL351",
+  "to": "GL3:Point:645:352"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:645:379",
+  "to": "GL316"
+ },
+ {
+  "distance": 0,
+  "from": "GL3:Point:810:355",
+  "to": "GL3512"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:810:314",
+  "to": "GL3511"
+ },
+ {
+  "distance": 0,
+  "from": "GL3:Point:810:249",
+  "to": "GL3510"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:810:219",
+  "to": "GL359"
+ },
+ {
+  "distance": 0,
+  "from": "GL3:Point:810:157",
+  "to": "GL358"
+ },
+ {
+  "distance": 1,
+  "from": "GL3:Point:810:120",
+  "to": "GL357"
+ },
+ {
+  "distance": 10,
+  "from": "GL3:Staircase:390:386",
+  "to": "GL2:Point:431:399"
+ },
+ {
+  "distance": 3,
+  "from": "GL3:Elevator:449:388",
+  "to": "GL3:Point:449:436"
+ },
+ {
+  "distance": 40,
+  "from": "GL3:Elevator:449:388",
+  "to": "GLSB:Elevator:485:439"
+ },
+ {
+  "distance": 30,
+  "from": "GL3:Elevator:449:388",
+  "to": "GLB:Elevator:490:441"
+ },
+ {
+  "distance": 20,
+  "from": "GL3:Elevator:449:388",
+  "to": "GL1:Elevator:490:444"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Elevator:449:388",
+  "to": "GL2:Elevator:495:400"
+ }
+]
