@@ -2826,10 +2826,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6305);
 							NodePane.setScaleY(0.6305);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-270, -55);
 							canvas.setScaleX(0.6305);
 							canvas.setScaleY(0.6305);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-270, -55);
 							buttonRescale = 1 / 0.6305;
 							break;
         case "West1":
@@ -2838,10 +2838,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5949);
 							NodePane.setScaleY(0.5949);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-270, -50);
 							canvas.setScaleX(0.5949);
 							canvas.setScaleY(0.5949);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-270, -50);
 							buttonRescale = 1 / 0.5949;
 							break;
         case "West2":
@@ -2850,10 +2850,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.5929);
 							NodePane.setScaleY(0.5929);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-270, -50);
 							canvas.setScaleX(0.5929);
 							canvas.setScaleY(0.5929);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-270, -50);
 							buttonRescale = 1 / 0.5929;
 							break;
         case "SL3":
@@ -2862,10 +2862,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6840);
 							NodePane.setScaleY(0.6840);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-270, -60);
 							canvas.setScaleX(0.6840);
 							canvas.setScaleY(0.6840);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-270, -60);
 							buttonRescale = 1 / 0.6840;
 							break;
         case "SL4":
@@ -2874,10 +2874,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6988);
 							NodePane.setScaleY(0.6988);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-270, -60);
 							canvas.setScaleX(0.6988);
 							canvas.setScaleY(0.6988);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-270, -60);
 							buttonRescale = 1 / 0.6988;
 							break;
         case "WS1":
@@ -2886,10 +2886,10 @@ public class GPSapp extends Application{
 							imageView.relocate(0, 0);
 							NodePane.setScaleX(0.6116);
 							NodePane.setScaleY(0.6116);
-							NodePane.relocate(-270, -40);
+							NodePane.relocate(-225, -45);
 							canvas.setScaleX(0.6116);
 							canvas.setScaleY(0.6116);
-							canvas.relocate(-270, -40);
+							canvas.relocate(-225, -45);
 							buttonRescale = 1 / 0.6116;
 							break;
         //TODO ADD BUILDINGS   
