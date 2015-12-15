@@ -224,14 +224,3 @@
     -fx-text-fill: black;
     -fx-font-size: 14px;
 }
-#DarkStyle {
-  -fx-border-style: solid;
-  -fx-bborder-width: 1px;
-  -fx-border-color: rgb(28, 22, 23);
-  -fx-border-radius: 5px;
-  -fx-background-image: -moz-linear-gradient( 90deg, rgba(75,60,61,0) 0%, rgb(255,255,255) 100%);
-  -fx-background-image: -webkit-linear-gradient( 90deg, rgba(75,60,61,0) 0%, rgb(255,255,255) 100%);
-  -fx-background-image: -ms-linear-gradient( 90deg, rgba(75,60,61,0) 0%, rgb(255,255,255) 100%);
-  -fx-box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.1), inset 0px 2px 0px 0px rgba(255, 255, 255, 0.15);
-
-}
