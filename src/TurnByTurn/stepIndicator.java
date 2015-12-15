@@ -87,7 +87,7 @@ public class stepIndicator {
                     String map = route.get(i).getFloorMap();
                     maneuver = "Elevator to ";
                     //TODO Use elevator image
-                    icon_id = 5;
+                    icon_id = 10;
                     message = maneuver + map;
                 } else {
                     if ((type.compareTo("Staircase") == 0) &&
@@ -149,6 +149,7 @@ public class stepIndicator {
              *  6                  U turn
              *  7                  starting route
              *  8                  reach destination
+             *  10                 elevator
              */
 
              //check duplicate go straight
