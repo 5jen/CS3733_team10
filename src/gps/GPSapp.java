@@ -1442,7 +1442,7 @@ public class GPSapp extends Application{
 		    	if(currRoute == 0)
 		    		directions.addFirst(new Step(0,"Walk Straight",0, directions.get(0).getX(),directions.get(0).getY()));
 		    	if(currRoute == currMaps-1)
-		    		directions.add(new Step(99,"You've arrived",0, directions.get(0).getX(),directions.get(0).getY()));
+		    		directions.add(new Step(99,"You've arrived",0, route.getLast().getX(),route.getLast().getY()));
 		    	
 		    	//iterate through the list of instructions and create labels for each one and attach to the root
 		    	for(int i = 0; i < directions.size(); i++){
@@ -2118,8 +2118,8 @@ public class GPSapp extends Application{
 		path.getElements().add(new MoveTo(route.getFirst().getX(), route.getFirst().getY()));
     	//iterate through the route drawing a connection between nodes
     	for(int i = 1; i < route.size(); i ++){
-    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")) 
-    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
+    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")&&!route.get(i-1).getType().equals("Elevator"))
+    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase")&&!route.get(i).getType().equals("Elevator"))){
     			gc.setLineWidth(5*buttonRescale);
                 gc.setStroke(Color.BLACK);
     	  		gc.strokeLine(route.get(i-1).getX(), route.get(i-1).getY(), route.get(i).getX(),route.get(i).getY());
@@ -2127,8 +2127,8 @@ public class GPSapp extends Application{
     		
     	}
     	for(int i = 1; i < route.size(); i ++){
-    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase"))
-    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase"))){
+    		if((!route.get(i-1).getType().equals("Transition Point")&&!route.get(i-1).getType().equals("Staircase")&&!route.get(i-1).getType().equals("Elevator"))
+    				||(!route.get(i).getType().equals("Transition Point")&&!route.get(i).getType().equals("Staircase")&&!route.get(i).getType().equals("Elevator"))){
     			gc.setLineWidth(3*buttonRescale);
                 gc.setStroke(customBlue);
     	  		gc.strokeLine(route.get(i - 1).getX(), route.get(i - 1).getY(), route.get(i).getX(), route.get(i).getY());
