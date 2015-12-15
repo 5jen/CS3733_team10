@@ -32,7 +32,6 @@ public class stepIndicator {
 
         int i = 1;
         while (i<route.size()- 1){
-           // int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
             String message;
             String maneuver;
             //the type for a node
@@ -59,16 +58,20 @@ public class stepIndicator {
             int dis = getDistance(x1,x2,y1,y2);
 
             // Transition point between maps
-            if (type.compareTo("Transition Point")==0) {
+            if ((type.compareTo("Transition Point")==0) &&
+                    (route.get(i+1).getType().compareTo("Transition Point") == 0)){
                 i++;//skip transition points in pairs
                 String map = route.get(i).getFloorMap();
+
                 //TODO convert map name to actual name
                 maneuver = "Go to ";//need to add building floor name
                 icon_id = 5;
                 message = maneuver + map;
             }
             else {
-                if (type.compareTo("Staircase") == 0){
+                if ((type.compareTo("Staircase") == 0) &&
+                        (route.get(i+1).getType().compareTo("Staircase") == 0)){
+
                     int z1 = route.get(i-1).getZ();
                     int z2 = route.get(i+1).getZ();
 
@@ -125,10 +128,6 @@ public class stepIndicator {
 
              i++;
         }
-
-        //result.addFirst(new Step(0,"Walk Straight",0));
-        //result.addFirst(new Step(7,"Starting navigation",0));
-        //result.addLast(new Step(8,"You have reached your destination",0));
 
         return result;
     }
