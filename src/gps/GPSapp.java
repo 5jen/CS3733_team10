@@ -701,6 +701,11 @@ public class GPSapp extends Application{
         DestText.setStyle("-fx-background-color: CADETBLUE , white , white;"
 				 + "-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;");
 
+        StartText.setPrefWidth(180);
+        DestText.setPrefWidth(180);
+        StartText.setMaxWidth(180);
+        DestText.setMaxWidth(180);
+
 
 
 
@@ -1267,8 +1272,6 @@ public class GPSapp extends Application{
                     destBool = false;
                     startButtonBool = false;
                     destButtonBool = false;
-                    root.getChildren().remove(NextInstruction);
-                    root.getChildren().remove(PrevInstruction);
                     StartText.setText("");
                     DestText.setText("");
                     StartText.setPromptText("Start");
@@ -1278,6 +1281,8 @@ public class GPSapp extends Application{
                     StartList.setOpacity(0);
                     DestList.setOpacity(0);
                     keyText.setText("");
+                    directionBox.getChildren().clear();
+
                 }
 
                 if (event.getCode() == KeyCode.S && event.isShortcutDown()){
