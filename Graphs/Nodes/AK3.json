@@ -973,5 +973,18 @@
   "valz": 10,
   "building": "Atwater Kent",
   "valy": 9
+ },
+ {
+  "valx": 886,
+  "globalY": 552,
+  "isWalkable": true,
+  "globalX": 1505,
+  "floorMap": "Atwater Kent 3",
+  "name": "AK3:Elevator:886:223",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 10,
+  "building": "Atwater Kent",
+  "valy": 223
  }
 ]

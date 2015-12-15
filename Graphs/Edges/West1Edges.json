@@ -1,1 +1,72 @@
-[]
+[
+ {
+  "distance": 2,
+  "from": "West1:Point:737:793",
+  "to": "West1:Staircase:737:867"
+ },
+ {
+  "distance": 3,
+  "from": "West1:Point:737:793",
+  "to": "157W100"
+ },
+ {
+  "distance": 0,
+  "from": "West1:Point:935:793",
+  "to": "157W100"
+ },
+ {
+  "distance": 4,
+  "from": "West1:Point:935:793",
+  "to": "West1:Point:935:571"
+ },
+ {
+  "distance": 2,
+  "from": "West1:Point:850:571",
+  "to": "West1:Point:935:571"
+ },
+ {
+  "distance": 0,
+  "from": "West1:Point:850:571",
+  "to": "157W101"
+ },
+ {
+  "distance": 4,
+  "from": "West1:Point:850:571",
+  "to": "West1:Point:850:312"
+ },
+ {
+  "distance": 1,
+  "from": "157W103",
+  "to": "West1:Point:850:312"
+ },
+ {
+  "distance": 3,
+  "from": "West1:Point:1023:312",
+  "to": "West1:Point:850:312"
+ },
+ {
+  "distance": 1,
+  "from": "West1:Point:1023:312",
+  "to": "157W104"
+ },
+ {
+  "distance": 5,
+  "from": "West1:Point:850:312",
+  "to": "West1:Point:850:45"
+ },
+ {
+  "distance": 5,
+  "from": "West1:Transition Point:594:45",
+  "to": "West1:Point:850:45"
+ },
+ {
+  "distance": 1,
+  "from": "West1:Transition Point:594:45",
+  "to": "West1:Staircase:594:114"
+ },
+ {
+  "distance": 1,
+  "from": "West2:Staircase:695:875",
+  "to": "West1:Staircase:737:867"
+ }
+]

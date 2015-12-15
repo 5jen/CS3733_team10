@@ -160,11 +160,6 @@
   "to": "CC1:Point:611:459"
  },
  {
-  "distance": 8,
-  "from": "CC1EntranceInside",
-  "to": "CC1:Point:611:459"
- },
- {
   "distance": 7,
   "from": "CC1:Place:526:788",
   "to": "CC1:Place:410:788"
@@ -238,11 +233,6 @@
   "distance": 2,
   "from": "CC1:Place:221:284",
   "to": "CC114"
- },
- {
-  "distance": 2,
-  "from": "CC1:Point:140:344",
-  "to": "CC120"
  },
  {
   "distance": 3,
@@ -485,19 +475,9 @@
   "to": "CC1:Point:220:344"
  },
  {
-  "distance": 5,
-  "from": "CC1:Point:140:344",
-  "to": "CC1:Point:220:344"
- },
- {
   "distance": 2,
   "from": "CC124",
   "to": "CC1:Place:221:64"
- },
- {
-  "distance": 2,
-  "from": "CC1:Point:140:344",
-  "to": "CC1:Point:114:344"
  },
  {
   "distance": 3,
@@ -520,7 +500,7 @@
   "to": "CC1:Point:1091:545"
  },
  {
-  "distance": 5,
+  "distance": 11,
   "from": "CC2:Staircase:1049:445",
   "to": "CCBackStairs-1"
  },
@@ -568,5 +548,35 @@
   "distance": 1,
   "from": "CC1:Staircase:433:447",
   "to": "CC1:Point:420:470"
+ },
+ {
+  "distance": 3,
+  "from": "CC1:Vending Machine:180:192",
+  "to": "CC1:Place:221:195"
+ },
+ {
+  "distance": 2,
+  "from": "CC1:Point:145:344",
+  "to": "CC120"
+ },
+ {
+  "distance": 2,
+  "from": "CC1:Point:114:344",
+  "to": "CC1:Point:145:344"
+ },
+ {
+  "distance": 3,
+  "from": "CC1:Point:181:344",
+  "to": "CC1:Point:145:344"
+ },
+ {
+  "distance": 1,
+  "from": "CC1:Point:181:344",
+  "to": "CC1:Water Fountain:176:327"
+ },
+ {
+  "distance": 2,
+  "from": "CC1:Point:220:344",
+  "to": "CC1:Point:181:344"
  }
 ]

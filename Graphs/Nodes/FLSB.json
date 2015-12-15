@@ -557,5 +557,31 @@
   "valz": -40,
   "building": "Fuller Labs",
   "valy": 283
+ },
+ {
+  "valx": 647,
+  "globalY": 545,
+  "isWalkable": true,
+  "globalX": 1636,
+  "floorMap": "Fuller Labs SB",
+  "name": "FLSB:Point:647:330",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -40,
+  "building": "Fuller Labs",
+  "valy": 330
+ },
+ {
+  "valx": 672,
+  "globalY": 546,
+  "isWalkable": true,
+  "globalX": 1636,
+  "floorMap": "Fuller Labs SB",
+  "name": "FLSB:Elevator:672:330",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": -40,
+  "building": "Fuller Labs",
+  "valy": 330
  }
 ]

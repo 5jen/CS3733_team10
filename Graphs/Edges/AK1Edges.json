@@ -185,26 +185,6 @@
   "to": "AK1:Point:487:683"
  },
  {
-  "distance": 4,
-  "from": "AK1:Point:596:683",
-  "to": "AK1:Point:676:683"
- },
- {
-  "distance": 8,
-  "from": "AK1:Point:839:683",
-  "to": "AK1:Point:676:683"
- },
- {
-  "distance": 5,
-  "from": "AK1:Point:839:683",
-  "to": "AK1:Point:950:683"
- },
- {
-  "distance": 5,
-  "from": "AK1:Point:1048:683",
-  "to": "AK1:Point:950:683"
- },
- {
   "distance": 5,
   "from": "AK1:Point:1048:683",
   "to": "AK1:Point:1158:683"
@@ -265,44 +245,14 @@
   "to": "AK113"
  },
  {
-  "distance": 2,
-  "from": "AK1:Point:596:683",
-  "to": "AK118"
- },
- {
-  "distance": 2,
-  "from": "AK1:Point:676:683",
-  "to": "AK117"
- },
- {
-  "distance": 2,
-  "from": "AK1:Point:839:683",
-  "to": "AK 1st Floor Women's Bathroom"
- },
- {
-  "distance": 2,
-  "from": "AK1:Point:950:683",
-  "to": "AK 1st Floor Men's Bathroom"
- },
- {
   "distance": 1,
   "from": "AK1:Point:487:559",
   "to": "AK119"
  },
  {
-  "distance": 1,
-  "from": "AK1:Point:487:456",
-  "to": "AK120C"
- },
- {
   "distance": 2,
   "from": "AK1:Point:1048:558",
   "to": "AK114"
- },
- {
-  "distance": 1,
-  "from": "AK1:Point:445:192",
-  "to": "AK108"
  },
  {
   "distance": 5,
@@ -340,11 +290,6 @@
   "to": "AK1:Point:487:243"
  },
  {
-  "distance": 1410,
-  "from": "AK1:Place:539:242",
-  "to": "123"
- },
- {
   "distance": 3,
   "from": "AK1:Place:539:188",
   "to": "AK1:Place:539:242"
@@ -373,21 +318,6 @@
   "distance": 4,
   "from": "AK1:Point:739:192",
   "to": "AK1:Point:832:192"
- },
- {
-  "distance": 2,
-  "from": "AK1:Point:876:192",
-  "to": "AK1:Point:832:192"
- },
- {
-  "distance": 4,
-  "from": "AK1:Point:876:192",
-  "to": "AK1:Point:962:192"
- },
- {
-  "distance": 5,
-  "from": "AK1:Point:1062:192",
-  "to": "AK1:Point:962:192"
  },
  {
   "distance": 4,
@@ -458,11 +388,6 @@
   "distance": 2,
   "from": "AK103",
   "to": "AK1:Point:832:192"
- },
- {
-  "distance": 2,
-  "from": "AK102",
-  "to": "AK1:Point:876:192"
  },
  {
   "distance": 1,
@@ -575,12 +500,12 @@
   "to": "AK112B"
  },
  {
-  "distance": 28,
+  "distance": 29,
   "from": "AK Front Entrance",
   "to": "AK1:Transition Point:1055:47"
  },
  {
-  "distance": 12,
+  "distance": 15,
   "from": "AKB:Staircase:1010:351",
   "to": "AK1:Staircase:1339:665"
  },
@@ -600,8 +525,93 @@
   "to": "AK1:Staircase:1339:665"
  },
  {
-  "distance": 4,
+  "distance": 10,
   "from": "AK1:Staircase:1162:36",
   "to": "AK2:Staircase:876:97"
+ },
+ {
+  "distance": 5,
+  "from": "AK1:Point:950:683",
+  "to": "AK1:Point:1048:683"
+ },
+ {
+  "distance": 5,
+  "from": "AK1:Point:839:683",
+  "to": "AK1:Point:950:683"
+ },
+ {
+  "distance": 8,
+  "from": "AK1:Point:676:683",
+  "to": "AK1:Point:839:683"
+ },
+ {
+  "distance": 9,
+  "from": "AK 1st Floor Women's Bathroom",
+  "to": "AK1:Point:839:683"
+ },
+ {
+  "distance": 2,
+  "from": "AK1:Point:950:683",
+  "to": "AK 1st Floor Men's Bathroom"
+ },
+ {
+  "distance": 9,
+  "from": "AK117",
+  "to": "AK1:Point:676:683"
+ },
+ {
+  "distance": 9,
+  "from": "AK118",
+  "to": "AK1:Point:596:683"
+ },
+ {
+  "distance": 4,
+  "from": "AK1:Point:596:683",
+  "to": "AK1:Point:676:683"
+ },
+ {
+  "distance": 1,
+  "from": "AK120C",
+  "to": "AK1:Point:487:456"
+ },
+ {
+  "distance": 2,
+  "from": "AK1:Point:128:830",
+  "to": "AK1:Point:128:874"
+ },
+ {
+  "distance": 2,
+  "from": "AK102",
+  "to": "AK1:Point:875:192"
+ },
+ {
+  "distance": 4,
+  "from": "AK1:Point:962:192",
+  "to": "AK1:Point:875:192"
+ },
+ {
+  "distance": 2,
+  "from": "AK1:Point:875:192",
+  "to": "AK1:Point:832:192"
+ },
+ {
+  "distance": 4,
+  "from": "AK1:Point:739:192",
+  "to": "AK1:Point:832:192"
+ },
+ {
+  "distance": 1,
+  "from": "AK1:Point:445:192",
+  "to": "AK108"
+ },
+ {
+  "distance": 2,
+  "from": "AK124",
+  "to": "AK125"
+ },
+ {
+  "distance": 4,
+  "from": "AK1:Point:739:192",
+  "to": "AK1:Point:832:192"
  }
 ]

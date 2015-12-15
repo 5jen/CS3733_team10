@@ -340,8 +340,13 @@
   "to": "AKB:Point:241:484"
  },
  {
-  "distance": 11,
+  "distance": 15,
   "from": "AK1:Staircase:345:660",
   "to": "AKB:Staircase:312:351"
+ },
+ {
+  "distance": 1,
+  "from": "AKB:Point:968:182",
+  "to": "AKB:Elevator:947:182"
  }
 ]

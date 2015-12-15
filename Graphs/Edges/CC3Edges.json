@@ -190,12 +190,12 @@
   "to": "CC3:Point:1181:649"
  },
  {
-  "distance": 6,
+  "distance": 50,
   "from": "CC339",
   "to": "CC345"
  },
  {
-  "distance": 5,
+  "distance": 45,
   "from": "CC3:Point:1090:639",
   "to": "CC345"
  },
@@ -205,7 +205,7 @@
   "to": "CC3:Point:1090:639"
  },
  {
-  "distance": 10,
+  "distance": 44,
   "from": "CC3:Point:1090:884",
   "to": "CC345"
  },
@@ -315,11 +315,6 @@
   "to": "CC325"
  },
  {
-  "distance": 6,
-  "from": "CC3:Point:220:349",
-  "to": "CC3:Point:123:349"
- },
- {
   "distance": 3,
   "from": "Campus Center 3rd Floor Women's Bathroom",
   "to": "CC3:Point:123:349"
@@ -420,7 +415,7 @@
   "to": "CC3:Point:220:74"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "CC1:Staircase:433:447",
   "to": "CCStairsDown:0"
  },
@@ -440,7 +435,7 @@
   "to": "CC3:Point:459:501"
  },
  {
-  "distance": 2,
+  "distance": 0,
   "from": "CC3:Point:459:501",
   "to": "CC3:Point:459:501"
  },
@@ -450,8 +445,23 @@
   "to": "CC3:Staircase:471:467"
  },
  {
-  "distance": 5,
+  "distance": 11,
   "from": "CC2:Staircase:400:484",
   "to": "CC3:Staircase:471:467"
-}
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:123:349",
+  "to": "CC3:Point:169:349"
+ },
+ {
+  "distance": 2,
+  "from": "CC3:Water Fountain:169:322",
+  "to": "CC3:Point:169:349"
+ },
+ {
+  "distance": 3,
+  "from": "CC3:Point:220:349",
+  "to": "CC3:Point:169:349"
+ }
 ]

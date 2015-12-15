@@ -82,32 +82,54 @@ public class stepIndicator {
                 message = maneuver + map;
             }
             else {
-                if ((type.compareTo("Staircase") == 0) &&
-                        (route.get(i+1).getType().compareTo("Staircase") == 0)){
 
-                    int z1 = route.get(i-1).getZ();
-                    int z2 = route.get(i+1).getZ();
+                if ((type.compareTo("Elevator")==0) &&
+                (route.get(i+1).getType().compareTo("Elevator") == 0)){
+                    String map = route.get(i).getFloorMap();
+                    maneuver = "Elevator to ";
+                    //TODO Use elevator image
+                    icon_id = 10;
+                    message = maneuver + map;
+                } else {
+                    if ((type.compareTo("Staircase") == 0) &&
+                            (route.get(i + 1).getType().compareTo("Staircase") == 0)) {
+                        int z1 = route.get(i - 1).getZ();
+                        int z2 = route.get(i + 1).getZ();
 
-                    while ((i<route.size()-1) && (route.get(i+1).getType().compareTo("Staircase")==0)){
-                        i++;
+                        while ((i < route.size() - 1) && (route.get(i + 1).getType().compareTo("Staircase") == 0)) {
+                            i++;
+                        }
+
+                        if (z2 > z1) {
+                            maneuver = "up stairs";
+                            icon_id = 1;
+                        } else {
+                            maneuver = "down stairs";
+                            icon_id = 2;
+                        }
+                        message = "Go " + maneuver;
+                    } else {
+
+                        message = generateMessage(x1, y1, x2, y2, x3, y3);
+
+                        if (message.compareTo("Keep straight for") == 0) {
+                            icon_id = 0;
+                        } else if (message.compareTo("Turn left in") == 0) {
+                            icon_id = 3;
+                        } else if (message.compareTo("Turn right in") == 0) {
+                            icon_id = 4;
+                        } else if (message.compareTo("Turn sharp left in") == 0) {
+                            icon_id = 33;
+                        } else if (message.compareTo("Turn sharp right in") == 0) {
+                            icon_id = 44;
+                        } else if (message.compareTo("Turn slight left in") == 0) {
+                            icon_id = 39;
+                        } else if (message.compareTo("Turn slight right in") == 0) {
+                            icon_id = 52;
+                        } else if (message.compareTo("Make a U turn in") == 0) {
+                            icon_id = 6;
+                        }
                     }
-
-                    if (z2>z1) {maneuver = "up stair"; icon_id=1;}
-                    else {maneuver = "down stair";icon_id =2;}
-                    message = "Go "+ maneuver;
-                }
-                else {
-
-                    message = generateMessage(x1,y1,x2,y2,x3,y3);
-
-                    if (message.compareTo("Keep straight for") == 0) {icon_id = 0;}
-                    else if (message.compareTo("Turn left in") == 0) {icon_id = 3;}
-                    else if (message.compareTo("Turn right in") == 0) {icon_id = 4;}
-                    else if (message.compareTo("Turn sharp left in") == 0) {icon_id = 33;}
-                    else if (message.compareTo("Turn sharp right in") == 0) {icon_id =44;}
-                    else if (message.compareTo("Turn slight left in") ==0) {icon_id = 39;}
-                    else if (message.compareTo("Turn slight right in") == 0) {icon_id = 52;}
-                    else if (message.compareTo("Make a U turn in") == 0){icon_id = 6;}
                 }
 
             }
@@ -128,6 +150,7 @@ public class stepIndicator {
              *  6                  U turn
              *  7                  starting route
              *  8                  reach destination
+             *  10                 elevator
              */
 
              //check duplicate go straight

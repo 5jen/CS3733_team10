@@ -465,8 +465,18 @@
   "to": "FL1:Point:692:498"
  },
  {
-  "distance": 5,
+  "distance": 8,
   "from": "FL2:Staircase:710:643",
   "to": "FL1:Point:692:551"
+ },
+ {
+  "distance": 20,
+  "from": "FL1:Elevator",
+  "to": "FLSB:Elevator:672:330"
+ },
+ {
+  "distance": 4,
+  "from": "FL1:Elevator",
+  "to": "FLB:Elevator:739:328"
  }
 ]

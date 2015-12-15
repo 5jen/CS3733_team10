@@ -1,1 +1,252 @@
-[{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":6,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":4,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":8,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":2,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":7,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":8,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":2,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":2,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":8,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":10,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":6,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":8,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":2,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":0,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":19,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":4,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":3,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":5,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":4,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":10,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":2,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":9,"from":"CampusMap:Point:1008:868","to":"CampusMap:Point:1008:868"},{"distance":1,"from":"GLB:Point:284:79","to":"GLB:Women's Bathroom:284:109"},{"distance":2,"from":"GLB:Point:284:79","to":"GLB:Point:328:79"},{"distance":2,"from":"GL011","to":"GLB:Point:328:79"},{"distance":2,"from":"GL011","to":"GLB:Point:328:153"},{"distance":1,"from":"GL010","to":"GLB:Point:328:153"},{"distance":4,"from":"GLB:Point:413:79","to":"GLB:Point:328:79"},{"distance":1,"from":"GLB:Point:413:79","to":"GL Basement Men's Bathroom 1"},{"distance":5,"from":"GLB:Point:523:79","to":"GLB:Point:413:79"},{"distance":1,"from":"GLB:Point:523:79","to":"GL005"},{"distance":11,"from":"GLB:Point:739:79","to":"GLB:Point:523:79"},{"distance":17,"from":"GLB:Point:739:79","to":"GLB:Point:1113:79"},{"distance":2,"from":"GL026","to":"GLB:Point:1113:79"},{"distance":8,"from":"GLB:Point:739:254","to":"GLB:Point:739:79"},{"distance":3,"from":"GLB:Point:739:254","to":"GL012"},{"distance":8,"from":"GLB:Point:739:420","to":"GLB:Point:739:254"},{"distance":4,"from":"GLB:Point:739:420","to":"GL006"},{"distance":5,"from":"GLB:Point:739:420","to":"GLB:Point:739:524"},{"distance":9,"from":"GLB:Point:551:524","to":"GLB:Point:739:524"},{"distance":6,"from":"GLB:Point:551:524","to":"GLB:Point:430:524"},{"distance":2,"from":"GLB:Point:427:476","to":"GLB:Point:430:524"},{"distance":2,"from":"GLB:Point:427:476","to":"GLB:Staircase:427:443"},{"distance":6,"from":"GLB:Point:427:476","to":"GLB:Point:553:476"},{"distance":2,"from":"GLB:Staircase:554:444","to":"GLB:Point:553:476"},{"distance":2,"from":"GLB:Point:551:524","to":"GLB:Point:553:476"},{"distance":5,"from":"GLB:Point:856:524","to":"GLB:Point:739:524"},{"distance":6,"from":"GLB:Point:856:524","to":"GLB:Point:992:524"},{"distance":8,"from":"GLB:Point:1160:524","to":"GLB:Point:992:524"},{"distance":2,"from":"GLB:Point:1160:524","to":"GLB:Point:1198:524"},{"distance":2,"from":"GLB:Point:1198:573","to":"GLB:Point:1198:524"},{"distance":2,"from":"GLB:Point:1198:573","to":"GL021"},{"distance":1,"from":"GLB:Point:856:524","to":"GL013"},{"distance":4,"from":"GLB:Point:853:629","to":"GL013"},{"distance":2,"from":"GLB:Point:853:629","to":"GL013A"},{"distance":2,"from":"GLB:Point:992:524","to":"GL018"},{"distance":1,"from":"GLB:Point:999:583","to":"GL018"},{"distance":1,"from":"GLB:Point:999:583","to":"GL Basement Women's Bathroom"},{"distance":1,"from":"GLB:Point:1160:524","to":"GL Basement Men's Bathroom 2"},{"distance":1,"from":"GLB:Point:1198:573","to":"GL022"},{"distance":8,"from":"GLB:Point:1198:524","to":"GLB:Point:1198:351"},{"distance":2,"from":"GLB:Point:1198:310","to":"GLB:Point:1198:351"},{"distance":4,"from":"GLB:Point:1198:310","to":"GLB:Point:1198:223"},{"distance":1,"from":"GLB025","to":"GLB:Point:1198:223"},{"distance":1,"from":"GL024","to":"GLB:Point:1198:310"},{"distance":1,"from":"GL023","to":"GLB:Point:1198:351"},{"distance": 2,"from":"GLSB:Staircase:545:438","to":"GLB:Staircase:554:444"}]
+[
+ {
+  "distance": 1,
+  "from": "GLB:Point:284:79",
+  "to": "GLB:Women's Bathroom:284:109"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:284:79",
+  "to": "GLB:Point:328:79"
+ },
+ {
+  "distance": 2,
+  "from": "GL011",
+  "to": "GLB:Point:328:79"
+ },
+ {
+  "distance": 2,
+  "from": "GL011",
+  "to": "GLB:Point:328:153"
+ },
+ {
+  "distance": 1,
+  "from": "GL010",
+  "to": "GLB:Point:328:153"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:413:79",
+  "to": "GL Basement Men's Bathroom 1"
+ },
+ {
+  "distance": 5,
+  "from": "GLB:Point:523:79",
+  "to": "GLB:Point:413:79"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:523:79",
+  "to": "GL005"
+ },
+ {
+  "distance": 11,
+  "from": "GLB:Point:739:79",
+  "to": "GLB:Point:523:79"
+ },
+ {
+  "distance": 17,
+  "from": "GLB:Point:739:79",
+  "to": "GLB:Point:1113:79"
+ },
+ {
+  "distance": 2,
+  "from": "GL026",
+  "to": "GLB:Point:1113:79"
+ },
+ {
+  "distance": 8,
+  "from": "GLB:Point:739:254",
+  "to": "GLB:Point:739:79"
+ },
+ {
+  "distance": 3,
+  "from": "GLB:Point:739:254",
+  "to": "GL012"
+ },
+ {
+  "distance": 8,
+  "from": "GLB:Point:739:420",
+  "to": "GLB:Point:739:254"
+ },
+ {
+  "distance": 4,
+  "from": "GLB:Point:739:420",
+  "to": "GL006"
+ },
+ {
+  "distance": 5,
+  "from": "GLB:Point:739:420",
+  "to": "GLB:Point:739:524"
+ },
+ {
+  "distance": 9,
+  "from": "GLB:Point:551:524",
+  "to": "GLB:Point:739:524"
+ },
+ {
+  "distance": 6,
+  "from": "GLB:Point:551:524",
+  "to": "GLB:Point:430:524"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:427:476",
+  "to": "GLB:Point:430:524"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:427:476",
+  "to": "GLB:Staircase:427:443"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Staircase:554:444",
+  "to": "GLB:Point:553:476"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:551:524",
+  "to": "GLB:Point:553:476"
+ },
+ {
+  "distance": 5,
+  "from": "GLB:Point:856:524",
+  "to": "GLB:Point:739:524"
+ },
+ {
+  "distance": 6,
+  "from": "GLB:Point:856:524",
+  "to": "GLB:Point:992:524"
+ },
+ {
+  "distance": 8,
+  "from": "GLB:Point:1160:524",
+  "to": "GLB:Point:992:524"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:1160:524",
+  "to": "GLB:Point:1198:524"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:1198:573",
+  "to": "GLB:Point:1198:524"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:1198:573",
+  "to": "GL021"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:856:524",
+  "to": "GL013"
+ },
+ {
+  "distance": 4,
+  "from": "GLB:Point:853:629",
+  "to": "GL013"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:853:629",
+  "to": "GL013A"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:992:524",
+  "to": "GL018"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:999:583",
+  "to": "GL018"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:999:583",
+  "to": "GL Basement Women's Bathroom"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:1160:524",
+  "to": "GL Basement Men's Bathroom 2"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:1198:573",
+  "to": "GL022"
+ },
+ {
+  "distance": 8,
+  "from": "GLB:Point:1198:524",
+  "to": "GLB:Point:1198:351"
+ },
+ {
+  "distance": 2,
+  "from": "GLB:Point:1198:310",
+  "to": "GLB:Point:1198:351"
+ },
+ {
+  "distance": 4,
+  "from": "GLB:Point:1198:310",
+  "to": "GLB:Point:1198:223"
+ },
+ {
+  "distance": 1,
+  "from": "GLB025",
+  "to": "GLB:Point:1198:223"
+ },
+ {
+  "distance": 1,
+  "from": "GL024",
+  "to": "GLB:Point:1198:310"
+ },
+ {
+  "distance": 1,
+  "from": "GL023",
+  "to": "GLB:Point:1198:351"
+ },
+ {
+  "distance": 10,
+  "from": "GLSB:Staircase:545:438",
+  "to": "GLB:Staircase:554:444"
+ },
+ {
+  "distance": 3,
+  "from": "GLB:Point:553:476",
+  "to": "GLB:Point:490:476"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Elevator:490:441",
+  "to": "GLB:Point:490:476"
+ },
+ {
+  "distance": 3,
+  "from": "GLB:Point:427:476",
+  "to": "GLB:Point:490:476"
+ },
+ {
+  "distance": 10,
+  "from": "GLB:Elevator:490:441",
+  "to": "GLSB:Elevator:485:439"
+ },
+ {
+  "distance": 3,
+  "from": "GLB:Point:328:79",
+  "to": "GLB:Point:377:79"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:413:79",
+  "to": "GLB:Point:377:79"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Water Fountain:378:92",
+  "to": "GLB:Point:377:79"
+ }
+]

@@ -1064,5 +1064,31 @@
   "valz": 10,
   "building": "Campus Center",
   "valy": 467
+ },
+ {
+  "valx": 169,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1199,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Point:169:349",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 349
+ },
+ {
+  "valx": 169,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1197,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Water Fountain:169:322",
+  "isPlace": true,
+  "type": "Water Fountain",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 322
  }
 ]
