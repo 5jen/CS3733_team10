@@ -247,45 +247,6 @@
   "valy": 550
  },
  {
-  "valx": 590,
-  "globalY": 551,
-  "isWalkable": true,
-  "globalX": 1538,
-  "floorMap": "Atwater Kent 1",
-  "name": "AK118",
-  "isPlace": true,
-  "type": "Place",
-  "valz": -10,
-  "building": "Atwater Kent",
-  "valy": 632
- },
- {
-  "valx": 670,
-  "globalY": 549,
-  "isWalkable": true,
-  "globalX": 1534,
-  "floorMap": "Atwater Kent 1",
-  "name": "AK117",
-  "isPlace": true,
-  "type": "Place",
-  "valz": -10,
-  "building": "Atwater Kent",
-  "valy": 632
- },
- {
-  "valx": 838,
-  "globalY": 545,
-  "isWalkable": true,
-  "globalX": 1527,
-  "floorMap": "Atwater Kent 1",
-  "name": "AK 1st Floor Women's Bathroom",
-  "isPlace": true,
-  "type": "Women's Bathroom",
-  "valz": -10,
-  "building": "Atwater Kent",
-  "valy": 632
- },
- {
   "valx": 945,
   "globalY": 542,
   "isWalkable": true,
@@ -682,19 +643,6 @@
   "globalX": 1516,
   "floorMap": "Atwater Kent 1",
   "name": "AK1:Point:832:192",
-  "isPlace": false,
-  "type": "Point",
-  "valz": -10,
-  "building": "Atwater Kent",
-  "valy": 192
- },
- {
-  "valx": 876,
-  "globalY": 563,
-  "isWalkable": true,
-  "globalX": 1514,
-  "floorMap": "Atwater Kent 1",
-  "name": "AK1:Point:876:192",
   "isPlace": false,
   "type": "Point",
   "valz": -10,
@@ -1454,5 +1402,57 @@
   "valz": -10,
   "building": "Atwater Kent",
   "valy": 723
+ },
+ {
+  "valx": 838,
+  "globalY": 545,
+  "isWalkable": true,
+  "globalX": 1527,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK 1st Floor Women's Bathroom",
+  "isPlace": true,
+  "type": "Women's Bathroom",
+  "valz": -1,
+  "building": "Atwater Kent",
+  "valy": 632
+ },
+ {
+  "valx": 589,
+  "globalY": 551,
+  "isWalkable": true,
+  "globalX": 1538,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK118",
+  "isPlace": true,
+  "type": "Place",
+  "valz": -1,
+  "building": "Atwater Kent",
+  "valy": 635
+ },
+ {
+  "valx": 672,
+  "globalY": 549,
+  "isWalkable": true,
+  "globalX": 1534,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK117",
+  "isPlace": true,
+  "type": "Place",
+  "valz": -1,
+  "building": "Atwater Kent",
+  "valy": 633
+ },
+ {
+  "valx": 875,
+  "globalY": 563,
+  "isWalkable": true,
+  "globalX": 1514,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK1:Point:875:192",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Atwater Kent",
+  "valy": 192
  }
 ]
