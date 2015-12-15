@@ -1,0 +1,62 @@
+[
+ {
+  "distance": 1,
+  "from": "West2:Point:695:789",
+  "to": "West2:Staircase:695:875"
+ },
+ {
+  "distance": 4,
+  "from": "West2:Point:695:789",
+  "to": "157W201"
+ },
+ {
+  "distance": 0,
+  "from": "West2:Point:918:789",
+  "to": "157W201"
+ },
+ {
+  "distance": 4,
+  "from": "West2:Point:918:789",
+  "to": "West2:Point:918:570"
+ },
+ {
+  "distance": 2,
+  "from": "West2:Point:796:570",
+  "to": "West2:Point:918:570"
+ },
+ {
+  "distance": 1,
+  "from": "West2:Point:796:570",
+  "to": "157W202"
+ },
+ {
+  "distance": 6,
+  "from": "West2:Point:796:308",
+  "to": "West2:Point:796:570"
+ },
+ {
+  "distance": 1,
+  "from": "157W203",
+  "to": "West2:Point:796:308"
+ },
+ {
+  "distance": 3,
+  "from": "West2:Point:983:308",
+  "to": "West2:Point:796:308"
+ },
+ {
+  "distance": 1,
+  "from": "West2:Point:983:308",
+  "to": "157W204"
+ },
+ {
+  "distance": 4,
+  "from": "West2:Point:796:308",
+  "to": "West2:Staircase:796:107"
+ },
+ {
+  "distance": 5,
+  "from": "West1:Staircase:594:114",
+  "to": "West2:Staircase:796:107"
+ }
+]

@@ -908,5 +908,18 @@
   "valz": 10,
   "building": "Gordon Library",
   "valy": 569
+ },
+ {
+  "valx": 449,
+  "globalY": 745,
+  "isWalkable": true,
+  "globalX": 1643,
+  "floorMap": "Gordon Library 3",
+  "name": "GL3:Elevator:449:388",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 10,
+  "building": "Gordon Library",
+  "valy": 388
  }
 ]

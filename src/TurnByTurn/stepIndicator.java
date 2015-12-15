@@ -45,21 +45,35 @@ public class stepIndicator {
             int y2;//current y
             int x3;//next x
             int y3;//next y
+            int globalx1;//previous globalx
+            int globaly1;//previous globaly
+            int globalx2;//current globalx
+            int globaly2;//current globaly
+            int globalx3;//next globalx
+            int globaly3;//next globaly
 
 
             int icon_id=0;//the icon_id for the instruction
 
-            x1 = route.get(i-1).getGlobalX();
-            y1 = route.get(i-1).getGlobalY();
-            x2 = route.get(i).getGlobalX();
-            y2 = route.get(i).getGlobalY();
-            x3 = route.get(i+1).getGlobalX();
-            y3 = route.get(i+1).getGlobalY();
+            x1 = route.get(i-1).getX();
+            y1 = route.get(i-1).getY();
+            x2 = route.get(i).getX();
+            y2 = route.get(i).getY();
+            x3 = route.get(i+1).getX();
+            y3 = route.get(i+1).getY();
+            
+            globalx1 = route.get(i-1).getGlobalX();
+            globaly1 = route.get(i-1).getGlobalY();
+            globalx2 = route.get(i).getGlobalX();
+            globaly2 = route.get(i).getGlobalY();
+            globalx3 = route.get(i+1).getGlobalX();
+            globaly3 = route.get(i+1).getGlobalY();
 
-            int dis = getDistance(x1,x2,y1,y2);
+            int dis = getDistance(globalx1,globalx2,globaly1,globaly2);
 
             // Transition point between maps
-            if (type.compareTo("Transition Point")==0) {
+            if ((type.compareTo("Transition Point")==0) &&
+                    (route.get(i+1).getType().compareTo("Transition Point") == 0)){
                 i++;//skip transition points in pairs
                 String map = route.get(i).getFloorMap();
                 //TODO convert map name to actual name
@@ -68,7 +82,8 @@ public class stepIndicator {
                 message = maneuver + map;
             }
             else {
-                if (type.compareTo("Staircase") == 0){
+                if ((type.compareTo("Staircase") == 0) &&
+                        (route.get(i+1).getType().compareTo("Staircase") == 0)){
                     int z1 = route.get(i-1).getZ();
                     int z2 = route.get(i+1).getZ();
 

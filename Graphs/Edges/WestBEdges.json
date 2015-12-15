@@ -1,0 +1,52 @@
+[
+ {
+  "distance": 1,
+  "from": "WestB:Point:761:366",
+  "to": "157W012"
+ },
+ {
+  "distance": 5,
+  "from": "WestB:Point:761:366",
+  "to": "WestB:Point:761:639"
+ },
+ {
+  "distance": 1,
+  "from": "157W011",
+  "to": "WestB:Point:761:639"
+ },
+ {
+  "distance": 2,
+  "from": "WestB:Point:761:639",
+  "to": "WestB:Point:655:639"
+ },
+ {
+  "distance": 1,
+  "from": "AK101",
+  "to": "WestB:Point:655:639"
+ },
+ {
+  "distance": 1,
+  "from": "WestB:Point:655:756",
+  "to": "AK101"
+ },
+ {
+  "distance": 2,
+  "from": "WestB:Point:655:837",
+  "to": "WestB:Point:655:756"
+ },
+ {
+  "distance": 7,
+  "from": "WestB:Point:655:756",
+  "to": "WestB:Point:1008:756"
+ },
+ {
+  "distance": 2,
+  "from": "WestB:Staircase:1008:861",
+  "to": "WestB:Point:1008:756"
+ },
+ {
+  "distance": 1,
+  "from": "WestB:Point:655:837",
+  "to": "West1:Staircase:737:867"
+ }
+]

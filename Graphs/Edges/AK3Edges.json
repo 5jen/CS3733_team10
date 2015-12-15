@@ -380,8 +380,28 @@
   "to": "AK3:Point:444:30"
  },
  {
-  "distance": 10,
+  "distance": 14,
   "from": "AK2:Staircase:262:503",
   "to": "AK3:Staircase:148:391"
+ },
+ {
+  "distance": 3,
+  "from": "AK3:Elevator:886:223",
+  "to": "AK3:Point:833:223"
+ },
+ {
+  "distance": 30,
+  "from": "AK3:Elevator:886:223",
+  "to": "AKB:Elevator:947:182"
+ },
+ {
+  "distance": 21,
+  "from": "AK3:Elevator:886:223",
+  "to": "AK1:Elevator:1130:426"
+ },
+ {
+  "distance": 7,
+  "from": "AK3:Elevator:886:223",
+  "to": "AK2:Elevator:865:329"
  }
 ]

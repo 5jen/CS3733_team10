@@ -570,5 +570,31 @@
   "valz": -20,
   "building": "Gordon Library",
   "valy": 583
+ },
+ {
+  "valx": 490,
+  "globalY": 744,
+  "isWalkable": true,
+  "globalX": 1641,
+  "floorMap": "Gordon Library B",
+  "name": "GLB:Point:490:476",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -20,
+  "building": "Gordon Library",
+  "valy": 476
+ },
+ {
+  "valx": 490,
+  "globalY": 745,
+  "isWalkable": true,
+  "globalX": 1642,
+  "floorMap": "Gordon Library B",
+  "name": "GLB:Elevator:490:441",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": -20,
+  "building": "Gordon Library",
+  "valy": 441
  }
 ]
