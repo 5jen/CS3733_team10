@@ -1399,7 +1399,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6536);
 			NodePane.relocate(-212, -88);
 			buttonRescale = 1 / 0.6536;
-			zField.setText("-2");
+			zField.setText("-20");
 			break;
 		case "AK1":
 			imageView.setScaleX(0.5161);
@@ -1409,7 +1409,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5161);
 			NodePane.relocate(-218, -22);
 			buttonRescale = 1 / 0.5161;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "AK2":
 			imageView.setScaleX(0.6706);
@@ -1429,7 +1429,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6536);
 			NodePane.relocate(-212, -0);
 			buttonRescale = 1 / 0.6536;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "BHB":
 			imageView.setScaleX(0.5427);
@@ -1439,7 +1439,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5427);
 			NodePane.relocate(-200, -90);
 			buttonRescale = 1 / 0.5427;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "BH1":
 			imageView.setScaleX(0.5476);
@@ -1459,7 +1459,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5438);
 			NodePane.relocate(-220, -99);
 			buttonRescale = 1 / 0.5438;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "BH3":
 			imageView.setScaleX(0.5358);
@@ -1469,7 +1469,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5358);
 			NodePane.relocate(-220, -110);
 			buttonRescale = 1 / 0.5358;
-			zField.setText("2");
+			zField.setText("20");
 			break;
 		case "CC1":
 			imageView.setScaleX(0.6107);
@@ -1479,7 +1479,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6107);
 			NodePane.relocate(-222, -59);
 			buttonRescale = 1 / 0.6107;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "CC2":
 			imageView.setScaleX(0.6127);
@@ -1499,7 +1499,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6061);
 			NodePane.relocate(-222, -59);
 			buttonRescale = 1 / 0.6061;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "GLSB":
 			imageView.setScaleX(0.5686);
@@ -1509,7 +1509,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5686);
 			NodePane.relocate(-225, -42);
 			buttonRescale = 1 / 0.5686;
-			zField.setText("-3");
+			zField.setText("-30");
 			break;
 		case "GLB":
 			imageView.setScaleX(0.5409);
@@ -1519,7 +1519,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5409);
 			NodePane.relocate(-225, -42);
 			buttonRescale = 1 / 0.5409;
-			zField.setText("-2");
+			zField.setText("-20");
 			break;
 		case "GL1":
 			imageView.setScaleX(0.5678);
@@ -1529,7 +1529,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5678);
 			NodePane.relocate(-225, -42);
 			buttonRescale = 1 / 0.5678;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "GL2":
 			imageView.setScaleX(0.5638);
@@ -1549,7 +1549,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6119);
 			NodePane.relocate(-225, -42);
 			buttonRescale = 1 / 0.6119;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "HHB":
 			imageView.setScaleX(0.5181);
@@ -1559,7 +1559,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5181);
 			NodePane.relocate(-360, -22);
 			buttonRescale = 1 / 0.5181;
-			zField.setText("-3");
+			zField.setText("-30");
 			break;
 		case "HH1":
 			imageView.setScaleX(0.5535);
@@ -1569,7 +1569,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5535);
 			NodePane.relocate(-338, -37);
 			buttonRescale = 1 / 0.5535;
-			zField.setText("-2");
+			zField.setText("-20");
 			break;
 		case "HH2":
 			imageView.setScaleX(0.6067);
@@ -1579,7 +1579,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6067);
 			NodePane.relocate(-298, -50);
 			buttonRescale = 1 / 0.6067;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "HH3":
 			imageView.setScaleX(0.5917);
@@ -1599,7 +1599,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.8197);
 			NodePane.relocate(-130, -50);
 			buttonRescale = 1 / 0.8197;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "HHGAR":
 			imageView.setScaleX(0.8172);
@@ -1609,7 +1609,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.8172);
 			NodePane.relocate(-133, -53);
 			buttonRescale = 1 / 0.8172;
-			zField.setText("-2");
+			zField.setText("-20");
 			break;
 		case "PC1":
 			imageView.setScaleX(0.6764);
@@ -1629,7 +1629,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6006);
 			NodePane.relocate(-222, -48);
 			buttonRescale = 1 / 0.6006;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "SHB":
 			imageView.setScaleX(0.5464);
@@ -1639,7 +1639,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5464);
 			NodePane.relocate(-224, -88);
 			buttonRescale = 1 / 0.5464;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "SH1":
 			imageView.setScaleX(0.5583);
@@ -1659,7 +1659,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5556);
 			NodePane.relocate(-224, -86);
 			buttonRescale = 1 / 0.5556;
-			zField.setText("1");
+			zField.setText("10");
 			break;
 		case "SH3":
 			imageView.setScaleX(0.5544);
@@ -1669,7 +1669,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5544);
 			NodePane.relocate(-224, -83);
 			buttonRescale = 1 / 0.5544;
-			zField.setText("2");
+			zField.setText("20");
 			break;
 		case "FLSB":
 			imageView.setScaleX(0.7882);
@@ -1679,7 +1679,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.7882);
 			NodePane.relocate(-150, -80);
 			buttonRescale = 1 / 0.7882;
-			zField.setText("-4");
+			zField.setText("-40");
 			break;
 		case "FLB":
 			imageView.setScaleX(0.7601);
@@ -1689,7 +1689,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.7601);
 			NodePane.relocate(-170, -55);
 			buttonRescale = 1 / 0.7601;
-			zField.setText("-3");
+			zField.setText("-30");
 			break;
 		case "FL1":
 			imageView.setScaleX(0.6098);
@@ -1699,7 +1699,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6098);
 			NodePane.relocate(-250, -52);
 			buttonRescale = 1 / 0.6098;
-			zField.setText("-2");
+			zField.setText("-20");
 			break;
 		case "FL2":
 			imageView.setScaleX(0.5585);
@@ -1709,7 +1709,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5585);
 			NodePane.relocate(-250, -40);
 			buttonRescale = 1 / 0.5585;
-			zField.setText("-1");
+			zField.setText("-10");
 			break;
 		case "FL3":
 			imageView.setScaleX(0.5515);
@@ -1729,6 +1729,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6305);
 			NodePane.relocate(-270, -55);
 			buttonRescale = 1 / 0.6305;
+			zField.setText("-30");
 			break;
 		case "West1":
 			imageView.setScaleX(0.5949);
@@ -1738,6 +1739,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5949);
 			NodePane.relocate(-270, -50);
 			buttonRescale = 1 / 0.5949;
+			zField.setText("-20");
 			break;
 		case "West2":
 			imageView.setScaleX(0.5929);
@@ -1747,6 +1749,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.5929);
 			NodePane.relocate(-270, -50);
 			buttonRescale = 1 / 0.5929;
+			zField.setText("-10");
 			break;
 		case "SL3":
 			imageView.setScaleX(0.6840);
@@ -1756,6 +1759,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6840);
 			NodePane.relocate(-270, -60);
 			buttonRescale = 1 / 0.6840;
+			zField.setText("20");
 			break;
 		case "SL4":
 			imageView.setScaleX(0.6988);
@@ -1765,6 +1769,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6988);
 			NodePane.relocate(-270, -60);
 			buttonRescale = 1 / 0.6988;
+			zField.setText("30");
 			break;
 		case "WS1":
 			imageView.setScaleX(0.6116);
@@ -1774,6 +1779,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.setScaleY(0.6116);
 			NodePane.relocate(-225, -45);
 			buttonRescale = 1 / 0.6116;
+			zField.setText("0");
 			break;
               //TODO ADD BUILDINGS
 

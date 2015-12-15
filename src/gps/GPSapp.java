@@ -766,19 +766,16 @@ public class GPSapp extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	mapSelectorLabel.setFont(Font.font ("manteka", 20));
     	mapSelectorLabel.setTextFill(Color.WHITE);
-    	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load");
+    	LoadMapButton.setStyle("dark");
 
-        mapSelectionBoxH.setMaxWidth(180);
-
-    	mapSelectionBoxH.getChildren().addAll(mapSelector, LoadMapButton);
     	mapSelectionBoxV.relocate(5, 50);
-    	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelectionBoxH);
+    	mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelector, LoadMapButton);
 
     	//***Find nearest function ****
     	nearestDropdown.setValue("Dining");
     	nearestBox.getChildren().addAll(nearestDropdown,findNearestButton);
-        nearestBox.relocate(5, 130);
+        nearestBox.relocate(5, 141);
         
         
 	    //**BUTTONS***
