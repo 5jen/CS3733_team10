@@ -1454,5 +1454,31 @@
   "valz": -10,
   "building": "Atwater Kent",
   "valy": 723
+ },
+ {
+  "valx": 1048,
+  "globalY": 548,
+  "isWalkable": true,
+  "globalX": 1513,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK1:Point:1048:426",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Atwater Kent",
+  "valy": 426
+ },
+ {
+  "valx": 1130,
+  "globalY": 546,
+  "isWalkable": true,
+  "globalX": 1509,
+  "floorMap": "Atwater Kent 1",
+  "name": "AK1:Elevator:1130:426",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": -10,
+  "building": "Atwater Kent",
+  "valy": 426
  }
 ]
