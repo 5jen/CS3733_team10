@@ -212,9 +212,15 @@ public class GPSapp extends Application{
 	LinkedList<LinkedList<Node>> multiMap = new LinkedList<LinkedList<Node>>();
 	int currMaps = 0;
 	int currRoute = 0;
-	Button NextInstruction = new Button("Next");
-	Button PrevInstruction = new Button("Prev");
-
+	//Button NextInstruction = new Button("Next");
+	//Button PrevInstruction = new Button("Prev");
+	
+	File NextButtonFile = new File("CS3733_Graphics/MenuGraphics/nextButton.png");
+	Image NextButtonImage = new Image(NextButtonFile.toURI().toString());
+	ImageView NextInstruction = new ImageView(NextButtonImage);
+	ImageView PrevInstruction = new ImageView(NextButtonImage);
+	
+	
 	LinkedList<Node> globalNodeList = new LinkedList<Node>();
 	//create pin image
 	File pinFile = new File("CS3733_Graphics/pin.png");
@@ -269,7 +275,11 @@ public class GPSapp extends Application{
     //LinkedList<Node> ElevatorNodes = new LinkedList<Node>();
     //LinkedList<Node> ComputerLabNodes = new LinkedList<Node>();
     
-    Button EmailButton = new Button("Email");
+    //Button EmailButton = new Button("Email");
+    File emailButtonFile = new File("CS3733_Graphics/MenuGraphics/sendEmailButton.png");
+	Image emailButtonImage = new Image(emailButtonFile.toURI().toString());
+	ImageView EmailButton = new ImageView(emailButtonImage);
+	
     TextField EmailInput = new TextField("");
     
     //global route variable
@@ -280,16 +290,19 @@ public class GPSapp extends Application{
     boolean menuIsOut = false;
     boolean menuEmailIsOut = false;
     boolean setMenuTransformation = false;
-    
+    boolean aboutMeIsOut = false;
     boolean directionsAreOut = false;
     
     //UI Panes
 	Pane menuPane = new Pane();
 	Pane fullMenuPane = new Pane();
 	Pane directionsPane = new Pane();
+	Pane aboutPane = new Pane();
 	
 	Group directionsGroup = new Group();
     Group menuGroup = new Group();
+    Group emailGroup = new Group();
+    Group aboutGroup = new Group();
 
     @Override
     public void init() throws Exception {
@@ -531,8 +544,6 @@ public class GPSapp extends Application{
 		redPinView.setImage(redPinImage);
 		greenPinView.setImage(greenPinImage);
 
-		//Create a keyimage to place the map key on screen
-
         EmailInput.setPromptText("Email");
         EmailInput.setTooltip(new Tooltip("Enter your email here"));
 
@@ -545,7 +556,6 @@ public class GPSapp extends Application{
             }
         });
         
-        //root.getChildren().add(imageViewBlur);
         
         
         
@@ -581,7 +591,7 @@ public class GPSapp extends Application{
 
         Tooltip emailButtonTooltip = new Tooltip();
         emailButtonTooltip.setText("Click to email directions");
-        EmailButton.setTooltip(emailButtonTooltip);
+        //EmailButton.setTooltip(emailButtonTooltip);
 
         //Removes top bar!! Maybe implement a custom one to look better
         //primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -743,11 +753,7 @@ public class GPSapp extends Application{
         
         
 	    //**BUTTONS***
-        File menuEmailButtonFile = new File("CS3733_Graphics/MenuGraphics/emailButton.png");
-        Image menuEmailButtonImage = new Image(menuEmailButtonFile.toURI().toString());
-        ImageView menuEmailButton = new ImageView(menuEmailButtonImage);
-        menuEmailButton.setFitHeight(40); menuEmailButton.setFitWidth(40);
-        menuEmailButton.relocate(10, 700 + stageInitialHeightDifference);
+        
         
         //Create a keyimageButton to place the map key on screen
     	File keyButtonFile = new File("CS3733_Graphics/MenuGraphics/showKeyButton.png");
@@ -771,17 +777,12 @@ public class GPSapp extends Application{
         //keyImage.setFitHeight(40); keyImageButton.setFitWidth(40);
         keyImage.relocate(780, 610);
         
-        //POP up email box
-	    HBox emailBox = new HBox(5);
-    	EmailButton.setTextFill(Color.BLACK);
-    	emailBox.setStyle("-fx-background-color: #515151;" );
-    	emailBox.relocate(250, 600);
-    	emailBox.getChildren().addAll(EmailInput, EmailButton);
+        
     	
     	
 	    
     	//Attach things to this for in the side bar
-    	fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, menuEmailButton, keyImageButton, aboutMeButton);
+    	fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, keyImageButton, aboutMeButton);
     	
     	root.getChildren().remove(fullMenuPane);
 	    root.getChildren().addAll(fullMenuPane);
@@ -790,7 +791,55 @@ public class GPSapp extends Application{
 	    
 	    root.getChildren().addAll(menuGroup);
 	    
+	    //********About Me SLIDE OUT MENU UI******************************
+
+      	
+      	aboutPane.setPrefSize(575, 600);
+      	//aboutPane.setStyle("-fx-background-color: #515151;" );
+      	//aboutPane.setOpacity(.8);
+      	aboutPane.relocate(210, 770);
+      	//210 +300, 770+300
+      	Rectangle backgroundrect = new Rectangle(0, 0, 600, 600);
+      	backgroundrect.setFill(Color.GREY);
+      	backgroundrect.setStroke(Color.BLACK);
+      	backgroundrect.setOpacity(.95);
+      	
+      	
+      	File aboutMeFile = new File("CS3733_Graphics/MenuGraphics/aboutMeImage.png");
+        Image aboutmeimage = new Image(aboutMeFile.toURI().toString());
+        ImageView aboutMeContent = new ImageView(aboutmeimage);
+        //dirSliderButton.setFitHeight(30); dirSliderButton.setFitWidth(30);
+        //aboutMeContent.relocate(230, 230);
+        
+        aboutPane.getChildren().addAll(backgroundrect, aboutMeContent);
+        
+        aboutGroup.getChildren().addAll(aboutPane);
+      	
+      	root.getChildren().addAll(aboutGroup);
+	    
 	  //********DIRECTIONS SLIDE OUT MENU UI******************************
+	    
+	  //EMAIL PANE***
+      	Pane emailPane = new Pane();
+      	emailPane.setStyle("-fx-background-color: #515151;" );
+      	emailPane.setPrefSize(240, 50); 
+        emailPane.relocate(830 + stageInitialWidthDifference, 710 + stageInitialHeightDifference);
+        
+    	//EmailButton.setTextFill(Color.BLACK);
+    	EmailInput.relocate(10, 5);
+    	EmailButton.relocate(180, 5);
+    	EmailButton.setFitHeight(29); EmailButton.setFitWidth(52);
+    	
+    	
+    	emailPane.getChildren().addAll(EmailInput, EmailButton);
+    	
+    	root.getChildren().remove(emailPane);
+    	root.getChildren().addAll(emailPane);
+    	
+    	emailGroup.getChildren().addAll(emailPane);
+    	root.getChildren().addAll(emailGroup);
+    	//****EMAIL**
+      	
 	    
         directionsPane.setPrefSize(270, 350 + stageInitialHeightDifference);
         directionsPane.setStyle("-fx-background-color: #515151;" );
@@ -809,14 +858,20 @@ public class GPSapp extends Application{
       	directionsTitle.setFont(Font.font ("manteka", 15));
       	directionsTitle.relocate(5, 10);
       	
+      	//email button
+      	File menuEmailButtonFile = new File("CS3733_Graphics/MenuGraphics/emailButton.png");
+        Image menuEmailButtonImage = new Image(menuEmailButtonFile.toURI().toString());
+        ImageView menuEmailButton = new ImageView(menuEmailButtonImage);
+        menuEmailButton.setFitHeight(30); menuEmailButton.setFitWidth(30);
+        menuEmailButton.relocate(110, 5);
+      	
       	//Next button (and previous)
-    	NextInstruction.setTextFill(Color.BLACK);
-    	NextInstruction.relocate(180, 5);
-    	
-    	PrevInstruction.setTextFill(Color.BLACK);
-    	PrevInstruction.relocate(120, 5);
-    	
-    	directionsPane.getChildren().addAll(directionsTitle, NextInstruction, PrevInstruction, dirSliderButton);
+    	NextInstruction.relocate(190, 5);
+    	NextInstruction.setFitHeight(30); NextInstruction.setFitWidth(30);
+    	PrevInstruction.relocate(150, 5);
+    	PrevInstruction.setFitHeight(30); PrevInstruction.setFitWidth(30);
+
+    	directionsPane.getChildren().addAll(directionsTitle, menuEmailButton,PrevInstruction ,NextInstruction, dirSliderButton);
       	
       	root.getChildren().remove(directionsPane);
       	root.getChildren().addAll(directionsPane);
@@ -827,7 +882,8 @@ public class GPSapp extends Application{
       	directionsGroup.getChildren().addAll(directionsPane, s1);
       	
       	root.getChildren().addAll(directionsGroup);
-        
+      	
+  	  
         //******************ACTIONS MENUS******************************
         menuView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -835,10 +891,12 @@ public class GPSapp extends Application{
             	//apply animation
             	if(!menuIsOut){
             		menuAnimation(menuGroup);
+            		//menuView.setRotate(90);
             		menuIsOut = true;
             	}
             	else{
             		menuAnimation(menuGroup);
+            		//menuView.setRotate(0);
             		menuIsOut = false;
             	}
             }
@@ -864,13 +922,26 @@ public class GPSapp extends Application{
             @Override
             public void handle(MouseEvent event) {
             	if(!menuEmailIsOut){
-            		root.getChildren().addAll(emailBox);
+            		emailPaneAnimation(emailGroup);
             		menuEmailIsOut = true;
             	}
             	else{
-            		root.getChildren().remove(emailBox);
+            		emailPaneAnimation(emailGroup);
             		menuEmailIsOut = false;
             	}
+            }
+        });
+        aboutMeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		if(!aboutMeIsOut){
+            		aboutMeAnimation(aboutGroup);
+            		aboutMeIsOut = true;
+            	}
+            	else{
+            		aboutMeAnimation(aboutGroup);
+            		aboutMeIsOut = false;
+            	}
+
             }
         });
         keyImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1132,6 +1203,7 @@ public class GPSapp extends Application{
 			}
 	    });
 
+	    PrevInstruction.setRotate(180);
 	  //Next instruction button actions
 	    PrevInstruction.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
@@ -1158,8 +1230,9 @@ public class GPSapp extends Application{
     			keyText.setTranslateX(stageInitialWidthDifference);
     			buttonBackDrop.setTranslateX(stageInitialWidthDifference);
     			directionsPane.setTranslateX(stageInitialWidthDifference);
+    			emailPane.setTranslateX(stageInitialWidthDifference);
+    			aboutPane.setTranslateX(stageInitialWidthDifference);
     			
-
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
     			//TODO asdasd
     			//TODO asdasd
@@ -1191,10 +1264,9 @@ public class GPSapp extends Application{
     			buttonBackDrop.setTranslateY(stageInitialHeightDifference);
     			aboutMeButton.setTranslateY(stageInitialHeightDifference);
     	        keyImageButton.setTranslateY(stageInitialHeightDifference);
-    	        menuEmailButton.setTranslateY(stageInitialHeightDifference);
-    	        emailBox.setTranslateY(stageInitialHeightDifference);
+    	        emailPane.setTranslateY(stageInitialHeightDifference);
     	        directionsPane.setTranslateY(stageInitialHeightDifference);
-    	        
+    	        aboutPane.setTranslateY(stageInitialHeightDifference);
     	        
     		}
     	});
@@ -1320,11 +1392,7 @@ public class GPSapp extends Application{
                                 //if the entire route is only on 1 map, display all instruction at once
                                 displayInstructions(multiMap.get(currRoute), root);
                                 if (currRoute > 0) {
-//                                    root.getChildren().remove(PrevInstruction);
-//                                    root.getChildren().add(PrevInstruction);
                                 }
-//                                root.getChildren().remove(NextInstruction);
-//                                root.getChildren().add(NextInstruction); //attach next button
                                 Map initials = null;
 
                                 for (int i = 0; i < maps.size(); i++) {
@@ -1347,9 +1415,7 @@ public class GPSapp extends Application{
                                 //}
                                 //if the entire route is only on 1 map, display all instruction at once
                                 displayInstructions(multiMap.get(currRoute), directionsPane);
-                                //root.getChildren().remove(NextInstruction);
-                                //root.getChildren().add(NextInstruction); //attach next button
-
+                                
                                 for (int i = 0; i < maps.size(); i++) {
                                     //System.out.print.println("CURRENT ROUTE: " + currRoute);
                                     //System.out.print.println("multiMap.get(currRouteE: " + multiMap.get(currRoute).get(0).getFloorMap());
@@ -1462,6 +1528,7 @@ public class GPSapp extends Application{
             }
         });
 
+
             
         root.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -1505,12 +1572,10 @@ public class GPSapp extends Application{
 
 	//Bring the UI to the front of the screen
 	public void fixUI(){
-		//root.getChildren().removeAll(directionsPane, fullMenuPane, menuPane);
-		//root.getChildren().addAll(directionsPane, fullMenuPane, menuPane);
-		System.out.println("X: " + s1.getLayoutX() + ", Y: " + s1.getLayoutY());
-		 directionsGroup.toFront();
-		 //fullMenuPane.toFront();
-		 menuGroup.toFront();
+		aboutPane.toFront();
+		emailGroup.toFront();
+		directionsGroup.toFront();
+		menuGroup.toFront();
 	}
 	
 	//Menu Animations
@@ -1537,6 +1602,34 @@ public class GPSapp extends Application{
 		 g1pt.setAutoReverse(true);
 		 g1pt.play();
     }
+	private void aboutMeAnimation(Group aboutGroup){
+		 Path g1path = new Path();
+		 MoveTo g1moveTo = new MoveTo();
+		 
+		 g1moveTo.setX(210 +300);
+		 
+		 if(!aboutMeIsOut)
+			 g1moveTo.setY(770+300 + stageInitialHeightDifference/2);
+		 else
+			 g1moveTo.setY(200+300 + stageInitialHeightDifference/2);
+		 
+		 LineTo g1lineTo = new LineTo();
+		 g1lineTo.setX(210+300);
+		 
+		 if(!aboutMeIsOut)
+			 g1lineTo.setY(200+300 + stageInitialHeightDifference/2);
+		 else
+			 g1lineTo.setY(770+300 + stageInitialHeightDifference/2);
+		 
+		 g1path.getElements().add(g1moveTo);
+		 g1path.getElements().add(g1lineTo);
+		 PathTransition g1pt = new PathTransition();
+		 g1pt.setDuration(Duration.millis(500));
+		 g1pt.setPath(g1path);
+		 g1pt.setNode(aboutGroup);
+		 g1pt.setAutoReverse(true);
+		 g1pt.play();
+   }
 	
 	//Menu Direction Animations
 	//Direction relocate    (830, 400); //up
@@ -1568,6 +1661,36 @@ public class GPSapp extends Application{
 		g1pt.setAutoReverse(true);
 		g1pt.play();
 	}
+	
+	//email 
+	private void emailPaneAnimation(Group emailGroup){
+		 Path g1path = new Path();
+		 MoveTo g1moveTo = new MoveTo();
+		 
+		 if(!menuEmailIsOut)
+			 g1moveTo.setX(830 + 120 + stageInitialWidthDifference);
+		 else
+			 g1moveTo.setX(590 + 120+ stageInitialWidthDifference);
+		 g1moveTo.setY(710 +  25+stageInitialHeightDifference);
+		 
+		 LineTo g1lineTo = new LineTo();
+		 if(!menuEmailIsOut)
+			 g1lineTo.setX(590 + 120+ stageInitialWidthDifference);
+		 else
+			 g1lineTo.setX(830 + 120+  stageInitialWidthDifference);
+		 g1lineTo.setY(710 + 25+ stageInitialHeightDifference);
+		 
+		 
+		 g1path.getElements().add(g1moveTo);
+		 g1path.getElements().add(g1lineTo);
+		 PathTransition g1pt = new PathTransition();
+		 g1pt.setDuration(Duration.millis(500));
+		 g1pt.setPath(g1path);
+		 g1pt.setNode(emailGroup);
+		 g1pt.setAutoReverse(true);
+		 g1pt.play();
+		 System.out.println("emailGroup X: " + emailGroup.getLayoutX() + ", Y: "+ emailGroup.getLayoutY());
+   }
 	
 	
 	
@@ -1618,7 +1741,7 @@ public class GPSapp extends Application{
 		            StepBox.setOnMouseMoved(new EventHandler<MouseEvent>() {
 		            	public void handle(MouseEvent event) {
 		            		if(currentInstruction >= 0){
-//		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
+		            			StepBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);");
 		                		//highlight the current path
 		                		int NodeX = directions.get(currentInstruction).getX();
 		                		int NodeY = directions.get(currentInstruction).getY();
@@ -1958,7 +2081,7 @@ public class GPSapp extends Application{
 	private void applyAnimation(Group g1, int i,  ImageView imageView){
 		//Fade the alpha
 		FadeTransition blur = new FadeTransition();
-		blur.setDuration(Duration.millis(1000));
+		blur.setDuration(Duration.millis(500));
 		blur.setFromValue(1.0);
 		blur.setToValue(.3);
 		blur.setNode(imageView);
@@ -1981,7 +2104,7 @@ public class GPSapp extends Application{
 		 g1path.getElements().add(g1lineTo);
 
 		 PathTransition g1pt = new PathTransition();
-		 g1pt.setDuration(Duration.millis(1000));
+		 g1pt.setDuration(Duration.millis(500));
 		 g1pt.setPath(g1path);
 		 g1pt.setNode(g1);
 		 g1pt.setOrientation(PathTransition.OrientationType.NONE);
