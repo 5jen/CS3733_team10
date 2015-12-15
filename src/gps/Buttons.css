@@ -223,3 +223,56 @@
     -fx-text-fill: black;
     -fx-font-size: 14px;
 }
+
+.dark {
+    -fx-outline: 0;
+    -fx-padding: 5px 12px;
+    -fx-display: block;
+    -fx-color: #9fa8b0;
+    -fx-font-weight: bold;
+    -fx-text-shadow: 1px 1px #1f272b;
+    -fx-border: 1px solid #1c252b;
+    -fx-border-radius: 3px;
+    -fx-background: #232B30; /* old browsers */
+    -fx-box-shadow: 1px 1px 1px rgba(0,0,0,0.2); /* CSS3 */
+
+}
+.dark:hover {
+    -fx-color: #fff;
+    -fx-background: #4C5A64; /* old browsers */
+}
+.dark:active {
+    -fx-background-position: 0 top;
+    -fx-position: relative;
+    -fx-top: 1px;
+    -fx-color: #fff;
+    -fx-padding: 6px 12px 4px;
+    -fx-background: #20282D; /* old browsers */
+    -fx-box-shadow: 1px 1px 1px rgba(255,255,255,0.1); /* CSS3 */
+}
+
+.search-input {
+    -fx-padding: 0 5px 0 22px;
+    -fx-border: 1px solid #1c252b;
+    -fx-height: 30px;
+    -fx-color: #9fa8b0;
+    -fx-font-size: 12px;
+    -fx-line-height: 30px;
+    -fx-font-weight: bold;
+    -fx-text-shadow: 1px 1px #1f272b;
+    -fx-border-radius: 25px;
+    -fx-background: #20282D; /* old browsers */
+    -fx-box-shadow: 1px 1px 1px rgba(255,255,255,0.1); /* CSS3 */
+}
+.search-input:focus {-fx-outline: none;}
+.search-submit {
+    -fx-width: 13px;
+    -fx-height: 13px;
+    -fx-border: none;
+    -fx-background: url(mag-glass.png) no-repeat;
+    -fx-display: block;
+    -fx-position: absolute;
+    -fx-left: 26px;
+    -fx-top: 10px;
+    -fx-text-indent: -9999em;
+}
