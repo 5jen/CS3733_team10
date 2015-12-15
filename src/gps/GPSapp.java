@@ -274,7 +274,7 @@ public class GPSapp extends Application{
     Button findNearestButton = new Button("Find Nearest");
 
     //TODO Add Vending Machines and Water Fountains when nodes are made for those types
-    ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining");
+    ObservableList<String> typeOptions = FXCollections.observableArrayList("Men's Bathroom", "Women's Bathroom", "Dining", "Vending Machine", "Water Fountain");
     ComboBox<String> nearestDropdown = new ComboBox<String>(typeOptions);
     VBox nearestBox = new VBox(5);
 
