@@ -125,11 +125,6 @@
   "to": "CC2:Place:216:443"
  },
  {
-  "distance": 5,
-  "from": "CC2:Place:142:345",
-  "to": "CC2:Place:216:345"
- },
- {
   "distance": 2,
   "from": "CC2:Place:142:345",
   "to": "CC2:Place:115:345"
@@ -455,12 +450,12 @@
   "to": "CC2:Place:216:559"
  },
  {
-  "distance": 3,
+  "distance": 10,
   "from": "CC3:Staircase:1056:448",
   "to": "CC2:Staircase:1051:510"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "CC1:Staircase:433:447",
   "to": "CCStairsDown:0"
  },
@@ -473,5 +468,35 @@
   "distance": 42,
   "from": "Campus Center Entrance A",
   "to": "CC2:Transition Point:105:560"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Place:216:345",
+  "to": "CC2:Place:171:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Elevator:171:382",
+  "to": "CC2:Place:171:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:142:345",
+  "to": "CC2:Place:171:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Elevator:1227:560",
+  "to": "CC2:Place:1193:560"
+ },
+ {
+  "distance": 10,
+  "from": "CC2:Elevator:171:382",
+  "to": "CC1:Elevator:175:385"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Elevator:1227:560",
+  "to": "CC1:Elevator:1233:558"
  }
 ]

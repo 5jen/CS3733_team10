@@ -637,19 +637,6 @@
   "valy": 719
  },
  {
-  "valx": 1090,
-  "globalY": 607,
-  "isWalkable": true,
-  "globalX": 1232,
-  "floorMap": "Campus Center 3",
-  "name": "CC345",
-  "isPlace": true,
-  "type": "Point",
-  "valz": 10,
-  "building": "Campus Center",
-  "valy": 719
- },
- {
   "valx": 1179,
   "globalY": 603,
   "isWalkable": true,
@@ -1027,19 +1014,6 @@
   "valy": 633
  },
  {
-  "valx": 412,
-  "globalY": 651,
-  "isWalkable": true,
-  "globalX": 1227,
-  "floorMap": "Campus Center 3",
-  "name": "CC345",
-  "isPlace": true,
-  "type": "Point",
-  "valz": 10,
-  "building": "Campus Center",
-  "valy": 748
- },
- {
   "valx": 444,
   "globalY": 649,
   "isWalkable": true,
@@ -1064,5 +1038,83 @@
   "valz": 10,
   "building": "Campus Center",
   "valy": 467
+ },
+ {
+  "valx": 1090,
+  "globalY": 607,
+  "isWalkable": true,
+  "globalX": 1232,
+  "floorMap": "Campus Center 3",
+  "name": "CC345*",
+  "isPlace": true,
+  "type": "Point",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 722
+ },
+ {
+  "valx": 409,
+  "globalY": 651,
+  "isWalkable": true,
+  "globalX": 1226,
+  "floorMap": "Campus Center 3",
+  "name": "CC345",
+  "isPlace": true,
+  "type": "Point",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 744
+ },
+ {
+  "valx": 179,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1199,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Point:179:349",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 349
+ },
+ {
+  "valx": 179,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1201,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Elevator:179:384",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 384
+ },
+ {
+  "valx": 1181,
+  "globalY": 600,
+  "isWalkable": true,
+  "globalX": 1222,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Point:1181:559",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 559
+ },
+ {
+  "valx": 1237,
+  "globalY": 596,
+  "isWalkable": true,
+  "globalX": 1223,
+  "floorMap": "Campus Center 3",
+  "name": "CC3:Elevator:1237:559",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 10,
+  "building": "Campus Center",
+  "valy": 559
  }
 ]

@@ -1142,5 +1142,44 @@
   "valz": 0,
   "building": "Campus Center",
   "valy": 560
+ },
+ {
+  "valx": 171,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1198,
+  "floorMap": "Campus Center 2",
+  "name": "CC2:Place:171:345",
+  "isPlace": false,
+  "type": "Place",
+  "valz": 0,
+  "building": "Campus Center",
+  "valy": 345
+ },
+ {
+  "valx": 171,
+  "globalY": 663,
+  "isWalkable": true,
+  "globalX": 1200,
+  "floorMap": "Campus Center 2",
+  "name": "CC2:Elevator:171:382",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 0,
+  "building": "Campus Center",
+  "valy": 382
+ },
+ {
+  "valx": 1227,
+  "globalY": 598,
+  "isWalkable": true,
+  "globalX": 1222,
+  "floorMap": "Campus Center 2",
+  "name": "CC2:Elevator:1227:560",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": 0,
+  "building": "Campus Center",
+  "valy": 560
  }
 ]

@@ -85,11 +85,6 @@
   "to": "CC1:Place:1210:617"
  },
  {
-  "distance": 5,
-  "from": "CC1:Place:1210:617",
-  "to": "CC1:Point:1210:545"
- },
- {
   "distance": 2,
   "from": "CC1:Place:1141:781",
   "to": "CC1:Place:1141:739"
@@ -157,11 +152,6 @@
  {
   "distance": 6,
   "from": "CC1:Point:618:545",
-  "to": "CC1:Point:611:459"
- },
- {
-  "distance": 8,
-  "from": "CC1EntranceInside",
   "to": "CC1:Point:611:459"
  },
  {
@@ -485,11 +475,6 @@
   "to": "CC1:Point:220:344"
  },
  {
-  "distance": 5,
-  "from": "CC1:Point:140:344",
-  "to": "CC1:Point:220:344"
- },
- {
   "distance": 2,
   "from": "CC124",
   "to": "CC1:Place:221:64"
@@ -520,7 +505,7 @@
   "to": "CC1:Point:1091:545"
  },
  {
-  "distance": 5,
+  "distance": 11,
   "from": "CC2:Staircase:1049:445",
   "to": "CCBackStairs-1"
  },
@@ -568,5 +553,35 @@
   "distance": 1,
   "from": "CC1:Staircase:433:447",
   "to": "CC1:Point:420:470"
+ },
+ {
+  "distance": 3,
+  "from": "CC1:Point:220:344",
+  "to": "CC1:Point:175:344"
+ },
+ {
+  "distance": 2,
+  "from": "CC1:Point:140:344",
+  "to": "CC1:Point:175:344"
+ },
+ {
+  "distance": 3,
+  "from": "CC1:Point:175:344",
+  "to": "CC1:Elevator:175:385"
+ },
+ {
+  "distance": 1,
+  "from": "CC1:Point:1210:558",
+  "to": "CC1:Elevator:1233:558"
+ },
+ {
+  "distance": 1,
+  "from": "CC1:Point:1210:545",
+  "to": "CC1:Point:1210:558"
+ },
+ {
+  "distance": 4,
+  "from": "CC1:Point:1210:558",
+  "to": "CC1:Place:1210:617"
  }
 ]

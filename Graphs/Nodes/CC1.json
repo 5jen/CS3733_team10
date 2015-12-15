@@ -1259,5 +1259,57 @@
   "valz": -10,
   "building": "Campus Center",
   "valy": 470
+ },
+ {
+  "valx": 175,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1198,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Point:175:344",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 344
+ },
+ {
+  "valx": 175,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1201,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Elevator:175:385",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 385
+ },
+ {
+  "valx": 1210,
+  "globalY": 597,
+  "isWalkable": true,
+  "globalX": 1223,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Point:1210:558",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 558
+ },
+ {
+  "valx": 1233,
+  "globalY": 596,
+  "isWalkable": true,
+  "globalX": 1223,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Elevator:1233:558",
+  "isPlace": false,
+  "type": "Elevator",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 558
  }
 ]
