@@ -367,18 +367,23 @@ public class GPSapp extends Application {
 	boolean setMenuTransformation = false;
 	boolean aboutMeIsOut = false;
 	boolean directionsAreOut = false;
+	boolean descriptionIsOut = false;
+	
+	Label descriptionTextArea = new Label();
 
 	// UI Panes
 	Pane menuPane = new Pane();
 	Pane fullMenuPane = new Pane();
 	Pane directionsPane = new Pane();
 	Pane aboutPane = new Pane();
+	Pane descriptionPane = new Pane();
 
 	Group directionsGroup = new Group();
 
     Group menuGroup = new Group();
     Group emailGroup = new Group();
     Group aboutGroup = new Group();
+    Group descriptionGroup = new Group();
     
     //Google Calendars things
     LinkedList<MyEvent> myEventsData = new LinkedList<MyEvent>(); //This is the unparsed data right from google
@@ -390,7 +395,6 @@ public class GPSapp extends Application {
     
     LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
     
-    //ADD THESE TO THE PARSER!!!
     LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
 
     LinkedList<String> AwardWords = new LinkedList<String>(Arrays.asList("award", "ceremony", "trophy", "honor", "banquet", "Humanities", "awarding", "prize", "certificates"));
@@ -398,12 +402,11 @@ public class GPSapp extends Application {
     LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "showing", "theater"));
 
 
-    
-    //CREATE THE REST OF THE EVENTMATCHERS
+    //variable to store the event your rolled over
     
     //***
-    //Create the location list to later determine where the location is
-    //LinkedList<String> LocationNameList = new LinkedList<String>(Arrays.asList("food", "ice cream"))
+    MyEvent currentEvent = new MyEvent();
+    boolean mouseOnEvent = false;
     
     //*************************
     
@@ -699,7 +702,40 @@ public class GPSapp extends Application {
 			//add the tool tips to the event icons
 			Tooltip tempToolTip = new Tooltip(tempEvent.getSummary());
 			Tooltip.install(EventIconImage, tempToolTip);
+			
+			//Add delays if time!!
+			EventIconImage.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					currentEvent = tempEvent;
+					mouseOnEvent = true;
 					
+					String tempText = truncate(tempEvent.getDescription(), 100);
+					descriptionTextArea.setText(tempText);
+					if (!descriptionIsOut) {
+						descriptionPaneAnimation(descriptionGroup);
+						descriptionIsOut = true;
+					} else {
+						descriptionPaneAnimation(descriptionGroup);
+						descriptionIsOut = false;
+					}
+				}
+			});
+			EventIconImage.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					currentEvent = tempEvent;
+					mouseOnEvent = true;
+					
+					if (!descriptionIsOut) {
+						descriptionPaneAnimation(descriptionGroup);
+						descriptionIsOut = true;
+					} else {
+						descriptionPaneAnimation(descriptionGroup);
+						descriptionIsOut = false;
+					}
+				}
+			});
 			
 			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
 		}
@@ -990,7 +1026,41 @@ public class GPSapp extends Application {
 		root.getChildren().addAll(menuPane);
 
 		// ********************************************************
+		// ********Description UI******************************
+		//descriptionGroup
+	    //descriptionPane
+	    descriptionPane.setPrefSize(300, 125);
+		descriptionPane.setStyle("-fx-background-color: #515151;");
+		descriptionPane.relocate(1100, 0); //shift after off screen
+		
+		final Label eventDescription = new Label("Event Description");
+		eventDescription.setTextFill(Color.WHITE);
+		eventDescription.setFont(Font.font("manteka", 16));
+		eventDescription.relocate(5, 5);
+		
+		//add description
+		currentEvent.setDescription("");
+		String descriptionText = currentEvent.getDescription();
+		//descriptionText = truncate(descriptionText, 100);
+		 descriptionTextArea = new Label(descriptionText);
+		descriptionTextArea.setPrefWidth(260); descriptionTextArea.setPrefHeight(80);
+		descriptionTextArea.relocate(5, 25);
+		descriptionTextArea.setTextFill(Color.WHITE);
+		descriptionTextArea.setFont(Font.font("manteka", 10));
+		
+		descriptionPane.getChildren().addAll(eventDescription, descriptionTextArea);
+		
+		root.getChildren().remove(descriptionPane);
+		root.getChildren().addAll(descriptionPane);
+		
+		descriptionGroup.getChildren().addAll(descriptionPane);
+		
+		root.getChildren().addAll(descriptionGroup);
 
+
+		
+	    
+		
 		// ********SLIDE OUT MENU UI******************************
 		fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
 		fullMenuPane.setStyle("-fx-background-color: #515151;");
@@ -1309,7 +1379,7 @@ public class GPSapp extends Application {
 				emailPane.setTranslateX(stageInitialWidthDifference);
 				aboutPane.setTranslateX(stageInitialWidthDifference);
 				scrollContent.setTranslateX(initialPanAmountX + stageInitialWidthDifference / 2);
-
+				descriptionGroup.setTranslateX(stageInitialWidthDifference);
     			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
     			//TODO asdasd
     			//TODO asdasd
@@ -1552,6 +1622,15 @@ public class GPSapp extends Application {
 
 	///END OF MAIN ***************************************************************
 
+	public static String truncate(String value, int length) {
+		// Ensure String length is longer than requested size.
+		if (value.length() > length) {
+		    return value.substring(0, length);
+		} else {
+		    return value;
+		}
+	}
+	
 	private Building determineLocation(String location) {
 		
 		//iterate through the list of locations to match the location to set the location
@@ -1654,6 +1733,36 @@ public class GPSapp extends Application {
 		g1pt.setDuration(Duration.millis(500));
 		g1pt.setPath(g1path);
 		g1pt.setNode(menuGroup);
+		g1pt.setAutoReverse(true);
+		g1pt.play();
+	}
+	
+	private void descriptionPaneAnimation(Group descriptionGroup) {
+		Path g1path = new Path();
+		MoveTo g1moveTo = new MoveTo();
+
+		if (!descriptionIsOut)
+			g1moveTo.setX(1100 + 150);
+		else 
+			g1moveTo.setX(800 + 150);
+		
+		g1moveTo.setY(0 + 63);
+
+		LineTo g1lineTo = new LineTo();
+		if (!descriptionIsOut)
+			g1lineTo.setX(800 + 150);
+		else
+			g1lineTo.setX(1100 + 150);
+		
+		g1lineTo.setY(0 + 63);
+		
+
+		g1path.getElements().add(g1moveTo);
+		g1path.getElements().add(g1lineTo);
+		PathTransition g1pt = new PathTransition();
+		g1pt.setDuration(Duration.millis(500));
+		g1pt.setPath(g1path);
+		g1pt.setNode(descriptionGroup);
 		g1pt.setAutoReverse(true);
 		g1pt.play();
 	}
