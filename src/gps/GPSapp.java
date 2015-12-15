@@ -48,6 +48,8 @@ import javafx.util.Duration;
 import node.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -55,6 +57,9 @@ import java.util.TreeMap;
 
 import com.sun.javafx.application.LauncherImpl;
 
+import Calendar.CalendarEvents;
+import Calendar.EventMatcher;
+import Calendar.MyEvent;
 import node.Graph;
 import planner.v1.EmailSender;
 import gps.MyPreloader;
@@ -323,6 +328,26 @@ public class GPSapp extends Application{
     Group menuGroup = new Group();
     Group emailGroup = new Group();
     Group aboutGroup = new Group();
+    
+    //Google Calendars things
+    LinkedList<MyEvent> myEventsData = new LinkedList<MyEvent>(); //This is the unparsed data right from google
+    LinkedList<MyEvent> myEvents = new LinkedList<MyEvent>(); //This is populated with the information that we obtain from the above data
+    
+    //Create the EventMatchers
+    
+    LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
+    EventMatcher FoodEvent = new EventMatcher("Food", FoodWords);
+    
+    LinkedList<String> WPIWords = new LinkedList<String>(Arrays.asList("WPI", "Soccom", "sga", "talent", "show", "perform", "goat", "cdc", "acm"));
+    EventMatcher WPIEvent = new EventMatcher("WPI", WPIWords);
+    //CREATE THE REST OF THE EVENTMATCHERS
+    
+    //***
+    //Create the location list to later determine where the location is
+    //LinkedList<String> LocationNameList = new LinkedList<String>(Arrays.asList("food", "ice cream"))
+    
+    //*************************
+    
 	
     @Override
     public void init() throws Exception {
@@ -455,6 +480,100 @@ public class GPSapp extends Application{
     
 	@Override
     public void start(Stage primaryStage) {
+		
+		//Grab the events from google calendars
+		try { 
+			myEventsData = CalendarEvents.getEvents();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		//*** GRAB THE EVENTS AND PARSE THROUGH THEM TO the list ***
+		//Evaulte which keyword is most prominent in the description and determine event Type
+		int awardCount = 0, foodCount = 0, movieCount = 0, WPIEventCount = 0, sportCount = 0;
+		String tempType = "WPIEvent";
+		
+		String tempDescription = new String(); //parse info from description
+		Building tempBuilding = new Building("");
+		
+		//MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
+		System.out.println("myEventsData.size() :  " + myEventsData.size());
+		for(int i = 0; i < myEventsData.size();i++){
+			MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
+
+			//**** ALSO ADD ERROR CHECKING IN HERE WHEN YOU OBTAIN EACH BIT OF 
+			//INFORMATION IS A VALID BIT OF INFO********
+			
+			//CHECK IF THIS FIRST TO KNOW IF WE WANT TO SKIP EVENTS WITH BAD LOCATIONS
+			//Find the location
+			//Parse through location information, first match to a place, use that as the location
+			tempBuilding =  determineLocation(myEventsData.get(i).getLocation());
+			if(tempBuilding == NullBuilding){
+				continue; //skip adding this building because unreadable location
+			}
+			tempEvent.setLocation(tempBuilding.getName());
+			
+			
+			//Get Title of event 
+			tempEvent.setSummary(myEventsData.get(i).getSummary());
+			
+			//Get description of event 
+			tempEvent.setDescription(myEventsData.get(i).getDescription());
+			
+			//Get location of event 
+			//MIGHT NEED TO DO CUSTOM LOCATION DEPENDING ON WHERE THE OFFSET IS SET TO
+			//SINCE IT MIGHT BE ON A DIFFERENT CORNER THAN THE BOTTOM RIGHT HAND SIDE
+			tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX());
+			tempEvent.setlocationY(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+
+			//Get the start and end time of the event
+			//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
+			//NOT VITAL BUT WOULD BE NICE...****
+			tempEvent.setStartTime("10");
+			tempEvent.setEndTime("11");
+			
+			
+			
+			//Determine the Type of the event based on the information in description
+			//cut white space out and cast all lowercase for easier search
+			tempDescription = myEventsData.get(i).getDescription();
+			tempDescription = tempDescription.replaceAll("\\s+","");
+			tempDescription = tempDescription.toLowerCase();
+			System.out.println(tempDescription); //works time to parse
+			//parse through and search for key words
+			for(int f = 0; f < WPIWords.size();f ++){
+				if(tempDescription.contains(WPIWords.get(i)))
+					WPIEventCount++;
+			}
+			for(int f = 0; f < FoodWords.size();f ++){
+				if(tempDescription.contains(FoodWords.get(i)))
+					foodCount++;
+			}
+			//Add the rest of the parsers once we get this working!!!!!
+			//Depending on which count is the highest at the point, choose the event type
+			tempType  = determineEventType(awardCount, foodCount, movieCount, WPIEventCount , sportCount);
+			tempEvent.setType(tempType);
+			
+			//depending on the type, set the image icon as well
+			File eventIconFile = new File("CS3733_Graphics/EventImages/"+ tempType +".png");
+	        Image EventIconImagePic = new Image(eventIconFile.toURI().toString());
+			tempEvent.setIcon(new ImageView(EventIconImagePic));
+			
+			
+			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
+		}
+		System.out.println("myEvents.size() :  " + myEvents.size());
+		for(int i = 0; i < myEvents.size();i++){
+			//System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
+			//System.out.println("Desc: " + myEvents.get(i).getDescription());
+			//System.out.println("X: " + myEvents.get(i).getlocationX());
+			//System.out.println("Y: " + myEvents.get(i).getlocationY());
+			//*** ATTACH IMAGES IN THE PROPER PLACES ON THE CORRECT PANE***
+		}
+		
+		//******************* PROBABLY MOVE ABOUT TO METHOD AND CALL.. BUT ONLY NEEDS TO BE CALLED ON LAUNCH**********
 
 		File iconFile = new File("CS3733_Graphics/PI.png");
         Image iconImage = new Image(iconFile.toURI().toString());
@@ -1298,8 +1417,61 @@ public class GPSapp extends Application{
         });
 
     }
+	
+
+
 	///END OF MAIN ***************************************************************
 
+	private Building determineLocation(String location) {
+		
+		//iterate through the list of locations to match the location to set the location
+		//split up location description
+		String[] parts = location.toLowerCase().split(" ");
+
+	       // Filter out the entries that don't contain the entered text
+	        ObservableList<Building> subentries = FXCollections.observableArrayList();
+	        for (Building entry: buildings) {
+	            boolean match = false;
+	            String entryText = entry.getName() +entry.getMaps().get(0).getInitials();
+	            entryText = entryText.toLowerCase();
+	            for (String part: parts) {
+	                // The entry needs to contain all portions of the
+	                // search string *but* in any order
+	                if (entryText.toLowerCase().contains(part) ) {
+	                    match = true;
+	                    break;
+	                }
+	            }
+
+	            if ( match ) {
+	            	return entry; //return entire building to later get info from it 
+	            }
+	            
+	        }
+		
+	     //default location, type check in main, if nullBuilding, dont add this event to the list
+		return NullBuilding;
+	}
+
+
+
+	private String determineEventType(int awardCount, int foodCount, int movieCount, int WPIEventCount, int sportCount) {
+		//give WPI events more weight, or whatever, depends on order
+		//POSSIBLY delte the = sign to give better image recognition
+		if(WPIEventCount >= awardCount && WPIEventCount >= foodCount && WPIEventCount >= movieCount && WPIEventCount >= sportCount)
+			return "WPIEvent";
+		else if(foodCount >= awardCount  && foodCount >= movieCount && foodCount >= sportCount)
+			return "Food";
+		else if(sportCount >= awardCount  && sportCount >= movieCount)
+			return "Sport";
+		else if(awardCount >= movieCount)
+			return "Award";
+		else if(movieCount > 0)
+			return "Movie";
+		
+		return "WPIEvent"; //Default event type
+	}
+	
 	//Bring the UI to the front of the screen
 	public void fixUI(){
 		aboutGroup.toFront();
