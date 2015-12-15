@@ -869,5 +869,57 @@
   "valz": 0,
   "building": "Gordon Library",
   "valy": 400
+ },
+ {
+  "valx": 688,
+  "globalY": 756,
+  "isWalkable": true,
+  "globalX": 1658,
+  "floorMap": "Gordon Library 2",
+  "name": "GL2:Vending Machine:688:81drinks",
+  "isPlace": true,
+  "type": "Vending Machine",
+  "valz": 0,
+  "building": "Gordon Library",
+  "valy": 81
+ },
+ {
+  "valx": 743,
+  "globalY": 759,
+  "isWalkable": true,
+  "globalX": 1657,
+  "floorMap": "Gordon Library 2",
+  "name": "GL2:Vending Machine:743:84snacks",
+  "isPlace": true,
+  "type": "Vending Machine",
+  "valz": 0,
+  "building": "Gordon Library",
+  "valy": 84
+ },
+ {
+  "valx": 748,
+  "globalY": 760,
+  "isWalkable": true,
+  "globalX": 1659,
+  "floorMap": "Gordon Library 2",
+  "name": "GL2:Point:748:43",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Gordon Library",
+  "valy": 43
+ },
+ {
+  "valx": 682,
+  "globalY": 757,
+  "isWalkable": true,
+  "globalX": 1659,
+  "floorMap": "Gordon Library 2",
+  "name": "GL2:Point:682:43",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Gordon Library",
+  "valy": 43
  }
 ]

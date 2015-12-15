@@ -25,11 +25,6 @@
   "to": "GLB:Point:328:153"
  },
  {
-  "distance": 4,
-  "from": "GLB:Point:413:79",
-  "to": "GLB:Point:328:79"
- },
- {
   "distance": 1,
   "from": "GLB:Point:413:79",
   "to": "GL Basement Men's Bathroom 1"
@@ -235,8 +230,23 @@
   "to": "GLB:Point:490:476"
  },
  {
-  "distance": 2,
+  "distance": 10,
   "from": "GLB:Elevator:490:441",
   "to": "GLSB:Elevator:485:439"
+ },
+ {
+  "distance": 3,
+  "from": "GLB:Point:328:79",
+  "to": "GLB:Point:377:79"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Point:413:79",
+  "to": "GLB:Point:377:79"
+ },
+ {
+  "distance": 1,
+  "from": "GLB:Water Fountain:378:92",
+  "to": "GLB:Point:377:79"
  }
 ]

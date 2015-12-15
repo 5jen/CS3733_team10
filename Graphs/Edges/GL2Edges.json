@@ -225,11 +225,6 @@
   "to": "GL2:Point:840:260"
  },
  {
-  "distance": 14,
-  "from": "GL2:Point:846:43",
-  "to": "GL2:Point:535:43"
- },
- {
   "distance": 11,
   "from": "GL2:Point:309:43",
   "to": "GL2:Point:535:43"
@@ -380,8 +375,33 @@
   "to": "GLB:Elevator:490:441"
  },
  {
-  "distance": 2,
+  "distance": 10,
   "from": "GL2:Elevator:495:400",
   "to": "GL1:Elevator:490:444"
+ },
+ {
+  "distance": 7,
+  "from": "GL2:Point:535:43",
+  "to": "GL2:Point:682:43"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:682:43",
+  "to": "GL2:Point:748:43"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:748:43",
+  "to": "GL2:Point:846:43"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:748:43",
+  "to": "GL2:Vending Machine:743:84snacks"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:682:43",
+  "to": "GL2:Vending Machine:688:81drinks"
  }
 ]

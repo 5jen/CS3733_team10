@@ -596,5 +596,31 @@
   "valz": -20,
   "building": "Gordon Library",
   "valy": 441
+ },
+ {
+  "valx": 378,
+  "globalY": 742,
+  "isWalkable": true,
+  "globalX": 1660,
+  "floorMap": "Gordon Library B",
+  "name": "GLB:Water Fountain:378:92",
+  "isPlace": true,
+  "type": "Water Fountain",
+  "valz": -20,
+  "building": "Gordon Library",
+  "valy": 92
+ },
+ {
+  "valx": 377,
+  "globalY": 743,
+  "isWalkable": true,
+  "globalX": 1660,
+  "floorMap": "Gordon Library B",
+  "name": "GLB:Point:377:79",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -20,
+  "building": "Gordon Library",
+  "valy": 79
  }
 ]

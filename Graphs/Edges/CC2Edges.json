@@ -125,11 +125,6 @@
   "to": "CC2:Place:216:443"
  },
  {
-  "distance": 5,
-  "from": "CC2:Place:142:345",
-  "to": "CC2:Place:216:345"
- },
- {
   "distance": 2,
   "from": "CC2:Place:142:345",
   "to": "CC2:Place:115:345"
@@ -455,12 +450,12 @@
   "to": "CC2:Place:216:559"
  },
  {
-  "distance": 3,
+  "distance": 10,
   "from": "CC3:Staircase:1056:448",
   "to": "CC2:Staircase:1051:510"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "CC1:Staircase:433:447",
   "to": "CCStairsDown:0"
  },
@@ -473,5 +468,20 @@
   "distance": 42,
   "from": "Campus Center Entrance A",
   "to": "CC2:Transition Point:105:560"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:176:345",
+  "to": "CC2:Place:142:345"
+ },
+ {
+  "distance": 2,
+  "from": "CC2:Place:176:345",
+  "to": "CC2:Water Fountain:177:319"
+ },
+ {
+  "distance": 3,
+  "from": "CC2:Place:176:345",
+  "to": "CC2:Place:216:345"
  }
 ]

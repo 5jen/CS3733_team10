@@ -921,5 +921,31 @@
   "valz": 10,
   "building": "Gordon Library",
   "valy": 388
+ },
+ {
+  "valx": 344,
+  "globalY": 742,
+  "isWalkable": true,
+  "globalX": 1656,
+  "floorMap": "Gordon Library 3",
+  "name": "GL3:Water Fountain:344:160",
+  "isPlace": true,
+  "type": "Water Fountain",
+  "valz": 10,
+  "building": "Gordon Library",
+  "valy": 160
+ },
+ {
+  "valx": 316,
+  "globalY": 740,
+  "isWalkable": true,
+  "globalX": 1656,
+  "floorMap": "Gordon Library 3",
+  "name": "GL3:Point:316:160",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 10,
+  "building": "Gordon Library",
+  "valy": 160
  }
 ]

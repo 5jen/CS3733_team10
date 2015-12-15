@@ -15,11 +15,6 @@
   "to": "GL3:Point:316:261"
  },
  {
-  "distance": 4,
-  "from": "GL3:Point:316:197",
-  "to": "GL3:Point:316:120"
- },
- {
   "distance": 3,
   "from": "GL3:Point:316:60",
   "to": "GL3:Point:316:120"
@@ -400,8 +395,23 @@
   "to": "GL1:Elevator:490:444"
  },
  {
-  "distance": 2,
+  "distance": 10,
   "from": "GL3:Elevator:449:388",
   "to": "GL2:Elevator:495:400"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:316:160",
+  "to": "GL3:Point:316:120"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:316:160",
+  "to": "GL3:Water Fountain:344:160"
+ },
+ {
+  "distance": 2,
+  "from": "GL3:Point:316:197",
+  "to": "GL3:Point:316:160"
  }
 ]

@@ -195,11 +195,6 @@
   "to": "GL1:Point:1240:655"
  },
  {
-  "distance": 3,
-  "from": "GL1:Point:1321:655",
-  "to": "GL1:Point:1240:655"
- },
- {
   "distance": 1,
   "from": "GL1:Point:1321:655",
   "to": "GL100F"
@@ -290,8 +285,23 @@
   "to": "GLSB:Elevator:485:439"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "GL1:Elevator:490:444",
   "to": "GLB:Elevator:490:441"
+ },
+ {
+  "distance": 2,
+  "from": "GL1:Point:1290:655",
+  "to": "GL1:Point:1240:655"
+ },
+ {
+  "distance": 1,
+  "from": "GL1:Point:1290:655",
+  "to": "GL1:Point:1321:655"
+ },
+ {
+  "distance": 1,
+  "from": "GL1:Point:1290:655",
+  "to": "GL1:Water Fountain:1294:676"
  }
 ]
