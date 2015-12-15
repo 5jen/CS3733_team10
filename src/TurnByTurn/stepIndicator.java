@@ -59,7 +59,8 @@ public class stepIndicator {
             int dis = getDistance(x1,x2,y1,y2);
 
             // Transition point between maps
-            if (type.compareTo("Transition Point")==0) {
+            if ((type.compareTo("Transition Point")==0) &&
+                    (route.get(i+1).getType().compareTo("Transition Point") == 0)){
                 i++;//skip transition points in pairs
                 String map = route.get(i).getFloorMap();
                 //TODO convert map name to actual name
@@ -68,7 +69,8 @@ public class stepIndicator {
                 message = maneuver + map;
             }
             else {
-                if (type.compareTo("Staircase") == 0){
+                if ((type.compareTo("Staircase") == 0) &&
+                        (route.get(i+1).getType().compareTo("Staircase") == 0)){
                     int z1 = route.get(i-1).getZ();
                     int z2 = route.get(i+1).getZ();
 
