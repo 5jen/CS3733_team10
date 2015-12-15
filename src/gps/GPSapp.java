@@ -768,6 +768,7 @@ public class GPSapp extends Application{
     	mapSelectorLabel.setTextFill(Color.WHITE);
     	final HBox mapSelectionBoxH = new HBox(5);
     	final Button LoadMapButton = new Button("Load");
+        mapSelector.setPrefWidth(125);
 
         mapSelectionBoxH.setMaxWidth(180);
 
