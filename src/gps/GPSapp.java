@@ -1893,8 +1893,15 @@ public class GPSapp extends Application {
 				Label newDirection;
 
 				// if(directions.get(i).getDistance() == 0.0) {
-				newDirection = new Label(directions.get(i).getMessage());
-				newDirection.setFont(Font.font("Menlo"));
+                if(!(directions.get(i).getIconID() == 1)
+                        &&!(directions.get(i).getIconID() == 2)
+                        &&!(directions.get(i).getIconID() == 5)
+                        &&!(directions.get(i).getIconID() == 10)) {
+                    newDirection = new Label(directions.get(i).getMessage());
+                } else {
+                    newDirection = new Label(directions.get(i).getBaseMessage());
+                }
+                newDirection.setFont(Font.font("Menlo"));
 				// } else {
 				// newDirection = new Label(directions.get(i).getMessage() + "
 				// and go for " + round(directions.get(i).getDistance(), 1) + "
