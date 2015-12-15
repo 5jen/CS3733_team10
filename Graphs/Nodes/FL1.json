@@ -227,7 +227,7 @@
   "globalX": 1639,
   "floorMap": "Fuller Labs 1",
   "name": "FL1:Elevator",
-  "isPlace": true,
+  "isPlace": false,
   "type": "Elevator",
   "valz": -20,
   "building": "Fuller Labs",

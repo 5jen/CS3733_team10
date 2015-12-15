@@ -270,11 +270,6 @@
   "to": "FL2:Point:789:314"
  },
  {
-  "distance": 10,
-  "from": "FL2:Point:756:314",
-  "to": "FL2:Point:755:467"
- },
- {
   "distance": 1,
   "from": "FL210",
   "to": "FL2:Point:755:467"
@@ -485,12 +480,12 @@
   "to": "FL2:Point:755:829"
  },
  {
-  "distance": 3,
+  "distance": 5,
   "from": "FL2:UpperPeraultLectureHallC",
   "to": "FL2:Staircase:710:643"
  },
  {
-  "distance": 2,
+  "distance": 3,
   "from": "FL2:Point:710:691",
   "to": "FL2:Staircase:710:643"
  },
@@ -513,5 +508,35 @@
   "distance": 3,
   "from": "FL2:Point:716:818",
   "to": "FL2:Point:712:776"
+ },
+ {
+  "distance": 2,
+  "from": "FL2:Point:755:423",
+  "to": "FL2:Elevator:778:423"
+ },
+ {
+  "distance": 2,
+  "from": "FL2:Point:755:467",
+  "to": "FL2:Point:755:423"
+ },
+ {
+  "distance": 7,
+  "from": "FL2:Point:755:423",
+  "to": "FL2:Point:756:314"
+ },
+ {
+  "distance": 31,
+  "from": "FL2:Elevator:778:423",
+  "to": "FLSB:Elevator:672:330"
+ },
+ {
+  "distance": 21,
+  "from": "FL2:Elevator:778:423",
+  "to": "FLB:Elevator:739:328"
+ },
+ {
+  "distance": 5,
+  "from": "FL2:Elevator:778:423",
+  "to": "FL1:Elevator"
  }
 ]
