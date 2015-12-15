@@ -62,6 +62,9 @@ public class MapTool extends Application {
     Building ProjectCenter = new Building("Project Center");
     Building StrattonHall = new Building("Stratton Hall");
     Building FullerLabs = new Building("Fuller Labs");
+    Building SalisburyLabs = new Building("Salisbury Labs");
+    Building WestStreet = new Building("157 West Street");
+    Building WashburnShops = new Building("Washburn Shops");
 
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -106,7 +109,18 @@ public class MapTool extends Application {
     Map FullerLabs1 = new Map("Fuller Labs 1", "FL", "CS3733_Graphics/FL1.png", "Graphs/Nodes/FL1.json", "Graphs/Edges/FL1Edges.json", 1.099, 1636, 497, 0.169, "1");
     Map FullerLabs2 = new Map("Fuller Labs 2", "FL", "CS3733_Graphics/FL2.png", "Graphs/Nodes/FL2.json", "Graphs/Edges/FL2Edges.json", 1.099, 1636, 497, 0.168, "2");
     Map FullerLabs3 = new Map("Fuller Labs 3", "FL", "CS3733_Graphics/FL3.png", "Graphs/Nodes/FL3.json", "Graphs/Edges/FL3Edges.json", 1.099, 1636, 497, 0.1661, "3");
+   
+    //TODO Add rest of maps
+    //TODO
+    //TODO
+    Map SalisburyLabs3 = new Map("Salisbury Labs 3", "SL", "CS3733_Graphics/SL3.png", "Graphs/Nodes/SL3.json", "Graphs/Edges/SL3Edges.json", -1.396, 1438, 717, 0.1636, "3");
+    Map SalisburyLabs4 = new Map("Salisbury Labs 4", "SL", "CS3733_Graphics/SL4.png", "Graphs/Nodes/SL4.json", "Graphs/Edges/SL4Edges.json", -1.396, 1438, 717, 0.1629, "4");
+    
+    Map WestStreetB = new Map("157 West Street B", "West", "CS3733_Graphics/WestB.png", "Graphs/Nodes/WestB.json", "Graphs/Edges/WestBEdges.json", -1.413, 1306, 1290, 0.0547, "B");
+    Map WestStreet1 = new Map("157 West Street 1", "West", "CS3733_Graphics/West1.png", "Graphs/Nodes/West1.json", "Graphs/Edges/West1Edges.json", -1.413, 1306, 1290, 0.0483, "1");
+    Map WestStreet2 = new Map("157 West Street 2", "West", "CS3733_Graphics/West2.png", "Graphs/Nodes/West2.json", "Graphs/Edges/West2Edges.json", -1.413, 1306, 1290, 0.0532, "2");
 
+    Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json", "Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
     
     public static void main(String[] args) {
         launch(args);
@@ -227,7 +241,18 @@ public class MapTool extends Application {
         FullerLabs.addMap(FullerLabs1);
         FullerLabs.addMap(FullerLabs2);
         FullerLabs.addMap(FullerLabs3);
-
+        
+        
+        //TODO Add rest of maps
+        SalisburyLabs.addMap(SalisburyLabs3);
+        SalisburyLabs.addMap(SalisburyLabs4);
+        
+        WashburnShops.addMap(WashburnShops1);
+        
+        WestStreet.addMap(WestStreetB);
+        WestStreet.addMap(WestStreet1);
+        WestStreet.addMap(WestStreet2);
+        
         // Store the Buildings in a list
         // TODO Add more buildings to this list
         LinkedList<Building> buildings = new LinkedList<>();
@@ -240,6 +265,9 @@ public class MapTool extends Application {
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
         buildings.add(FullerLabs);
+        buildings.add(SalisburyLabs);
+        buildings.add(WashburnShops);
+        buildings.add(WestStreet);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -1326,348 +1354,423 @@ public class MapTool extends Application {
         imageView.setImage(mapImage);
         NodePane.setPrefSize(2450, 1250);
 
-        switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
-            case "CampusMap":
-                NodePane.setPrefSize(3000, 2000);
-                imageView.setScaleX(0.75);
-                imageView.setScaleY(0.75);
-                imageView.relocate(-1000, -600);
-                NodePane.setScaleX(0.75);
-                NodePane.setScaleY(0.75);
-                NodePane.relocate(-965, -643);
-                zField.setText("0");
-                buttonRescale = 1 / 0.75;
-                break;
-            case "AKB":
-                imageView.setScaleX(0.6536);
-                imageView.setScaleY(0.6536);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6536);
-                NodePane.setScaleY(0.6536);
-                NodePane.relocate(-212, -88);
-                buttonRescale = 1 / 0.6536;
-                zField.setText("-2");
-                break;
-            case "AK1":
-                imageView.setScaleX(0.5161);
-                imageView.setScaleY(0.5161);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5161);
-                NodePane.setScaleY(0.5161);
-                NodePane.relocate(-218, -22);
-                buttonRescale = 1 / 0.5161;
-                zField.setText("-1");
-                break;
-            case "AK2":
-                imageView.setScaleX(0.6706);
-                imageView.setScaleY(0.6706);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6706);
-                NodePane.setScaleY(0.6706);
-                NodePane.relocate(-206, -57);
-                buttonRescale = 1 / 0.6706;
-                zField.setText("0");
-                break;
-            case "AK3":
-                imageView.setScaleX(0.6536);
-                imageView.setScaleY(0.6536);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6536);
-                NodePane.setScaleY(0.6536);
-                NodePane.relocate(-212, -0);
-                buttonRescale = 1 / 0.6536;
-                zField.setText("1");
-                break;
-            case "BHB":
-                imageView.setScaleX(0.5427);
-                imageView.setScaleY(0.5427);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5427);
-                NodePane.setScaleY(0.5427);
-                NodePane.relocate(-200, -90);
-                buttonRescale = 1 / 0.5427;
-                zField.setText("-1");
-                break;
-            case "BH1":
-                imageView.setScaleX(0.5476);
-                imageView.setScaleY(0.5476);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5476);
-                NodePane.setScaleY(0.5476);
-                NodePane.relocate(-220, -86);
-                buttonRescale = 1 / 0.5476;
-                zField.setText("0");
-                break;
-            case "BH2":
-                imageView.setScaleX(0.5438);
-                imageView.setScaleY(0.5438);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5438);
-                NodePane.setScaleY(0.5438);
-                NodePane.relocate(-220, -99);
-                buttonRescale = 1 / 0.5438;
-                zField.setText("1");
-                break;
-            case "BH3":
-                imageView.setScaleX(0.5358);
-                imageView.setScaleY(0.5358);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5358);
-                NodePane.setScaleY(0.5358);
-                NodePane.relocate(-220, -110);
-                buttonRescale = 1 / 0.5358;
-                zField.setText("2");
-                break;
-            case "CC1":
-                imageView.setScaleX(0.6107);
-                imageView.setScaleY(0.6107);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6107);
-                NodePane.setScaleY(0.6107);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6107;
-                zField.setText("-1");
-                break;
-            case "CC2":
-                imageView.setScaleX(0.6127);
-                imageView.setScaleY(0.6127);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6127);
-                NodePane.setScaleY(0.6127);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6127;
-                zField.setText("0");
-                break;
-            case "CC3":
-                imageView.setScaleX(0.6061);
-                imageView.setScaleY(0.6061);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6061);
-                NodePane.setScaleY(0.6061);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6061;
-                zField.setText("1");
-                break;
-            case "GLSB":
-                imageView.setScaleX(0.5686);
-                imageView.setScaleY(0.5686);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5686);
-                NodePane.setScaleY(0.5686);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5686;
-                zField.setText("-3");
-                break;
-            case "GLB":
-                imageView.setScaleX(0.5409);
-                imageView.setScaleY(0.5409);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5409);
-                NodePane.setScaleY(0.5409);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5409;
-                zField.setText("-2");
-                break;
-            case "GL1":
-                imageView.setScaleX(0.5678);
-                imageView.setScaleY(0.5678);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5678);
-                NodePane.setScaleY(0.5678);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5678;
-                zField.setText("-1");
-                break;
-            case "GL2":
-                imageView.setScaleX(0.5638);
-                imageView.setScaleY(0.5638);
-                imageView.relocate(-0, 0);
-                NodePane.setScaleX(0.5638);
-                NodePane.setScaleY(0.5638);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5638;
-                zField.setText("0");
-                break;
-            case "GL3":
-                imageView.setScaleX(0.6119);
-                imageView.setScaleY(0.6119);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6119);
-                NodePane.setScaleY(0.6119);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.6119;
-                zField.setText("1");
-                break;
-            case "HHB":
-                imageView.setScaleX(0.5181);
-                imageView.setScaleY(0.5181);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5181);
-                NodePane.setScaleY(0.5181);
-                NodePane.relocate(-360, -22);
-                buttonRescale = 1 / 0.5181;
-                zField.setText("-3");
-                break;
-            case "HH1":
-                imageView.setScaleX(0.5535);
-                imageView.setScaleY(0.5535);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5535);
-                NodePane.setScaleY(0.5535);
-                NodePane.relocate(-338, -37);
-                buttonRescale = 1 / 0.5535;
-                zField.setText("-2");
-                break;
-            case "HH2":
-                imageView.setScaleX(0.6067);
-                imageView.setScaleY(0.6067);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6067);
-                NodePane.setScaleY(0.6067);
-                NodePane.relocate(-298, -50);
-                buttonRescale = 1 / 0.6067;
-                zField.setText("-1");
-                break;
-            case "HH3":
-                imageView.setScaleX(0.5917);
-                imageView.setScaleY(0.5917);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5917);
-                NodePane.setScaleY(0.5917);
-                NodePane.relocate(-310, -48);
-                buttonRescale = 1 / 0.5917;
-                zField.setText("0");
-                break;
-            case "HHAPT":
-                imageView.setScaleX(0.8197);
-                imageView.setScaleY(0.8197);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.8197);
-                NodePane.setScaleY(0.8197);
-                NodePane.relocate(-130, -50);
-                buttonRescale = 1 / 0.8197;
-                zField.setText("-1");
-                break;
-            case "HHGAR":
-                imageView.setScaleX(0.8172);
-                imageView.setScaleY(0.8172);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.8172);
-                NodePane.setScaleY(0.8172);
-                NodePane.relocate(-133, -53);
-                buttonRescale = 1 / 0.8172;
-                zField.setText("-2");
-                break;
-            case "PC1":
-                imageView.setScaleX(0.6764);
-                imageView.setScaleY(0.6764);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6764);
-                NodePane.setScaleY(0.6764);
-                NodePane.relocate(-208, -58);
-                buttonRescale = 1 / 0.6764;
-                zField.setText("0");
-                break;
-            case "PC2":
-                imageView.setScaleX(0.6006);
-                imageView.setScaleY(0.6006);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6006);
-                NodePane.setScaleY(0.6006);
-                NodePane.relocate(-222, -48);
-                buttonRescale = 1 / 0.6006;
-                zField.setText("1");
-                break;
-            case "SHB":
-                imageView.setScaleX(0.5464);
-                imageView.setScaleY(0.5464);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5464);
-                NodePane.setScaleY(0.5464);
-                NodePane.relocate(-224, -88);
-                buttonRescale = 1 / 0.5464;
-                zField.setText("-1");
-                break;
-            case "SH1":
-                imageView.setScaleX(0.5583);
-                imageView.setScaleY(0.5583);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5583);
-                NodePane.setScaleY(0.5583);
-                NodePane.relocate(-224, -82);
-                buttonRescale = 1 / 0.5583;
-                zField.setText("0");
-                break;
-            case "SH2":
-                imageView.setScaleX(0.5556);
-                imageView.setScaleY(0.5556);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5556);
-                NodePane.setScaleY(0.5556);
-                NodePane.relocate(-224, -86);
-                buttonRescale = 1 / 0.5556;
-                zField.setText("1");
-                break;
-            case "SH3":
-                imageView.setScaleX(0.5544);
-                imageView.setScaleY(0.5544);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5544);
-                NodePane.setScaleY(0.5544);
-                NodePane.relocate(-224, -83);
-                buttonRescale = 1 / 0.5544;
-                zField.setText("2");
-                break;
-            case "FLSB":
-                imageView.setScaleX(0.7882);
-                imageView.setScaleY(0.7882);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.7882);
-                NodePane.setScaleY(0.7882);
-                NodePane.relocate(-150, -80);
-                buttonRescale = 1 / 0.7882;
-                zField.setText("-4");
-                break;
-            case "FLB":
-                imageView.setScaleX(0.7601);
-                imageView.setScaleY(0.7601);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.7601);
-                NodePane.setScaleY(0.7601);
-                NodePane.relocate(-170, -55);
-                buttonRescale = 1 / 0.7601;
-                zField.setText("-3");
-                break;
-            case "FL1":
-                imageView.setScaleX(0.6098);
-                imageView.setScaleY(0.6098);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6098);
-                NodePane.setScaleY(0.6098);
-                NodePane.relocate(-250, -52);
-                buttonRescale = 1 / 0.6098;
-                zField.setText("-2");
-                break;
-            case "FL2":
-                imageView.setScaleX(0.5585);
-                imageView.setScaleY(0.5585);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5585);
-                NodePane.setScaleY(0.5585);
-                NodePane.relocate(-250, -40);
-                buttonRescale = 1 / 0.5585;
-                zField.setText("-1");
-                break;
-            case "FL3":
-                imageView.setScaleX(0.5515);
-                imageView.setScaleY(0.5515);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5515);
-                NodePane.setScaleY(0.5515);
-                NodePane.relocate(-270, -40);
-                buttonRescale = 1 / 0.5515;
-                zField.setText("0");
-                break;
+		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
+		case "CampusMap":
+			NodePane.setPrefSize(3000, 2000);
+			imageView.setScaleX(0.75);
+			imageView.setScaleY(0.75);
+			imageView.relocate(-1000, -600);
+			NodePane.setScaleX(0.75);
+			NodePane.setScaleY(0.75);
+			NodePane.relocate(-965, -643);
+			zField.setText("0");
+			buttonRescale = 1 / 0.75;
+			break;
+		case "AKB":
+			imageView.setScaleX(0.6536);
+			imageView.setScaleY(0.6536);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6536);
+			NodePane.setScaleY(0.6536);
+			NodePane.relocate(-212, -88);
+			buttonRescale = 1 / 0.6536;
+			zField.setText("-2");
+			break;
+		case "AK1":
+			imageView.setScaleX(0.5161);
+			imageView.setScaleY(0.5161);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5161);
+			NodePane.setScaleY(0.5161);
+			NodePane.relocate(-218, -22);
+			buttonRescale = 1 / 0.5161;
+			zField.setText("-1");
+			break;
+		case "AK2":
+			imageView.setScaleX(0.6706);
+			imageView.setScaleY(0.6706);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6706);
+			NodePane.setScaleY(0.6706);
+			NodePane.relocate(-206, -57);
+			buttonRescale = 1 / 0.6706;
+			zField.setText("0");
+			break;
+		case "AK3":
+			imageView.setScaleX(0.6536);
+			imageView.setScaleY(0.6536);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6536);
+			NodePane.setScaleY(0.6536);
+			NodePane.relocate(-212, -0);
+			buttonRescale = 1 / 0.6536;
+			zField.setText("1");
+			break;
+		case "BHB":
+			imageView.setScaleX(0.5427);
+			imageView.setScaleY(0.5427);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5427);
+			NodePane.setScaleY(0.5427);
+			NodePane.relocate(-200, -90);
+			buttonRescale = 1 / 0.5427;
+			zField.setText("-1");
+			break;
+		case "BH1":
+			imageView.setScaleX(0.5476);
+			imageView.setScaleY(0.5476);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5476);
+			NodePane.setScaleY(0.5476);
+			NodePane.relocate(-220, -86);
+			buttonRescale = 1 / 0.5476;
+			zField.setText("0");
+			break;
+		case "BH2":
+			imageView.setScaleX(0.5438);
+			imageView.setScaleY(0.5438);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5438);
+			NodePane.setScaleY(0.5438);
+			NodePane.relocate(-220, -99);
+			buttonRescale = 1 / 0.5438;
+			zField.setText("1");
+			break;
+		case "BH3":
+			imageView.setScaleX(0.5358);
+			imageView.setScaleY(0.5358);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5358);
+			NodePane.setScaleY(0.5358);
+			NodePane.relocate(-220, -110);
+			buttonRescale = 1 / 0.5358;
+			zField.setText("2");
+			break;
+		case "CC1":
+			imageView.setScaleX(0.6107);
+			imageView.setScaleY(0.6107);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6107);
+			NodePane.setScaleY(0.6107);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6107;
+			zField.setText("-1");
+			break;
+		case "CC2":
+			imageView.setScaleX(0.6127);
+			imageView.setScaleY(0.6127);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6127);
+			NodePane.setScaleY(0.6127);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6127;
+			zField.setText("0");
+			break;
+		case "CC3":
+			imageView.setScaleX(0.6061);
+			imageView.setScaleY(0.6061);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6061);
+			NodePane.setScaleY(0.6061);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6061;
+			zField.setText("1");
+			break;
+		case "GLSB":
+			imageView.setScaleX(0.5686);
+			imageView.setScaleY(0.5686);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5686);
+			NodePane.setScaleY(0.5686);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5686;
+			zField.setText("-3");
+			break;
+		case "GLB":
+			imageView.setScaleX(0.5409);
+			imageView.setScaleY(0.5409);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5409);
+			NodePane.setScaleY(0.5409);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5409;
+			zField.setText("-2");
+			break;
+		case "GL1":
+			imageView.setScaleX(0.5678);
+			imageView.setScaleY(0.5678);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5678);
+			NodePane.setScaleY(0.5678);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5678;
+			zField.setText("-1");
+			break;
+		case "GL2":
+			imageView.setScaleX(0.5638);
+			imageView.setScaleY(0.5638);
+			imageView.relocate(-0, 0);
+			NodePane.setScaleX(0.5638);
+			NodePane.setScaleY(0.5638);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5638;
+			zField.setText("0");
+			break;
+		case "GL3":
+			imageView.setScaleX(0.6119);
+			imageView.setScaleY(0.6119);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6119);
+			NodePane.setScaleY(0.6119);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.6119;
+			zField.setText("1");
+			break;
+		case "HHB":
+			imageView.setScaleX(0.5181);
+			imageView.setScaleY(0.5181);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5181);
+			NodePane.setScaleY(0.5181);
+			NodePane.relocate(-360, -22);
+			buttonRescale = 1 / 0.5181;
+			zField.setText("-3");
+			break;
+		case "HH1":
+			imageView.setScaleX(0.5535);
+			imageView.setScaleY(0.5535);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5535);
+			NodePane.setScaleY(0.5535);
+			NodePane.relocate(-338, -37);
+			buttonRescale = 1 / 0.5535;
+			zField.setText("-2");
+			break;
+		case "HH2":
+			imageView.setScaleX(0.6067);
+			imageView.setScaleY(0.6067);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6067);
+			NodePane.setScaleY(0.6067);
+			NodePane.relocate(-298, -50);
+			buttonRescale = 1 / 0.6067;
+			zField.setText("-1");
+			break;
+		case "HH3":
+			imageView.setScaleX(0.5917);
+			imageView.setScaleY(0.5917);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5917);
+			NodePane.setScaleY(0.5917);
+			NodePane.relocate(-310, -48);
+			buttonRescale = 1 / 0.5917;
+			zField.setText("0");
+			break;
+		case "HHAPT":
+			imageView.setScaleX(0.8197);
+			imageView.setScaleY(0.8197);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.8197);
+			NodePane.setScaleY(0.8197);
+			NodePane.relocate(-130, -50);
+			buttonRescale = 1 / 0.8197;
+			zField.setText("-1");
+			break;
+		case "HHGAR":
+			imageView.setScaleX(0.8172);
+			imageView.setScaleY(0.8172);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.8172);
+			NodePane.setScaleY(0.8172);
+			NodePane.relocate(-133, -53);
+			buttonRescale = 1 / 0.8172;
+			zField.setText("-2");
+			break;
+		case "PC1":
+			imageView.setScaleX(0.6764);
+			imageView.setScaleY(0.6764);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6764);
+			NodePane.setScaleY(0.6764);
+			NodePane.relocate(-208, -58);
+			buttonRescale = 1 / 0.6764;
+			zField.setText("0");
+			break;
+		case "PC2":
+			imageView.setScaleX(0.6006);
+			imageView.setScaleY(0.6006);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6006);
+			NodePane.setScaleY(0.6006);
+			NodePane.relocate(-222, -48);
+			buttonRescale = 1 / 0.6006;
+			zField.setText("1");
+			break;
+		case "SHB":
+			imageView.setScaleX(0.5464);
+			imageView.setScaleY(0.5464);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5464);
+			NodePane.setScaleY(0.5464);
+			NodePane.relocate(-224, -88);
+			buttonRescale = 1 / 0.5464;
+			zField.setText("-1");
+			break;
+		case "SH1":
+			imageView.setScaleX(0.5583);
+			imageView.setScaleY(0.5583);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5583);
+			NodePane.setScaleY(0.5583);
+			NodePane.relocate(-224, -82);
+			buttonRescale = 1 / 0.5583;
+			zField.setText("0");
+			break;
+		case "SH2":
+			imageView.setScaleX(0.5556);
+			imageView.setScaleY(0.5556);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5556);
+			NodePane.setScaleY(0.5556);
+			NodePane.relocate(-224, -86);
+			buttonRescale = 1 / 0.5556;
+			zField.setText("1");
+			break;
+		case "SH3":
+			imageView.setScaleX(0.5544);
+			imageView.setScaleY(0.5544);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5544);
+			NodePane.setScaleY(0.5544);
+			NodePane.relocate(-224, -83);
+			buttonRescale = 1 / 0.5544;
+			zField.setText("2");
+			break;
+		case "FLSB":
+			imageView.setScaleX(0.7882);
+			imageView.setScaleY(0.7882);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.7882);
+			NodePane.setScaleY(0.7882);
+			NodePane.relocate(-150, -80);
+			buttonRescale = 1 / 0.7882;
+			zField.setText("-4");
+			break;
+		case "FLB":
+			imageView.setScaleX(0.7601);
+			imageView.setScaleY(0.7601);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.7601);
+			NodePane.setScaleY(0.7601);
+			NodePane.relocate(-170, -55);
+			buttonRescale = 1 / 0.7601;
+			zField.setText("-3");
+			break;
+		case "FL1":
+			imageView.setScaleX(0.6098);
+			imageView.setScaleY(0.6098);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6098);
+			NodePane.setScaleY(0.6098);
+			NodePane.relocate(-250, -52);
+			buttonRescale = 1 / 0.6098;
+			zField.setText("-2");
+			break;
+		case "FL2":
+			imageView.setScaleX(0.5585);
+			imageView.setScaleY(0.5585);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5585);
+			NodePane.setScaleY(0.5585);
+			NodePane.relocate(-250, -40);
+			buttonRescale = 1 / 0.5585;
+			zField.setText("-1");
+			break;
+		case "FL3":
+			imageView.setScaleX(0.5515);
+			imageView.setScaleY(0.5515);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5515);
+			NodePane.setScaleY(0.5515);
+			NodePane.relocate(-270, -40);
+			buttonRescale = 1 / 0.5515;
+			zField.setText("0");
+			break;
+		case "WestB":
+			imageView.setScaleX(0.6305);
+			imageView.setScaleY(0.6305);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6305);
+			NodePane.setScaleY(0.6305);
+			NodePane.relocate(-310, -55);
+			canvas.setScaleX(0.6305);
+			canvas.setScaleY(0.6305);
+			canvas.relocate(-310, -55);
+			buttonRescale = 1 / 0.6305;
+			break;
+		case "West1":
+			imageView.setScaleX(0.5949);
+			imageView.setScaleY(0.5949);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5949);
+			NodePane.setScaleY(0.5949);
+			NodePane.relocate(-270, -50);
+			canvas.setScaleX(0.5949);
+			canvas.setScaleY(0.5949);
+			canvas.relocate(-270, -50);
+			buttonRescale = 1 / 0.5949;
+			break;
+		case "West2":
+			imageView.setScaleX(0.5929);
+			imageView.setScaleY(0.5929);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5929);
+			NodePane.setScaleY(0.5929);
+			NodePane.relocate(-270, -50);
+			canvas.setScaleX(0.5929);
+			canvas.setScaleY(0.5929);
+			canvas.relocate(-270, -50);
+			buttonRescale = 1 / 0.5929;
+			break;
+		case "SL3":
+			imageView.setScaleX(0.6840);
+			imageView.setScaleY(0.6840);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6840);
+			NodePane.setScaleY(0.6840);
+			NodePane.relocate(-270, -60);
+			canvas.setScaleX(0.6840);
+			canvas.setScaleY(0.6840);
+			canvas.relocate(-270, -60);
+			buttonRescale = 1 / 0.6840;
+			break;
+		case "SL4":
+			imageView.setScaleX(0.6988);
+			imageView.setScaleY(0.6988);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6988);
+			NodePane.setScaleY(0.6988);
+			NodePane.relocate(-270, -60);
+			canvas.setScaleX(0.6988);
+			canvas.setScaleY(0.6988);
+			canvas.relocate(-270, -60);
+			buttonRescale = 1 / 0.6988;
+			break;
+		case "WS1":
+			imageView.setScaleX(0.6116);
+			imageView.setScaleY(0.6116);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6116);
+			NodePane.setScaleY(0.6116);
+			NodePane.relocate(-225, -45);
+			canvas.setScaleX(0.6116);
+			canvas.setScaleY(0.6116);
+			canvas.relocate(-225, -45);
+			buttonRescale = 1 / 0.6116;
+			break;
+              //TODO ADD BUILDINGS
+
+                    
         }
 
         drawEdges(edgeList, gc, NodePane);

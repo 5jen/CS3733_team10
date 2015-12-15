@@ -114,6 +114,9 @@ public class GPSapp extends Application{
   	Building ProjectCenter = new Building("Project Center");
   	Building StrattonHall = new Building("Stratton Hall");
     Building FullerLabs = new Building("Fuller Labs");
+    Building SalisburyLabs = new Building("Salisbury Labs");
+    Building WestStreet = new Building("157 West Street");
+    Building WashburnShops = new Building("Washburn Shops");
   	Building NullBuilding = new Building("Null Building");
 
 
@@ -161,6 +164,18 @@ public class GPSapp extends Application{
     Map FullerLabs2 = new Map("Fuller Labs 2", "FL", "CS3733_Graphics/FL2.png", "Graphs/Nodes/FL2.json", "Graphs/Edges/FL2Edges.json", 1.099, 1636, 497, 0.168, "2");
     Map FullerLabs3 = new Map("Fuller Labs 3", "FL", "CS3733_Graphics/FL3.png", "Graphs/Nodes/FL3.json", "Graphs/Edges/FL3Edges.json", 1.099, 1636, 497, 0.1661, "3");
 
+    //TODO Add rest of maps
+    //TODO
+    //TODO
+    Map SalisburyLabs3 = new Map("Salisbury Labs 3", "SL", "CS3733_Graphics/SL3.png", "Graphs/Nodes/SL3.json", "Graphs/Edges/SL3Edges.json", -1.396, 1438, 717, 0.1636, "3");
+    Map SalisburyLabs4 = new Map("Salisbury Labs 4", "SL", "CS3733_Graphics/SL4.png", "Graphs/Nodes/SL4.json", "Graphs/Edges/SL4Edges.json", -1.396, 1438, 717, 0.1629, "4");
+     
+     Map WestStreetB = new Map("157 West Street B", "West", "CS3733_Graphics/WestB.png", "Graphs/Nodes/WestB.json", "Graphs/Edges/WestBEdges.json", -1.413, 1306, 1290, 0.0547, "B");
+     Map WestStreet1 = new Map("157 West Street 1", "West", "CS3733_Graphics/West1.png", "Graphs/Nodes/West1.json", "Graphs/Edges/West1Edges.json", -1.413, 1306, 1290, 0.0483, "1");
+     Map WestStreet2 = new Map("157 West Street 2", "West", "CS3733_Graphics/West2.png", "Graphs/Nodes/West2.json", "Graphs/Edges/West2Edges.json", -1.413, 1306, 1290, 0.0532, "2");
+
+     Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json", "Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
+     
 	//set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
 	PerspectiveTransform ptFuller = new PerspectiveTransform();
@@ -319,6 +334,17 @@ public class GPSapp extends Application{
         FullerLabs.addMap(FullerLabs2);
         FullerLabs.addMap(FullerLabs3);
 
+        //TODO Add rest of maps
+        SalisburyLabs.addMap(SalisburyLabs3);
+        SalisburyLabs.addMap(SalisburyLabs4);
+        
+        WashburnShops.addMap(WashburnShops1);
+        
+        WestStreet.addMap(WestStreetB);
+        WestStreet.addMap(WestStreet1);
+        WestStreet.addMap(WestStreet2);
+        
+        
     	 // Store the Buildings in a list
         // TODO Add more buildings to this list
     	buildings.add(Campus);
@@ -331,6 +357,9 @@ public class GPSapp extends Application{
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
         buildings.add(FullerLabs);
+        buildings.add(SalisburyLabs);
+        buildings.add(WashburnShops);
+        buildings.add(WestStreet);
 
     	        
         toggleKeyText.setFont(Font.font ("manteka", 10));
@@ -1973,13 +2002,6 @@ public class GPSapp extends Application{
                                     
                                     //System.out.print.println("NodeList Size = " + nodeList.size());
                                     drawRoute(gc, multiMap.get(currRoute));
-                                    NodePane.getChildren().clear();
-                                    LinkedList<Node> tempNodeList = new LinkedList<Node>();
-                                    tempNodeList.add(multiMap.get(currRoute).get(0));
-                                    tempNodeList.add(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 1));
-                                    
-                                    //Draws only the start and end nodes of the route
-                                    drawNodes(tempNodeList, NodePane, root, StartText, DestText, imageView);
 
 									NodePane.getChildren().add(yPinView);
 									yPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 12);
@@ -2728,7 +2750,80 @@ public class GPSapp extends Application{
             				canvas.relocate(-270, -40);
             				buttonRescale = 1 / 0.5515;
             				break;
-		}
+        case "WestB":
+							imageView.setScaleX(0.6305);
+							imageView.setScaleY(0.6305);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6305);
+							NodePane.setScaleY(0.6305);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.6305);
+							canvas.setScaleY(0.6305);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.6305;
+							break;
+        case "West1":
+							imageView.setScaleX(0.5949);
+							imageView.setScaleY(0.5949);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5949);
+							NodePane.setScaleY(0.5949);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.5949);
+							canvas.setScaleY(0.5949);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.5949;
+							break;
+        case "West2":
+							imageView.setScaleX(0.5929);
+							imageView.setScaleY(0.5929);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.5929);
+							NodePane.setScaleY(0.5929);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.5929);
+							canvas.setScaleY(0.5929);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.5929;
+							break;
+        case "SL3":
+							imageView.setScaleX(0.6840);
+							imageView.setScaleY(0.6840);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6840);
+							NodePane.setScaleY(0.6840);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.6840);
+							canvas.setScaleY(0.6840);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.6840;
+							break;
+        case "SL4":
+							imageView.setScaleX(0.6988);
+							imageView.setScaleY(0.6988);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6988);
+							NodePane.setScaleY(0.6988);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.6988);
+							canvas.setScaleY(0.6988);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.6988;
+							break;
+        case "WS1":
+							imageView.setScaleX(0.6116);
+							imageView.setScaleY(0.6116);
+							imageView.relocate(0, 0);
+							NodePane.setScaleX(0.6116);
+							NodePane.setScaleY(0.6116);
+							NodePane.relocate(-270, -40);
+							canvas.setScaleX(0.6116);
+							canvas.setScaleY(0.6116);
+							canvas.relocate(-270, -40);
+							buttonRescale = 1 / 0.6116;
+							break;
+        //TODO ADD BUILDINGS   
+        }
         gc.clearRect(0, 0, 8000, 6000);
         drawNodes(nodeList, NodePane,root, StartText, DestText,imageView);
         
