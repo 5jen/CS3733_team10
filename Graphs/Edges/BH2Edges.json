@@ -285,7 +285,7 @@
   "to": "BH2:Point:1293:465"
  },
  {
-  "distance": 36,
+  "distance": 37,
   "from": "BH1:Staircase:507:491",
   "to": "BH2:Staircase:590:356"
  },
@@ -303,5 +303,15 @@
   "distance": 2,
   "from": "BH2:Staircase:587:400",
   "to": "BH2:Point:631:399"
+ },
+ {
+  "distance": 20,
+  "from": "BHB:Elevator:572:267",
+  "to": "BH2:Elevator:603:228"
+ },
+ {
+  "distance": 32,
+  "from": "BH1:Elevator:600:302",
+  "to": "BH2:Elevator:603:228"
  }
 ]
