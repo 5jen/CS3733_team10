@@ -1635,30 +1635,35 @@ public class GPSapp extends Application {
 		
 		//iterate through the list of locations to match the location to set the location
 		//split up location description
-		String[] parts = location.toLowerCase().split(" ");
+		try {
+			String[] parts = location.toLowerCase().split(" ");
 
-	       // Filter out the entries that don't contain the entered text
-	        ObservableList<Building> subentries = FXCollections.observableArrayList();
-	        for (Building entry: buildings) {
-	            boolean match = false;
-	            String entryText = entry.getName() +entry.getMaps().get(0).getInitials();
-	            entryText = entryText.toLowerCase();
-	            for (String part: parts) {
-	                // The entry needs to contain all portions of the
-	                // search string *but* in any order
-	                if (entryText.toLowerCase().contains(part) ) {
-	                    match = true;
-	                    break;
-	                }
-	            }
+			// Filter out the entries that don't contain the entered text
+			ObservableList<Building> subentries = FXCollections.observableArrayList();
+			for (Building entry : buildings) {
+				boolean match = false;
+				String entryText = entry.getName() + entry.getMaps().get(0).getInitials();
+				entryText = entryText.toLowerCase();
+				for (String part : parts) {
+					// The entry needs to contain all portions of the
+					// search string *but* in any order
+					if (entryText.toLowerCase().contains(part)) {
+						match = true;
+						break;
+					}
+				}
 
-	            if ( match ) {
-	            	return entry; //return entire building to later get info from it 
-	            }
-	            
-	        }
-		
-	     //default location, type check in main, if nullBuilding, dont add this event to the list
+				if (match) {
+					return entry; //return entire building to later get info from it
+				}
+
+			}
+
+			//default location, type check in main, if nullBuilding, dont add this event to the list
+			return NullBuilding;
+		} catch(NullPointerException ignored){
+
+		}
 		return NullBuilding;
 	}
 
