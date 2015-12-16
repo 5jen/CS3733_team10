@@ -843,6 +843,8 @@ public class GPSapp extends Application {
 		DestLabel.setFont(Font.font("manteka", 15));
 		DestLabel.setLayoutX(300);
 		DestLabel.setLayoutY(610);
+		
+		mapSelector.setPrefWidth(170);
 
 		ReturnToCampus.setTextFill(Color.BLACK);
 		ReturnToCampus.setFont(Font.font("manteka", 10));
@@ -1028,7 +1030,7 @@ public class GPSapp extends Application {
 		// ********TOP BAR UI******************************
 		menuPane.setPrefSize(490, 70);
 		menuPane.setStyle("-fx-background-color: #ffffff;" + "-fx-border-radius: 15 2 15 2;"
-				+ "-fx-background-radius: 15 2 15 2;" + "box-shadow: 10px 10px 5px #888888;"
+				+ "-fx-background-radius: 15 2 15 2;"
 				+ "-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
 		menuPane.setOpacity(1);
 		menuPane.relocate(10, 10);
@@ -1171,15 +1173,18 @@ public class GPSapp extends Application {
 		mapSelectorLabel.setFont(Font.font("manteka", 20));
 		mapSelectorLabel.setTextFill(Color.WHITE);
 		final Button LoadMapButton = new Button("Load");
-		LoadMapButton.setStyle(":dark");
+		LoadMapButton.setId("dark");
+		mapSelector.setId("dark");
 
 		mapSelectionBoxV.relocate(5, 50);
 		mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelector, LoadMapButton);
 
+		findNearestButton.setId("dark");
+		nearestDropdown.setId("dark");
 		// ***Find nearest function ****
 		nearestDropdown.setValue("Dining");
 		nearestBox.getChildren().addAll(nearestDropdown, findNearestButton);
-		nearestBox.relocate(5, 141);
+		nearestBox.relocate(5, 161);
 
 		// **BUTTONS***
 

@@ -472,6 +472,23 @@ public class MapTool extends Application {
         final Button updateNodeButton = new Button("Update Node");
         final Button createNodeButton = new Button("Create Node");
         final Button deleteNodeButton = new Button("Delete Node");
+        updateNodeButton.setId("dark");
+        createNodeButton.setId("dark");
+        deleteNodeButton.setId("dark");
+        typeSelector.setId("dark");
+        mapSelector.setId("dark");
+        LoadMapButton.setId("dark");
+        isPlace.setId("dark");
+        lockX.setId("dark");
+        lockY.setId("dark");
+        autoNodeCreate.setId("dark");
+        autoEdgeCreate.setId("dark");
+        xField.setId("dark");
+        yField.setId("dark");
+        zField.setId("dark");
+        nameField.setId("dark");
+        
+        
         NodeCreationBox.getChildren().addAll(createNodeButton, deleteNodeButton);
         
         HBox NodeUpdateBox = new HBox(5);
@@ -521,10 +538,14 @@ public class MapTool extends Application {
         final Button deleteEdgeButton = new Button("Delete Edge");
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
+        saveGraph.setId("dark");
+        createEdgeButton.setId("dark");
+        deleteEdgeButton.setId("dark");
+        
         final HBox SaveBox = new HBox(5);
         SaveBox.getChildren().addAll(saveGraph, autoEdgeModeHBox);
         edgeControls.setLayoutX(830);
-        edgeControls.setLayoutY(460);
+        edgeControls.setLayoutY(470);
         edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, SaveBox);
 
         imageView.setImage(mapImage);
