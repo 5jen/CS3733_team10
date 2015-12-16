@@ -1181,6 +1181,7 @@ public class GPSapp extends Application {
 
 		findNearestButton.setId("dark");
 		nearestDropdown.setId("dark");
+		nearestDropdown.setPrefWidth(170);
 		// ***Find nearest function ****
 		nearestDropdown.setValue("Dining");
 		nearestBox.getChildren().addAll(nearestDropdown, findNearestButton);
@@ -1256,7 +1257,8 @@ public class GPSapp extends Application {
 		emailPane.relocate(830 + stageInitialWidthDifference, 710 + stageInitialHeightDifference);
 
 		// EmailButton.setTextFill(Color.BLACK);
-		EmailInput.relocate(10, 5);
+		EmailInput.relocate(8, 5);
+		EmailInput.setId("dark");
 		EmailButton.relocate(180, 5);
 		EmailButton.setFitHeight(29);
 		EmailButton.setFitWidth(52);
