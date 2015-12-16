@@ -1118,16 +1118,12 @@ public class GPSapp extends Application {
 		
 		//Display the current week dates
 		//HBox currDatesBox = new HBox(5);
-		int tempWeek;
-		if(currWeek == 0)
-			tempWeek = (currWeek+1)*7;
-		else
-			tempWeek = (currWeek)*7;
-		//cal.add(field, amount);
-		WeekLabel = new Label("Week: " +  cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DATE) +" - "+  cal.get(Calendar.MONTH) + "/" + (cal.get(Calendar.DATE) +tempWeek));
+		//int tempWeek;
+		
+		WeekLabel = new Label("Week: " +  (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE));
 		WeekLabel.setTextFill(Color.WHITE);
-		WeekLabel.setFont(Font.font("manteka", 12));
-		WeekLabel.relocate(20, 485);
+		WeekLabel.setFont(Font.font("manteka", 14));
+		WeekLabel.relocate(55, 485);
 		
 		
 		//reset to today
@@ -1177,7 +1173,7 @@ public class GPSapp extends Application {
 		DateLabel.setTextFill(Color.WHITE);
 		DateLabel.setFont(Font.font("manteka", 15));
 		DateLabel.relocate(5, 650);
-		DateLabel.setText("Date "+ cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DATE) + "/"+ cal.get(Calendar.YEAR));
+		DateLabel.setText("Date "+ (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE) + "/"+ cal.get(Calendar.YEAR));
 		//time label
 		final Label timeLabel = new Label();
 		timeLabel.setTextFill(Color.WHITE);
@@ -1207,13 +1203,13 @@ public class GPSapp extends Application {
 		final Label keyLabel = new Label("Color Key");
 		keyLabel.setTextFill(Color.WHITE);
 		keyLabel.setFont(Font.font("manteka", 18));
-		keyLabel.relocate(45, 295);
+		keyLabel.relocate(45, 265);
 		// Pop up key on map
 		File keyFile = new File("CS3733_Graphics/MenuGraphics/key.png");
 		Image keyImagePic = new Image(keyFile.toURI().toString());
 		ImageView keyImage = new ImageView(keyImagePic);
 		keyImage.setFitHeight(100); keyImage.setFitWidth(170); //RESIZE WHEN WE GET CORYS ISH
-		keyImage.relocate(10, 320);
+		keyImage.relocate(10, 290);
 
 		// Attach things to this for in the side bar
 		fullMenuPane.getChildren().addAll(menuImageView,WeekLabel, menuTitle,keyLabel, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,googleEventsLabel,keyImage, NextWeekButton, PrevWeekButton, resetToTodayButton, resetLabel, googleButton, clearEventsLabel, clearEventsButton);
@@ -1422,6 +1418,9 @@ public class GPSapp extends Application {
 		//Sign into google button
 		googleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
+				//refresh currweek text
+				WeekLabel.setText("Week: " +  (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE));
+				
 				//clear events 
 				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
 				
@@ -1443,6 +1442,10 @@ public class GPSapp extends Application {
 			public void handle(MouseEvent event) {
 				//change to next weeks events
 				currWeek += 7;
+				//refresh currweek text
+				cal.add(Calendar.DATE, 7);
+				WeekLabel.setText("Week: " +  (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE));
+				
 				//clear events 
 				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
 				//Grab the events from google calendars
@@ -1460,6 +1463,9 @@ public class GPSapp extends Application {
 			public void handle(MouseEvent event) {
 				//change to next weeks events
 				currWeek -= 7;
+				cal.add(Calendar.DATE, -7);
+				WeekLabel.setText("Week: " +  (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE));
+				
 				//clear events 
 				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
 				//Grab the events from google calendars
@@ -1477,6 +1483,10 @@ public class GPSapp extends Application {
 			public void handle(MouseEvent event) {
 				//change to next weeks events
 				currWeek = 0;
+				cal.add(Calendar.DATE, 7);
+				cal = Calendar.getInstance(); //reset it
+				WeekLabel.setText("Week: " +  (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.DATE));
+				
 				//clear events 
 				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
 				//Grab the events from google calendars
@@ -2160,7 +2170,6 @@ public class GPSapp extends Application {
 	
 	//remove the event icons from the screen
 	public void clearEventIcons(ImageView imageView){
-		WeekLabel.setText("Date "+ cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DATE) + "/"+ cal.get(Calendar.YEAR));
 		NodePane.getChildren().clear(); //clear everything then redraw
 		myEventsData.clear();
 		myEvents.clear();
