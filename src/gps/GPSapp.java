@@ -368,6 +368,7 @@ public class GPSapp extends Application {
 	boolean aboutMeIsOut = false;
 	boolean directionsAreOut = false;
 	boolean descriptionIsOut = false;
+	boolean instructionsAreOut = false;
 	
 	Label descriptionTextArea = new Label();
 
@@ -377,13 +378,16 @@ public class GPSapp extends Application {
 	Pane directionsPane = new Pane();
 	Pane aboutPane = new Pane();
 	Pane descriptionPane = new Pane();
+	Pane instructionsPane = new Pane();
 
 	Group directionsGroup = new Group();
-
     Group menuGroup = new Group();
     Group emailGroup = new Group();
     Group aboutGroup = new Group();
     Group descriptionGroup = new Group();
+    Group instructionsGroup = new Group();
+    
+	
     
     //Google Calendars things
     LinkedList<MyEvent> myEventsData = new LinkedList<MyEvent>(); //This is the unparsed data right from google
@@ -1099,12 +1103,12 @@ public class GPSapp extends Application {
 		// **BUTTONS***
 
 		// Create a keyimageButton to place the map key on screen
-		File keyButtonFile = new File("CS3733_Graphics/MenuGraphics/showKeyButton.png");
-		Image keyButtonImage = new Image(keyButtonFile.toURI().toString());
-		ImageView keyImageButton = new ImageView(keyButtonImage);
-		keyImageButton.setFitHeight(40);
-		keyImageButton.setFitWidth(40);
-		keyImageButton.relocate(60, 700 + stageInitialHeightDifference);
+		File instructionsButtonFile = new File("CS3733_Graphics/MenuGraphics/showInstructionsButton.png"); 
+		Image instructionsButtonImage = new Image(instructionsButtonFile.toURI().toString());
+		ImageView instructionsButton = new ImageView(instructionsButtonImage);
+		instructionsButton.setFitHeight(40);
+		instructionsButton.setFitWidth(40);
+		instructionsButton.relocate(60, 700 + stageInitialHeightDifference);
 
 		// Create an about me button
 		File aboutMeButtonFile = new File("CS3733_Graphics/MenuGraphics/aboutMeButton.png");
@@ -1123,7 +1127,7 @@ public class GPSapp extends Application {
 		keyImage.relocate(780, 610);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, keyImageButton,
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, instructionsButton,
 				aboutMeButton);
 
 		root.getChildren().remove(fullMenuPane);
@@ -1156,6 +1160,43 @@ public class GPSapp extends Application {
 		aboutGroup.getChildren().addAll(aboutPane);
 
 		root.getChildren().addAll(aboutGroup);
+		
+		// ********Instruction SLIDE OUT MENU UI******************************
+
+		instructionsPane.setPrefSize(600, 600);
+		// aboutPane.setStyle("-fx-background-color: #515151;" );
+		// aboutPane.setOpacity(.8);
+		instructionsPane.relocate(210, 770);
+		// 210 +300, 770+300
+		//reuse backgroundrect from before
+
+		File instructionMeFile = new File("CS3733_Graphics/MenuGraphics/instructionsImageContent.png");
+		Image instructionFileImage = new Image(instructionMeFile.toURI().toString());
+		ImageView instructionView = new ImageView(instructionFileImage);
+		instructionView.setFitWidth(600); instructionView.setFitHeight(1656);
+		
+		//attach instructionView to scroll pane
+		ScrollPane instructionScroll = new ScrollPane();
+		instructionScroll.setPrefWidth(600);
+		instructionScroll.setPrefHeight(600);
+		instructionScroll.setContent(instructionView);
+		//**MAY NEED TO SET PREF SIZES!!!
+
+		//make another backbround rect so theres 2
+		Rectangle backgroundrect2 = new Rectangle(0, 0, 600, 600);
+		backgroundrect.setFill(Color.GREY);
+		backgroundrect.setStroke(Color.BLACK);
+		backgroundrect.setOpacity(.95);
+		
+		//insert the scroll pane to the instruction pane
+		instructionsPane.getChildren().addAll(backgroundrect2, instructionScroll);
+		
+		//add the pane to the group
+		instructionsGroup.getChildren().addAll(instructionsPane);
+
+		root.getChildren().addAll(instructionsGroup);
+		
+		//instructionsAreOut
 
 		// ********DIRECTIONS SLIDE OUT MENU UI******************************
 
@@ -1289,9 +1330,24 @@ public class GPSapp extends Application {
 				}
 			}
 		});
+		//****** keyImage is teh name of the image of the key, nmake buttona nd attach it
 
+		instructionsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				if (!instructionsAreOut) {
+					//USE SAME METHOD BECAUSE SAME SIZE
+					instructionsAnimation(instructionsGroup);
+					instructionsAreOut = true;
+				} else {
+					instructionsAnimation(instructionsGroup);
+					instructionsAreOut = false;
+				}
 
-		keyImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			}
+		});
+		
+		/* KEY METHOD
+		 * instructionsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				if (toggle) {
 					root.getChildren().add(keyImage);
@@ -1303,6 +1359,7 @@ public class GPSapp extends Application {
 
 			}
 		});
+		 */
 		// ********************************************************
 
 		primaryStage.setScene(scene);
@@ -1380,7 +1437,8 @@ public class GPSapp extends Application {
 				//aboutPane.setTranslateX(stageInitialWidthDifference/2);
 				scrollContent.setTranslateX(initialPanAmountX + stageInitialWidthDifference / 2);
 				descriptionGroup.setTranslateX(stageInitialWidthDifference);
-    			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
+    			
+				//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
     			//TODO asdasd
     			//TODO asdasd
     			//TODO asdasd
@@ -1408,12 +1466,13 @@ public class GPSapp extends Application {
 				fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
 				BuildingNameLabel.setTranslateY(stageInitialHeightDifference);
 				aboutMeButton.setTranslateY(stageInitialHeightDifference);
-				keyImageButton.setTranslateY(stageInitialHeightDifference);
+				instructionsButton.setTranslateY(stageInitialHeightDifference);
 				emailPane.setTranslateY(stageInitialHeightDifference);
 				directionsPane.setTranslateY(stageInitialHeightDifference);
 				aboutPane.setTranslateY(stageInitialHeightDifference/2);
 				scrollContent.setTranslateY(initialPanAmountY + stageInitialHeightDifference / 2);
-
+				instructionsPane.setTranslateY(stageInitialHeightDifference/2);
+				
     		}
     	});
 
@@ -1771,7 +1830,37 @@ public class GPSapp extends Application {
 		g1pt.setAutoReverse(true);
 		g1pt.play();
 	}
+	//instructionsAreOut
+	//1656 Height
+	private void instructionsAnimation(Group instructionsGroup) {
+		Path g1path = new Path();
+		MoveTo g1moveTo = new MoveTo();
 
+		g1moveTo.setX(210 + 300);
+
+		if (!instructionsAreOut)
+			g1moveTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+		else
+			g1moveTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+
+		LineTo g1lineTo = new LineTo();
+		g1lineTo.setX(210 + 300);
+
+		if (!instructionsAreOut)
+			g1lineTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+		else
+			g1lineTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+
+		g1path.getElements().add(g1moveTo);
+		g1path.getElements().add(g1lineTo);
+		PathTransition g1pt = new PathTransition();
+		g1pt.setDuration(Duration.millis(500));
+		g1pt.setPath(g1path);
+		g1pt.setNode(instructionsGroup);
+		g1pt.setAutoReverse(true);
+		g1pt.play();
+	}
+	
 	private void aboutMeAnimation(Group aboutGroup) {
 		Path g1path = new Path();
 		MoveTo g1moveTo = new MoveTo();
