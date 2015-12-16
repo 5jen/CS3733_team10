@@ -765,5 +765,31 @@
   "valz": 0,
   "building": "Salisbury Labs",
   "valy": 79
+ },
+ {
+  "valx": 635,
+  "globalY": 680,
+  "isWalkable": true,
+  "globalX": 1459,
+  "floorMap": "Salisbury Labs 1",
+  "name": "SL1:Point:635:236",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Salisbury Labs",
+  "valy": 236
+ },
+ {
+  "valx": 514,
+  "globalY": 687,
+  "isWalkable": true,
+  "globalX": 1458,
+  "floorMap": "Salisbury Labs 1",
+  "name": "SL1:Staircase:514:236",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": 0,
+  "building": "Salisbury Labs",
+  "valy": 236
  }
 ]
