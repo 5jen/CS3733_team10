@@ -6,6 +6,8 @@ import io.JsonParser;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.beans.value.ChangeListener;
@@ -3180,7 +3182,9 @@ public class GPSapp extends Application {
 		pathTransition.setPath(path);
 		pathTransition.setNode(goatView);
 		pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+		pathTransition.setCycleCount(Timeline.INDEFINITE);
 		pathTransition.play();
+		
 		fixUI();
 	}
 
