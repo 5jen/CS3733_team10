@@ -20,6 +20,7 @@ import com.google.api.services.calendar.model.Events;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -33,6 +34,8 @@ import java.util.List;
 public class CalendarEvents {
 	
 	private static final SimpleDateFormat RFC3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	private static final SimpleDateFormat af = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
 	
     /** Application name. */
     private static final String APPLICATION_NAME =
@@ -143,11 +146,23 @@ public class CalendarEvents {
                     setPageToken(pageToken).execute();
             List<Event> items = events.getItems();
             for (Event event : items) {
-                MyEvent newEvent = new MyEvent(event.getSummary(),
+                String from = "";
+                String end = "";
+            	try {
+                	from = af.parse(event.getStart().getDateTime().toString()).toString();
+                	end  = af.parse(event.getEnd().getDateTime().toString()).toString();
+                
+                }
+                catch (ParseException e){
+                	System.out.println("Get time failed!");
+                }
+           
+            	
+            	MyEvent newEvent = new MyEvent(event.getSummary(),
                 							   event.getDescription(),
                                                event.getLocation(),
-                                               event.getStart().getDateTime().toString(), //event.getStart().getDateTime().toString()   
-                                               event.getEnd().getDateTime().toString());  //event.getEnd().getDateTime().toString()
+                                               from, //event.getStart().getDateTime().toString()   
+                                               end);  //event.getEnd().getDateTime().toString()
                 //For testing
                 System.out.println(newEvent.getStartTime());
                 result.addLast(newEvent);

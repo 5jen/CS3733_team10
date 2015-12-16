@@ -151,7 +151,7 @@ public class GPSapp extends Application {
 	Building WestStreet = new Building("157 West Street");
 	Building WashburnShops = new Building("Washburn Shops");
 	Building RecCenter = new Building("Rec Center");
-	Building NullBuilding = new Building("Null Building");
+	static Building NullBuilding = new Building("Null Building");
 
 	// Map Buildings with their content
 	Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json",
@@ -271,7 +271,7 @@ public class GPSapp extends Application {
 
 	// Create the global graph
 	Graph globalGraph = new Graph();
-	LinkedList<Building> buildings = new LinkedList<>();
+	static LinkedList<Building> buildings = new LinkedList<>();
 	LinkedList<Map> maps = new LinkedList<>();
 
 	Text keyText = new Text(600, 640, "");
@@ -367,13 +367,13 @@ public class GPSapp extends Application {
     
 
 	// MENU OBJECTS
-	boolean menuIsOut = false;
-	boolean menuEmailIsOut = false;
-	boolean setMenuTransformation = false;
-	boolean aboutMeIsOut = false;
-	boolean directionsAreOut = false;
-	boolean descriptionIsOut = false;
-	boolean instructionsAreOut = false;
+    static boolean menuIsOut = false;
+    static boolean menuEmailIsOut = false;
+    static boolean setMenuTransformation = false;
+    static boolean aboutMeIsOut = false;
+    static boolean directionsAreOut = false;
+	static boolean descriptionIsOut = false;
+	static boolean instructionsAreOut = false;
 	
 	Label descriptionTextArea = new Label();
 
@@ -385,53 +385,53 @@ public class GPSapp extends Application {
 	Pane descriptionPane = new Pane();
 	Pane instructionsPane = new Pane();
 
-	Group directionsGroup = new Group();
-    Group menuGroup = new Group();
-    Group emailGroup = new Group();
-    Group aboutGroup = new Group();
-    Group descriptionGroup = new Group();
-    Group instructionsGroup = new Group();
+	static Group directionsGroup = new Group();
+	static Group menuGroup = new Group();
+    static Group emailGroup = new Group();
+    static Group aboutGroup = new Group();
+    static Group descriptionGroup = new Group();
+    static Group instructionsGroup = new Group();
     
     //event description elements
-    final Label eventTitle = new Label("Title");
-    final Label eventDescription = new Label("...");
-    final Label eventLocation = new Label("Loc");
-    final Label eventTime = new Label("Time");
-    final Label eventDescriptionLabel = new Label("Event Info: ");
-    final Label eventDescriptionLine1 = new Label("");
-    final Label eventDescriptionLine2 = new Label("");
+    final static Label eventTitle = new Label("Title");
+    final static Label eventDescription = new Label("...");
+    final static Label eventLocation = new Label("Loc");
+    final static Label eventTime = new Label("Time");
+    final static Label eventDescriptionLabel = new Label("Event Info: ");
+    final static Label eventDescriptionLine1 = new Label("");
+    final static Label eventDescriptionLine2 = new Label("");
 
 
     //attach the image of the event *** MAKE SURE TO MOVE THINGS WHEN ATTACHING THINGS TO PANE
     //temp image
-    File eventDescriptionImageFile = new File("CS3733_Graphics/EventImages/WPIEvent.png");
-    Image eventDescriptionImage = new Image(eventDescriptionImageFile.toURI().toString());
-    ImageView eventDescriptionImageView = new ImageView(eventDescriptionImage);
+    static File eventDescriptionImageFile = new File("CS3733_Graphics/EventImages/WPIEvent.png");
+    static Image eventDescriptionImage = new Image(eventDescriptionImageFile.toURI().toString());
+    static ImageView eventDescriptionImageView = new ImageView(eventDescriptionImage);
 
 	
     
     //Google Calendars things
-    LinkedList<MyEvent> myEventsData = new LinkedList<MyEvent>(); //This is the unparsed data right from google
-    LinkedList<MyEvent> myEvents = new LinkedList<MyEvent>(); //This is populated with the information that we obtain from the above data
+    static LinkedList<MyEvent> myEventsData = new LinkedList<MyEvent>(); //This is the unparsed data right from google
+    static LinkedList<MyEvent> myEvents = new LinkedList<MyEvent>(); //This is populated with the information that we obtain from the above data
     
     //Create the EventMatchers
     
-    LinkedList<String> WPIWords = new LinkedList<String>(Arrays.asList("WPI", "event", "event", "Gompei", "Soccom", "sga", "talent", "show", "perform", "goat", "cdc", "acm"));
+    static LinkedList<String> WPIWords = new LinkedList<String>(Arrays.asList("WPI", "event", "event", "Gompei", "Soccom", "sga", "talent", "show", "perform", "goat", "cdc", "acm"));
     
-    LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
+    static LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
     
-    LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("workout","Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
+    static LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("workout","Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
 
-    LinkedList<String> AwardWords = new LinkedList<String>(Arrays.asList("award", "ceremony", "trophy", "honor", "banquet", "Humanities", "awarding", "prize", "certificates"));
+    static LinkedList<String> AwardWords = new LinkedList<String>(Arrays.asList("award", "ceremony", "trophy", "honor", "banquet", "Humanities", "awarding", "prize", "certificates"));
     
-    LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "Film", "Film", "theater"));
+    static LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "Film", "Film", "theater"));
 
 
     //variable to store the event your rolled over
     
     //***
-    MyEvent currentEvent = new MyEvent();
-    boolean mouseOnEvent = false;
+    static MyEvent currentEvent = new MyEvent();
+    static boolean mouseOnEvent = false;
     
     
     //Get the current date so that we only grab events from this time forward from google calendars
@@ -587,249 +587,12 @@ public class GPSapp extends Application {
 		System.out.println(dateFormat.format(cal.getTime()));
 	    //System.out.println(dateFormat.format(date));
 		
-		//Grab the events from google calendars
-		try { 
-			myEventsData = CalendarEvents.getEvents();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//Apply these actions to the google button
 		
 		
-		//*** GRAB THE EVENTS AND PARSE THROUGH THEM TO the list ***
-		//Evaulte which keyword is most prominent in the description and determine event Type
-		int awardCount = 0, foodCount = 0, movieCount = 0, WPIEventCount = 0, sportCount = 0;
-		String tempType = "WPIEvent";
 		
-		String tempDescription = new String(); //parse info from description
-		Building tempBuilding = new Building("");
 		
-		//MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
-		System.out.println("myEventsData.size() :  " + myEventsData.size());
-		for(int i = 0; i < myEventsData.size();i++){
-			MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
-
-			//**** ALSO ADD ERROR CHECKING IN HERE WHEN YOU OBTAIN EACH BIT OF 
-			//INFORMATION IS A VALID BIT OF INFO********
-			
-			//CHECK IF THIS FIRST TO KNOW IF WE WANT TO SKIP EVENTS WITH BAD LOCATIONS
-			//Find the location
-			//Parse through location information, first match to a place, use that as the location
-			tempBuilding =  determineLocation(myEventsData.get(i).getLocation());
-			if(tempBuilding == NullBuilding){
-				continue; //skip adding this building because unreadable location
-			}
-			tempEvent.setLocation(tempBuilding.getName());
-			
-			
-			//Get Title of event 
-			tempEvent.setSummary(myEventsData.get(i).getSummary());
-			
-			//Get description of event 
-			tempEvent.setDescription(myEventsData.get(i).getDescription());
-			
-			//Get location of event 
-			//MIGHT NEED TO DO CUSTOM LOCATION DEPENDING ON WHERE THE OFFSET IS SET TO
-			//SINCE IT MIGHT BE ON A DIFFERENT CORNER THAN THE BOTTOM RIGHT HAND SIDE
-			//** IF 2 or more EVENTS HAVE THE SAME LOCATION MOVE ONE OVER
-			//iterate through to count how many events are already at that location,
-			//relocate them based on how many there are
-			int numEvents = 0;
-			for(int n = 0; n < myEvents.size(); n++){
-				if(myEvents.get(n).getLocation().equals(tempEvent.getLocation())){
-					numEvents++;
-				}
-			}
-			//*numEvents MUST ADDD
-			tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-			tempEvent.setlocationY(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			//ADD CUSTOM OFFSETS TO PLACE IN CENTER OF BUILINGS
-			
-			// CC ^40 >30
-			if(tempEvent.getLocation().equals("Campus Center")){
-				tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//FL down90 >30
-			if(tempEvent.getLocation().equals("Fuller Labs")){
-				tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(+90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//AK ^50 <40
-			if(tempEvent.getLocation().equals("Atwater Kent")){
-				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//SL ^30 >30
-			if(tempEvent.getLocation().equals("Salisbury Labs")){
-				tempEvent.setlocationX(+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//SH ^60 >10
-			if(tempEvent.getLocation().equals("Stratton Hall")){
-				tempEvent.setlocationX(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(-60+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//RC X829 Y787 (rec center, hard code this building)
-			if(tempEvent.getLocation().equals("Rec Center")){
-				tempEvent.setlocationX(829+(numEvents*37));
-				tempEvent.setlocationY(787);
-			}
-			//HA down50 >50 (harrington, )
-			if(tempEvent.getLocation().equals("Harrington Auditorium")){
-				tempEvent.setlocationX(50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//AH ^90 >30
-			if(tempEvent.getLocation().equals("Alden Hall")){
-				tempEvent.setlocationX(20+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(-90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			//PC down10 <40
-			if(tempEvent.getLocation().equals("Project Center")){
-				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
-			}
-			
-			//Get the start and end time of the event
-			//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
-			//NOT VITAL BUT WOULD BE NICE...****
-			tempEvent.setStartTime(currentEvent.getStartTime());
-			tempEvent.setEndTime(currentEvent.getEndTime());
-			
-			
-			
-			//Determine the Type of the event based on the information in description
-			//cut white space out and cast all lowercase for easier search
-			tempDescription = myEventsData.get(i).getDescription();
-			tempDescription = tempDescription.replaceAll("\\s+","");
-			tempDescription = tempDescription.toLowerCase();
-			System.out.println(tempDescription); //works time to parse
-			//parse through and search for key words
-			for(int f = 0; f < WPIWords.size();f ++){
-				if(tempDescription.contains(WPIWords.get(f)))
-					WPIEventCount++;
-			}
-			for(int f = 0; f < FoodWords.size();f ++){
-				if(tempDescription.contains(FoodWords.get(f)))
-					foodCount++;
-			}
-			for(int f = 0; f < SportWords.size();f ++){
-				if(tempDescription.contains(SportWords.get(f)))
-					sportCount++;
-			}
-			for(int f = 0; f < AwardWords.size();f ++){
-				if(tempDescription.contains(AwardWords.get(f)))
-					awardCount++;
-			}
-			for(int f = 0; f < MovieWords.size();f ++){
-				if(tempDescription.contains(MovieWords.get(f)))
-					movieCount++;
-			}
-			
-			//Add the rest of the parsers once we get this working!!!!!
-			//Depending on which count is the highest at the point, choose the event type
-			tempType  = determineEventType(awardCount, foodCount, movieCount, WPIEventCount , sportCount);
-			tempEvent.setType(tempType);
-			
-			//depending on the type, set the image icon as well
-			File eventIconFile = new File("CS3733_Graphics/EventImages/"+ tempType +".png");
-			//File eventIconFile = new File("CS3733_Graphics/DirectionImages/10.png");
-
-			Image EventIconImagePic = new Image(eventIconFile.toURI().toString());
-			ImageView EventIconImage = new ImageView(EventIconImagePic);
-			EventIconImage.setFitWidth(35); EventIconImage.setFitHeight(35);
-			tempEvent.setIcon(EventIconImage);
-			//add the tool tips to the event icons
-			Tooltip tempToolTip = new Tooltip(tempEvent.getSummary());
-			Tooltip.install(EventIconImage, tempToolTip);
-			
-			//Add delays if time!!
-			EventIconImage.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					currentEvent = tempEvent;
-					mouseOnEvent = true;
-					
-					//get the image of the event
-					//use the image, not image view that we obtained right above
-					eventDescriptionImageView.resize(35, 35);
-					eventDescriptionImageView.setImage(EventIconImagePic); 
-					
-					//event title
-					//see if we should add the ...
-					boolean addTitleElip = false;
-					if(tempEvent.getSummary().length()>= 30)
-						addTitleElip = true;
-					if(addTitleElip)
-						eventTitle.setText(truncate(tempEvent.getSummary(), 30) + "...");
-					else
-						eventTitle.setText(truncate(tempEvent.getSummary(), 30));
-					
-					//event location
-					eventLocation.setText("Location: " + truncate(tempEvent.getLocation(), 30));
-					
-					//event time
-					try{
-						eventTime.setText("Time: " + truncate(tempEvent.getStartTime(), 30) + " - "+ truncate(tempEvent.getEndTime(), 30));
-					} catch (NullPointerException e){
-						System.out.println("Not a good time");
-					}
-					//event description
-					//check to see how long the description is
-					int numLines = 0;
-					if(tempEvent.getDescription().length()>= 50)
-						numLines = 2;//only display first 2 lines of description
-					else 
-						numLines = 1;
-					
-					//set lines of descriptions
-					if(numLines == 2){
-						eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
-						eventDescriptionLine2.setText(tempEvent.getDescription().substring(50, 100));
-					}
-					else{
-						eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
-						eventDescriptionLine2.setText("");
-					}
-						
-						
-					//eventDescription.setText(truncate(tempEvent.getSummary(), 100));
-					//String tempText = truncate(tempEvent.getDescription(), 100);
-					//descriptionTextArea.setText(tempText);
-					
-					if (!descriptionIsOut) {
-						descriptionPaneAnimation(descriptionGroup);
-						descriptionIsOut = true;
-					} else {
-						descriptionPaneAnimation(descriptionGroup);
-						descriptionIsOut = false;
-					}
-				}
-			});
-			EventIconImage.setOnMouseExited(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					currentEvent = tempEvent;
-					mouseOnEvent = true;
-					
-					if (!descriptionIsOut) {
-						descriptionPaneAnimation(descriptionGroup);
-						descriptionIsOut = true;
-					} else {
-						descriptionPaneAnimation(descriptionGroup);
-						descriptionIsOut = false;
-					}
-				}
-			});
-			//reset the counts!!!!
-			 awardCount = 0; foodCount = 0; movieCount = 0; WPIEventCount = 0; sportCount = 0;
-
-			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
-		}
-		System.out.println("myEvents.size() :  " + myEvents.size());
 		
-		//MOVE IMAGE ATTACHING TO THE END
 		
 		//******************* PROBABLY MOVE ABOUT TO METHOD AND CALL.. BUT ONLY NEEDS TO BE CALLED ON LAUNCH**********
 
@@ -1217,7 +980,12 @@ public class GPSapp extends Application {
 		nearestBox.relocate(5, 141);
 
 		//**ATTACH THE GRAB EVENTS BUTTONS HERE******
-		
+		File googlebuttonFile = new File("CS3733_Graphics/MenuGraphics/googleSignInButton.png"); 
+		Image googleButtonImage = new Image(googlebuttonFile.toURI().toString());
+		ImageView googleButton = new ImageView(googleButtonImage);
+		googleButton.setFitHeight(32);
+		googleButton.setFitWidth(180);
+		googleButton.relocate(10, 600 );
 		//googleSignInButton
 		
 		
@@ -1260,8 +1028,7 @@ public class GPSapp extends Application {
 		keyImage.relocate(780, 610);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton,
-				aboutMeButton);
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton, googleButton);
 
 		root.getChildren().remove(fullMenuPane);
 		root.getChildren().addAll(fullMenuPane);
@@ -1463,6 +1230,21 @@ public class GPSapp extends Application {
 				}
 			}
 		});
+		//Sign into google button
+		googleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				//Grab the events from google calendars
+				try { 
+					myEventsData = CalendarEvents.getEvents();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				getEvents(0);
+				fixUI();
+			}
+		});
+		
 		//****** keyImage is teh name of the image of the key, nmake buttona nd attach it
 
 		instructionsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1814,6 +1596,246 @@ public class GPSapp extends Application {
 
 	///END OF MAIN ***************************************************************
 
+	public static void getEvents(int daysInFuture){
+	//*** GRAB THE EVENTS AND PARSE THROUGH THEM TO the list ***
+			//Evaulte which keyword is most prominent in the description and determine event Type
+			int awardCount = 0, foodCount = 0, movieCount = 0, WPIEventCount = 0, sportCount = 0;
+			String tempType = "WPIEvent";
+			
+			String tempDescription = new String(); //parse info from description
+			Building tempBuilding = new Building("");
+			
+			//MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
+			System.out.println("myEventsData.size() :  " + myEventsData.size());
+			for(int i = 0; i < myEventsData.size();i++){
+				MyEvent tempEvent = new MyEvent(); //fill in with information as we get it
+
+				//**** ALSO ADD ERROR CHECKING IN HERE WHEN YOU OBTAIN EACH BIT OF 
+				//INFORMATION IS A VALID BIT OF INFO********
+				
+				//CHECK IF THIS FIRST TO KNOW IF WE WANT TO SKIP EVENTS WITH BAD LOCATIONS
+				//Find the location
+				//Parse through location information, first match to a place, use that as the location
+				tempBuilding =  determineLocation(myEventsData.get(i).getLocation());
+				if(tempBuilding == NullBuilding){
+					continue; //skip adding this building because unreadable location
+				}
+				tempEvent.setLocation(tempBuilding.getName());
+				
+				
+				//Get Title of event 
+				tempEvent.setSummary(myEventsData.get(i).getSummary());
+				
+				//Get description of event 
+				tempEvent.setDescription(myEventsData.get(i).getDescription());
+				
+				//Get location of event 
+				//MIGHT NEED TO DO CUSTOM LOCATION DEPENDING ON WHERE THE OFFSET IS SET TO
+				//SINCE IT MIGHT BE ON A DIFFERENT CORNER THAN THE BOTTOM RIGHT HAND SIDE
+				//** IF 2 or more EVENTS HAVE THE SAME LOCATION MOVE ONE OVER
+				//iterate through to count how many events are already at that location,
+				//relocate them based on how many there are
+				int numEvents = 0;
+				for(int n = 0; n < myEvents.size(); n++){
+					if(myEvents.get(n).getLocation().equals(tempEvent.getLocation())){
+						numEvents++;
+					}
+				}
+				//*numEvents MUST ADDD
+				tempEvent.setlocationX(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				//ADD CUSTOM OFFSETS TO PLACE IN CENTER OF BUILINGS
+				
+				// CC ^40 >30
+				if(tempEvent.getLocation().equals("Campus Center")){
+					tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//FL down90 >30
+				if(tempEvent.getLocation().equals("Fuller Labs")){
+					tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(+90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//AK ^50 <40
+				if(tempEvent.getLocation().equals("Atwater Kent")){
+					tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//SL ^30 >30
+				if(tempEvent.getLocation().equals("Salisbury Labs")){
+					tempEvent.setlocationX(+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//SH ^60 >10
+				if(tempEvent.getLocation().equals("Stratton Hall")){
+					tempEvent.setlocationX(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-60+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//RC X829 Y787 (rec center, hard code this building)
+				if(tempEvent.getLocation().equals("Rec Center")){
+					tempEvent.setlocationX(829+(numEvents*37));
+					tempEvent.setlocationY(787);
+				}
+				//HA down50 >50 (harrington, )
+				if(tempEvent.getLocation().equals("Harrington Auditorium")){
+					tempEvent.setlocationX(50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//AH ^90 >30
+				if(tempEvent.getLocation().equals("Alden Hall")){
+					tempEvent.setlocationX(20+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//PC down10 <40
+				if(tempEvent.getLocation().equals("Project Center")){
+					tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				
+				//Get the start and end time of the event
+				//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
+				//NOT VITAL BUT WOULD BE NICE...****
+				tempEvent.setStartTime(myEventsData.get(i).getStartTime());
+				tempEvent.setEndTime( myEventsData.get(i).getEndTime());
+				
+				
+				
+				//Determine the Type of the event based on the information in description
+				//cut white space out and cast all lowercase for easier search
+				tempDescription = myEventsData.get(i).getDescription();
+				tempDescription = tempDescription.replaceAll("\\s+","");
+				tempDescription = tempDescription.toLowerCase();
+				System.out.println(tempDescription); //works time to parse
+				//parse through and search for key words
+				for(int f = 0; f < WPIWords.size();f ++){
+					if(tempDescription.contains(WPIWords.get(f)))
+						WPIEventCount++;
+				}
+				for(int f = 0; f < FoodWords.size();f ++){
+					if(tempDescription.contains(FoodWords.get(f)))
+						foodCount++;
+				}
+				for(int f = 0; f < SportWords.size();f ++){
+					if(tempDescription.contains(SportWords.get(f)))
+						sportCount++;
+				}
+				for(int f = 0; f < AwardWords.size();f ++){
+					if(tempDescription.contains(AwardWords.get(f)))
+						awardCount++;
+				}
+				for(int f = 0; f < MovieWords.size();f ++){
+					if(tempDescription.contains(MovieWords.get(f)))
+						movieCount++;
+				}
+				
+				//Add the rest of the parsers once we get this working!!!!!
+				//Depending on which count is the highest at the point, choose the event type
+				tempType  = determineEventType(awardCount, foodCount, movieCount, WPIEventCount , sportCount);
+				tempEvent.setType(tempType);
+				
+				//depending on the type, set the image icon as well
+				File eventIconFile = new File("CS3733_Graphics/EventImages/"+ tempType +".png");
+				//File eventIconFile = new File("CS3733_Graphics/DirectionImages/10.png");
+
+				Image EventIconImagePic = new Image(eventIconFile.toURI().toString());
+				ImageView EventIconImage = new ImageView(EventIconImagePic);
+				EventIconImage.setFitWidth(35); EventIconImage.setFitHeight(35);
+				tempEvent.setIcon(EventIconImage);
+				//add the tool tips to the event icons
+				Tooltip tempToolTip = new Tooltip(tempEvent.getSummary());
+				Tooltip.install(EventIconImage, tempToolTip);
+				
+				//Add delays if time!!
+				EventIconImage.setOnMouseEntered(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						currentEvent = tempEvent;
+						mouseOnEvent = true;
+						
+						//get the image of the event
+						//use the image, not image view that we obtained right above
+						eventDescriptionImageView.resize(35, 35);
+						eventDescriptionImageView.setImage(EventIconImagePic); 
+						
+						//event title
+						//see if we should add the ...
+						boolean addTitleElip = false;
+						if(tempEvent.getSummary().length()>= 30)
+							addTitleElip = true;
+						if(addTitleElip)
+							eventTitle.setText(truncate(tempEvent.getSummary(), 30) + "...");
+						else
+							eventTitle.setText(truncate(tempEvent.getSummary(), 30));
+						
+						//event location
+						eventLocation.setText("Location: " + truncate(tempEvent.getLocation(), 30));
+						
+						//event time
+						eventTime.setText("Time: " + tempEvent.getStartTime());
+
+						try{
+							//eventTime.setText("Time: " + truncate(tempEvent.getStartTime(), 30) + " - "+ truncate(tempEvent.getEndTime(), 30));
+						} catch (NullPointerException e){
+							System.out.println("Not a good time");
+						}
+						//event description
+						//check to see how long the description is
+						int numLines = 0;
+						if(tempEvent.getDescription().length()>= 50)
+							numLines = 2;//only display first 2 lines of description
+						else 
+							numLines = 1;
+						
+						//set lines of descriptions
+						if(numLines == 2){
+							eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
+							eventDescriptionLine2.setText(tempEvent.getDescription().substring(50, 100));
+						}
+						else{
+							eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
+							eventDescriptionLine2.setText("");
+						}
+							
+							
+						//eventDescription.setText(truncate(tempEvent.getSummary(), 100));
+						//String tempText = truncate(tempEvent.getDescription(), 100);
+						//descriptionTextArea.setText(tempText);
+						
+						if (!descriptionIsOut) {
+							descriptionPaneAnimation(descriptionGroup);
+							descriptionIsOut = true;
+						} else {
+							descriptionPaneAnimation(descriptionGroup);
+							descriptionIsOut = false;
+						}
+					}
+				});
+				EventIconImage.setOnMouseExited(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						currentEvent = tempEvent;
+						mouseOnEvent = true;
+						
+						if (!descriptionIsOut) {
+							descriptionPaneAnimation(descriptionGroup);
+							descriptionIsOut = true;
+						} else {
+							descriptionPaneAnimation(descriptionGroup);
+							descriptionIsOut = false;
+						}
+					}
+				});
+				//reset the counts!!!!
+				 awardCount = 0; foodCount = 0; movieCount = 0; WPIEventCount = 0; sportCount = 0;
+
+				myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
+			}
+			System.out.println("myEvents.size() :  " + myEvents.size());
+			
+			//MOVE IMAGE ATTACHING TO THE END
+	}
+	
+	
 	public static String truncate(String value, int length) {
 		// Ensure String length is longer than requested size.
 		if (value.length() > length) {
@@ -1823,7 +1845,7 @@ public class GPSapp extends Application {
 		}
 	}
 	
-	private Building determineLocation(String location) {
+	private static Building determineLocation(String location) {
 		
 		//iterate through the list of locations to match the location to set the location
 		//split up location description
@@ -1861,7 +1883,7 @@ public class GPSapp extends Application {
 
 
 
-	private String determineEventType(int awardCount, int foodCount, int movieCount, int WPIEventCount, int sportCount) {
+	private static String determineEventType(int awardCount, int foodCount, int movieCount, int WPIEventCount, int sportCount) {
 		//give WPI events more weight, or whatever, depends on order
 		//POSSIBLY delte the = sign to give better image recognition to add weight
 		 //if(movieCount > 0) //movie words are pretty unique
@@ -1894,6 +1916,7 @@ public class GPSapp extends Application {
 				System.out.println("Type: " + myEvents.get(i).getType());
 				System.out.println("Desc: " + myEvents.get(i).getDescription());
 				System.out.println("Location: " + myEvents.get(i).getLocation());
+				System.out.println("****Time: " + myEvents.get(i).getStartTime());
 				System.out.println("X: " + myEvents.get(i).getlocationX());
 				System.out.println("Y: " + myEvents.get(i).getlocationY());
 				
@@ -1939,7 +1962,7 @@ public class GPSapp extends Application {
 		g1pt.play();
 	}
 	
-	private void descriptionPaneAnimation(Group descriptionGroup) {
+	private static void descriptionPaneAnimation(Group descriptionGroup) {
 		Path g1path = new Path();
 		MoveTo g1moveTo = new MoveTo();
 
