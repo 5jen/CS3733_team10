@@ -73,6 +73,7 @@ public class MapTool extends Application {
     Building RecCenter = new Building("Rec Center");
 	Building Harrington = new Building("Harrington Auditorium");
 	Building HigginsLabs = new Building("Higgins Labs");
+	Building AldenHall = new Building("Alden Hall");
 
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -160,6 +161,16 @@ public class MapTool extends Application {
 			"Graphs/Edges/HL2Edges.json", 0.174, 1237, 843, 0.1400, "2");
 	Map HigginsLabs3 = new Map("Higgins Labs 3", "HL", "CS3733_Graphics/HL3.png", "Graphs/Nodes/HL3.json",
 			"Graphs/Edges/HL3Edges.json", 0.174, 1237, 843, 0.1400, "3");
+	
+	Map AldenHallSB = new Map("Alden Hall SB", "AH", "CS3733_Graphics/AHSB.png", "Graphs/Nodes/AHSB.json",
+			"Graphs/Edges/AHSBEdges.json", -1.396, 1212, 1077, 0.1400, "SB");
+	Map AldenHallB = new Map("Alden Hall B", "AH", "CS3733_Graphics/AHB.png", "Graphs/Nodes/AHB.json",
+			"Graphs/Edges/AHBEdges.json", -1.396, 1212, 1077, 0.1400, "B");
+	Map AldenHall1 = new Map("Alden Hall 1", "AH", "CS3733_Graphics/AH1.png", "Graphs/Nodes/AH1.json",
+			"Graphs/Edges/AH1Edges.json", -1.396, 1212, 1077, 0.1400, "1");
+	Map AldenHall2 = new Map("Alden Hall 2", "AH", "CS3733_Graphics/AH2.png", "Graphs/Nodes/AH2.json",
+			"Graphs/Edges/AH2Edges.json", -1.396, 1212, 1077, 0.1400, "2");
+	
     
     public static void main(String[] args) {
         launch(args);
@@ -308,6 +319,11 @@ public class MapTool extends Application {
 		HigginsLabs.addMap(HigginsLabs1);
 		HigginsLabs.addMap(HigginsLabs2);
 		HigginsLabs.addMap(HigginsLabs3);
+		
+		AldenHall.addMap(AldenHallSB);
+		AldenHall.addMap(AldenHallB);
+		AldenHall.addMap(AldenHall1);
+		AldenHall.addMap(AldenHall2);
         
         // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -326,6 +342,7 @@ public class MapTool extends Application {
         buildings.add(WestStreet);
         buildings.add(HigginsLabs);
         buildings.add(Harrington);
+        buildings.add(AldenHall);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -1993,6 +2010,46 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.relocate(-215, -65);
 			buttonRescale = 1 / 0.6421;
 			zField.setText("20");
+			break;
+		case "AHSB":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-215, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("-20");
+			break;
+		case "AHB":
+			imageView.setScaleX(0.5780);
+			imageView.setScaleY(0.5780);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5780);
+			NodePane.setScaleY(0.5780);
+			NodePane.relocate(-220, -58);
+			buttonRescale = 1 / 0.5780;
+			zField.setText("-10");
+			break;
+		case "AH1":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-245, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("0");
+			break;
+		case "AH2":
+			imageView.setScaleX(0.6344);
+			imageView.setScaleY(0.6344);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6344);
+			NodePane.setScaleY(0.6344);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6344;
+			zField.setText("10");
 			break;
               //TODO ADD BUILDINGS
 
