@@ -146,6 +146,8 @@ public class GPSapp extends Application {
 	Building WestStreet = new Building("157 West Street");
 	Building WashburnShops = new Building("Washburn Shops");
 	Building RecCenter = new Building("Rec Center");
+	Building Harrington = new Building("Harrington Auditorium");
+	Building HigginsLabs = new Building("Higgins Labs");
 	Building NullBuilding = new Building("Null Building");
 
 	// Map Buildings with their content
@@ -247,8 +249,32 @@ public class GPSapp extends Application {
 	Map WestStreet2 = new Map("157 West Street 2", "West", "CS3733_Graphics/West2.png", "Graphs/Nodes/West2.json",
 			"Graphs/Edges/West2Edges.json", -1.413, 1306, 1290, 0.0532, "2");
 
+	Map WashburnShopsB = new Map("Washburn Shops B", "WS", "CS3733_Graphics/WSB.png", "Graphs/Nodes/WSB.json",
+			"Graphs/Edges/WSBEdges.json", 0.157, 1422, 903, 0.1661, "B");
 	Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json",
 			"Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
+	Map WashburnShops2 = new Map("Washburn Shops 2", "WS", "CS3733_Graphics/WS2.png", "Graphs/Nodes/WS2.json",
+			"Graphs/Edges/WS2Edges.json", 0.157, 1422, 903, 0.1661, "2");
+	Map WashburnShops3 = new Map("Washburn Shops 3", "WS", "CS3733_Graphics/WS3.png", "Graphs/Nodes/WS3.json",
+			"Graphs/Edges/WS3Edges.json", 0.157, 1422, 903, 0.1661, "3");
+	
+	Map HarringtonB = new Map("Harrington Auditorium B", "HA", "CS3733_Graphics/HAB.png", "Graphs/Nodes/HAB.json",
+			"Graphs/Edges/HABEdges.json", 0.140, 952, 641, 0.1400, "B");
+	Map Harrington1 = new Map("Harrington Auditorium 1", "HA", "CS3733_Graphics/HA1.png", "Graphs/Nodes/HA1.json",
+			"Graphs/Edges/HA1Edges.json", 0.140, 952, 641, 0.1400, "1");
+	Map Harrington2 = new Map("Harrington Auditorium 2", "HA", "CS3733_Graphics/HA2.png", "Graphs/Nodes/HA2.json",
+			"Graphs/Edges/HA2Edges.json", 0.140, 952, 641, 0.1400, "2");
+	Map Harrington3 = new Map("Harrington Auditorium 3", "HA", "CS3733_Graphics/HA3.png", "Graphs/Nodes/HA3.json",
+			"Graphs/Edges/HA3Edges.json", 0.140, 952, 641, 0.1400, "3");
+	
+	Map HigginsLabsB = new Map("Higgins Labs B", "HL", "CS3733_Graphics/HLB.png", "Graphs/Nodes/HLB.json",
+			"Graphs/Edges/HLBEdges.json", 0.174, 1237, 843, 0.1400, "B");
+	Map HigginsLabs1 = new Map("Higgins Labs 1", "HL", "CS3733_Graphics/HL1.png", "Graphs/Nodes/HL1.json",
+			"Graphs/Edges/HL1Edges.json", 0.174, 1237, 843, 0.1400, "1");
+	Map HigginsLabs2 = new Map("Higgins Labs 2", "HL", "CS3733_Graphics/HL2.png", "Graphs/Nodes/HL2.json",
+			"Graphs/Edges/HL2Edges.json", 0.174, 1237, 843, 0.1400, "2");
+	Map HigginsLabs3 = new Map("Higgins Labs 3", "HL", "CS3733_Graphics/HL3.png", "Graphs/Nodes/HL3.json",
+			"Graphs/Edges/HL3Edges.json", 0.174, 1237, 843, 0.1400, "3");
 
 	// set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
@@ -475,11 +501,24 @@ public class GPSapp extends Application {
 		SalisburyLabs.addMap(SalisburyLabs3);
 		SalisburyLabs.addMap(SalisburyLabs4);
 
+		WashburnShops.addMap(WashburnShopsB);
 		WashburnShops.addMap(WashburnShops1);
+		WashburnShops.addMap(WashburnShops2);
+		WashburnShops.addMap(WashburnShops3);
 
 		WestStreet.addMap(WestStreetB);
 		WestStreet.addMap(WestStreet1);
 		WestStreet.addMap(WestStreet2);
+		
+		Harrington.addMap(HarringtonB);
+		Harrington.addMap(Harrington1);
+		Harrington.addMap(Harrington2);
+		Harrington.addMap(Harrington3);
+		
+		HigginsLabs.addMap(HigginsLabsB);
+		HigginsLabs.addMap(HigginsLabs1);
+		HigginsLabs.addMap(HigginsLabs2);
+		HigginsLabs.addMap(HigginsLabs3);
         
         
         // TODO Add more buildings to this list
@@ -496,6 +535,9 @@ public class GPSapp extends Application {
         buildings.add(SalisburyLabs);
         buildings.add(WashburnShops);
         buildings.add(WestStreet);
+        buildings.add(HigginsLabs);
+        buildings.add(Harrington);
+        
 
 
         toggleKeyText.setFont(Font.font("manteka", 10));
@@ -660,9 +702,9 @@ public class GPSapp extends Application {
 			
 			//Determine the Type of the event based on the information in description
 			//cut white space out and cast all lowercase for easier search
-			tempDescription = myEventsData.get(i).getDescription();
-			tempDescription = tempDescription.replaceAll("\\s+","");
-			tempDescription = tempDescription.toLowerCase();
+			//tempDescription = myEventsData.get(i).getDescription();
+			//tempDescription = tempDescription.replaceAll("\\s+","");
+			//tempDescription = tempDescription.toLowerCase();
 			System.out.println(tempDescription); //works time to parse
 			//parse through and search for key words
 			for(int f = 0; f < WPIWords.size();f ++){
@@ -2145,6 +2187,14 @@ public class GPSapp extends Application {
 				g1.setLayoutX(xplacement + 260);
 				g1.setLayoutY(yplacement + 350 - i * 45);
 			}
+			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Harrington Auditorium")) {
+				g1.setLayoutX(xplacement + 260);
+				g1.setLayoutY(yplacement + 350 - i * 45);
+			}
+			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins Labs")) {
+				g1.setLayoutX(xplacement + 260);
+				g1.setLayoutY(yplacement + 350 - i * 45);
+			}
 			/// ABOVE^^^^^^
 
 			applyAnimation(g1, i, imageView);
@@ -2192,6 +2242,9 @@ public class GPSapp extends Application {
 					
 					if (building.equals(WestStreet)) {
 						BuildingNameLabel.relocate(g1.getLayoutX() - 500, mouseYposition + 250);
+					}
+					if (building.equals(Harrington)) {
+						BuildingNameLabel.relocate(g1.getLayoutX() - 800, mouseYposition + 150);
 					}
 
 					if (building.equals(FullerLabs))
@@ -3448,6 +3501,18 @@ public class GPSapp extends Application {
 			canvas.relocate(-230, -60);
 			buttonRescale = 1 / 0.6988;
 			break;
+		case "Washburn Shops B":
+			imageView.setScaleX(0.5827);
+			imageView.setScaleY(0.5827);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5827);
+			NodePane.setScaleY(0.5827);
+			NodePane.relocate(-225, -48);
+			canvas.setScaleX(0.5827);
+			canvas.setScaleY(0.5827);
+			canvas.relocate(-225, -48);
+			buttonRescale = 1 / 0.5827;
+			break;
 		case "Washburn Shops 1":
 			imageView.setScaleX(0.6116);
 			imageView.setScaleY(0.6116);
@@ -3459,6 +3524,126 @@ public class GPSapp extends Application {
 			canvas.setScaleY(0.6116);
 			canvas.relocate(-225, -45);
 			buttonRescale = 1 / 0.6116;
+			break;
+		case "Washburn Shops 2":
+			imageView.setScaleX(0.5972);
+			imageView.setScaleY(0.5972);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5972);
+			NodePane.setScaleY(0.5972);
+			NodePane.relocate(-225, -45);
+			canvas.setScaleX(0.5972);
+			canvas.setScaleY(0.5972);
+			canvas.relocate(-225, -45);
+			buttonRescale = 1 / 0.5972;
+			break;
+		case "Washburn Shops 3":
+			imageView.setScaleX(0.6335);
+			imageView.setScaleY(0.6335);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6335);
+			NodePane.setScaleY(0.6335);
+			NodePane.relocate(-225, -48);
+			canvas.setScaleX(0.6335);
+			canvas.setScaleY(0.6335);
+			canvas.relocate(-225, -48);
+			buttonRescale = 1 / 0.6335;
+			break;
+		case "Harrington Auditorium B":
+			imageView.setScaleX(0.5168);
+			imageView.setScaleY(0.5168);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5168);
+			NodePane.setScaleY(0.5168);
+			NodePane.relocate(-215, -35);
+			canvas.setScaleX(0.5168);
+			canvas.setScaleY(0.5168);
+			canvas.relocate(-215, -35);
+			buttonRescale = 1 / 0.5168;
+			break;
+		case "Harrington Auditorium 1":
+			imageView.setScaleX(0.5057);
+			imageView.setScaleY(0.5057);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5057);
+			NodePane.setScaleY(0.5057);
+			NodePane.relocate(-232, -10);
+			canvas.setScaleX(0.5057);
+			canvas.setScaleY(0.5057);
+			canvas.relocate(-232, -10);
+			buttonRescale = 1 / 0.5057;
+			break;
+		case "Harrington Auditorium 2":
+			imageView.setScaleX(0.5185);
+			imageView.setScaleY(0.5185);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5185);
+			NodePane.setScaleY(0.5185);
+			NodePane.relocate(-218, -45);
+			canvas.setScaleX(0.5185);
+			canvas.setScaleY(0.5185);
+			canvas.relocate(-218, -45);
+			buttonRescale = 1 / 0.5185;
+			break;
+		case "Harrington Auditorium 3":
+			imageView.setScaleX(0.5191);
+			imageView.setScaleY(0.5191);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5191);
+			NodePane.setScaleY(0.5191);
+			NodePane.relocate(-218, -45);
+			canvas.setScaleX(0.5191);
+			canvas.setScaleY(0.5191);
+			canvas.relocate(-218, -45);
+			buttonRescale = 1 / 0.5191;
+			break;
+		case "Higgins Labs B":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -65);
+			canvas.setScaleX(0.6395);
+			canvas.setScaleY(0.6395);
+			canvas.relocate(-215, -65);
+			buttonRescale = 1 / 0.6395;
+			break;
+		case "Higgins Labs 1":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -75);
+			canvas.setScaleX(0.6395);
+			canvas.setScaleY(0.6395);
+			canvas.relocate(-215, -75);
+			buttonRescale = 1 / 0.6395;
+			break;
+		case "Higgins Labs 2":
+			imageView.setScaleX(0.6431);
+			imageView.setScaleY(0.6431);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6431);
+			NodePane.setScaleY(0.6431);
+			NodePane.relocate(-215, -75);
+			canvas.setScaleX(0.6431);
+			canvas.setScaleY(0.6431);
+			canvas.relocate(-215, -75);
+			buttonRescale = 1 / 0.6431;
+			break;
+		case "Higgins Labs 3":
+			imageView.setScaleX(0.6421);
+			imageView.setScaleY(0.6421);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6421);
+			NodePane.setScaleY(0.6421);
+			NodePane.relocate(-215, -65);
+			canvas.setScaleX(0.6421);
+			canvas.setScaleY(0.6421);
+			canvas.relocate(-215, -65);
+			buttonRescale = 1 / 0.6421;
 			break;
 		// TODO ADD BUILDINGS
 		}
@@ -4059,6 +4244,85 @@ public class GPSapp extends Application {
 			}
 		});
 		NodePane.getChildren().add(westStreet);
+		
+		Polygon harrington = new Polygon();
+		harrington.getPoints().addAll(new Double[] {
+
+				956.0 - xOffset, 647.0 - yOffset, 1092.0 - xOffset, 669.0 - yOffset, 1089.0 - xOffset, 714.0 - yOffset,
+				1078.0 - xOffset, 754.0 - yOffset, 1048.0 - xOffset, 758.0 - yOffset, 1046.0 - xOffset, 769.0 - yOffset,
+				1036.0 - xOffset, 766.0 - yOffset, 1036.0 - xOffset, 759.0 - yOffset, 1029.0 - xOffset, 765.0 - yOffset,
+				986.0 - xOffset, 758.0 - yOffset, 989.0 - xOffset, 753.0 - yOffset, 969.0 - xOffset, 744.0 - yOffset,
+				967.0 - xOffset, 755.0 - yOffset, 955.0 - xOffset, 754.0 - yOffset, 956.0 - xOffset, 739.0 - yOffset,
+				943.0 - xOffset, 733.0 - yOffset, 944.0 - xOffset, 691.0 - yOffset });
+
+		harrington.setFill(Color.TRANSPARENT);
+
+		harrington.setStroke(Color.TRANSPARENT);
+		harrington.setStrokeWidth(1.0);
+		harrington.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				keyText.setText("Harrington Auditorium");
+				keyText.setFill(BuildingName);
+				harrington.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+				BuildingRolledOver = Harrington;
+			}
+		});
+		harrington.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				pause.play();
+			}
+		});
+		harrington.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				keyText.setText(" ");
+				keyText.setFill(key);
+				harrington.setFill(Color.TRANSPARENT);
+				BuildingRolledOver = NullBuilding;
+			}
+		});
+		NodePane.getChildren().add(harrington);
+		
+		Polygon higgins = new Polygon();
+		higgins.getPoints().addAll(new Double[] {
+
+				1323.0 - xOffset, 716.0 - yOffset, 1323.0 - xOffset, 720.0 - yOffset, 1340.0 - xOffset, 724.0 - yOffset,
+				1335.0 - xOffset, 753.0 - yOffset, 1319.0 - xOffset, 751.0 - yOffset, 1313.0 - xOffset, 779.0 - yOffset,
+				1309.0 - xOffset, 790.0 - yOffset, 1307.0 - xOffset, 820.0 - yOffset, 1322.0 - xOffset, 820.0 - yOffset,
+				1317.0 - xOffset, 850.0 - yOffset, 1300.0 - xOffset, 850.0 - yOffset, 1300.0 - xOffset, 856.0 - yOffset,
+				1288.0 - xOffset, 855.0 - yOffset, 1272.0 - xOffset, 853.0 - yOffset, 1260.0 - xOffset, 849.0 - yOffset,
+				1259.0 - xOffset, 844.0 - yOffset, 1242.0 - xOffset, 842.0 - yOffset, 1240.0 - xOffset, 807.0 - yOffset,
+				1254.0 - xOffset, 729.0 - yOffset, 1273.0 - xOffset, 728.0 - yOffset, 1281.0 - xOffset, 708.0 - yOffset});
+
+		higgins.setFill(Color.TRANSPARENT);
+
+		higgins.setStroke(Color.TRANSPARENT);
+		higgins.setStrokeWidth(1.0);
+		higgins.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				keyText.setText("Higgins Labs");
+				keyText.setFill(BuildingName);
+				higgins.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+				BuildingRolledOver = HigginsLabs;
+			}
+		});
+		higgins.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				pause.play();
+			}
+		});
+		higgins.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				keyText.setText(" ");
+				keyText.setFill(key);
+				higgins.setFill(Color.TRANSPARENT);
+				BuildingRolledOver = NullBuilding;
+			}
+		});
+		NodePane.getChildren().add(higgins);
 
 		Tooltip.install(fullerLabs, tooltip);
 		Tooltip.install(cc, tooltip);
