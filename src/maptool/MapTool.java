@@ -71,6 +71,9 @@ public class MapTool extends Application {
     Building WestStreet = new Building("157 West Street");
     Building WashburnShops = new Building("Washburn Shops");
     Building RecCenter = new Building("Rec Center");
+	Building Harrington = new Building("Harrington Auditorium");
+	Building HigginsLabs = new Building("Higgins Labs");
+	Building AldenHall = new Building("Alden Hall");
 
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -132,8 +135,42 @@ public class MapTool extends Application {
     Map WestStreet1 = new Map("157 West Street 1", "West", "CS3733_Graphics/West1.png", "Graphs/Nodes/West1.json", "Graphs/Edges/West1Edges.json", -1.413, 1306, 1290, 0.0483, "1");
     Map WestStreet2 = new Map("157 West Street 2", "West", "CS3733_Graphics/West2.png", "Graphs/Nodes/West2.json", "Graphs/Edges/West2Edges.json", -1.413, 1306, 1290, 0.0532, "2");
 
-    Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json", "Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
-
+    Map WashburnShopsB = new Map("Washburn Shops B", "WS", "CS3733_Graphics/WSB.png", "Graphs/Nodes/WSB.json",
+			"Graphs/Edges/WSBEdges.json", 0.157, 1422, 903, 0.1661, "B");
+	Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json",
+			"Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
+	Map WashburnShops2 = new Map("Washburn Shops 2", "WS", "CS3733_Graphics/WS2.png", "Graphs/Nodes/WS2.json",
+			"Graphs/Edges/WS2Edges.json", 0.157, 1422, 903, 0.1661, "2");
+	Map WashburnShops3 = new Map("Washburn Shops 3", "WS", "CS3733_Graphics/WS3.png", "Graphs/Nodes/WS3.json",
+			"Graphs/Edges/WS3Edges.json", 0.157, 1422, 903, 0.1661, "3");
+	
+	Map HarringtonB = new Map("Harrington Auditorium B", "HA", "CS3733_Graphics/HAB.png", "Graphs/Nodes/HAB.json",
+			"Graphs/Edges/HABEdges.json", 0.140, 952, 641, 0.1400, "B");
+	Map Harrington1 = new Map("Harrington Auditorium 1", "HA", "CS3733_Graphics/HA1.png", "Graphs/Nodes/HA1.json",
+			"Graphs/Edges/HA1Edges.json", 0.140, 952, 641, 0.1400, "1");
+	Map Harrington2 = new Map("Harrington Auditorium 2", "HA", "CS3733_Graphics/HA2.png", "Graphs/Nodes/HA2.json",
+			"Graphs/Edges/HA2Edges.json", 0.140, 952, 641, 0.1400, "2");
+	Map Harrington3 = new Map("Harrington Auditorium 3", "HA", "CS3733_Graphics/HA3.png", "Graphs/Nodes/HA3.json",
+			"Graphs/Edges/HA3Edges.json", 0.140, 952, 641, 0.1400, "3");
+	
+	Map HigginsLabsB = new Map("Higgins Labs B", "HL", "CS3733_Graphics/HLB.png", "Graphs/Nodes/HLB.json",
+			"Graphs/Edges/HLBEdges.json", 0.174, 1237, 843, 0.1400, "B");
+	Map HigginsLabs1 = new Map("Higgins Labs 1", "HL", "CS3733_Graphics/HL1.png", "Graphs/Nodes/HL1.json",
+			"Graphs/Edges/HL1Edges.json", 0.174, 1237, 843, 0.1400, "1");
+	Map HigginsLabs2 = new Map("Higgins Labs 2", "HL", "CS3733_Graphics/HL2.png", "Graphs/Nodes/HL2.json",
+			"Graphs/Edges/HL2Edges.json", 0.174, 1237, 843, 0.1400, "2");
+	Map HigginsLabs3 = new Map("Higgins Labs 3", "HL", "CS3733_Graphics/HL3.png", "Graphs/Nodes/HL3.json",
+			"Graphs/Edges/HL3Edges.json", 0.174, 1237, 843, 0.1400, "3");
+	
+	Map AldenHallSB = new Map("Alden Hall SB", "AH", "CS3733_Graphics/AHSB.png", "Graphs/Nodes/AHSB.json",
+			"Graphs/Edges/AHSBEdges.json", -1.396, 1212, 1077, 0.1400, "SB");
+	Map AldenHallB = new Map("Alden Hall B", "AH", "CS3733_Graphics/AHB.png", "Graphs/Nodes/AHB.json",
+			"Graphs/Edges/AHBEdges.json", -1.396, 1212, 1077, 0.1400, "B");
+	Map AldenHall1 = new Map("Alden Hall 1", "AH", "CS3733_Graphics/AH1.png", "Graphs/Nodes/AH1.json",
+			"Graphs/Edges/AH1Edges.json", -1.396, 1212, 1077, 0.1400, "1");
+	Map AldenHall2 = new Map("Alden Hall 2", "AH", "CS3733_Graphics/AH2.png", "Graphs/Nodes/AH2.json",
+			"Graphs/Edges/AH2Edges.json", -1.396, 1212, 1077, 0.1400, "2");
+	
     
     public static void main(String[] args) {
         launch(args);
@@ -264,11 +301,29 @@ public class MapTool extends Application {
         SalisburyLabs.addMap(SalisburyLabs3);
         SalisburyLabs.addMap(SalisburyLabs4);
         
-        WashburnShops.addMap(WashburnShops1);
-        
-        WestStreet.addMap(WestStreetB);
-        WestStreet.addMap(WestStreet1);
-        WestStreet.addMap(WestStreet2);
+        WashburnShops.addMap(WashburnShopsB);
+		WashburnShops.addMap(WashburnShops1);
+		WashburnShops.addMap(WashburnShops2);
+		WashburnShops.addMap(WashburnShops3);
+
+		WestStreet.addMap(WestStreetB);
+		WestStreet.addMap(WestStreet1);
+		WestStreet.addMap(WestStreet2);
+		
+		Harrington.addMap(HarringtonB);
+		Harrington.addMap(Harrington1);
+		Harrington.addMap(Harrington2);
+		Harrington.addMap(Harrington3);
+		
+		HigginsLabs.addMap(HigginsLabsB);
+		HigginsLabs.addMap(HigginsLabs1);
+		HigginsLabs.addMap(HigginsLabs2);
+		HigginsLabs.addMap(HigginsLabs3);
+		
+		AldenHall.addMap(AldenHallSB);
+		AldenHall.addMap(AldenHallB);
+		AldenHall.addMap(AldenHall1);
+		AldenHall.addMap(AldenHall2);
         
         // Store the Buildings in a list
         // TODO Add more buildings to this list
@@ -285,6 +340,9 @@ public class MapTool extends Application {
         buildings.add(SalisburyLabs);
         buildings.add(WashburnShops);
         buildings.add(WestStreet);
+        buildings.add(HigginsLabs);
+        buildings.add(Harrington);
+        buildings.add(AldenHall);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -431,6 +489,23 @@ public class MapTool extends Application {
         final Button updateNodeButton = new Button("Update Node");
         final Button createNodeButton = new Button("Create Node");
         final Button deleteNodeButton = new Button("Delete Node");
+        updateNodeButton.setId("dark");
+        createNodeButton.setId("dark");
+        deleteNodeButton.setId("dark");
+        typeSelector.setId("dark");
+        mapSelector.setId("dark");
+        LoadMapButton.setId("dark");
+        isPlace.setId("dark");
+        lockX.setId("dark");
+        lockY.setId("dark");
+        autoNodeCreate.setId("dark");
+        autoEdgeCreate.setId("dark");
+        xField.setId("dark");
+        yField.setId("dark");
+        zField.setId("dark");
+        nameField.setId("dark");
+        
+        
         NodeCreationBox.getChildren().addAll(createNodeButton, deleteNodeButton);
         
         HBox NodeUpdateBox = new HBox(5);
@@ -480,10 +555,14 @@ public class MapTool extends Application {
         final Button deleteEdgeButton = new Button("Delete Edge");
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
+        saveGraph.setId("dark");
+        createEdgeButton.setId("dark");
+        deleteEdgeButton.setId("dark");
+        
         final HBox SaveBox = new HBox(5);
         SaveBox.getChildren().addAll(saveGraph, autoEdgeModeHBox);
         edgeControls.setLayoutX(830);
-        edgeControls.setLayoutY(460);
+        edgeControls.setLayoutY(470);
         edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, SaveBox);
 
         imageView.setImage(mapImage);
@@ -1812,6 +1891,16 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			buttonRescale = 1 / 0.6988;
 			zField.setText("30");
 			break;
+		case "WSB":
+			imageView.setScaleX(0.5827);
+			imageView.setScaleY(0.5827);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5827);
+			NodePane.setScaleY(0.5827);
+			NodePane.relocate(-225, -48);
+			buttonRescale = 1 / 0.5827;
+			zField.setText("-10");
+			break;
 		case "WS1":
 			imageView.setScaleX(0.6116);
 			imageView.setScaleY(0.6116);
@@ -1821,6 +1910,146 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			NodePane.relocate(-225, -45);
 			buttonRescale = 1 / 0.6116;
 			zField.setText("0");
+			break;
+		case "WS2":
+			imageView.setScaleX(0.5972);
+			imageView.setScaleY(0.5972);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5972);
+			NodePane.setScaleY(0.5972);
+			NodePane.relocate(-225, -45);
+			buttonRescale = 1 / 0.5972;
+			zField.setText("20");
+			break;
+		case "WS3":
+			imageView.setScaleX(0.6335);
+			imageView.setScaleY(0.6335);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6335);
+			NodePane.setScaleY(0.6335);
+			NodePane.relocate(-245, -48);
+			buttonRescale = 1 / 0.6335;
+			zField.setText("30");
+			break;
+		case "HAB":
+			imageView.setScaleX(0.5168);
+			imageView.setScaleY(0.5168);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5168);
+			NodePane.setScaleY(0.5168);
+			NodePane.relocate(-215, -35);
+			buttonRescale = 1 / 0.5168;
+			zField.setText("-10");
+			break;
+		case "HA1":
+			imageView.setScaleX(0.5057);
+			imageView.setScaleY(0.5057);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5057);
+			NodePane.setScaleY(0.5057);
+			NodePane.relocate(-232, -10);
+			buttonRescale = 1 / 0.5057;
+			zField.setText("0");
+			break;
+		case "HA2":
+			imageView.setScaleX(0.5185);
+			imageView.setScaleY(0.5185);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5185);
+			NodePane.setScaleY(0.5185);
+			NodePane.relocate(-218, -45);
+			buttonRescale = 1 / 0.5185;
+			zField.setText("10");
+			break;
+		case "HA3":
+			imageView.setScaleX(0.5191);
+			imageView.setScaleY(0.5191);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5191);
+			NodePane.setScaleY(0.5191);
+			NodePane.relocate(-218, -45);
+			buttonRescale = 1 / 0.5191;
+			zField.setText("20");
+			break;
+		case "HLB":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -65);
+			buttonRescale = 1 / 0.6395;
+			zField.setText("-10");
+			break;
+		case "HL1":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6395;
+			zField.setText("0");
+			break;
+		case "HL2":
+			imageView.setScaleX(0.6431);
+			imageView.setScaleY(0.6431);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6431);
+			NodePane.setScaleY(0.6431);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6431;
+			zField.setText("10");
+			break;
+		case "HL3":
+			imageView.setScaleX(0.6421);
+			imageView.setScaleY(0.6421);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6421);
+			NodePane.setScaleY(0.6421);
+			NodePane.relocate(-215, -65);
+			buttonRescale = 1 / 0.6421;
+			zField.setText("20");
+			break;
+		case "AHSB":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-215, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("-20");
+			break;
+		case "AHB":
+			imageView.setScaleX(0.5780);
+			imageView.setScaleY(0.5780);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5780);
+			NodePane.setScaleY(0.5780);
+			NodePane.relocate(-220, -58);
+			buttonRescale = 1 / 0.5780;
+			zField.setText("-10");
+			break;
+		case "AH1":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-245, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("0");
+			break;
+		case "AH2":
+			imageView.setScaleX(0.6344);
+			imageView.setScaleY(0.6344);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6344);
+			NodePane.setScaleY(0.6344);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6344;
+			zField.setText("10");
 			break;
               //TODO ADD BUILDINGS
 
