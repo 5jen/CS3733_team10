@@ -9,6 +9,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 
@@ -19,7 +20,10 @@ import com.google.api.services.calendar.model.Events;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +31,9 @@ import java.util.List;
  * Created by yx on 12/13/15.
  */
 public class CalendarEvents {
+	
+	private static final SimpleDateFormat RFC3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	
     /** Application name. */
     private static final String APPLICATION_NAME =
             "PiNavigator";
@@ -79,7 +86,16 @@ public class CalendarEvents {
                 "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
     }
-
+    
+    /**
+     * Time converter
+     */
+    public static String toRFC3339(Calendar cal){
+    	cal.add(Calendar.DATE, 1);
+    	Date d = cal.getTime();
+    	return RFC3339.format(d).replaceAll("(\\d\\d)(\\d\\d)$", "$1,$2");
+    }
+    
     /**
      * Build and return an authorized Calendar client service.
      * @return an authorized Calendar client service
@@ -120,17 +136,18 @@ public class CalendarEvents {
         String pageToken = null;
         LinkedList<MyEvent> result = new LinkedList<>();
         do {
-            Events events = service.events().list("primary").
-               //     setTimeMin().   //TODO add start & end Time
-               //     setTimeMax().
+            @SuppressWarnings("deprecation")
+			Events events = service.events().list("primary").
+                    setTimeMin(new DateTime(toRFC3339(Calendar.getInstance()))).   //TODO add start & end Time
+                    //setTimeMax(new DateTime(toRFC3339(Calendar.getInstance()))).
                     setPageToken(pageToken).execute();
             List<Event> items = events.getItems();
             for (Event event : items) {
                 MyEvent newEvent = new MyEvent(event.getSummary(),
                 							   event.getDescription(),
                                                event.getLocation(),
-                                               "12", //event.getStart().getDateTime().toString()   
-                                               "1");  //event.getEnd().getDateTime().toString()
+                                               event.getStart().getDateTime().toString(), //event.getStart().getDateTime().toString()   
+                                               event.getEnd().getDateTime().toString());  //event.getEnd().getDateTime().toString()
                 //For testing
                 System.out.println(newEvent.getStartTime());
                 result.addLast(newEvent);

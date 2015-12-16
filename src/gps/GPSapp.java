@@ -49,7 +49,11 @@ import node.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -62,6 +66,7 @@ import Calendar.MyEvent;
 import node.Graph;
 import planner.v1.EmailSender;
 import gps.MyPreloader;
+
 
 public class GPSapp extends Application {
 	public static void main(String[] args) {
@@ -387,6 +392,22 @@ public class GPSapp extends Application {
     Group descriptionGroup = new Group();
     Group instructionsGroup = new Group();
     
+    //event description elements
+    final Label eventTitle = new Label("Title");
+    final Label eventDescription = new Label("...");
+    final Label eventLocation = new Label("Loc");
+    final Label eventTime = new Label("Time");
+    final Label eventDescriptionLabel = new Label("Event Info: ");
+    final Label eventDescriptionLine1 = new Label("");
+    final Label eventDescriptionLine2 = new Label("");
+
+
+    //attach the image of the event *** MAKE SURE TO MOVE THINGS WHEN ATTACHING THINGS TO PANE
+    //temp image
+    File eventDescriptionImageFile = new File("CS3733_Graphics/EventImages/WPIEvent.png");
+    Image eventDescriptionImage = new Image(eventDescriptionImageFile.toURI().toString());
+    ImageView eventDescriptionImageView = new ImageView(eventDescriptionImage);
+
 	
     
     //Google Calendars things
@@ -399,11 +420,11 @@ public class GPSapp extends Application {
     
     LinkedList<String> FoodWords = new LinkedList<String>(Arrays.asList("food", "ice cream", "snacks", "cookies", "bbq", "dunkin", "pizza", "popcorn"));
     
-    LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
+    LinkedList<String> SportWords = new LinkedList<String>(Arrays.asList("workout","Sport", "Soccer", "ball", "basketball", "track", "swimming", "zumba", "intermural", "rec center", "football", "base", "hockey", "tennis", "dance", "athletic"));
 
     LinkedList<String> AwardWords = new LinkedList<String>(Arrays.asList("award", "ceremony", "trophy", "honor", "banquet", "Humanities", "awarding", "prize", "certificates"));
     
-    LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "showing", "theater"));
+    LinkedList<String> MovieWords = new LinkedList<String>(Arrays.asList("movie", "film", "Film", "Film", "theater"));
 
 
     //variable to store the event your rolled over
@@ -411,6 +432,17 @@ public class GPSapp extends Application {
     //***
     MyEvent currentEvent = new MyEvent();
     boolean mouseOnEvent = false;
+    
+    
+    //Get the current date so that we only grab events from this time forward from google calendars
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    //get current date time with Date()
+    //Date date = new Date();
+    //System.out.println(dateFormat.format(date));
+ 
+    //get current date time with Calendar()
+    Calendar cal = Calendar.getInstance();
+    //System.out.println(dateFormat.format(cal.getTime()));
     
     //*************************
     
@@ -550,6 +582,11 @@ public class GPSapp extends Application {
 	@Override
     public void start(Stage primaryStage) {
 		
+		//Prent Current date
+		System.out.println("************** *** * * * * * ****");
+		System.out.println(dateFormat.format(cal.getTime()));
+	    //System.out.println(dateFormat.format(date));
+		
 		//Grab the events from google calendars
 		try { 
 			myEventsData = CalendarEvents.getEvents();
@@ -625,8 +662,8 @@ public class GPSapp extends Application {
 			}
 			//SL ^30 >30
 			if(tempEvent.getLocation().equals("Salisbury Labs")){
-				tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
-				tempEvent.setlocationY(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				tempEvent.setlocationX(+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+				tempEvent.setlocationY(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
 			}
 			//SH ^60 >10
 			if(tempEvent.getLocation().equals("Stratton Hall")){
@@ -657,8 +694,8 @@ public class GPSapp extends Application {
 			//Get the start and end time of the event
 			//WAITING FOR THE YANG TO GET THIS STUFF!!!!!
 			//NOT VITAL BUT WOULD BE NICE...****
-			tempEvent.setStartTime("10");
-			tempEvent.setEndTime("11");
+			tempEvent.setStartTime(currentEvent.getStartTime());
+			tempEvent.setEndTime(currentEvent.getEndTime());
 			
 			
 			
@@ -714,8 +751,53 @@ public class GPSapp extends Application {
 					currentEvent = tempEvent;
 					mouseOnEvent = true;
 					
-					String tempText = truncate(tempEvent.getDescription(), 100);
-					descriptionTextArea.setText(tempText);
+					//get the image of the event
+					//use the image, not image view that we obtained right above
+					eventDescriptionImageView.resize(35, 35);
+					eventDescriptionImageView.setImage(EventIconImagePic); 
+					
+					//event title
+					//see if we should add the ...
+					boolean addTitleElip = false;
+					if(tempEvent.getSummary().length()>= 30)
+						addTitleElip = true;
+					if(addTitleElip)
+						eventTitle.setText(truncate(tempEvent.getSummary(), 30) + "...");
+					else
+						eventTitle.setText(truncate(tempEvent.getSummary(), 30));
+					
+					//event location
+					eventLocation.setText("Location: " + truncate(tempEvent.getLocation(), 30));
+					
+					//event time
+					try{
+						eventTime.setText("Time: " + truncate(tempEvent.getStartTime(), 30) + " - "+ truncate(tempEvent.getEndTime(), 30));
+					} catch (NullPointerException e){
+						System.out.println("Not a good time");
+					}
+					//event description
+					//check to see how long the description is
+					int numLines = 0;
+					if(tempEvent.getDescription().length()>= 50)
+						numLines = 2;//only display first 2 lines of description
+					else 
+						numLines = 1;
+					
+					//set lines of descriptions
+					if(numLines == 2){
+						eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
+						eventDescriptionLine2.setText(tempEvent.getDescription().substring(50, 100));
+					}
+					else{
+						eventDescriptionLine1.setText(truncate(tempEvent.getDescription(), 50));
+						eventDescriptionLine2.setText("");
+					}
+						
+						
+					//eventDescription.setText(truncate(tempEvent.getSummary(), 100));
+					//String tempText = truncate(tempEvent.getDescription(), 100);
+					//descriptionTextArea.setText(tempText);
+					
 					if (!descriptionIsOut) {
 						descriptionPaneAnimation(descriptionGroup);
 						descriptionIsOut = true;
@@ -740,7 +822,9 @@ public class GPSapp extends Application {
 					}
 				}
 			});
-			
+			//reset the counts!!!!
+			 awardCount = 0; foodCount = 0; movieCount = 0; WPIEventCount = 0; sportCount = 0;
+
 			myEvents.add(tempEvent); //myEvents will contain all of the stuff we need for UI, BOO YA!
 		}
 		System.out.println("myEvents.size() :  " + myEvents.size());
@@ -1033,26 +1117,58 @@ public class GPSapp extends Application {
 		// ********Description UI******************************
 		//descriptionGroup
 	    //descriptionPane
-	    descriptionPane.setPrefSize(300, 125);
+	    descriptionPane.setPrefSize(300, 100);
 		descriptionPane.setStyle("-fx-background-color: #515151;");
 		descriptionPane.relocate(1100, 0); //shift after off screen
 		
-		final Label eventDescription = new Label("Event Description");
-		eventDescription.setTextFill(Color.WHITE);
-		eventDescription.setFont(Font.font("manteka", 16));
-		eventDescription.relocate(5, 5);
+		//set image preferences
+		eventDescriptionImageView.setFitWidth(45);
+		eventDescriptionImageView.setFitHeight(45);
+
+		eventDescriptionImageView.relocate(2, 2);
+		
+		//set title preferences
+		//eventTitle = new Label("Event Description");
+		eventTitle.setTextFill(Color.WHITE);
+		eventTitle.setFont(Font.font("manteka", 12));
+		eventTitle.relocate(54, 5);
+		
+		//set location preferences
+		eventLocation.setTextFill(Color.WHITE);
+		eventLocation.setFont(Font.font("manteka", 12));
+		eventLocation.relocate(54, 20);
+		
+		//set location preferences
+		eventTime.setTextFill(Color.WHITE);
+		eventTime.setFont(Font.font("manteka", 12));
+		eventTime.relocate(54, 35);
+		
+		//set description label preferences
+		eventDescriptionLabel.setTextFill(Color.WHITE);
+		eventDescriptionLabel.setFont(Font.font("manteka", 12));
+		eventDescriptionLabel.relocate(5, 50);
+		
+		//set description line 1 pref
+		eventDescriptionLine1.setTextFill(Color.WHITE);
+		eventDescriptionLine1.setFont(Font.font("manteka", 10));
+		eventDescriptionLine1.relocate(5, 65);
+		
+		//set description line 2 pref
+		eventDescriptionLine2.setTextFill(Color.WHITE);
+		eventDescriptionLine2.setFont(Font.font("manteka", 10));
+		eventDescriptionLine2.relocate(5, 80);
 		
 		//add description
 		currentEvent.setDescription("");
 		String descriptionText = currentEvent.getDescription();
 		//descriptionText = truncate(descriptionText, 100);
-		 descriptionTextArea = new Label(descriptionText);
+		descriptionTextArea = new Label(descriptionText);
 		descriptionTextArea.setPrefWidth(260); descriptionTextArea.setPrefHeight(80);
 		descriptionTextArea.relocate(5, 25);
 		descriptionTextArea.setTextFill(Color.WHITE);
 		descriptionTextArea.setFont(Font.font("manteka", 10));
 		
-		descriptionPane.getChildren().addAll(eventDescription, descriptionTextArea);
+		descriptionPane.getChildren().addAll(eventDescriptionImageView, eventTitle, eventLocation, eventTime, eventDescriptionLabel, eventDescriptionLine1, eventDescriptionLine2, descriptionTextArea);
 		
 		root.getChildren().remove(descriptionPane);
 		root.getChildren().addAll(descriptionPane);
@@ -1100,8 +1216,25 @@ public class GPSapp extends Application {
 		nearestBox.getChildren().addAll(nearestDropdown, findNearestButton);
 		nearestBox.relocate(5, 141);
 
+		//**ATTACH THE GRAB EVENTS BUTTONS HERE******
+		
+		//googleSignInButton
+		
+		
+		//ATTACH THE DATE HERE***
+		final Label DateLabel = new Label();
+		DateLabel.setTextFill(Color.WHITE);
+		DateLabel.setFont(Font.font("manteka", 15));
+		DateLabel.relocate(5, 650);
+		DateLabel.setText(""+cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/"+ cal.get(Calendar.YEAR));
+		//time label
+		final Label timeLabel = new Label();
+		timeLabel.setTextFill(Color.WHITE);
+		timeLabel.setFont(Font.font("manteka", 15));
+		timeLabel.relocate(5, 670);
+		timeLabel.setText(""+cal.get(Calendar.HOUR) + "." + cal.get(Calendar.MINUTE));
+		
 		// **BUTTONS***
-
 		// Create a keyimageButton to place the map key on screen
 		File instructionsButtonFile = new File("CS3733_Graphics/MenuGraphics/showInstructionsButton.png"); 
 		Image instructionsButtonImage = new Image(instructionsButtonFile.toURI().toString());
@@ -1127,7 +1260,7 @@ public class GPSapp extends Application {
 		keyImage.relocate(780, 610);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, instructionsButton,
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton,
 				aboutMeButton);
 
 		root.getChildren().remove(fullMenuPane);
@@ -1731,9 +1864,12 @@ public class GPSapp extends Application {
 	private String determineEventType(int awardCount, int foodCount, int movieCount, int WPIEventCount, int sportCount) {
 		//give WPI events more weight, or whatever, depends on order
 		//POSSIBLY delte the = sign to give better image recognition to add weight
-		 if(movieCount > 0) //movie words are pretty unique
-			return "Movie";
-		else if(WPIEventCount > awardCount && WPIEventCount > foodCount && WPIEventCount > movieCount && WPIEventCount > sportCount)
+		 //if(movieCount > 0) //movie words are pretty unique
+			//return "Movie";
+		System.out.println("awardCount: " + awardCount + ", foodCount: "+ foodCount + " movieCount: " + movieCount +" WPIEventCount: " + WPIEventCount +" sportCount: " + sportCount);
+
+		
+		if(WPIEventCount > awardCount && WPIEventCount > foodCount && WPIEventCount > movieCount && WPIEventCount > sportCount)
 			return "WPIEvent";
 		else if(foodCount > awardCount  && foodCount > movieCount && foodCount > sportCount)
 			return "Food";
@@ -1769,9 +1905,11 @@ public class GPSapp extends Application {
 			}
 		}
 		aboutGroup.toFront();
+		instructionsGroup.toFront();
 		emailGroup.toFront();
 		directionsGroup.toFront();
 		menuGroup.toFront();
+		
 	}
 		
 
@@ -1810,7 +1948,7 @@ public class GPSapp extends Application {
 		else 
 			g1moveTo.setX(800 + 150);
 		
-		g1moveTo.setY(0 + 63);
+		g1moveTo.setY(0 + 50);
 
 		LineTo g1lineTo = new LineTo();
 		if (!descriptionIsOut)
@@ -1818,7 +1956,7 @@ public class GPSapp extends Application {
 		else
 			g1lineTo.setX(1100 + 150);
 		
-		g1lineTo.setY(0 + 63);
+		g1lineTo.setY(0 + 50);
 		
 
 		g1path.getElements().add(g1moveTo);
