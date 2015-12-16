@@ -65,8 +65,18 @@
   "to": "West1:Staircase:594:114"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "West2:Staircase:695:875",
   "to": "West1:Staircase:737:867"
+ },
+ {
+  "distance": 1,
+  "from": "West1:Staircase:737:867",
+  "to": "West1:Point:737:952"
+ },
+ {
+  "distance": 1,
+  "from": "West1:Transition Point:685:952",
+  "to": "West1:Point:737:952"
  }
 ]

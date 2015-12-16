@@ -353,7 +353,7 @@ public class GPSapp extends Application {
 	Image greenPinImage = new Image(greenPinFile.toURI().toString());
 	ImageView greenPinView = new ImageView();
 
-	File goatFile = new File("CS3733_Graphics/goat.png");
+	File goatFile = new File("CS3733_Graphics/goatnew.png");
 	Image goatImage = new Image(goatFile.toURI().toString());
 	ImageView goatView = new ImageView();
 
@@ -1005,32 +1005,32 @@ public class GPSapp extends Application {
 		
 		//set title preferences
 		//eventTitle = new Label("Event Description");
-		eventTitle.setTextFill(Color.RED);
+		eventTitle.setTextFill(Color.ORANGE);
 		eventTitle.setFont(Font.font("manteka", 12));
 		eventTitle.relocate(54, 5);
 		
 		//set location preferences
-		eventLocation.setTextFill(Color.ORANGE);
+		eventLocation.setTextFill(Color.LIGHTSKYBLUE);
 		eventLocation.setFont(Font.font("manteka", 12));
 		eventLocation.relocate(54, 20);
 		
 		//set location preferences
-		eventTime.setTextFill(Color.ORANGE);
+		eventTime.setTextFill(Color.LIGHTSKYBLUE);
 		eventTime.setFont(Font.font("manteka", 12));
 		eventTime.relocate(54, 35);
 		
 		//set description label preferences
-		eventDescriptionLabel.setTextFill(Color.RED);
+		eventDescriptionLabel.setTextFill(Color.ORANGE);
 		eventDescriptionLabel.setFont(Font.font("manteka", 12));
 		eventDescriptionLabel.relocate(5, 50);
 		
 		//set description line 1 pref
-		eventDescriptionLine1.setTextFill(Color.DODGERBLUE);
+		eventDescriptionLine1.setTextFill(Color.LIGHTSKYBLUE);
 		eventDescriptionLine1.setFont(Font.font("manteka", 10));
 		eventDescriptionLine1.relocate(5, 65);
 		
 		//set description line 2 pref
-		eventDescriptionLine2.setTextFill(Color.DODGERBLUE);
+		eventDescriptionLine2.setTextFill(Color.LIGHTSKYBLUE);
 		eventDescriptionLine2.setFont(Font.font("manteka", 10));
 		eventDescriptionLine2.relocate(5, 80);
 		
@@ -1062,7 +1062,7 @@ public class GPSapp extends Application {
 		// ********SLIDE OUT MENU UI******************************
 		fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
 		fullMenuPane.setStyle("-fx-background-color: #515151;");
-		fullMenuPane.relocate(-200, 0);
+		fullMenuPane.relocate(-205, 0);
 
 		// Title and icon
 		final Label menuTitle = new Label("Navigator");
@@ -1295,9 +1295,9 @@ public class GPSapp extends Application {
 		emailPane.relocate(830 + stageInitialWidthDifference, 710 + stageInitialHeightDifference);
 
 		// EmailButton.setTextFill(Color.BLACK);
-		EmailInput.relocate(8, 5);
+		EmailInput.relocate(5, 5);
 		EmailInput.setId("dark");
-		EmailButton.relocate(180, 5);
+		EmailButton.relocate(188, 5);
 		EmailButton.setFitHeight(29);
 		EmailButton.setFitWidth(52);
 
@@ -2220,15 +2220,15 @@ public class GPSapp extends Application {
 		Path g1path = new Path();
 		MoveTo g1moveTo = new MoveTo();
 		if (!menuIsOut)
-			g1moveTo.setX(150);
+			g1moveTo.setX(145);
 		else
-			g1moveTo.setX(355);
+			g1moveTo.setX(350);
 		g1moveTo.setY(375 + stageInitialHeightDifference / 2);
 		LineTo g1lineTo = new LineTo();
 		if (!menuIsOut)
-			g1lineTo.setX(355);
+			g1lineTo.setX(350);
 		else
-			g1lineTo.setX(150);
+			g1lineTo.setX(145);
 		g1lineTo.setY(375 + stageInitialHeightDifference / 2);
 		g1path.getElements().add(g1moveTo);
 		g1path.getElements().add(g1lineTo);
@@ -3193,7 +3193,7 @@ public class GPSapp extends Application {
 		pathTransition.setPath(path);
 		pathTransition.setNode(goatView);
 		pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-		pathTransition.setCycleCount(Timeline.INDEFINITE);
+		//pathTransition.setCycleCount(Timeline.INDEFINITE);
 		pathTransition.play();
 		
 		fixUI();
@@ -4283,6 +4283,8 @@ public class GPSapp extends Application {
 
 				
 				ChangeFloorButtonGroup.getChildren().add(floorButton);
+				ChangeFloorButtonGroup.setStyle("-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
+
 				// floorButton.toFront();
 				offsetCounter = i;
 				int floor = i;

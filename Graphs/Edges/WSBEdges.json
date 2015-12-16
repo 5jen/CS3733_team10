@@ -1,1 +1,127 @@
-[]
+[
+ {
+  "distance": 3,
+  "from": "WSB:Point:1307:575",
+  "to": "WSB:Transition Point:1357:575"
+ },
+ {
+  "distance": 4,
+  "from": "WSB:Point:1307:575",
+  "to": "WSB:Point:1250:575"
+ },
+ {
+  "distance": 2,
+  "from": "WSB:Point:1250:608",
+  "to": "WSB:Point:1250:575"
+ },
+ {
+  "distance": 5,
+  "from": "WSB:Point:1250:608",
+  "to": "WSB:Point:1174:608"
+ },
+ {
+  "distance": 8,
+  "from": "WSB:Point:1042:608",
+  "to": "WSB:Point:1174:608"
+ },
+ {
+  "distance": 5,
+  "from": "WSB:Point:1042:608",
+  "to": "WS004"
+ },
+ {
+  "distance": 3,
+  "from": "WSB:Point:1042:485",
+  "to": "WS004"
+ },
+ {
+  "distance": 5,
+  "from": "WSB:Point:1042:485",
+  "to": "WSB:Point:1118:485"
+ },
+ {
+  "distance": 23,
+  "from": "WSB:Point:1119:110",
+  "to": "WSB:Point:1118:485"
+ },
+ {
+  "distance": 5,
+  "from": "WSB:Point:1119:110",
+  "to": "WSB:Point:1118:36"
+ },
+ {
+  "distance": 2,
+  "from": "WS004A",
+  "to": "WSB:Point:1118:36"
+ },
+ {
+  "distance": 2,
+  "from": "WS004A",
+  "to": "WSB:Point:1185:35"
+ },
+ {
+  "distance": 2,
+  "from": "WSB:Point:1185:79",
+  "to": "WSB:Point:1185:35"
+ },
+ {
+  "distance": 16,
+  "from": "WSB:Point:1185:79",
+  "to": "WSB:Point:1231:319"
+ },
+ {
+  "distance": 12,
+  "from": "WS009",
+  "to": "WSB:Point:1231:319"
+ },
+ {
+  "distance": 3,
+  "from": "WS009",
+  "to": "WSB:Point:1250:550"
+ },
+ {
+  "distance": 4,
+  "from": "WSB:Staircase:1186:555",
+  "to": "WSB:Point:1250:550"
+ },
+ {
+  "distance": 1,
+  "from": "WSB:Staircase:1208:29",
+  "to": "WSB:Point:1185:35"
+ },
+ {
+  "distance": 1,
+  "from": "WSB:Point:1250:575",
+  "to": "WSB:Point:1250:550"
+ },
+ {
+  "distance": 3,
+  "from": "WS Men's Bathroom",
+  "to": "WSB:Point:1174:649"
+ },
+ {
+  "distance": 1,
+  "from": "WS Women's Bathroom",
+  "to": "WSB:Point:1174:649"
+ },
+ {
+  "distance": 3,
+  "from": "WSB:Point:1174:608",
+  "to": "WSB:Point:1174:649"
+ },
+ {
+  "distance": 2,
+  "from": "WSB:Point:1042:608",
+  "to": "WS003"
+ },
+ {
+  "distance": 1,
+  "from": "WSB:Point:1042:608",
+  "to": "WS001"
+ },
+ {
+  "distance": 2,
+  "from": "WSB:Point:1174:649",
+  "to": "WSB:Water Fountain:1204:659"
+ }
+]

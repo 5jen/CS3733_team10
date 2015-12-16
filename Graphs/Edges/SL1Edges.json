@@ -230,11 +230,6 @@
   "to": "SL1:Point:684:274"
  },
  {
-  "distance": 4,
-  "from": "SL1:Point:635:274",
-  "to": "SL First Floor Women's Bathroom"
- },
- {
   "distance": 8,
   "from": "SL1:Point:635:274",
   "to": "SL1:Transition Point:513:274"
@@ -308,5 +303,25 @@
   "distance": 2,
   "from": "SL1:Point:1028:90",
   "to": "SL121A"
+ },
+ {
+  "distance": 28,
+  "from": "SLB:Staircase:538:513",
+  "to": "SL1:Staircase:929:336"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:635:236",
+  "to": "SL1:Point:635:274"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:635:236",
+  "to": "SL First Floor Women's Bathroom"
+ },
+ {
+  "distance": 7,
+  "from": "SL1:Staircase:514:236",
+  "to": "SL1:Point:635:236"
  }
 ]

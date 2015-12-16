@@ -1,1 +1,222 @@
-[]
+[
+ {
+  "distance": 1,
+  "from": "HA2:Staircase:33:221",
+  "to": "HA2:Point:54:224"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Staircase:74:215",
+  "to": "HA2:Point:54:224"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Staircase:74:215",
+  "to": "HA2:Point:122:220"
+ },
+ {
+  "distance": 10,
+  "from": "HA2:Point:122:36",
+  "to": "HA2:Point:122:220"
+ },
+ {
+  "distance": 10,
+  "from": "HA2:Point:122:36",
+  "to": "HA2:Point:324:36"
+ },
+ {
+  "distance": 41,
+  "from": "HA2:Point:1084:36",
+  "to": "HA2:Point:324:36"
+ },
+ {
+  "distance": 12,
+  "from": "HA2:Point:1084:36",
+  "to": "HA2:Point:1315:36"
+ },
+ {
+  "distance": 5,
+  "from": "HA2:Point:1315:127",
+  "to": "HA2:Point:1315:36"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:1315:127",
+  "to": "HAR215"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Staircase:1400:496",
+  "to": "HA2:Point:1380:496"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Staircase:1361:496",
+  "to": "HA2:Point:1380:496"
+ },
+ {
+  "distance": 5,
+  "from": "HA2:Point:1490:496",
+  "to": "HA2:Staircase:1400:496"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Point:1490:496",
+  "to": "HAR216"
+ },
+ {
+  "distance": 3,
+  "from": "HA2:Point:1490:496",
+  "to": "HAR217"
+ },
+ {
+  "distance": 9,
+  "from": "Harrington 2nd Floor Women's Bathroom",
+  "to": "HA2:Point:1084:755"
+ },
+ {
+  "distance": 38,
+  "from": "HA2:Point:1084:755",
+  "to": "HA2:Point:1084:36"
+ },
+ {
+  "distance": 9,
+  "from": "HA2:Point:696:757",
+  "to": "HA2:Transition Point:696:923"
+ },
+ {
+  "distance": 21,
+  "from": "HA2:Point:1084:755",
+  "to": "HA2:Point:696:757"
+ },
+ {
+  "distance": 20,
+  "from": "HA2:Point:324:757",
+  "to": "HA2:Point:696:757"
+ },
+ {
+  "distance": 6,
+  "from": "HA2:Point:324:757",
+  "to": "HA2:Point:324:864"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Staircase:350:864",
+  "to": "HA2:Point:324:864"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Point:324:864",
+  "to": "HA2:Staircase:292:864"
+ },
+ {
+  "distance": 11,
+  "from": "HA2:Point:122:757",
+  "to": "HA2:Point:324:757"
+ },
+ {
+  "distance": 3,
+  "from": "HA2:Point:122:757",
+  "to": "HA2:Point:122:703"
+ },
+ {
+  "distance": 3,
+  "from": "HA2:Point:122:645",
+  "to": "HA2:Point:122:703"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:122:645",
+  "to": "HA2:Point:122:615"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:122:582",
+  "to": "HA2:Point:122:615"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:122:582",
+  "to": "HAR207"
+ },
+ {
+  "distance": 1,
+  "from": "HAR208",
+  "to": "HA2:Point:122:615"
+ },
+ {
+  "distance": 1,
+  "from": "HAR206",
+  "to": "HA2:Point:122:645"
+ },
+ {
+  "distance": 2,
+  "from": "HAR205",
+  "to": "HA2:Point:122:703"
+ },
+ {
+  "distance": 9,
+  "from": "HA2:Point:122:582",
+  "to": "HAR209"
+ },
+ {
+  "distance": 10,
+  "from": "HA2:Point:122:220",
+  "to": "HAR209"
+ },
+ {
+  "distance": 38,
+  "from": "HA2:Point:324:757",
+  "to": "HA2:Point:324:36"
+ },
+ {
+  "distance": 6,
+  "from": "HA2:Point:1084:864",
+  "to": "HA2:Point:1084:755"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:1084:864",
+  "to": "HA2:Staircase:1054:864"
+ },
+ {
+  "distance": 1,
+  "from": "HA2:Staircase:1108:864",
+  "to": "HA2:Point:1084:864"
+ },
+ {
+  "distance": 3,
+  "from": "HA2:Point:1315:163",
+  "to": "Harrington Second Floor Men's Bathroom"
+ },
+ {
+  "distance": 2,
+  "from": "HA2:Point:1315:163",
+  "to": "HA2:Point:1315:127"
+ },
+ {
+  "distance": 3,
+  "from": "HA2:Staircase:1370:163",
+  "to": "HA2:Point:1315:163"
+ },
+ {
+  "distance": 12,
+  "from": "HA1:Staircase:85:358",
+  "to": "HA2:Staircase:33:221"
+ },
+ {
+  "distance": 14,
+  "from": "HA1:Staircase:1142:1013",
+  "to": "HA2:Staircase:1054:864"
+ },
+ {
+  "distance": 10,
+  "from": "HA1:Staircase:1428:530",
+  "to": "HA2:Staircase:1361:496"
+ },
+ {
+  "distance": 5,
+  "from": "HA2:Staircase:350:864",
+  "to": "HA1:Staircase:322:958"
+ }
+]

@@ -1,1 +1,97 @@
-[]
+[
+ {
+  "distance": 3,
+  "from": "AHSB8",
+  "to": "AHSB:Point:151:103"
+ },
+ {
+  "distance": 3,
+  "from": "AHSB:Point:216:103",
+  "to": "AHSB:Point:151:103"
+ },
+ {
+  "distance": 1,
+  "from": "AHSB:Point:216:103",
+  "to": "AHSB:Point:234:103"
+ },
+ {
+  "distance": 2,
+  "from": "AHSB:Point:272:103",
+  "to": "AHSB:Point:234:103"
+ },
+ {
+  "distance": 2,
+  "from": "AHSB:Point:272:103",
+  "to": "AHSB10"
+ },
+ {
+  "distance": 2,
+  "from": "AHSB:Point:234:103",
+  "to": "AHSB11"
+ },
+ {
+  "distance": 4,
+  "from": "AHSB:Point:216:103",
+  "to": "AHSB:Point:216:173"
+ },
+ {
+  "distance": 3,
+  "from": "AHSB:Point:216:173",
+  "to": "AHSB6"
+ },
+ {
+  "distance": 5,
+  "from": "AHSB:Point:216:173",
+  "to": "AHSB:Point:216:269"
+ },
+ {
+  "distance": 2,
+  "from": "AHSB5",
+  "to": "AHSB:Point:216:269"
+ },
+ {
+  "distance": 5,
+  "from": "AHSB4",
+  "to": "AHSB:Point:216:269"
+ },
+ {
+  "distance": 8,
+  "from": "AHSB4",
+  "to": "AHSB:Point:328:479"
+ },
+ {
+  "distance": 7,
+  "from": "AHSB:Point:328:613",
+  "to": "AHSB:Point:328:479"
+ },
+ {
+  "distance": 3,
+  "from": "AHSB:Point:328:613",
+  "to": "AHSB3"
+ },
+ {
+  "distance": 4,
+  "from": "AHSB:Point:328:613",
+  "to": "AHSB:Point:395:613"
+ },
+ {
+  "distance": 2,
+  "from": "AHSB1",
+  "to": "AHSB:Point:395:613"
+ },
+ {
+  "distance": 1,
+  "from": "AHSB:Staircase:395:634",
+  "to": "AHSB:Point:395:613"
+ },
+ {
+  "distance": 3,
+  "from": "AHSB:Point:272:103",
+  "to": "AHSB:Elevator:321:103"
+ },
+ {
+  "distance": 4,
+  "from": "AHSB6",
+  "to": "AHSB:Point:234:103"
+ }
+]

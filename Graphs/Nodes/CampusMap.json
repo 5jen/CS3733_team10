@@ -228,7 +228,7 @@
   "floorMap": "Campus Map",
   "name": "Harrington Auditorium",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 760
@@ -449,7 +449,7 @@
   "floorMap": "Campus Map",
   "name": "Higgins Back Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 863
@@ -644,7 +644,7 @@
   "floorMap": "Campus Map",
   "name": "SL Front Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 653
@@ -891,7 +891,7 @@
   "floorMap": "Campus Map",
   "name": "SL Side Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 707
@@ -917,7 +917,7 @@
   "floorMap": "Campus Map",
   "name": "Salisbury Back Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 678
@@ -969,7 +969,7 @@
   "floorMap": "Campus Map",
   "name": "Alden Memorial",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 960
@@ -1086,7 +1086,7 @@
   "floorMap": "Campus Map",
   "name": "Washburn Labs Side Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 878
@@ -1099,7 +1099,7 @@
   "floorMap": "Campus Map",
   "name": "Washburn Labs Main Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 780
@@ -1294,7 +1294,7 @@
   "floorMap": "Campus Map",
   "name": "Campus Center Back Entrance",
   "isPlace": true,
-  "type": "Point",
+  "type": "Transition Point",
   "valz": 0,
   "building": "Campus",
   "valy": 615
@@ -1467,5 +1467,96 @@
   "valz": 0,
   "building": "Campus",
   "valy": 707
+ },
+ {
+  "valx": 1384,
+  "globalY": 1029,
+  "isWalkable": true,
+  "globalX": 1384,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1384:1029",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1029
+ },
+ {
+  "valx": 1354,
+  "globalY": 1086,
+  "isWalkable": true,
+  "globalX": 1354,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1354:1086",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1086
+ },
+ {
+  "valx": 1327,
+  "globalY": 1085,
+  "isWalkable": true,
+  "globalX": 1327,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1327:1085",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1085
+ },
+ {
+  "valx": 1320,
+  "globalY": 1130,
+  "isWalkable": true,
+  "globalX": 1320,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1320:1130",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1130
+ },
+ {
+  "valx": 1315,
+  "globalY": 1172,
+  "isWalkable": true,
+  "globalX": 1315,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1315:1172",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1172
+ },
+ {
+  "valx": 1298,
+  "globalY": 1276,
+  "isWalkable": true,
+  "globalX": 1298,
+  "floorMap": "Campus Map",
+  "name": "CampusMap:Point:1298:1276",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1276
+ },
+ {
+  "valx": 1308,
+  "globalY": 1277,
+  "isWalkable": true,
+  "globalX": 1308,
+  "floorMap": "Campus Map",
+  "name": "157 West St. Entrance",
+  "isPlace": true,
+  "type": "Transition Point",
+  "valz": 0,
+  "building": "Campus",
+  "valy": 1277
  }
 ]
