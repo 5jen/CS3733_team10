@@ -1859,7 +1859,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5827);
 			NodePane.setScaleY(0.5827);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-225, -48);
 			buttonRescale = 1 / 0.5827;
 			zField.setText("-10");
 			break;
@@ -1889,7 +1889,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6335);
 			NodePane.setScaleY(0.6335);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-245, -48);
 			buttonRescale = 1 / 0.6335;
 			zField.setText("30");
 			break;
@@ -1899,7 +1899,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5168);
 			NodePane.setScaleY(0.5168);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -35);
 			buttonRescale = 1 / 0.5168;
 			zField.setText("-10");
 			break;
@@ -1909,7 +1909,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5057);
 			NodePane.setScaleY(0.5057);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-232, -10);
 			buttonRescale = 1 / 0.5057;
 			zField.setText("0");
 			break;
@@ -1919,7 +1919,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5185);
 			NodePane.setScaleY(0.5185);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-218, -45);
 			buttonRescale = 1 / 0.5185;
 			zField.setText("10");
 			break;
@@ -1929,7 +1929,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5191);
 			NodePane.setScaleY(0.5191);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-218, -45);
 			buttonRescale = 1 / 0.5191;
 			zField.setText("20");
 			break;
@@ -1939,7 +1939,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6395);
 			NodePane.setScaleY(0.6395);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -65);
 			buttonRescale = 1 / 0.6395;
 			zField.setText("-10");
 			break;
@@ -1949,7 +1949,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6395);
 			NodePane.setScaleY(0.6395);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -75);
 			buttonRescale = 1 / 0.6395;
 			zField.setText("0");
 			break;
@@ -1959,7 +1959,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6431);
 			NodePane.setScaleY(0.6431);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -75);
 			buttonRescale = 1 / 0.6431;
 			zField.setText("10");
 			break;
@@ -1969,7 +1969,7 @@ scene.widthProperty().addListener(new ChangeListener<Number>() {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6421);
 			NodePane.setScaleY(0.6421);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -65);
 			buttonRescale = 1 / 0.6421;
 			zField.setText("20");
 			break;

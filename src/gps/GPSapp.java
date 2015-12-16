@@ -3507,10 +3507,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5827);
 			NodePane.setScaleY(0.5827);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-225, -48);
 			canvas.setScaleX(0.5827);
 			canvas.setScaleY(0.5827);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-225, -48);
 			buttonRescale = 1 / 0.5827;
 			break;
 		case "Washburn Shops 1":
@@ -3543,10 +3543,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6335);
 			NodePane.setScaleY(0.6335);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-225, -48);
 			canvas.setScaleX(0.6335);
 			canvas.setScaleY(0.6335);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-225, -48);
 			buttonRescale = 1 / 0.6335;
 			break;
 		case "Harrington Auditorium B":
@@ -3555,10 +3555,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5168);
 			NodePane.setScaleY(0.5168);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -35);
 			canvas.setScaleX(0.5168);
 			canvas.setScaleY(0.5168);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-215, -35);
 			buttonRescale = 1 / 0.5168;
 			break;
 		case "Harrington Auditorium 1":
@@ -3567,10 +3567,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5057);
 			NodePane.setScaleY(0.5057);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-232, -10);
 			canvas.setScaleX(0.5057);
 			canvas.setScaleY(0.5057);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-232, -10);
 			buttonRescale = 1 / 0.5057;
 			break;
 		case "Harrington Auditorium 2":
@@ -3579,10 +3579,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5185);
 			NodePane.setScaleY(0.5185);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-218, -45);
 			canvas.setScaleX(0.5185);
 			canvas.setScaleY(0.5185);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-218, -45);
 			buttonRescale = 1 / 0.5185;
 			break;
 		case "Harrington Auditorium 3":
@@ -3591,10 +3591,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.5191);
 			NodePane.setScaleY(0.5191);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-218, -45);
 			canvas.setScaleX(0.5191);
 			canvas.setScaleY(0.5191);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-218, -45);
 			buttonRescale = 1 / 0.5191;
 			break;
 		case "Higgins Labs B":
@@ -3603,10 +3603,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6395);
 			NodePane.setScaleY(0.6395);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -65);
 			canvas.setScaleX(0.6395);
 			canvas.setScaleY(0.6395);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-215, -65);
 			buttonRescale = 1 / 0.6395;
 			break;
 		case "Higgins Labs 1":
@@ -3615,10 +3615,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6395);
 			NodePane.setScaleY(0.6395);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -75);
 			canvas.setScaleX(0.6395);
 			canvas.setScaleY(0.6395);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-215, -75);
 			buttonRescale = 1 / 0.6395;
 			break;
 		case "Higgins Labs 2":
@@ -3627,10 +3627,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6431);
 			NodePane.setScaleY(0.6431);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -75);
 			canvas.setScaleX(0.6431);
 			canvas.setScaleY(0.6431);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-215, -75);
 			buttonRescale = 1 / 0.6431;
 			break;
 		case "Higgins Labs 3":
@@ -3639,10 +3639,10 @@ public class GPSapp extends Application {
 			imageView.relocate(0, 0);
 			NodePane.setScaleX(0.6421);
 			NodePane.setScaleY(0.6421);
-			NodePane.relocate(-225, -45);
+			NodePane.relocate(-215, -65);
 			canvas.setScaleX(0.6421);
 			canvas.setScaleY(0.6421);
-			canvas.relocate(-225, -45);
+			canvas.relocate(-215, -65);
 			buttonRescale = 1 / 0.6421;
 			break;
 		// TODO ADD BUILDINGS
