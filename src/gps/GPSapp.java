@@ -777,7 +777,7 @@ public class GPSapp extends Application {
 		redPinView.setImage(redPinImage);
 		greenPinView.setImage(greenPinImage);
 		goatView.setImage(goatImage);
-
+		
 		EmailInput.setPromptText("Email");
 		EmailInput.setTooltip(new Tooltip("Enter your email here"));
 
@@ -927,11 +927,11 @@ public class GPSapp extends Application {
 		Image pinImage2 = new Image(pinFile2.toURI().toString());
 		ImageView pinView2 = new ImageView(pinImage2);//change to different pin images
 		pinView1.setFitWidth(20);
-		pinView1.setFitHeight(25);
-		pinView1.relocate(220, 25);//
+		pinView1.setFitHeight(30);
+		pinView1.relocate(220, 20);//
 		pinView2.setFitWidth(20);
-		pinView2.setFitHeight(25);
-		pinView2.relocate(410, 25);//
+		pinView2.setFitHeight(30);
+		pinView2.relocate(410, 20);//
 
 		File findRouteFile = new File("CS3733_Graphics/MenuGraphics/findRouteButton.png");
 		Image findRouteImage = new Image(findRouteFile.toURI().toString());
