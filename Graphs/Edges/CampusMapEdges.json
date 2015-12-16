@@ -723,5 +723,95 @@
   "distance": 31,
   "from": "Higgins Back Entrance",
   "to": "CampusMap:Point:1309:871"
+ },
+ {
+  "distance": 10,
+  "from": "SL1:Transition Point:929:16",
+  "to": "SL Front Entrance"
+ },
+ {
+  "distance": 23,
+  "from": "SL1:Transition Point:513:274",
+  "to": "SL Side Entrance"
+ },
+ {
+  "distance": 13,
+  "from": "SL1:Transition Point:460:526",
+  "to": "SL Side Entrance"
+ },
+ {
+  "distance": 44,
+  "from": "Salisbury Back Entrance",
+  "to": "SL1:Transition Point:591:852"
+ },
+ {
+  "distance": 69,
+  "from": "Alden Memorial",
+  "to": "AH1:Transition Point:1066:386"
+ },
+ {
+  "distance": 69,
+  "from": "Harrington Auditorium",
+  "to": "HA2:Transition Point:696:923"
+ },
+ {
+  "distance": 172,
+  "from": "Washburn Labs Main Entrance",
+  "to": "WSB:Transition Point:1357:575"
+ },
+ {
+  "distance": 150,
+  "from": "HL Front Entrance",
+  "to": "HLFrontEntranceInside"
+ },
+ {
+  "distance": 22,
+  "from": "Higgins Back Entrance",
+  "to": "HLSideEntrance 2 Inside"
+ },
+ {
+  "distance": 43,
+  "from": "HL1 Side Entrance 1 Inside",
+  "to": "HL Side Entrance 1"
+ },
+ {
+  "distance": 51,
+  "from": "CampusMap:Point:1384:1029",
+  "to": "CampusMap:Point:1385:978"
+ },
+ {
+  "distance": 64,
+  "from": "CampusMap:Point:1384:1029",
+  "to": "CampusMap:Point:1354:1086"
+ },
+ {
+  "distance": 27,
+  "from": "CampusMap:Point:1327:1085",
+  "to": "CampusMap:Point:1354:1086"
+ },
+ {
+  "distance": 45,
+  "from": "CampusMap:Point:1327:1085",
+  "to": "CampusMap:Point:1320:1130"
+ },
+ {
+  "distance": 42,
+  "from": "CampusMap:Point:1315:1172",
+  "to": "CampusMap:Point:1320:1130"
+ },
+ {
+  "distance": 105,
+  "from": "CampusMap:Point:1315:1172",
+  "to": "CampusMap:Point:1298:1276"
+ },
+ {
+  "distance": 10,
+  "from": "157 West St. Entrance",
+  "to": "CampusMap:Point:1298:1276"
+ },
+ {
+  "distance": 17,
+  "from": "157 West St. Entrance",
+  "to": "West1:Transition Point:685:952"
  }
 ]

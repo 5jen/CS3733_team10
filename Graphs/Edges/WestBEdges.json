@@ -20,12 +20,12 @@
   "to": "WestB:Point:655:639"
  },
  {
-  "distance": 1,
+  "distance": 740,
   "from": "AK101",
   "to": "WestB:Point:655:639"
  },
  {
-  "distance": 1,
+  "distance": 740,
   "from": "WestB:Point:655:756",
   "to": "AK101"
  },
@@ -45,8 +45,18 @@
   "to": "WestB:Point:1008:756"
  },
  {
-  "distance": 1,
+  "distance": 10,
   "from": "WestB:Point:655:837",
   "to": "West1:Staircase:737:867"
+ },
+ {
+  "distance": 1,
+  "from": "WestB:Point:655:639",
+  "to": "157W101*"
+ },
+ {
+  "distance": 1,
+  "from": "WestB:Point:655:756",
+  "to": "157W101*"
  }
 ]

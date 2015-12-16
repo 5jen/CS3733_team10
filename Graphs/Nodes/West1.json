@@ -180,5 +180,31 @@
   "valz": -20,
   "building": "157 West Street",
   "valy": 114
+ },
+ {
+  "valx": 737,
+  "globalY": 1279,
+  "isWalkable": true,
+  "globalX": 1325,
+  "floorMap": "157 West Street 1",
+  "name": "West1:Point:737:952",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -20,
+  "building": "157 West Street",
+  "valy": 952
+ },
+ {
+  "valx": 685,
+  "globalY": 1280,
+  "isWalkable": true,
+  "globalX": 1325,
+  "floorMap": "157 West Street 1",
+  "name": "West1:Transition Point:685:952",
+  "isPlace": false,
+  "type": "Transition Point",
+  "valz": -20,
+  "building": "157 West Street",
+  "valy": 952
  }
 ]
