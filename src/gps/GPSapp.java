@@ -1129,6 +1129,7 @@ public class GPSapp extends Application {
 		mapSelectorLabel.setTextFill(Color.WHITE);
 		final Button LoadMapButton = new Button("Load");
 		LoadMapButton.setStyle(":dark");
+		mapSelector.setPrefWidth(180);
 
 		mapSelectionBoxV.relocate(5, 50);
 		mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelector, LoadMapButton);
