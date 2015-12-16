@@ -720,8 +720,7 @@ public class GPSapp extends Application {
 		
 		mapSelector.setPrefWidth(170);
 
-		ReturnToCampus.setTextFill(Color.BLACK);
-		ReturnToCampus.setFont(Font.font("manteka", 10));
+		ReturnToCampus.setId("dark");
 
 		// Labels for the direction
 		// MOVE TO METHOD AND USE FOR LOOP ONCE WE HAVE THE ROUTE CALCULATED
@@ -907,8 +906,7 @@ public class GPSapp extends Application {
 		// ********TOP BAR UI******************************
 		menuPane.setPrefSize(490, 70);
 		menuPane.setStyle("-fx-background-color: #ffffff;" + "-fx-border-radius: 15 2 15 2;"
-				+ "-fx-background-radius: 15 2 15 2;"
-				+ "-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
+				+ "-fx-background-radius: 15 2 15 2;");
 		menuPane.setOpacity(1);
 		menuPane.relocate(10, 10);
 
@@ -1007,32 +1005,32 @@ public class GPSapp extends Application {
 		
 		//set title preferences
 		//eventTitle = new Label("Event Description");
-		eventTitle.setTextFill(Color.WHITE);
+		eventTitle.setTextFill(Color.RED);
 		eventTitle.setFont(Font.font("manteka", 12));
 		eventTitle.relocate(54, 5);
 		
 		//set location preferences
-		eventLocation.setTextFill(Color.WHITE);
+		eventLocation.setTextFill(Color.ORANGE);
 		eventLocation.setFont(Font.font("manteka", 12));
 		eventLocation.relocate(54, 20);
 		
 		//set location preferences
-		eventTime.setTextFill(Color.WHITE);
+		eventTime.setTextFill(Color.ORANGE);
 		eventTime.setFont(Font.font("manteka", 12));
 		eventTime.relocate(54, 35);
 		
 		//set description label preferences
-		eventDescriptionLabel.setTextFill(Color.WHITE);
+		eventDescriptionLabel.setTextFill(Color.RED);
 		eventDescriptionLabel.setFont(Font.font("manteka", 12));
 		eventDescriptionLabel.relocate(5, 50);
 		
 		//set description line 1 pref
-		eventDescriptionLine1.setTextFill(Color.WHITE);
+		eventDescriptionLine1.setTextFill(Color.DODGERBLUE);
 		eventDescriptionLine1.setFont(Font.font("manteka", 10));
 		eventDescriptionLine1.relocate(5, 65);
 		
 		//set description line 2 pref
-		eventDescriptionLine2.setTextFill(Color.WHITE);
+		eventDescriptionLine2.setTextFill(Color.DODGERBLUE);
 		eventDescriptionLine2.setFont(Font.font("manteka", 10));
 		eventDescriptionLine2.relocate(5, 80);
 		
@@ -1052,6 +1050,8 @@ public class GPSapp extends Application {
 		root.getChildren().addAll(descriptionPane);
 		
 		descriptionGroup.getChildren().addAll(descriptionPane);
+		
+		descriptionGroup.setStyle("-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
 		
 		root.getChildren().addAll(descriptionGroup);
 
@@ -1216,10 +1216,12 @@ public class GPSapp extends Application {
 		// Attach things to this for in the side bar
 		fullMenuPane.getChildren().addAll(menuImageView,WeekLabel, menuTitle,keyLabel, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,googleEventsLabel,keyImage, NextWeekButton, PrevWeekButton, resetToTodayButton, resetLabel, googleButton, clearEventsLabel, clearEventsButton);
 
+		
 		root.getChildren().remove(fullMenuPane);
 		root.getChildren().addAll(fullMenuPane);
 
 		menuGroup.getChildren().addAll(menuPane, fullMenuPane);
+		menuGroup.setStyle("-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
 
 		root.getChildren().addAll(menuGroup);
 
@@ -1274,7 +1276,7 @@ public class GPSapp extends Application {
 		backgroundrect.setStroke(Color.BLACK);
 		backgroundrect.setOpacity(.95);
 		
-		//insert the scroll pane to the instruction pane
+		//the scroll pane to the instruction pane
 		instructionsPane.getChildren().addAll(backgroundrect2, instructionScroll);
 		
 		//add the pane to the group
@@ -1649,9 +1651,9 @@ public class GPSapp extends Application {
 				instructionsButton.setTranslateY(stageInitialHeightDifference);
 				emailPane.setTranslateY(stageInitialHeightDifference);
 				directionsPane.setTranslateY(stageInitialHeightDifference);
-				aboutPane.setTranslateY(stageInitialHeightDifference/2);
+				aboutPane.setTranslateY(stageInitialHeightDifference);
 				scrollContent.setTranslateY(initialPanAmountY + stageInitialHeightDifference / 2);
-				instructionsPane.setTranslateY(stageInitialHeightDifference/2);
+				instructionsPane.setTranslateY(stageInitialHeightDifference);
 				
     		}
     	});
@@ -2276,17 +2278,17 @@ public class GPSapp extends Application {
 		g1moveTo.setX(210 + 300);
 
 		if (!instructionsAreOut)
-			g1moveTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+			g1moveTo.setY(770 + 300 + stageInitialHeightDifference);
 		else
-			g1moveTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+			g1moveTo.setY(200 + 300 + stageInitialHeightDifference);
 
 		LineTo g1lineTo = new LineTo();
 		g1lineTo.setX(210 + 300);
 
 		if (!instructionsAreOut)
-			g1lineTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+			g1lineTo.setY(200 + 300 + stageInitialHeightDifference);
 		else
-			g1lineTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+			g1lineTo.setY(770 + 300 + stageInitialHeightDifference);
 
 		g1path.getElements().add(g1moveTo);
 		g1path.getElements().add(g1lineTo);
@@ -2305,17 +2307,17 @@ public class GPSapp extends Application {
 		g1moveTo.setX(210 + 300);
 
 		if (!aboutMeIsOut)
-			g1moveTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+			g1moveTo.setY(770 + 300 + stageInitialHeightDifference);
 		else
-			g1moveTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+			g1moveTo.setY(200 + 300 + stageInitialHeightDifference);
 
 		LineTo g1lineTo = new LineTo();
 		g1lineTo.setX(210 + 300);
 
 		if (!aboutMeIsOut)
-			g1lineTo.setY(200 + 300 + stageInitialHeightDifference / 2);
+			g1lineTo.setY(200 + 300 + stageInitialHeightDifference);
 		else
-			g1lineTo.setY(770 + 300 + stageInitialHeightDifference / 2);
+			g1lineTo.setY(770 + 300 + stageInitialHeightDifference);
 
 		g1path.getElements().add(g1moveTo);
 		g1path.getElements().add(g1lineTo);
@@ -4232,8 +4234,8 @@ public class GPSapp extends Application {
 		// campus map
 		if (!mapSelector.getValue().getInitials().equals("CampusMap")) {
 
-			root.getChildren().remove(ReturnToCampus);
-			root.getChildren().add(ReturnToCampus);
+			//root.getChildren().remove(ReturnToCampus);
+			//root.getChildren().add(ReturnToCampus);
 			// ReturnToCampus.toFront();
 
 			// We also want to choose floors, find number of floors based on
@@ -4263,7 +4265,7 @@ public class GPSapp extends Application {
 			ChooseFloorLabel.setLayoutY(2);
 			
 			widthOfBox += 30; // so extends past edge of buttons
-			int heightOfBox = 38 + BuildingRolledOverCurrent.getNumMaps() * 25;
+			int heightOfBox = 38 + BuildingRolledOverCurrent.getNumMaps() * 34;
 			Rectangle backDrop = new Rectangle(2, 2, widthOfBox, heightOfBox);
 			backDrop.setOpacity(.7);
 			backDrop.setStyle("-fx-background-color: #515151;");
@@ -4275,16 +4277,16 @@ public class GPSapp extends Application {
 			for (int i = 0; i < BuildingRolledOverCurrent.getNumMaps(); i++) {
 				Button floorButton = new Button(BuildingRolledOverCurrent.getName() + " "
 						+ BuildingRolledOverCurrent.getMaps().get(i).getFloor());
-				floorButton.setTextFill(Color.BLACK);
-				floorButton.setFont(Font.font("manteka", 10));
+				floorButton.setId("dark");
 				floorButton.setLayoutX(970);
-				floorButton.setLayoutY(20 + i * 22);
+				floorButton.setLayoutY(20 + i * 30);
 
 				
 				ChangeFloorButtonGroup.getChildren().add(floorButton);
 				// floorButton.toFront();
 				offsetCounter = i;
 				int floor = i;
+				
 				floorButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						// mapSelector.setValue(value);
@@ -4296,15 +4298,17 @@ public class GPSapp extends Application {
 				});
 			}
 			System.out.println("offsetcounter " + offsetCounter);
-			ReturnToCampus.relocate(970, 20+ ((offsetCounter+1) * 22));
-
+			ReturnToCampus.relocate(970, 20+ ((offsetCounter+1) * 30));
+			
+			
 			ChangeFloorButtonGroup.getChildren().add(ReturnToCampus);
+			ChangeFloorButtonGroup.relocate(1100 - widthOfBox, 0);
 			root.getChildren().remove(ChangeFloorButtonGroup);
 			root.getChildren().add(ChangeFloorButtonGroup);
 			// ChooseFloorLabel.toFront();
 			// Button ReturnToCampus = new Button("Back to Campus");
 		} else {
-			root.getChildren().remove(ReturnToCampus);
+			//root.getChildren().remove(ReturnToCampus);
 		}
 		fixUI();
 
