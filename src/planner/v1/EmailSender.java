@@ -8,13 +8,18 @@ import java.util.LinkedList;
  * Created by yx on 12/7/15.
  */
 public class EmailSender {
-      public static void sendDirections(LinkedList<Step> steps,String toUser){
-          String msg="Thank's for using PiNavigatior! \n\n\n";
-          for (Step s: steps){
-              msg += s.getMessage();
-              msg += "\n\n";
+      public static void sendDirections(LinkedList<LinkedList<Step>> steps,String toUser){
+          LinkedList<String> msg = new LinkedList<String>();
+          String tempmsg;
+          for (LinkedList<Step> e1:steps) {
+              tempmsg = "";
+              for (int i=0; i < e1.size();i++) {
+                  tempmsg += (i+1)+" "+e1.get(i).getMessage();
+                  tempmsg += "<br>";
+              }
+              msg.addLast(tempmsg);
           }
-          msg+="Thanks for using our app!\n\n";
+
           SendEmailTLS.sendToEmail(msg,toUser);
       }
 }

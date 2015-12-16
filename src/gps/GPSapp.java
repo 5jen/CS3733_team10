@@ -805,53 +805,58 @@ public class GPSapp extends Application {
 		EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-						
+
 				for (int i = 0; i < currMaps; i++) {
-					
-					
-					
+
+
+
 					if (currRoute >= 0 && currRoute <= currMaps - 1) {
-						
-						
-						if(i != 0) {
+
+						if(i != 0 ) {
 							currRoute++;
 							changeInstructions(NodePane, root, imageView);
-						}
-							
-					
-								
-					
-						zoomPane.toFront();
-		        		
-		        		SnapshotParameters parameters = new SnapshotParameters();
-		        		parameters.setViewport(new Rectangle2D(0, 0, (int) (1100 + stageInitialWidthDifference), (int) (750 + stageInitialHeightDifference))); 
-		                WritableImage wi = new WritableImage(1100, 750);
-		                WritableImage snapshot = root.snapshot(parameters, wi);
 
-		                File output = new File("snapshot" + i + ".png");
-		                try {
-		        			ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", output);
-		        		} catch (IOException e) {
-		        			// TODO Auto-generated catch block
-		        			e.printStackTrace();
-		        		}
+						}
+
+
+
+						zoomPane.toFront();
+
+						SnapshotParameters parameters = new SnapshotParameters();
+						parameters.setViewport(new Rectangle2D(0, 0, (int) (1100 + stageInitialWidthDifference), (int) (750 + stageInitialHeightDifference)));
+						WritableImage wi = new WritableImage(1100, 750);
+						WritableImage snapshot = root.snapshot(parameters, wi);
+
+						File output = new File("snapshot" + i + ".gif");
+						try {
+							ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "gif", output);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
-				
+
 				}
 				//save variable i here to see how many total maps there are
 				currRoute = 0;
 				changeInstructions(NodePane, root, imageView);
 				fixUI();
-				
-				
-				
-				
-				
-				stepIndicator steps = new stepIndicator(savedRoute);
 
-				LinkedList<Step> emailDirections = steps.lInstructions();
+				//stepIndicator steps = new stepIndicator(savedRoute);
+				LinkedList<LinkedList<Step>> stepInstructions = new LinkedList<LinkedList<Step>>();
+				LinkedList<LinkedList<Node>> emailInstructions = splitRoute(savedRoute);
+
+				for(int i = 0; i < emailInstructions.size(); i ++) {
+					 //
+					 LinkedList<Step> tempsteps = new stepIndicator(emailInstructions.get(i)).lInstructions();
+					 //for (int k = 0; k < emailInstructions.get(i).size(); k++){
+					//	tempStringList.add();
+				  //	}
+					stepInstructions.addLast(tempsteps);
+				}
+
 				try{
-					EmailSender.sendDirections(emailDirections, EmailInput.getText());
+					EmailSender.sendDirections(stepInstructions, EmailInput.getText());
 				} catch(RuntimeException e) {
 					System.out.println("Please type in an email");
 				}
@@ -864,7 +869,7 @@ public class GPSapp extends Application {
 					menuEmailIsOut = false;
 				}
 
-				
+
 			}
 		});
 
@@ -1920,7 +1925,7 @@ public class GPSapp extends Application {
 				}
 				//FL down90 >30
 				if(tempEvent.getLocation().equals("Fuller Labs")){
-					tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationX(-50+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
 					tempEvent.setlocationY(+90+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
 				}
 				//AK ^50 <40
@@ -1957,6 +1962,16 @@ public class GPSapp extends Application {
 				if(tempEvent.getLocation().equals("Project Center")){
 					tempEvent.setlocationX(-40+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
 					tempEvent.setlocationY(10+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//GL down10 <40
+				if(tempEvent.getLocation().equals("Gordon Library")){
+					tempEvent.setlocationX(-67+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(22+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
+				}
+				//HL down10 <40
+				if(tempEvent.getLocation().equals("Higgins Labs")){
+					tempEvent.setlocationX(30+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetX()+(numEvents*37));
+					tempEvent.setlocationY(-70+tempBuilding.getMaps().get(0).getGlobalToLocalOffsetY());
 				}
 				
 				//Get the start and end time of the event
@@ -2179,6 +2194,7 @@ public class GPSapp extends Application {
 		myEvents.clear();
 		System.out.println("Size when empty: "+ myEventsData.size());
 		drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+		highLight(NodePane,  imageView,  root,  keyText);
 	}
 	
 	//Bring the UI to the front of the screen
@@ -2207,6 +2223,7 @@ public class GPSapp extends Application {
 		}
 		aboutGroup.toFront();
 		instructionsGroup.toFront();
+		descriptionGroup.toFront();
 		emailGroup.toFront();
 		directionsGroup.toFront();
 		menuGroup.toFront();
