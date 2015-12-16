@@ -812,16 +812,18 @@ public class GPSapp extends Application {
 		menuView.setStyle(" -fx-border-radius: 10 10 10 0;" + "-fx-background-radius: 10 10 10 0;"
 				+ "-fx-border-image-slice: 4 4 4 4 fill;  ");
 
-		File pinFile = new File("CS3733_Graphics/MenuGraphics/simplepin.png");
+		File pinFile = new File("CS3733_Graphics/MenuGraphics/greenUIpin.png");
 		Image pinImage = new Image(pinFile.toURI().toString());
 		ImageView pinView1 = new ImageView(pinImage);
-		ImageView pinView2 = new ImageView(pinImage);
+		File pinFile2 = new File("CS3733_Graphics/MenuGraphics/redUIpin.png");
+		Image pinImage2 = new Image(pinFile2.toURI().toString());
+		ImageView pinView2 = new ImageView(pinImage2);//change to different pin images
 		pinView1.setFitWidth(20);
 		pinView1.setFitHeight(25);
-		pinView1.relocate(220, 25);
+		pinView1.relocate(220, 25);//
 		pinView2.setFitWidth(20);
 		pinView2.setFitHeight(25);
-		pinView2.relocate(410, 25);
+		pinView2.relocate(410, 25);//
 
 		File findRouteFile = new File("CS3733_Graphics/MenuGraphics/findRouteButton.png");
 		Image findRouteImage = new Image(findRouteFile.toURI().toString());
@@ -986,7 +988,7 @@ public class GPSapp extends Application {
 		final Label googleEventsLabel = new Label("Display Events");
 		googleEventsLabel.setTextFill(Color.WHITE);
 		googleEventsLabel.setFont(Font.font("manteka", 18));
-		googleEventsLabel.relocate(25, 485);
+		googleEventsLabel.relocate(25, 455);
 		
 		//reset to today
 		File resetToTodayFile = new File("CS3733_Graphics/MenuGraphics/setToToday.png");
@@ -994,21 +996,35 @@ public class GPSapp extends Application {
 		ImageView resetToTodayButton = new ImageView(resetToTodayPic);
 		resetToTodayButton.setFitHeight(40);
 		resetToTodayButton.setFitWidth(40);
-		resetToTodayButton.relocate(10, 555);
+		resetToTodayButton.relocate(10, 515);
 		
 		//label the reset to today button
 		final Label resetLabel = new Label("Reset to today");
 		resetLabel.setTextFill(Color.WHITE);
 		resetLabel.setFont(Font.font("manteka", 12));
-		resetLabel.relocate(60, 565);
+		resetLabel.relocate(60, 525);
 		
 		
 		//attach next and previous 7 day buttons
 		final Button NextWeekButton = new Button("Next Week");
-		NextWeekButton.relocate(100, 515);
+		NextWeekButton.relocate(100, 480);
 		
 		final Button PrevWeekButton = new Button("Prev Week");
-		PrevWeekButton.relocate(10, 515);
+		PrevWeekButton.relocate(10, 480);
+		
+		//Clear events button
+		File clearEventsButtonFile = new File("CS3733_Graphics/MenuGraphics/clearEvents.png");
+		Image clearEventsImage = new Image(clearEventsButtonFile.toURI().toString());
+		ImageView clearEventsButton = new ImageView(clearEventsImage);
+		clearEventsButton.setFitHeight(40);
+		clearEventsButton.setFitWidth(40);
+		clearEventsButton.relocate(10, 555);
+		
+		//label the reset to today button
+		final Label clearEventsLabel = new Label("Clear events");
+		clearEventsLabel.setTextFill(Color.WHITE);
+		clearEventsLabel.setFont(Font.font("manteka", 12));
+		clearEventsLabel.relocate(60, 565);
 		
 		
 		//Sign in Button
@@ -1056,11 +1072,11 @@ public class GPSapp extends Application {
 		File keyFile = new File("CS3733_Graphics/MenuGraphics/key.png");
 		Image keyImagePic = new Image(keyFile.toURI().toString());
 		ImageView keyImage = new ImageView(keyImagePic);
-		// keyImage.setFitHeight(40); keyImageButton.setFitWidth(40);
-		keyImage.relocate(780, 610);
+		keyImage.setFitHeight(140); keyImage.setFitWidth(180); //RESIZE WHEN WE GET CORYS ISH
+		keyImage.relocate(10, 310);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,googleEventsLabel, NextWeekButton, PrevWeekButton, resetToTodayButton, resetLabel, googleButton);
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,googleEventsLabel,keyImage, NextWeekButton, PrevWeekButton, resetToTodayButton, resetLabel, googleButton, clearEventsLabel, clearEventsButton);
 
 		root.getChildren().remove(fullMenuPane);
 		root.getChildren().addAll(fullMenuPane);
@@ -1431,7 +1447,6 @@ public class GPSapp extends Application {
     				Number oldValue, Number newValue) {
     			stageInitialWidthDifference = scene.getWidth() - 1100;
 				scrollPane.setPrefViewportWidth(1100 + stageInitialWidthDifference);
-				keyImage.setTranslateX(stageInitialWidthDifference);
 				toggleKeyText.setTranslateX(stageInitialWidthDifference);
 				s1.setTranslateX(stageInitialWidthDifference);
 				ChangeFloorButtonGroup.setTranslateX(stageInitialWidthDifference);
@@ -1464,7 +1479,6 @@ public class GPSapp extends Application {
     			
     			
     			toggleKeyText.setTranslateY(stageInitialHeightDifference);
-				keyImage.setTranslateY(stageInitialHeightDifference);
 				keyText.setTranslateY(stageInitialHeightDifference);
 				s1.setTranslateY(stageInitialHeightDifference);
 				fullMenuPane.setPrefSize(200, 750 + stageInitialHeightDifference);
@@ -2341,9 +2355,9 @@ public class GPSapp extends Application {
 			exit.setLayoutY(multiMap.get(currRoute).get(multiMap.get(currRoute).size() - 2).getY());
 
 		} else {
-			NodePane.getChildren().add(redPinView);
-			redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-			redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+			NodePane.getChildren().add(greenPinView);
+			greenPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
+			greenPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
 		}
 
 		// Determine which buttons to display when changing instructions
@@ -2358,9 +2372,9 @@ public class GPSapp extends Application {
 		if (currRoute >= currMaps - 1) {
 			NodePane.getChildren().remove(exit);
 
-			NodePane.getChildren().add(greenPinView);
-			greenPinView.setLayoutX(multiMap.getLast().getLast().getX() - 18);
-			greenPinView.setLayoutY(multiMap.getLast().getLast().getY() - 55);
+			NodePane.getChildren().add(redPinView);
+			redPinView.setLayoutX(multiMap.getLast().getLast().getX() - 18);
+			redPinView.setLayoutY(multiMap.getLast().getLast().getY() - 55);
 
 			// root.getChildren().remove(NextInstruction);
 		} else {
@@ -2898,15 +2912,15 @@ public class GPSapp extends Application {
                                     //System.out.print.println("NodeList Size = " + nodeList.size());
                                     drawRoute(gc, multiMap.get(currRoute));
 
-									NodePane.getChildren().add(redPinView);
-									redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-									redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+									NodePane.getChildren().add(greenPinView);
+									greenPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
+									greenPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
 
 									if (multiMap.size() == 1) {
 
-										NodePane.getChildren().add(greenPinView);
-										greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-										greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+										NodePane.getChildren().add(redPinView);
+										redPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
+										redPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
 
 									}
 
@@ -4528,15 +4542,15 @@ public class GPSapp extends Application {
 				drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 				drawRoute(gc, multiMap.get(currRoute));
 
-				NodePane.getChildren().add(redPinView);
-				redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-				redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+				NodePane.getChildren().add(greenPinView);
+				greenPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
+				greenPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
 
 				if (multiMap.size() == 1) {
 
-					NodePane.getChildren().add(greenPinView);
-					greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-					greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+					NodePane.getChildren().add(redPinView);
+					redPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
+					redPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
 				}
 
 				/*
@@ -4609,14 +4623,14 @@ public class GPSapp extends Application {
 				drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 				drawRoute(gc, multiMap.get(currRoute));
 
-				NodePane.getChildren().add(redPinView);
-				redPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
-				redPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
+				NodePane.getChildren().add(greenPinView);
+				greenPinView.setLayoutX(multiMap.getFirst().getFirst().getX() - 18);
+				greenPinView.setLayoutY(multiMap.getFirst().getFirst().getY() - 55);
 
 				if (multiMap.size() == 1) {
-					NodePane.getChildren().add(greenPinView);
-					greenPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
-					greenPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
+					NodePane.getChildren().add(redPinView);
+					redPinView.setLayoutX(multiMap.getFirst().getLast().getX() - 18);
+					redPinView.setLayoutY(multiMap.getFirst().getLast().getY() - 55);
 
 				}
 
