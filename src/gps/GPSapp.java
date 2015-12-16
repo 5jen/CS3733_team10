@@ -12,12 +12,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -27,6 +30,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -50,10 +54,13 @@ import node.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeMap;
+
+import javax.imageio.ImageIO;
 
 import com.sun.javafx.application.LauncherImpl;
 
@@ -923,11 +930,45 @@ public class GPSapp extends Application {
 		EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				// steps is total route,
-				for (int i = 0; i < savedRoute.size(); i++) {
-					// System.out.println("PATH PATH
-					// PATH"+savedRoute.get(i).getName());
+						
+				for (int i = 0; i < currMaps; i++) {
+					
+					
+					
+					if (currRoute >= 0 && currRoute < currMaps - 1) {
+						currRoute++;
+						
+						if(i != 0)
+							changeInstructions(NodePane, root, imageView);
+					
+								
+					
+						zoomPane.toFront();
+		        		
+		        		SnapshotParameters parameters = new SnapshotParameters();
+		        		parameters.setViewport(new Rectangle2D(0, 0, (int) (1100 + stageInitialWidthDifference), (int) (750 + stageInitialHeightDifference))); 
+		                WritableImage wi = new WritableImage(1100, 750);
+		                WritableImage snapshot = root.snapshot(parameters, wi);
+
+		                File output = new File("snapshot" + i + ".png");
+		                try {
+		        			ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", output);
+		        		} catch (IOException e) {
+		        			// TODO Auto-generated catch block
+		        			e.printStackTrace();
+		        		}
+					}
+				
 				}
+				//save variable i here to see how many total maps there are
+				currRoute = 0;
+				changeInstructions(NodePane, root, imageView);
+				fixUI();
+				
+				
+				
+				
+				
 				stepIndicator steps = new stepIndicator(savedRoute);
 
 				LinkedList<Step> emailDirections = steps.lInstructions();
@@ -944,6 +985,8 @@ public class GPSapp extends Application {
 					emailPaneAnimation(emailGroup);
 					menuEmailIsOut = false;
 				}
+
+				
 			}
 		});
 
@@ -2023,6 +2066,13 @@ public class GPSapp extends Application {
 
 		drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 		drawRoute(gc, multiMap.get(currRoute));
+		
+		
+		
+		
+		
+		
+		
 		if (currRoute != 0) {
 			NodePane.getChildren().add(enter);
 			enter.setLayoutX(multiMap.get(currRoute).getFirst().getX());
@@ -2060,7 +2110,8 @@ public class GPSapp extends Application {
 			// root.getChildren().add(NextInstruction);
 		}
 		// root.getChildren().add(s1);
-
+		
+		
 		fixUI();
 	}
 
@@ -2624,6 +2675,11 @@ public class GPSapp extends Application {
                                         //System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
                                         directionsAreOut = true;
                                     }
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                 } catch (NullPointerException n){
                                     keyText.setText("No Path Found");
@@ -3664,7 +3720,14 @@ public class GPSapp extends Application {
 
 		final Group group = new Group(imageView, canvas, NodePane);
 		zoomPane = createZoomPane(group);
+
+		
+		
+		
+		
 		root.getChildren().add(zoomPane);
+				
+		
 
 		// Place the return to campus button on screen if youre not on the
 		// campus map
@@ -4477,6 +4540,8 @@ public class GPSapp extends Application {
 			keyText.setFill(Color.WHITE);
 			keyText.setText("Your Start and Destination are the same");
 		}
+		
+		
 		fixUI();
 	}
 
