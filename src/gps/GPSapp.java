@@ -436,13 +436,12 @@ public class GPSapp extends Application {
     
     //Get the current date so that we only grab events from this time forward from google calendars
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    //get current date time with Date()
-    //Date date = new Date();
-    //System.out.println(dateFormat.format(date));
  
     //get current date time with Calendar()
     Calendar cal = Calendar.getInstance();
-    //System.out.println(dateFormat.format(cal.getTime()));
+    
+    //make a global var that is used for cycling through weeks of events
+    static int currWeek;// when we pass this, add 7 to it in calendars class
     
     //*************************
     
@@ -581,6 +580,10 @@ public class GPSapp extends Application {
     
 	@Override
     public void start(Stage primaryStage) {
+		
+		//initialize the current week to today;
+		//increment and decrement by 7 at a time
+		currWeek = 0;
 		
 		//Prent Current date
 		System.out.println("************** *** * * * * * ****");
@@ -980,18 +983,32 @@ public class GPSapp extends Application {
 		nearestBox.relocate(5, 141);
 
 		//**ATTACH THE GRAB EVENTS BUTTONS HERE******
-		final Label googleEventsLabel = new Label("Get Google Events");
+		final Label googleEventsLabel = new Label("Display Events");
 		googleEventsLabel.setTextFill(Color.WHITE);
-		googleEventsLabel.setFont(Font.font("manteka", 20));
-		googleEventsLabel.relocate(5, 500);
+		googleEventsLabel.setFont(Font.font("manteka", 18));
+		googleEventsLabel.relocate(25, 485);
+		
+		//reset to today
+		File resetToTodayFile = new File("CS3733_Graphics/MenuGraphics/setToToday.png");
+		Image resetToTodayPic = new Image(resetToTodayFile.toURI().toString());
+		ImageView resetToTodayButton = new ImageView(resetToTodayPic);
+		resetToTodayButton.setFitHeight(40);
+		resetToTodayButton.setFitWidth(40);
+		resetToTodayButton.relocate(10, 555);
+		
+		//label the reset to today button
+		final Label resetLabel = new Label("Reset to today");
+		resetLabel.setTextFill(Color.WHITE);
+		resetLabel.setFont(Font.font("manteka", 12));
+		resetLabel.relocate(60, 565);
+		
 		
 		//attach next and previous 7 day buttons
 		final Button NextWeekButton = new Button("Next Week");
-		NextWeekButton.relocate(130, 570);
+		NextWeekButton.relocate(100, 515);
 		
 		final Button PrevWeekButton = new Button("Prev Week");
-		PrevWeekButton.relocate(70, 570);
-		
+		PrevWeekButton.relocate(10, 515);
 		
 		
 		//Sign in Button
@@ -1009,13 +1026,13 @@ public class GPSapp extends Application {
 		DateLabel.setTextFill(Color.WHITE);
 		DateLabel.setFont(Font.font("manteka", 15));
 		DateLabel.relocate(5, 650);
-		DateLabel.setText(""+cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/"+ cal.get(Calendar.YEAR));
+		DateLabel.setText("Date "+cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/"+ cal.get(Calendar.YEAR));
 		//time label
 		final Label timeLabel = new Label();
 		timeLabel.setTextFill(Color.WHITE);
 		timeLabel.setFont(Font.font("manteka", 15));
 		timeLabel.relocate(5, 670);
-		timeLabel.setText(""+cal.get(Calendar.HOUR) + "." + cal.get(Calendar.MINUTE));
+		timeLabel.setText("Time "+cal.get(Calendar.HOUR) + "." + cal.get(Calendar.MINUTE));
 		
 		// **BUTTONS***
 		// Create a keyimageButton to place the map key on screen
@@ -1043,7 +1060,7 @@ public class GPSapp extends Application {
 		keyImage.relocate(780, 610);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,NextWeekButton, PrevWeekButton, googleButton);
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,googleEventsLabel, NextWeekButton, PrevWeekButton, resetToTodayButton, resetLabel, googleButton);
 
 		root.getChildren().remove(fullMenuPane);
 		root.getChildren().addAll(fullMenuPane);
@@ -1248,9 +1265,66 @@ public class GPSapp extends Application {
 		//Sign into google button
 		googleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
+				//clear events 
+				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
+				
 				//Grab the events from google calendars
 				try { 
-					myEventsData = CalendarEvents.getEvents(7); //grab first 7 days worth of events
+					myEventsData = CalendarEvents.getEvents(currWeek); //grab first 7 days worth of events
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				getEventsLocal();
+				fixUI();
+			}
+		});
+		
+		//next week and prev week button actions and resettotoday
+		//currWeek
+		NextWeekButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				//change to next weeks events
+				currWeek += 7;
+				//clear events 
+				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
+				//Grab the events from google calendars
+				try { 
+					myEventsData = CalendarEvents.getEvents(currWeek); //grab first 7 days worth of events
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				getEventsLocal();
+				fixUI();
+			}
+		});
+		PrevWeekButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				//change to next weeks events
+				currWeek -= 7;
+				//clear events 
+				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
+				//Grab the events from google calendars
+				try { 
+					myEventsData = CalendarEvents.getEvents(currWeek); //grab first 7 days worth of events
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				getEventsLocal();
+				fixUI();
+			}
+		});
+		resetToTodayButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				//change to next weeks events
+				currWeek = 0;
+				//clear events 
+				clearEventIcons(imageView); //must be before you clear the list otherwise you lost the reference to it!!
+				//Grab the events from google calendars
+				try { 
+					myEventsData = CalendarEvents.getEvents(currWeek); //grab first 7 days worth of events
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1544,7 +1618,7 @@ public class GPSapp extends Application {
         DestList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent arg0) {
                 DestText.setText(DestList.getSelectionModel().getSelectedItem().getName());
-                DestSearch.getChildren().remove(DestList);
+                 DestSearch.getChildren().remove(DestList);
                 DestList.requestFocus();
                 end = true;
             }
@@ -1920,18 +1994,29 @@ public class GPSapp extends Application {
 		return "WPIEvent"; //Default event type
 	}
 	
+	//remove the event icons from the screen
+	public void clearEventIcons(ImageView imageView){
+		NodePane.getChildren().clear(); //clear everything then redraw
+		myEventsData.clear();
+		myEvents.clear();
+		System.out.println("Size when empty: "+ myEventsData.size());
+		drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
+	}
+	
 	//Bring the UI to the front of the screen
 	public void fixUI(){
+		System.out.println("Size when full: "+ myEventsData.size());
 		//put the event images onto of the map
 		//ONly do this on the campus map
 		//System.out.println("ROLLED OVER*****   "+mapSelector.getValue().getName());
 		if(mapSelector.getValue().getName().equals("Campus Map")){
 			for(int i = 0; i < myEvents.size();i++){
+				System.out.println("*************************");
 				System.out.println("Title: " + myEvents.get(i).getSummary()); //works time to parse
 				System.out.println("Type: " + myEvents.get(i).getType());
-				System.out.println("Desc: " + myEvents.get(i).getDescription());
+				//System.out.println("Desc: " + myEvents.get(i).getDescription());
 				System.out.println("Location: " + myEvents.get(i).getLocation());
-				System.out.println("****Time: " + myEvents.get(i).getStartTime());
+				System.out.println("Time: " + myEvents.get(i).getStartTime());
 				System.out.println("X: " + myEvents.get(i).getlocationX());
 				System.out.println("Y: " + myEvents.get(i).getlocationY());
 				

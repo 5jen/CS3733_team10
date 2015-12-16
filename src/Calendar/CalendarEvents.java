@@ -141,7 +141,10 @@ public class CalendarEvents {
         LinkedList<MyEvent> result = new LinkedList<>();
         do {
         	//Set the 
+        	
         	Calendar cal1 = Calendar.getInstance();
+        	cal1.set(cal1.get(Calendar.YEAR), cal1.get(Calendar.MONTH), cal1.get(Calendar.DATE)+numDaysAhead);
+        	numDaysAhead += 7;
         	Calendar cal2 = Calendar.getInstance();
         	cal2.set(cal2.get(Calendar.YEAR), cal2.get(Calendar.MONTH), cal2.get(Calendar.DATE)+numDaysAhead);
         	
@@ -151,6 +154,7 @@ public class CalendarEvents {
                     setTimeMax(new DateTime(toRFC3339(cal2))).
                     setPageToken(pageToken).execute();
             List<Event> items = events.getItems();
+            System.out.println("LENGTH: " +items.size());
             for (Event event : items) {
                 String from = "";
                 String end = "";
@@ -159,7 +163,7 @@ public class CalendarEvents {
                 	end  = af.parse(event.getEnd().getDateTime().toString()).toString();
                 
                 }
-                catch (ParseException e){
+                catch (Exception e){
                 	System.out.println("Get time failed!");
                 }
            
