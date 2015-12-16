@@ -120,10 +120,11 @@ public class CalendarEvents {
 
     /**
      * The core method to retrive the event information
+     * @param numDaysAhead retrieve the events x amount of days ahead
      * @return a linked list of MyEvent about event information
      * @throws IOException
      */
-    public static LinkedList<MyEvent> getEvents() throws IOException{
+    public static LinkedList<MyEvent> getEvents(int numDaysAhead) throws IOException{
         com.google.api.services.calendar.Calendar service =
                 getCalendarService();
 
@@ -139,10 +140,15 @@ public class CalendarEvents {
         String pageToken = null;
         LinkedList<MyEvent> result = new LinkedList<>();
         do {
+        	//Set the 
+        	Calendar cal1 = Calendar.getInstance();
+        	Calendar cal2 = Calendar.getInstance();
+        	cal2.set(cal2.get(Calendar.YEAR), cal2.get(Calendar.MONTH), cal2.get(Calendar.DATE)+numDaysAhead);
+        	
             @SuppressWarnings("deprecation")
 			Events events = service.events().list("primary").
-                    setTimeMin(new DateTime(toRFC3339(Calendar.getInstance()))).   //TODO add start & end Time
-                    //setTimeMax(new DateTime(toRFC3339(Calendar.getInstance()))).
+                    setTimeMin(new DateTime(toRFC3339(cal1))).   //TODO add start & end Time
+                    setTimeMax(new DateTime(toRFC3339(cal2))).
                     setPageToken(pageToken).execute();
             List<Event> items = events.getItems();
             for (Event event : items) {

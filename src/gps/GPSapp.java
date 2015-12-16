@@ -980,6 +980,21 @@ public class GPSapp extends Application {
 		nearestBox.relocate(5, 141);
 
 		//**ATTACH THE GRAB EVENTS BUTTONS HERE******
+		final Label googleEventsLabel = new Label("Get Google Events");
+		googleEventsLabel.setTextFill(Color.WHITE);
+		googleEventsLabel.setFont(Font.font("manteka", 20));
+		googleEventsLabel.relocate(5, 500);
+		
+		//attach next and previous 7 day buttons
+		final Button NextWeekButton = new Button("Next Week");
+		NextWeekButton.relocate(130, 570);
+		
+		final Button PrevWeekButton = new Button("Prev Week");
+		PrevWeekButton.relocate(70, 570);
+		
+		
+		
+		//Sign in Button
 		File googlebuttonFile = new File("CS3733_Graphics/MenuGraphics/googleSignInButton.png"); 
 		Image googleButtonImage = new Image(googlebuttonFile.toURI().toString());
 		ImageView googleButton = new ImageView(googleButtonImage);
@@ -1028,7 +1043,7 @@ public class GPSapp extends Application {
 		keyImage.relocate(780, 610);
 
 		// Attach things to this for in the side bar
-		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton, googleButton);
+		fullMenuPane.getChildren().addAll(menuImageView, menuTitle, mapSelectionBoxV, nearestBox, DateLabel, timeLabel, instructionsButton, aboutMeButton,NextWeekButton, PrevWeekButton, googleButton);
 
 		root.getChildren().remove(fullMenuPane);
 		root.getChildren().addAll(fullMenuPane);
@@ -1235,12 +1250,12 @@ public class GPSapp extends Application {
 			public void handle(MouseEvent event) {
 				//Grab the events from google calendars
 				try { 
-					myEventsData = CalendarEvents.getEvents();
+					myEventsData = CalendarEvents.getEvents(7); //grab first 7 days worth of events
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				getEvents(0);
+				getEventsLocal();
 				fixUI();
 			}
 		});
@@ -1596,7 +1611,7 @@ public class GPSapp extends Application {
 
 	///END OF MAIN ***************************************************************
 
-	public static void getEvents(int daysInFuture){
+	public static void getEventsLocal(){
 	//*** GRAB THE EVENTS AND PARSE THROUGH THEM TO the list ***
 			//Evaulte which keyword is most prominent in the description and determine event Type
 			int awardCount = 0, foodCount = 0, movieCount = 0, WPIEventCount = 0, sportCount = 0;
