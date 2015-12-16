@@ -1,0 +1,152 @@
+[
+ {
+  "distance": 1,
+  "from": "AH2:Staircase:1048:315",
+  "to": "AH2:Point:1048:342"
+ },
+ {
+  "distance": 9,
+  "from": "AH201",
+  "to": "AH2:Point:1048:342"
+ },
+ {
+  "distance": 5,
+  "from": "AH202",
+  "to": "AH2:Point:1048:342"
+ },
+ {
+  "distance": 7,
+  "from": "AH2:Staircase:1048:560",
+  "to": "AH202"
+ },
+ {
+  "distance": 2,
+  "from": "AH2:Point:325:706",
+  "to": "AH2:Staircase:325:748"
+ },
+ {
+  "distance": 2,
+  "from": "AH2:Point:325:706",
+  "to": "AH204"
+ },
+ {
+  "distance": 1,
+  "from": "AH2:Point:325:706",
+  "to": "AH2:Staircase:325:683"
+ },
+ {
+  "distance": 5,
+  "from": "AH2:Point:233:683",
+  "to": "AH2:Staircase:325:683"
+ },
+ {
+  "distance": 1,
+  "from": "AH2:Point:233:683",
+  "to": "AH208"
+ },
+ {
+  "distance": 4,
+  "from": "AH2:Point:233:683",
+  "to": "AH2:Point:147:683"
+ },
+ {
+  "distance": 2,
+  "from": "AH209",
+  "to": "AH2:Point:147:683"
+ },
+ {
+  "distance": 1,
+  "from": "AH2:Point:125:683",
+  "to": "AH2:Point:147:683"
+ },
+ {
+  "distance": 6,
+  "from": "AH2:Point:125:683",
+  "to": "AH2:Point:125:573"
+ },
+ {
+  "distance": 2,
+  "from": "AH2:Point:125:573",
+  "to": "AH210"
+ },
+ {
+  "distance": 7,
+  "from": "AH2:Point:125:573",
+  "to": "AH2:Point:125:443"
+ },
+ {
+  "distance": 3,
+  "from": "AH211",
+  "to": "AH2:Point:125:443"
+ },
+ {
+  "distance": 6,
+  "from": "AH2:Point:125:324",
+  "to": "AH2:Point:125:443"
+ },
+ {
+  "distance": 2,
+  "from": "AH212",
+  "to": "AH2:Point:125:324"
+ },
+ {
+  "distance": 8,
+  "from": "AH2:Point:125:171",
+  "to": "AH2:Point:125:324"
+ },
+ {
+  "distance": 2,
+  "from": "AH215",
+  "to": "AH2:Point:125:171"
+ },
+ {
+  "distance": 3,
+  "from": "AH2:Point:198:171",
+  "to": "AH2:Point:125:171"
+ },
+ {
+  "distance": 2,
+  "from": "AH216",
+  "to": "AH2:Point:198:171"
+ },
+ {
+  "distance": 4,
+  "from": "AH2:Point:257:171",
+  "to": "AH2:Point:198:171"
+ },
+ {
+  "distance": 2,
+  "from": "AH2:Staircase:257:126",
+  "to": "AH2:Point:257:171"
+ },
+ {
+  "distance": 1,
+  "from": "AH2:Elevator:281:171",
+  "to": "AH2:Point:257:171"
+ },
+ {
+  "distance": 21,
+  "from": "AH2:Staircase:325:748",
+  "to": "AHB:Staircase:423:852"
+ },
+ {
+  "distance": 10,
+  "from": "AH2:Staircase:1048:315",
+  "to": "AH1:Staircase:1032:299"
+ },
+ {
+  "distance": 11,
+  "from": "AH1:Staircase:1032:471",
+  "to": "AH2:Staircase:1048:560"
+ },
+ {
+  "distance": 30,
+  "from": "AHSB:Elevator:321:103",
+  "to": "AH2:Elevator:281:171"
+ },
+ {
+  "distance": 8,
+  "from": "AHB:Elevator:438:190",
+  "to": "AH2:Elevator:281:171"
+ }
+]

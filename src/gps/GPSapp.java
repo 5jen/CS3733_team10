@@ -12,12 +12,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -27,6 +30,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -50,16 +54,18 @@ import node.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
+
 import com.sun.javafx.application.LauncherImpl;
 
 import Calendar.CalendarEvents;
 import Calendar.MyEvent;
-import node.Graph;
 import planner.v1.EmailSender;
 import gps.MyPreloader;
 
@@ -148,6 +154,7 @@ public class GPSapp extends Application {
 	Building RecCenter = new Building("Rec Center");
 	Building Harrington = new Building("Harrington Auditorium");
 	Building HigginsLabs = new Building("Higgins Labs");
+	Building AldenHall = new Building("Alden Hall");
 	Building NullBuilding = new Building("Null Building");
 
 	// Map Buildings with their content
@@ -275,6 +282,15 @@ public class GPSapp extends Application {
 			"Graphs/Edges/HL2Edges.json", 0.174, 1237, 843, 0.1400, "2");
 	Map HigginsLabs3 = new Map("Higgins Labs 3", "HL", "CS3733_Graphics/HL3.png", "Graphs/Nodes/HL3.json",
 			"Graphs/Edges/HL3Edges.json", 0.174, 1237, 843, 0.1400, "3");
+	
+	Map AldenHallSB = new Map("Alden Hall SB", "AH", "CS3733_Graphics/AHSB.png", "Graphs/Nodes/AHSB.json",
+			"Graphs/Edges/AHSBEdges.json", -1.396, 1212, 1077, 0.1400, "SB");
+	Map AldenHallB = new Map("Alden Hall B", "AH", "CS3733_Graphics/AHB.png", "Graphs/Nodes/AHB.json",
+			"Graphs/Edges/AHBEdges.json", -1.396, 1212, 1077, 0.1400, "B");
+	Map AldenHall1 = new Map("Alden Hall 1", "AH", "CS3733_Graphics/AH1.png", "Graphs/Nodes/AH1.json",
+			"Graphs/Edges/AH1Edges.json", -1.396, 1212, 1077, 0.1400, "1");
+	Map AldenHall2 = new Map("Alden Hall 2", "AH", "CS3733_Graphics/AH2.png", "Graphs/Nodes/AH2.json",
+			"Graphs/Edges/AH2Edges.json", -1.396, 1212, 1077, 0.1400, "2");
 
 	// set perspective transformations to all 3 groups
 	PerspectiveTransform pt = new PerspectiveTransform();
@@ -519,6 +535,11 @@ public class GPSapp extends Application {
 		HigginsLabs.addMap(HigginsLabs1);
 		HigginsLabs.addMap(HigginsLabs2);
 		HigginsLabs.addMap(HigginsLabs3);
+		
+		AldenHall.addMap(AldenHallSB);
+		AldenHall.addMap(AldenHallB);
+		AldenHall.addMap(AldenHall1);
+		AldenHall.addMap(AldenHall2);
         
         
         // TODO Add more buildings to this list
@@ -537,6 +558,7 @@ public class GPSapp extends Application {
         buildings.add(WestStreet);
         buildings.add(HigginsLabs);
         buildings.add(Harrington);
+        buildings.add(AldenHall);
         
 
 
@@ -836,6 +858,8 @@ public class GPSapp extends Application {
 		DestLabel.setFont(Font.font("manteka", 15));
 		DestLabel.setLayoutX(300);
 		DestLabel.setLayoutY(610);
+		
+		mapSelector.setPrefWidth(170);
 
 		ReturnToCampus.setTextFill(Color.BLACK);
 		ReturnToCampus.setFont(Font.font("manteka", 10));
@@ -923,11 +947,48 @@ public class GPSapp extends Application {
 		EmailButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				// steps is total route,
-				for (int i = 0; i < savedRoute.size(); i++) {
-					// System.out.println("PATH PATH
-					// PATH"+savedRoute.get(i).getName());
+						
+				for (int i = 0; i < currMaps; i++) {
+					
+					
+					
+					if (currRoute >= 0 && currRoute <= currMaps - 1) {
+						
+						
+						if(i != 0) {
+							currRoute++;
+							changeInstructions(NodePane, root, imageView);
+						}
+							
+					
+								
+					
+						zoomPane.toFront();
+		        		
+		        		SnapshotParameters parameters = new SnapshotParameters();
+		        		parameters.setViewport(new Rectangle2D(0, 0, (int) (1100 + stageInitialWidthDifference), (int) (750 + stageInitialHeightDifference))); 
+		                WritableImage wi = new WritableImage(1100, 750);
+		                WritableImage snapshot = root.snapshot(parameters, wi);
+
+		                File output = new File("snapshot" + i + ".png");
+		                try {
+		        			ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", output);
+		        		} catch (IOException e) {
+		        			// TODO Auto-generated catch block
+		        			e.printStackTrace();
+		        		}
+					}
+				
 				}
+				//save variable i here to see how many total maps there are
+				currRoute = 0;
+				changeInstructions(NodePane, root, imageView);
+				fixUI();
+				
+				
+				
+				
+				
 				stepIndicator steps = new stepIndicator(savedRoute);
 
 				LinkedList<Step> emailDirections = steps.lInstructions();
@@ -944,6 +1005,8 @@ public class GPSapp extends Application {
 					emailPaneAnimation(emailGroup);
 					menuEmailIsOut = false;
 				}
+
+				
 			}
 		});
 
@@ -985,7 +1048,7 @@ public class GPSapp extends Application {
 		// ********TOP BAR UI******************************
 		menuPane.setPrefSize(490, 70);
 		menuPane.setStyle("-fx-background-color: #ffffff;" + "-fx-border-radius: 15 2 15 2;"
-				+ "-fx-background-radius: 15 2 15 2;" + "box-shadow: 10px 10px 5px #888888;"
+				+ "-fx-background-radius: 15 2 15 2;"
 				+ "-fx-effect: dropshadow(gaussian, black, 10, 0, 4, 4);");
 		menuPane.setOpacity(1);
 		menuPane.relocate(10, 10);
@@ -1128,16 +1191,20 @@ public class GPSapp extends Application {
 		mapSelectorLabel.setFont(Font.font("manteka", 20));
 		mapSelectorLabel.setTextFill(Color.WHITE);
 		final Button LoadMapButton = new Button("Load");
-		LoadMapButton.setStyle(":dark");
-		mapSelector.setPrefWidth(180);
+
+		LoadMapButton.setId("dark");
+		mapSelector.setId("dark");
 
 		mapSelectionBoxV.relocate(5, 50);
 		mapSelectionBoxV.getChildren().addAll(mapSelectorLabel, mapSelector, LoadMapButton);
 
+		findNearestButton.setId("dark");
+		nearestDropdown.setId("dark");
+		nearestDropdown.setPrefWidth(170);
 		// ***Find nearest function ****
 		nearestDropdown.setValue("Dining");
 		nearestBox.getChildren().addAll(nearestDropdown, findNearestButton);
-		nearestBox.relocate(5, 141);
+		nearestBox.relocate(5, 161);
 
 		// **BUTTONS***
 
@@ -1209,7 +1276,8 @@ public class GPSapp extends Application {
 		emailPane.relocate(830 + stageInitialWidthDifference, 710 + stageInitialHeightDifference);
 
 		// EmailButton.setTextFill(Color.BLACK);
-		EmailInput.relocate(10, 5);
+		EmailInput.relocate(8, 5);
+		EmailInput.setId("dark");
 		EmailButton.relocate(180, 5);
 		EmailButton.setFitHeight(29);
 		EmailButton.setFitWidth(52);
@@ -2024,6 +2092,13 @@ public class GPSapp extends Application {
 
 		drawNodes(nodeList, NodePane, root, StartText, DestText, imageView);
 		drawRoute(gc, multiMap.get(currRoute));
+		
+		
+		
+		
+		
+		
+		
 		if (currRoute != 0) {
 			NodePane.getChildren().add(enter);
 			enter.setLayoutX(multiMap.get(currRoute).getFirst().getX());
@@ -2061,7 +2136,8 @@ public class GPSapp extends Application {
 			// root.getChildren().add(NextInstruction);
 		}
 		// root.getChildren().add(s1);
-
+		
+		
 		fixUI();
 	}
 
@@ -2178,23 +2254,27 @@ public class GPSapp extends Application {
 			}
 			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Salisbury Labs")) {
 				g1.setLayoutX(xplacement + 400);
-				g1.setLayoutY(yplacement + 300 - i * 45);
+				g1.setLayoutY(yplacement + 350 - i * 45);
 			}
 			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Washburn Shops")) {
-				g1.setLayoutX(xplacement + 340);
-				g1.setLayoutY(yplacement + 560 - i * 45);
+				g1.setLayoutX(xplacement + 350);
+				g1.setLayoutY(yplacement + 260 - i * 45);
 			}
 			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("157 West Street")) {
 				g1.setLayoutX(xplacement + 260);
 				g1.setLayoutY(yplacement + 350 - i * 45);
 			}
 			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Harrington Auditorium")) {
-				g1.setLayoutX(xplacement + 260);
-				g1.setLayoutY(yplacement + 350 - i * 45);
+				g1.setLayoutX(xplacement + 380);
+				g1.setLayoutY(yplacement + 370 - i * 45);
 			}
 			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Higgins Labs")) {
-				g1.setLayoutX(xplacement + 260);
-				g1.setLayoutY(yplacement + 350 - i * 45);
+				g1.setLayoutX(xplacement + 380);
+				g1.setLayoutY(yplacement + 330 - i * 45);
+			}
+			if (BuildingRolledOver.getMaps().get(0).getBuildingName().equals("Alden Hall")) {
+				g1.setLayoutX(xplacement + 360);
+				g1.setLayoutY(yplacement + 330 - i * 45);
 			}
 			/// ABOVE^^^^^^
 
@@ -2246,6 +2326,9 @@ public class GPSapp extends Application {
 					}
 					if (building.equals(Harrington)) {
 						BuildingNameLabel.relocate(g1.getLayoutX() - 800, mouseYposition + 150);
+					}
+					if (building.equals(AldenHall)) {
+						BuildingNameLabel.relocate(g1.getLayoutX() - 700, mouseYposition + 200);
 					}
 
 					if (building.equals(FullerLabs))
@@ -2625,6 +2708,11 @@ public class GPSapp extends Application {
                                         //System.out.println("X: " + directionsGroup.getLayoutX() + ", Y: " + directionsGroup.getLayoutY());
                                         directionsAreOut = true;
                                     }
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                 } catch (NullPointerException n){
                                     keyText.setText("No Path Found");
@@ -3646,6 +3734,55 @@ public class GPSapp extends Application {
 			canvas.relocate(-215, -65);
 			buttonRescale = 1 / 0.6421;
 			break;
+		case "Alden Hall SB":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-215, -85);
+			canvas.setScaleX(0.6385);
+			canvas.setScaleY(0.6385);
+			canvas.relocate(-215, -85);
+			buttonRescale = 1 / 0.6385;
+			break;
+		case "Alden Hall B":
+			imageView.setScaleX(0.5780);
+			imageView.setScaleY(0.5780);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5780);
+			NodePane.setScaleY(0.5780);
+			NodePane.relocate(-220, -58);
+			canvas.setScaleX(0.5780);
+			canvas.setScaleY(0.5780);
+			canvas.relocate(-220, -58);
+			buttonRescale = 1 / 0.5780;
+			break;
+		case "Alden Hall 1":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-245, -85);
+			canvas.setScaleX(0.6385);
+			canvas.setScaleY(0.6385);
+			canvas.relocate(-245, -85);
+			buttonRescale = 1 / 0.6385;
+			break;
+		case "Alden Hall 2":
+			imageView.setScaleX(0.6344);
+			imageView.setScaleY(6344);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6344);
+			NodePane.setScaleY(0.6344);
+			NodePane.relocate(-215, -75);
+			canvas.setScaleX(0.6344);
+			canvas.setScaleY(0.6344);
+			canvas.relocate(-215, -75);
+			buttonRescale = 1 / 0.6344;
+			break;
+			
 		// TODO ADD BUILDINGS
 		}
 		if (!mapSelector.getValue().getName().equals("Campus Map")) {
@@ -3665,7 +3802,14 @@ public class GPSapp extends Application {
 
 		final Group group = new Group(imageView, canvas, NodePane);
 		zoomPane = createZoomPane(group);
+
+		
+		
+		
+		
 		root.getChildren().add(zoomPane);
+				
+		
 
 		// Place the return to campus button on screen if youre not on the
 		// campus map
@@ -4324,6 +4468,45 @@ public class GPSapp extends Application {
 			}
 		});
 		NodePane.getChildren().add(higgins);
+		
+		Polygon aldenHall = new Polygon();
+		aldenHall.getPoints().addAll(new Double[] {
+
+				1242.0 - xOffset, 969.0 - yOffset, 1248.0 - xOffset, 970.0 - yOffset, 1250.0 - xOffset, 965.0 - yOffset,
+				1281.0 - xOffset, 970.0 - yOffset, 1280.0 - xOffset, 975.0 - yOffset, 1287.0 - xOffset, 978.0 - yOffset,
+				1274.0 - xOffset, 1056.0 - yOffset, 1288.0 - xOffset, 1060.0 - yOffset, 1285.0 - xOffset, 1083.0 - yOffset,
+				1263.0 - xOffset, 1079.0 - yOffset, 1263.0 - xOffset, 1087.0 - yOffset, 1231.0 - xOffset, 1083.0 - yOffset,
+				1231.0 - xOffset, 1076.0 - yOffset, 1214.0 - xOffset, 1070.0 - yOffset, 1218.0 - xOffset, 1048.0 - yOffset,
+				1229.0 - xOffset, 1050.0 - yOffset});
+
+		aldenHall.setFill(Color.TRANSPARENT);
+
+		aldenHall.setStroke(Color.TRANSPARENT);
+		aldenHall.setStrokeWidth(1.0);
+		aldenHall.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				keyText.setText("Alden Hall");
+				keyText.setFill(BuildingName);
+				aldenHall.setFill(new Color(1.0, 1.0, 0.0, 0.2));
+				BuildingRolledOver = AldenHall;
+			}
+		});
+		aldenHall.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				pause.play();
+			}
+		});
+		aldenHall.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				keyText.setText(" ");
+				keyText.setFill(key);
+				aldenHall.setFill(Color.TRANSPARENT);
+				BuildingRolledOver = NullBuilding;
+			}
+		});
+
+		NodePane.getChildren().add(aldenHall);
 
 		Tooltip.install(fullerLabs, tooltip);
 		Tooltip.install(cc, tooltip);
@@ -4337,6 +4520,9 @@ public class GPSapp extends Application {
 		Tooltip.install(salisburyLabs, tooltip);
 		Tooltip.install(washburnShops, tooltip);
 		Tooltip.install(westStreet, tooltip);
+		Tooltip.install(aldenHall, tooltip);
+		Tooltip.install(higgins, tooltip);
+		Tooltip.install(harrington, tooltip);
 
 		pause.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
@@ -4478,6 +4664,8 @@ public class GPSapp extends Application {
 			keyText.setFill(Color.WHITE);
 			keyText.setText("Your Start and Destination are the same");
 		}
+		
+		
 		fixUI();
 	}
 

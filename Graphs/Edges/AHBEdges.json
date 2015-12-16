@@ -1,0 +1,152 @@
+[
+ {
+  "distance": 1,
+  "from": "AHB:Point:1213:432",
+  "to": "AHB:Staircase:1213:411"
+ },
+ {
+  "distance": 3,
+  "from": "AHB:Point:1213:432",
+  "to": "AHB:Point:1213:485"
+ },
+ {
+  "distance": 4,
+  "from": "AHB:Staircase:1213:561",
+  "to": "AHB:Point:1213:485"
+ },
+ {
+  "distance": 3,
+  "from": "AHB:Point:1213:485",
+  "to": "AHB35"
+ },
+ {
+  "distance": 5,
+  "from": "AH Basement Men's Bathroom",
+  "to": "AHB:Point:1213:432"
+ },
+ {
+  "distance": 4,
+  "from": "AH Basement Women's Bathroom",
+  "to": "AHB:Staircase:1213:561"
+ },
+ {
+  "distance": 14,
+  "from": "AHB:Point:952:485",
+  "to": "AHB:Point:1213:485"
+ },
+ {
+  "distance": 2,
+  "from": "AHB:Point:952:485",
+  "to": "AHB30"
+ },
+ {
+  "distance": 1,
+  "from": "AHB:Point:952:485",
+  "to": "AHB:Point:930:485"
+ },
+ {
+  "distance": 3,
+  "from": "AHB06",
+  "to": "AHB:Point:930:485"
+ },
+ {
+  "distance": 14,
+  "from": "AHB:Point:930:485",
+  "to": "AHB:Point:655:485"
+ },
+ {
+  "distance": 2,
+  "from": "AHB:Point:655:485",
+  "to": "SHB29"
+ },
+ {
+  "distance": 10,
+  "from": "AHB:Point:476:485",
+  "to": "AHB:Point:655:485"
+ },
+ {
+  "distance": 5,
+  "from": "AHB:Point:476:485",
+  "to": "AHB19"
+ },
+ {
+  "distance": 12,
+  "from": "AHB:Point:476:485",
+  "to": "AHB:Point:476:715"
+ },
+ {
+  "distance": 4,
+  "from": "AHB:Point:476:715",
+  "to": "AHB:Point:476:793"
+ },
+ {
+  "distance": 3,
+  "from": "AHB:Point:476:793",
+  "to": "AHB:Staircase:476:852"
+ },
+ {
+  "distance": 4,
+  "from": "AHB:Point:476:793",
+  "to": "AHB:Staircase:423:852"
+ },
+ {
+  "distance": 14,
+  "from": "AHB:Point:214:715",
+  "to": "AHB:Point:476:715"
+ },
+ {
+  "distance": 3,
+  "from": "AHB17",
+  "to": "AHB:Point:214:715"
+ },
+ {
+  "distance": 6,
+  "from": "AHB:Point:476:372",
+  "to": "AHB:Point:476:485"
+ },
+ {
+  "distance": 3,
+  "from": "SHB28",
+  "to": "AHB:Point:476:372"
+ },
+ {
+  "distance": 5,
+  "from": "AHB:Point:476:279",
+  "to": "AHB:Point:476:372"
+ },
+ {
+  "distance": 5,
+  "from": "AHB:Point:476:279",
+  "to": "AHB:Point:476:190"
+ },
+ {
+  "distance": 2,
+  "from": "AHB:Elevator:438:190",
+  "to": "AHB:Point:476:190"
+ },
+ {
+  "distance": 4,
+  "from": "AHB37",
+  "to": "AHB:Point:476:190"
+ },
+ {
+  "distance": 13,
+  "from": "AHB:Point:222:279",
+  "to": "AHB:Point:476:279"
+ },
+ {
+  "distance": 3,
+  "from": "AHB21",
+  "to": "AHB:Point:222:279"
+ },
+ {
+  "distance": 15,
+  "from": "AHB:Staircase:476:852",
+  "to": "AHSB:Staircase:395:634"
+ },
+ {
+  "distance": 7,
+  "from": "AHSB:Elevator:321:103",
+  "to": "AHB:Elevator:438:190"
+ }
+]
