@@ -41,6 +41,8 @@ public class MyEvent {
     }
 
     public String getSummary(){
+    	if (this.summary == null)
+    		return " ";
         return this.summary;
     }
     public String setSummary(String s){
@@ -48,6 +50,8 @@ public class MyEvent {
     }
     
     public String getDescription(){
+    	if (this.description == null)
+    		return " ";
         return this.description;
     }
     public String setDescription(String s){
@@ -55,6 +59,8 @@ public class MyEvent {
     }
 
     public String getLocation(){
+    	if (this.location == null)
+    		return " ";
         return this.location;
     }
     public String setLocation(String s){
@@ -62,6 +68,8 @@ public class MyEvent {
     }
 
     public String getStartTime(){
+    	if (this.startTime == null)
+    		return " ";
         return this.startTime;
     }
     public String setStartTime(String s){
@@ -69,6 +77,8 @@ public class MyEvent {
     }
 
     public String getEndTime(){
+    	if (this.endTime == null)
+    		return " ";
         return this.endTime;
     }
     public String setEndTime(String s){
@@ -76,6 +86,8 @@ public class MyEvent {
     }
     
     public String getType(){
+    	if (this.type == null)
+    		return " ";
         return this.type;
     }
     public String setType(String s){
