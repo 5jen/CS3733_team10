@@ -232,3 +232,47 @@
     -fx-stroke: black;
     -fx-stroke-width: 1;
 }
+#dark {
+    -fx-outline: 0;
+    -fx-padding: 5px 12px;
+    -fx-display: block;
+    -fx-color: #333333;
+    -fx-font-weight: bold;
+    -fx-border-radius: 3px;
+    -fx-background: #333333; /* old browsers */
+
+}
+#dark:hover {
+    -fx-color: #4a4a4a;
+    -fx-background: #616161; /* old browsers */
+}
+#dark:active {
+    -fx-background-position: 0 top;
+    -fx-position: relative;
+    -fx-top: 1px;
+    -fx-color: #4a4a4a;
+    -fx-padding: 6px 12px 4px;
+    -fx-background: #20282D; /* old browsers */
+}
+
+#search-input {
+    -fx-padding: 0 5px 0 22px;
+    -fx-height: 50px;
+    -fx-color: #9fa8b0;
+    -fx-font-size: 12px;
+    -fx-line-height: 30px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 25px;
+    -fx-background: #20282D; /* old browsers */
+}
+#search-input:focus {-fx-outline: none;}
+#search-submit {
+    -fx-width: 13px;
+    -fx-height: 13px;
+    -fx-background: url(mag-glass.png) no-repeat;
+    -fx-display: block;
+    -fx-position: absolute;
+    -fx-left: 26px;
+    -fx-top: 10px;
+    -fx-text-indent: -9999em;
+}

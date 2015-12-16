@@ -12,7 +12,7 @@
 }
 
 #bevel-grey {
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(#f2f2f2, #d6d6d6),
         linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
         linear-gradient(#dddddd 0%, #f6f6f6 50%);
@@ -22,7 +22,7 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 #glass-grey {
-    -fx-background-color: 
+    -fx-background-color:
         #c3c4c4,
         linear-gradient(#d6d6d6 50%, white 100%),
         radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
@@ -32,7 +32,7 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 #shiny-orange {
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(#ffd65b, #e68400),
         linear-gradient(#ffef84, #f2ba44),
         linear-gradient(#ffea6a, #efaa22),
@@ -46,7 +46,7 @@
     -fx-padding: 10 20 10 20;
 }
 #dark-blue {
-    -fx-background-color: 
+    -fx-background-color:
         #090a0c,
         linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
         linear-gradient(#20262b, #191d22),
@@ -58,7 +58,6 @@
     -fx-font-family: "Arial";
     -fx-text-fill: linear-gradient(white, #d0d0d0);
     -fx-font-size: 12px;
-    -fx-padding: 10 20 10 20;
 }
 #dark-blue Text {
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );
@@ -67,7 +66,7 @@
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
         #9d4024,
         #d86e3a,
@@ -77,7 +76,7 @@
     -fx-font-size: 1.1em;
 }
 #record-sales:hover {
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
         #9d4024,
         #d86e3a,
@@ -92,7 +91,7 @@
     -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }
 #rich-blue {
-    -fx-background-color: 
+    -fx-background-color:
         #000000,
         linear-gradient(#7ebcea, #2f4b8f),
         linear-gradient(#426ab7, #263e75),
@@ -107,7 +106,7 @@
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
 }
 #big-yellow {
-    -fx-background-color: 
+    -fx-background-color:
         #ecebe9,
         rgba(0,0,0,0.05),
         linear-gradient(#dcca8a, #c7a740),
@@ -128,7 +127,7 @@
     -fx-background-color: linear-gradient(#98a8bd 0%, #8195af 25%, #6d86a4 100%);
 }
 #iphone {
-    -fx-background-color: 
+    -fx-background-color:
         #a6b5c9,
         linear-gradient(#303842 0%, #3e5577 20%, #375074 100%),
         linear-gradient(#768aa5 0%, #849cbb 5%, #5877a2 50%, #486a9a 51%, #4a6c9b 100%);
@@ -144,7 +143,7 @@
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , -1 );
 }
 #ipad-dark-grey {
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
         linear-gradient(#020b02, #3a3a3a),
         linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
@@ -163,7 +162,7 @@
     -fx-effect: dropshadow( one-pass-box , black , 0, 0.0 , 0 , -1 );
 }
 #ipad-grey {
-    -fx-background-color: 
+    -fx-background-color:
         linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
         linear-gradient(#020b02, #3a3a3a),
         linear-gradient(#b9b9b9 0%, #c2c2c2 20%, #afafaf 80%, #c8c8c8 100%),
@@ -181,7 +180,7 @@
     -fx-effect: dropshadow( one-pass-box , white , 0, 0.0 , 0 , 1 );
 }
 #lion-default {
-    -fx-background-color: 
+    -fx-background-color:
         rgba(0,0,0,0.08),
         linear-gradient(#5a61af, #51536d),
         linear-gradient(#e4fbff 0%,#cee6fb 10%, #a5d3fb 50%, #88c6fb 51%, #d5faff 100%);
@@ -192,7 +191,7 @@
     -fx-font-size: 14px;
 }
 #lion {
-    -fx-background-color: 
+    -fx-background-color:
         rgba(0,0,0,0.08),
         linear-gradient(#9a9a9a, #909090),
         linear-gradient(white 0%, #f3f3f3 50%, #ececec 51%, #f2f2f2 100%);
@@ -203,7 +202,7 @@
     -fx-font-size: 14px;
 }
 #windows7-default {
-    -fx-background-color: 
+    -fx-background-color:
         #3c7fb1,
         linear-gradient(#fafdfe, #e8f5fc),
         linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
@@ -214,7 +213,7 @@
     -fx-font-size: 14px;
 }
 #windows7 {
-    -fx-background-color: 
+    -fx-background-color:
         #707070,
         linear-gradient(#fcfcfc, #f3f3f3),
         linear-gradient(#f2f2f2 0%, #ebebeb 49%, #dddddd 50%, #cfcfcf 100%);
@@ -223,4 +222,49 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
+}
+
+#dark {
+    -fx-outline: 0;
+    -fx-padding: 5px 12px;
+    -fx-display: block;
+    -fx-color: #333333;
+    -fx-font-weight: bold;
+    -fx-border-radius: 3px;
+    -fx-background: #333333; /* old browsers */
+
+}
+#dark:hover {
+    -fx-color: #4a4a4a;
+    -fx-background: #616161; /* old browsers */
+}
+#dark:active {
+    -fx-background-position: 0 top;
+    -fx-position: relative;
+    -fx-top: 1px;
+    -fx-color: #4a4a4a;
+    -fx-padding: 6px 12px 4px;
+    -fx-background: #20282D; /* old browsers */
+}
+
+#search-input {
+    -fx-padding: 0 5px 0 22px;
+    -fx-height: 30px;
+    -fx-color: #9fa8b0;
+    -fx-font-size: 12px;
+    -fx-line-height: 30px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 25px;
+    -fx-background: #20282D; /* old browsers */
+}
+#search-input:focus {-fx-outline: none;}
+#search-submit {
+    -fx-width: 13px;
+    -fx-height: 13px;
+    -fx-background: url(mag-glass.png) no-repeat;
+    -fx-display: block;
+    -fx-position: absolute;
+    -fx-left: 26px;
+    -fx-top: 10px;
+    -fx-text-indent: -9999em;
 }

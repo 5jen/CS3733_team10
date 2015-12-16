@@ -1,0 +1,327 @@
+[
+ {
+  "distance": 5,
+  "from": "SL1:Transition Point:929:16",
+  "to": "SL1:Transition Point:929:108"
+ },
+ {
+  "distance": 7,
+  "from": "SL1:Point:929:216",
+  "to": "SL1:Transition Point:929:108"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:929:216",
+  "to": "SL1:Point:929:274"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Staircase:929:336",
+  "to": "SL1:Point:929:274"
+ },
+ {
+  "distance": 7,
+  "from": "SL1:Point:1037:274",
+  "to": "SL1:Point:929:274"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:866:274",
+  "to": "SL1:Point:929:274"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:866:213",
+  "to": "SL1:Point:866:274"
+ },
+ {
+  "distance": 11,
+  "from": "SL1:Point:684:274",
+  "to": "SL1:Point:866:274"
+ },
+ {
+  "distance": 19,
+  "from": "SL1:Point:872:587",
+  "to": "SL1:Point:866:274"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:684:274",
+  "to": "SL1:Point:684:319"
+ },
+ {
+  "distance": 16,
+  "from": "SL1:Point:684:587",
+  "to": "SL1:Point:684:319"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:684:587",
+  "to": "SL1:Point:734:587"
+ },
+ {
+  "distance": 3,
+  "from": "SL First Floor Men's Bathroom",
+  "to": "SL1:Point:734:587"
+ },
+ {
+  "distance": 3,
+  "from": "SL105",
+  "to": "SL1:Point:684:587"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:634:587",
+  "to": "SL1:Point:684:587"
+ },
+ {
+  "distance": 5,
+  "from": "SL1:Point:634:587",
+  "to": "SL1:Elevator:634:515"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:634:587",
+  "to": "SL1:Point:566:587"
+ },
+ {
+  "distance": 5,
+  "from": "SL1:Point:566:587",
+  "to": "SL1:Point:489:587"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:489:587",
+  "to": "SL1:Transition Point:460:526"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:489:587",
+  "to": "SL133"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:390:575",
+  "to": "SL133"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:390:575",
+  "to": "SL135"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:489:587",
+  "to": "SL104"
+ },
+ {
+  "distance": 11,
+  "from": "SL1:Point:566:587",
+  "to": "SL1:Point:566:770"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Staircase:615:770",
+  "to": "SL1:Point:566:770"
+ },
+ {
+  "distance": 6,
+  "from": "SL1:Point:566:770",
+  "to": "SL1:Transition Point:591:852"
+ },
+ {
+  "distance": 5,
+  "from": "SL1:Transition Point:591:852",
+  "to": "SL1:Staircase:615:770"
+ },
+ {
+  "distance": 9,
+  "from": "SL1:Point:872:587",
+  "to": "SL1:Point:734:587"
+ },
+ {
+  "distance": 6,
+  "from": "SL1:Point:872:587",
+  "to": "SL1:Point:971:587"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:1037:587",
+  "to": "SL1:Point:971:587"
+ },
+ {
+  "distance": 8,
+  "from": "SL1:Point:1037:587",
+  "to": "SL115"
+ },
+ {
+  "distance": 11,
+  "from": "SL1:Point:1037:274",
+  "to": "SL115"
+ },
+ {
+  "distance": 4,
+  "from": "SL1:Point:971:587",
+  "to": "SL1:Point:971:648"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:971:648",
+  "to": "SL1:Point:1008:648"
+ },
+ {
+  "distance": 7,
+  "from": "SL1:Point:1008:648",
+  "to": "SL1:Point:1118:648"
+ },
+ {
+  "distance": 5,
+  "from": "SL1:Point:1118:648",
+  "to": "SL112"
+ },
+ {
+  "distance": 10,
+  "from": "SL1:Point:1290:740",
+  "to": "SL112"
+ },
+ {
+  "distance": 1,
+  "from": "SL1:Point:1290:740",
+  "to": "SL113"
+ },
+ {
+  "distance": 6,
+  "from": "SL1:Point:1008:648",
+  "to": "SL1:Point:1008:755"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:971:648",
+  "to": "SL106"
+ },
+ {
+  "distance": 1,
+  "from": "SL1:Point:1008:755",
+  "to": "SL109"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:1008:755",
+  "to": "SL1:Point:970:755"
+ },
+ {
+  "distance": 1,
+  "from": "SL107",
+  "to": "SL1:Point:970:755"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:866:213",
+  "to": "SL108"
+ },
+ {
+  "distance": 3,
+  "from": "SL101",
+  "to": "SL1:Point:684:319"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:635:274",
+  "to": "SL1:Point:684:274"
+ },
+ {
+  "distance": 8,
+  "from": "SL1:Point:635:274",
+  "to": "SL1:Transition Point:513:274"
+ },
+ {
+  "distance": 9,
+  "from": "SL1:Point:684:274",
+  "to": "SL125"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:638:130",
+  "to": "SL125"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:638:130",
+  "to": "SL124"
+ },
+ {
+  "distance": 8,
+  "from": "SL125",
+  "to": "SL1:Point:804:130"
+ },
+ {
+  "distance": 1,
+  "from": "SL1:Transition Point:804:108",
+  "to": "SL1:Point:804:130"
+ },
+ {
+  "distance": 8,
+  "from": "SL1:Transition Point:804:108",
+  "to": "SL1:Transition Point:929:108"
+ },
+ {
+  "distance": 2,
+  "from": "SL129",
+  "to": "SL1:Transition Point:804:108"
+ },
+ {
+  "distance": 4,
+  "from": "SL121",
+  "to": "SL1:Point:929:216"
+ },
+ {
+  "distance": 2,
+  "from": "SL121",
+  "to": "SL1:Point:1028:216"
+ },
+ {
+  "distance": 5,
+  "from": "SL1:Point:1028:141",
+  "to": "SL1:Point:1028:216"
+ },
+ {
+  "distance": 1,
+  "from": "SL1:Point:1028:141",
+  "to": "SL121C"
+ },
+ {
+  "distance": 3,
+  "from": "SL1:Point:1028:141",
+  "to": "SL1:Point:1028:90"
+ },
+ {
+  "distance": 2,
+  "from": "SL121B",
+  "to": "SL1:Point:1028:90"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:1028:90",
+  "to": "SL121A"
+ },
+ {
+  "distance": 28,
+  "from": "SLB:Staircase:538:513",
+  "to": "SL1:Staircase:929:336"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:635:236",
+  "to": "SL1:Point:635:274"
+ },
+ {
+  "distance": 2,
+  "from": "SL1:Point:635:236",
+  "to": "SL First Floor Women's Bathroom"
+ },
+ {
+  "distance": 7,
+  "from": "SL1:Staircase:514:236",
+  "to": "SL1:Point:635:236"
+ }
+]

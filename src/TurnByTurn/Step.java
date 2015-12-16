@@ -27,6 +27,10 @@ public class Step {
         return message;
     }
 
+    public String getBaseMessage(){
+        return message;
+    }
+
     public double getDistance(){
         return this.distance;
     }
@@ -48,7 +52,7 @@ public class Step {
         String distance;
         if (this.distance == 0) {
         	distance = "";
-        } else 
+        } else
         	distance = ((int) this.distance)+" ft";
         int dLength = distance.length();
         int nSpace  = 26- mLength- dLength;

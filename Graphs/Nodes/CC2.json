@@ -694,7 +694,7 @@
   "isWalkable": true,
   "globalX": 1195,
   "floorMap": "Campus Center 2",
-  "name": "CC2:Point:358:268",
+  "name": "CC233",
   "isPlace": true,
   "type": "Point",
   "valz": 0,
@@ -1142,5 +1142,31 @@
   "valz": 0,
   "building": "Campus Center",
   "valy": 560
+ },
+ {
+  "valx": 176,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1198,
+  "floorMap": "Campus Center 2",
+  "name": "CC2:Place:176:345",
+  "isPlace": false,
+  "type": "Place",
+  "valz": 0,
+  "building": "Campus Center",
+  "valy": 345
+ },
+ {
+  "valx": 177,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1196,
+  "floorMap": "Campus Center 2",
+  "name": "CC2:Water Fountain:177:319",
+  "isPlace": true,
+  "type": "Water Fountain",
+  "valz": 0,
+  "building": "Campus Center",
+  "valy": 319
  }
 ]

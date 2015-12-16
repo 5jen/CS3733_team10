@@ -315,7 +315,7 @@
   "to": "BH105A"
  },
  {
-  "distance": 67,
+  "distance": 68,
   "from": "BH2:Staircase:1345:500",
   "to": "BH1:Point:1348:523"
  },
@@ -325,8 +325,13 @@
   "to": "BH1:Transition Point:593:593"
  },
  {
-  "distance": 5,
+  "distance": 11,
   "from": "BH1:Point:552:429",
   "to": "BHB:Staircase:416:471"
+ },
+ {
+  "distance": 31,
+  "from": "BHB:Elevator:572:267",
+  "to": "BH1:Elevator:600:302"
  }
 ]

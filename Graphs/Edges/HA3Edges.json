@@ -1,0 +1,247 @@
+[
+ {
+  "distance": 2,
+  "from": "HA3:Point:1445:189",
+  "to": "HA3:Staircase:1417:189"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:1445:189",
+  "to": "HA3:Point:1445:159"
+ },
+ {
+  "distance": 3,
+  "from": "HAR308",
+  "to": "HA3:Point:1445:159"
+ },
+ {
+  "distance": 2,
+  "from": "HAR309",
+  "to": "HA3:Point:1445:159"
+ },
+ {
+  "distance": 3,
+  "from": "HAR310",
+  "to": "HA3:Point:1445:159"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:1505:189",
+  "to": "HA3:Point:1445:189"
+ },
+ {
+  "distance": 6,
+  "from": "HA3:Point:1505:189",
+  "to": "HA3:Point:1505:307"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:1446:307",
+  "to": "HA3:Point:1505:307"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:1446:307",
+  "to": "HAR312A"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:1446:307",
+  "to": "HAR312E"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:1386:287",
+  "to": "HAR312E"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:1386:287",
+  "to": "HAR312F"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:1446:307",
+  "to": "HAR312B"
+ },
+ {
+  "distance": 4,
+  "from": "HA3:Point:1505:307",
+  "to": "HA3:Point:1505:386"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:1447:386",
+  "to": "HA3:Point:1505:386"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:1447:386",
+  "to": "HAR312B"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:1447:386",
+  "to": "HAR312D"
+ },
+ {
+  "distance": 5,
+  "from": "HA3:Point:1505:386",
+  "to": "HA3:Point:1505:474"
+ },
+ {
+  "distance": 3,
+  "from": "HAR318",
+  "to": "HA3:Point:1505:474"
+ },
+ {
+  "distance": 2,
+  "from": "HAR314",
+  "to": "HA3:Point:1505:474"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:1381:366",
+  "to": "HA3:Staircase:1400:390"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:1381:366",
+  "to": "HA3:Point:1323:366"
+ },
+ {
+  "distance": 18,
+  "from": "HA3:Point:1323:23",
+  "to": "HA3:Point:1323:366"
+ },
+ {
+  "distance": 13,
+  "from": "HA3:Point:1323:23",
+  "to": "HA3:Point:1078:23"
+ },
+ {
+  "distance": 41,
+  "from": "HA3:Point:313:23",
+  "to": "HA3:Point:1078:23"
+ },
+ {
+  "distance": 13,
+  "from": "HA3:Point:313:23",
+  "to": "HA3:Point:78:23"
+ },
+ {
+  "distance": 14,
+  "from": "HA3:Point:78:280",
+  "to": "HA3:Point:78:23"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:78:280",
+  "to": "HA3:Staircase:24:280"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:78:323",
+  "to": "HA3:Point:78:280"
+ },
+ {
+  "distance": 3,
+  "from": "HA3:Point:21:323",
+  "to": "HA3:Point:78:323"
+ },
+ {
+  "distance": 7,
+  "from": "HA3:Point:21:456",
+  "to": "HA3:Point:21:323"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Point:21:456",
+  "to": "HA3:Point:55:456"
+ },
+ {
+  "distance": 2,
+  "from": "HAR304",
+  "to": "HA3:Point:55:456"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:55:456",
+  "to": "HA3:Point:76:456"
+ },
+ {
+  "distance": 15,
+  "from": "HA3:Point:76:739",
+  "to": "HA3:Point:76:456"
+ },
+ {
+  "distance": 13,
+  "from": "HA3:Point:76:739",
+  "to": "HA3:Point:317:739"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:346:739",
+  "to": "HA3:Point:317:739"
+ },
+ {
+  "distance": 38,
+  "from": "HA3:Point:313:23",
+  "to": "HA3:Point:317:739"
+ },
+ {
+  "distance": 7,
+  "from": "HA3:Staircase:346:858",
+  "to": "HA3:Point:346:739"
+ },
+ {
+  "distance": 6,
+  "from": "HA3:Staircase:1056:864",
+  "to": "HA3:Point:1056:739"
+ },
+ {
+  "distance": 1,
+  "from": "HA3:Point:1056:739",
+  "to": "HA3:Point:1076:739"
+ },
+ {
+  "distance": 38,
+  "from": "HA3:Point:346:739",
+  "to": "HA3:Point:1056:739"
+ },
+ {
+  "distance": 38,
+  "from": "HA3:Point:1076:739",
+  "to": "HA3:Point:1078:23"
+ },
+ {
+  "distance": 13,
+  "from": "HA3:Point:1076:739",
+  "to": "HA3:Point:1323:739"
+ },
+ {
+  "distance": 20,
+  "from": "HA3:Point:1323:739",
+  "to": "HA3:Point:1323:366"
+ },
+ {
+  "distance": 10,
+  "from": "HA2:Staircase:74:215",
+  "to": "HA3:Staircase:24:280"
+ },
+ {
+  "distance": 10,
+  "from": "HA2:Staircase:1108:864",
+  "to": "HA3:Staircase:1056:864"
+ },
+ {
+  "distance": 11,
+  "from": "HA2:Staircase:1400:496",
+  "to": "HA3:Staircase:1400:390"
+ },
+ {
+  "distance": 2,
+  "from": "HA3:Staircase:346:858",
+  "to": "HA2:Staircase:292:864"
+ }
+]

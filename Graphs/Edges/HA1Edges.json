@@ -1,0 +1,237 @@
+[
+ {
+  "distance": 18,
+  "from": "HA1:Point:283:472",
+  "to": "HA1:Point:283:141"
+ },
+ {
+  "distance": 3,
+  "from": "HA1:Point:283:472",
+  "to": "HA1:Point:221:472"
+ },
+ {
+  "distance": 4,
+  "from": "HA1:Point:221:396",
+  "to": "HA1:Point:221:472"
+ },
+ {
+  "distance": 1,
+  "from": "HA1:Point:221:396",
+  "to": "HAR107"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:148:396",
+  "to": "HAR105"
+ },
+ {
+  "distance": 4,
+  "from": "HA1:Point:221:396",
+  "to": "HA1:Point:148:396"
+ },
+ {
+  "distance": 3,
+  "from": "HA1:Point:85:396",
+  "to": "HA1:Point:148:396"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:85:396",
+  "to": "HA1:Staircase:85:358"
+ },
+ {
+  "distance": 4,
+  "from": "HA1:Point:85:396",
+  "to": "HA1:Point:85:471"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:33:471",
+  "to": "HA1:Point:85:471"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:33:471",
+  "to": "HAR106"
+ },
+ {
+  "distance": 21,
+  "from": "HA1:Point:283:472",
+  "to": "HA1:Point:283:878"
+ },
+ {
+  "distance": 8,
+  "from": "HA1:Point:137:878",
+  "to": "HA1:Point:283:878"
+ },
+ {
+  "distance": 8,
+  "from": "HA1:Point:137:878",
+  "to": "HA1:Point:283:878"
+ },
+ {
+  "distance": 8,
+  "from": "HA1:Point:137:727",
+  "to": "HA1:Point:137:878"
+ },
+ {
+  "distance": 3,
+  "from": "HA1:Point:137:727",
+  "to": "HA1:Point:137:672"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:137:620",
+  "to": "HA1:Point:137:672"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:137:620",
+  "to": "HAR111S"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:137:620",
+  "to": "HAR111A"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:137:672",
+  "to": "HAR111C"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:137:727",
+  "to": "HAR111"
+ },
+ {
+  "distance": 2,
+  "from": "HAR111D",
+  "to": "HA1:Point:137:727"
+ },
+ {
+  "distance": 10,
+  "from": "HA1:Point:283:878",
+  "to": "HA1:Point:471:878"
+ },
+ {
+  "distance": 4,
+  "from": "HA1:Point:471:958",
+  "to": "HA1:Point:471:878"
+ },
+ {
+  "distance": 8,
+  "from": "HA1:Point:471:958",
+  "to": "HA1:Staircase:322:958"
+ },
+ {
+  "distance": 14,
+  "from": "HA1:Point:471:958",
+  "to": "HAR115"
+ },
+ {
+  "distance": 15,
+  "from": "HA1:Point:1002:958",
+  "to": "HAR115"
+ },
+ {
+  "distance": 4,
+  "from": "HA1:Point:1002:958",
+  "to": "HA1:Point:1002:878"
+ },
+ {
+  "distance": 6,
+  "from": "HA1:Point:1002:958",
+  "to": "HA1:Point:1121:958"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Staircase:1100:1010",
+  "to": "HA1:Point:1121:958"
+ },
+ {
+  "distance": 3,
+  "from": "HA1:Staircase:1142:1013",
+  "to": "HA1:Point:1121:958"
+ },
+ {
+  "distance": 9,
+  "from": "HA1:Point:1162:878",
+  "to": "HA1:Point:1002:878"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:1162:878",
+  "to": "HAR112"
+ },
+ {
+  "distance": 14,
+  "from": "HA1:Point:1204:607",
+  "to": "HAR112"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Point:1162:607",
+  "to": "HA1:Point:1204:607"
+ },
+ {
+  "distance": 14,
+  "from": "HA1:Point:1162:607",
+  "to": "HA1:Point:1162:878"
+ },
+ {
+  "distance": 6,
+  "from": "HA1:Point:1204:607",
+  "to": "HA1:Point:1204:506"
+ },
+ {
+  "distance": 13,
+  "from": "HA1:Point:1204:506",
+  "to": "HA1:Point:1448:506"
+ },
+ {
+  "distance": 1,
+  "from": "HA1:Staircase:1428:530",
+  "to": "HA1:Point:1448:506"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Staircase:1472:530",
+  "to": "HA1:Point:1448:506"
+ },
+ {
+  "distance": 19,
+  "from": "HA1:Point:1204:141",
+  "to": "HA1:Point:1204:506"
+ },
+ {
+  "distance": 49,
+  "from": "HA1:Point:1204:141",
+  "to": "HA1:Point:283:141"
+ },
+ {
+  "distance": 2,
+  "from": "HA1:Staircase:24:358",
+  "to": "HA1:Point:54:358"
+ },
+ {
+  "distance": 1,
+  "from": "HA1:Staircase:85:358",
+  "to": "HA1:Point:54:358"
+ },
+ {
+  "distance": 12,
+  "from": "HAB:Staircase:172:368",
+  "to": "HA1:Staircase:24:358"
+ },
+ {
+  "distance": 12,
+  "from": "HAB:Staircase:1214:983",
+  "to": "HA1:Staircase:1100:1010"
+ },
+ {
+  "distance": 2,
+  "from": "HAB:Staircase:1466:503",
+  "to": "HA1:Staircase:1472:530"
+ }
+]

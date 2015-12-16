@@ -364,19 +364,6 @@
   "valy": 519
  },
  {
-  "valx": 140,
-  "globalY": 664,
-  "isWalkable": true,
-  "globalX": 1198,
-  "floorMap": "Campus Center 1",
-  "name": "CC1:Point:140:344",
-  "isPlace": false,
-  "type": "Point",
-  "valz": -10,
-  "building": "Campus Center",
-  "valy": 344
- },
- {
   "valx": 221,
   "globalY": 658,
   "isWalkable": true,
@@ -759,7 +746,7 @@
   "isWalkable": true,
   "globalX": 1235,
   "floorMap": "Campus Center 1",
-  "name": "CC1:Point:1082:777",
+  "name": "CC150",
   "isPlace": true,
   "type": "Point",
   "valz": -10,
@@ -941,7 +928,7 @@
   "isWalkable": true,
   "globalX": 1201,
   "floorMap": "Campus Center 1",
-  "name": "CC1:Point:114:394",
+  "name": "Campus Center 1 Women's Bathroom",
   "isPlace": true,
   "type": "Women's Bathroom",
   "valz": -10,
@@ -1259,5 +1246,57 @@
   "valz": -10,
   "building": "Campus Center",
   "valy": 470
+ },
+ {
+  "valx": 180,
+  "globalY": 660,
+  "isWalkable": true,
+  "globalX": 1189,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Vending Machine:180:192",
+  "isPlace": true,
+  "type": "Vending Machine",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 192
+ },
+ {
+  "valx": 176,
+  "globalY": 662,
+  "isWalkable": true,
+  "globalX": 1197,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Water Fountain:176:327",
+  "isPlace": true,
+  "type": "Water Fountain",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 327
+ },
+ {
+  "valx": 145,
+  "globalY": 664,
+  "isWalkable": true,
+  "globalX": 1198,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Point:145:344",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 344
+ },
+ {
+  "valx": 181,
+  "globalY": 661,
+  "isWalkable": true,
+  "globalX": 1198,
+  "floorMap": "Campus Center 1",
+  "name": "CC1:Point:181:344",
+  "isPlace": false,
+  "type": "Point",
+  "valz": -10,
+  "building": "Campus Center",
+  "valy": 344
  }
 ]

@@ -2,6 +2,7 @@ package maptool;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import node.*;
@@ -49,6 +51,10 @@ public class MapTool extends Application {
     double startX, startY, startZ, endX, endY, endZ = 0.0, buttonRescale = 1 / 0.75;
     int k = 0; // Set Max zoom Variable
     boolean disableKey = false;
+    double mouseYposition, mouseXposition;
+    double stageInitialWidthDifference = 100;
+    double stageInitialHeightDifference = 100;
+    ScrollPane scrollPane = new ScrollPane();
 
     // Buildings
     // TODO Add more buildings
@@ -61,6 +67,13 @@ public class MapTool extends Application {
     Building ProjectCenter = new Building("Project Center");
     Building StrattonHall = new Building("Stratton Hall");
     Building FullerLabs = new Building("Fuller Labs");
+    Building SalisburyLabs = new Building("Salisbury Labs");
+    Building WestStreet = new Building("157 West Street");
+    Building WashburnShops = new Building("Washburn Shops");
+    Building RecCenter = new Building("Rec Center");
+	Building Harrington = new Building("Harrington Auditorium");
+	Building HigginsLabs = new Building("Higgins Labs");
+	Building AldenHall = new Building("Alden Hall");
 
     //Map Buildings with their content
     Map CampusMap = new Map("Campus Map", "CampusMap", "CS3733_Graphics/CampusMap.png", "Graphs/Nodes/CampusMap.json", "Graphs/Edges/CampusMapEdges.json", 0, 0, 0, 2.6053, "");
@@ -105,12 +118,66 @@ public class MapTool extends Application {
     Map FullerLabs1 = new Map("Fuller Labs 1", "FL", "CS3733_Graphics/FL1.png", "Graphs/Nodes/FL1.json", "Graphs/Edges/FL1Edges.json", 1.099, 1636, 497, 0.169, "1");
     Map FullerLabs2 = new Map("Fuller Labs 2", "FL", "CS3733_Graphics/FL2.png", "Graphs/Nodes/FL2.json", "Graphs/Edges/FL2Edges.json", 1.099, 1636, 497, 0.168, "2");
     Map FullerLabs3 = new Map("Fuller Labs 3", "FL", "CS3733_Graphics/FL3.png", "Graphs/Nodes/FL3.json", "Graphs/Edges/FL3Edges.json", 1.099, 1636, 497, 0.1661, "3");
+   
+    //TODO Add rest of maps
+    //TODO
+    //TODO
+    Map SalisburyLabsB = new Map("Salisbury Labs B", "SL", "CS3733_Graphics/SLB.png", "Graphs/Nodes/SLB.json",
+			"Graphs/Edges/SLBEdges.json", -1.396, 1438, 717, 0.1636, "B");
+	Map SalisburyLabs1 = new Map("Salisbury Labs 1", "SL", "CS3733_Graphics/SL1.png", "Graphs/Nodes/SL1.json",
+			"Graphs/Edges/SL1Edges.json", -1.396, 1438, 717, 0.1636, "1");
+	Map SalisburyLabs2 = new Map("Salisbury Labs 2", "SL", "CS3733_Graphics/SL2.png", "Graphs/Nodes/SL2.json",
+			"Graphs/Edges/SL2Edges.json", -1.396, 1438, 717, 0.1636, "2");
+    Map SalisburyLabs3 = new Map("Salisbury Labs 3", "SL", "CS3733_Graphics/SL3.png", "Graphs/Nodes/SL3.json", "Graphs/Edges/SL3Edges.json", -1.396, 1438, 717, 0.1636, "3");
+    Map SalisburyLabs4 = new Map("Salisbury Labs 4", "SL", "CS3733_Graphics/SL4.png", "Graphs/Nodes/SL4.json", "Graphs/Edges/SL4Edges.json", -1.396, 1438, 717, 0.1629, "4");
+    
+    Map WestStreetB = new Map("157 West Street B", "West", "CS3733_Graphics/WestB.png", "Graphs/Nodes/WestB.json", "Graphs/Edges/WestBEdges.json", -1.413, 1306, 1290, 0.0547, "B");
+    Map WestStreet1 = new Map("157 West Street 1", "West", "CS3733_Graphics/West1.png", "Graphs/Nodes/West1.json", "Graphs/Edges/West1Edges.json", -1.413, 1306, 1290, 0.0483, "1");
+    Map WestStreet2 = new Map("157 West Street 2", "West", "CS3733_Graphics/West2.png", "Graphs/Nodes/West2.json", "Graphs/Edges/West2Edges.json", -1.413, 1306, 1290, 0.0532, "2");
 
+    Map WashburnShopsB = new Map("Washburn Shops B", "WS", "CS3733_Graphics/WSB.png", "Graphs/Nodes/WSB.json",
+			"Graphs/Edges/WSBEdges.json", 0.157, 1422, 903, 0.1661, "B");
+	Map WashburnShops1 = new Map("Washburn Shops 1", "WS", "CS3733_Graphics/WS1.png", "Graphs/Nodes/WS1.json",
+			"Graphs/Edges/WS1Edges.json", 0.157, 1422, 903, 0.1661, "1");
+	Map WashburnShops2 = new Map("Washburn Shops 2", "WS", "CS3733_Graphics/WS2.png", "Graphs/Nodes/WS2.json",
+			"Graphs/Edges/WS2Edges.json", 0.157, 1422, 903, 0.1661, "2");
+	Map WashburnShops3 = new Map("Washburn Shops 3", "WS", "CS3733_Graphics/WS3.png", "Graphs/Nodes/WS3.json",
+			"Graphs/Edges/WS3Edges.json", 0.157, 1422, 903, 0.1661, "3");
+	
+	Map HarringtonB = new Map("Harrington Auditorium B", "HA", "CS3733_Graphics/HAB.png", "Graphs/Nodes/HAB.json",
+			"Graphs/Edges/HABEdges.json", 0.140, 952, 641, 0.1400, "B");
+	Map Harrington1 = new Map("Harrington Auditorium 1", "HA", "CS3733_Graphics/HA1.png", "Graphs/Nodes/HA1.json",
+			"Graphs/Edges/HA1Edges.json", 0.140, 952, 641, 0.1400, "1");
+	Map Harrington2 = new Map("Harrington Auditorium 2", "HA", "CS3733_Graphics/HA2.png", "Graphs/Nodes/HA2.json",
+			"Graphs/Edges/HA2Edges.json", 0.140, 952, 641, 0.1400, "2");
+	Map Harrington3 = new Map("Harrington Auditorium 3", "HA", "CS3733_Graphics/HA3.png", "Graphs/Nodes/HA3.json",
+			"Graphs/Edges/HA3Edges.json", 0.140, 952, 641, 0.1400, "3");
+	
+	Map HigginsLabsB = new Map("Higgins Labs B", "HL", "CS3733_Graphics/HLB.png", "Graphs/Nodes/HLB.json",
+			"Graphs/Edges/HLBEdges.json", 0.174, 1237, 843, 0.1400, "B");
+	Map HigginsLabs1 = new Map("Higgins Labs 1", "HL", "CS3733_Graphics/HL1.png", "Graphs/Nodes/HL1.json",
+			"Graphs/Edges/HL1Edges.json", 0.174, 1237, 843, 0.1400, "1");
+	Map HigginsLabs2 = new Map("Higgins Labs 2", "HL", "CS3733_Graphics/HL2.png", "Graphs/Nodes/HL2.json",
+			"Graphs/Edges/HL2Edges.json", 0.174, 1237, 843, 0.1400, "2");
+	Map HigginsLabs3 = new Map("Higgins Labs 3", "HL", "CS3733_Graphics/HL3.png", "Graphs/Nodes/HL3.json",
+			"Graphs/Edges/HL3Edges.json", 0.174, 1237, 843, 0.1400, "3");
+	
+	Map AldenHallSB = new Map("Alden Hall SB", "AH", "CS3733_Graphics/AHSB.png", "Graphs/Nodes/AHSB.json",
+			"Graphs/Edges/AHSBEdges.json", -1.396, 1212, 1077, 0.1400, "SB");
+	Map AldenHallB = new Map("Alden Hall B", "AH", "CS3733_Graphics/AHB.png", "Graphs/Nodes/AHB.json",
+			"Graphs/Edges/AHBEdges.json", -1.396, 1212, 1077, 0.1400, "B");
+	Map AldenHall1 = new Map("Alden Hall 1", "AH", "CS3733_Graphics/AH1.png", "Graphs/Nodes/AH1.json",
+			"Graphs/Edges/AH1Edges.json", -1.396, 1212, 1077, 0.1400, "1");
+	Map AldenHall2 = new Map("Alden Hall 2", "AH", "CS3733_Graphics/AH2.png", "Graphs/Nodes/AH2.json",
+			"Graphs/Edges/AH2Edges.json", -1.396, 1212, 1077, 0.1400, "2");
+	
     
     public static void main(String[] args) {
         launch(args);
     }
 
+    
+    
     JsonParser json = new JsonParser();
     LinkedList<Node> nodeList = JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json");
     LinkedList<EdgeDataConversion> edgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
@@ -170,12 +237,17 @@ public class MapTool extends Application {
     ImageView imageView = new ImageView();
 
     Graph globalGraph = new Graph();
+    HashMap<String, Node> globalNodeHashMap = new HashMap<>();
     LinkedList<Node> globalNodeList = new LinkedList<Node>();
 
     @Override
     public void start(Stage primaryStage) {
     	
     	
+    	File iconFile = new File("CS3733_Graphics/PI.png");
+        Image iconImage = new Image(iconFile.toURI().toString());
+		primaryStage.getIcons().add(iconImage);
+		primaryStage.setTitle("PiEditor");
     	
         //Add Maps to buildings
         Campus.addMap(CampusMap);
@@ -220,7 +292,39 @@ public class MapTool extends Application {
         FullerLabs.addMap(FullerLabs1);
         FullerLabs.addMap(FullerLabs2);
         FullerLabs.addMap(FullerLabs3);
+        
+        
+        //TODO Add rest of maps
+        SalisburyLabs.addMap(SalisburyLabsB);
+		SalisburyLabs.addMap(SalisburyLabs1);
+		SalisburyLabs.addMap(SalisburyLabs2);
+        SalisburyLabs.addMap(SalisburyLabs3);
+        SalisburyLabs.addMap(SalisburyLabs4);
+        
+        WashburnShops.addMap(WashburnShopsB);
+		WashburnShops.addMap(WashburnShops1);
+		WashburnShops.addMap(WashburnShops2);
+		WashburnShops.addMap(WashburnShops3);
 
+		WestStreet.addMap(WestStreetB);
+		WestStreet.addMap(WestStreet1);
+		WestStreet.addMap(WestStreet2);
+		
+		Harrington.addMap(HarringtonB);
+		Harrington.addMap(Harrington1);
+		Harrington.addMap(Harrington2);
+		Harrington.addMap(Harrington3);
+		
+		HigginsLabs.addMap(HigginsLabsB);
+		HigginsLabs.addMap(HigginsLabs1);
+		HigginsLabs.addMap(HigginsLabs2);
+		HigginsLabs.addMap(HigginsLabs3);
+		
+		AldenHall.addMap(AldenHallSB);
+		AldenHall.addMap(AldenHallB);
+		AldenHall.addMap(AldenHall1);
+		AldenHall.addMap(AldenHall2);
+        
         // Store the Buildings in a list
         // TODO Add more buildings to this list
         LinkedList<Building> buildings = new LinkedList<>();
@@ -233,6 +337,12 @@ public class MapTool extends Application {
         buildings.add(ProjectCenter);
         buildings.add(BoyntonHall);
         buildings.add(FullerLabs);
+        buildings.add(SalisburyLabs);
+        buildings.add(WashburnShops);
+        buildings.add(WestStreet);
+        buildings.add(HigginsLabs);
+        buildings.add(Harrington);
+        buildings.add(AldenHall);
 
         // Iterate over the list of buildings and add their maps to another list
         LinkedList<Map> maps = new LinkedList<>();
@@ -243,7 +353,7 @@ public class MapTool extends Application {
         mapOptions.addAll(maps);
         
       //Generate the Global map graph
-        globalGraph = createGlobalGraph(globalGraph);
+        createGlobalGraph();
         
       //now we can create the local edge connections
         
@@ -254,7 +364,8 @@ public class MapTool extends Application {
         final Pane root = new Pane();
         Scene scene = new Scene(root, 1125, 700);//set size of scene
         scene.getStylesheets().add(getClass().getResource("Buttons.css").toExternalForm());
-
+        stageInitialWidthDifference = scene.getWidth()-1100;
+        stageInitialHeightDifference = scene.getHeight()-700;
 
         //Set default Type
         typeSelector.setValue("Point");
@@ -351,6 +462,22 @@ public class MapTool extends Application {
         isPlaceName.setFont(Font.font("manteka", 12));
 
 
+      //AutoCreation node button
+        final Label autoCreationNodeButton = new Label("Auto Node Mode");
+        autoCreationNodeButton.setTextFill(Color.WHITE);
+        autoCreationNodeButton.setFont(Font.font("manteka", 12));
+        HBox autoNodeModeHBox = new HBox(5);
+        autoNodeModeHBox.getChildren().addAll(autoNodeCreate, autoCreationNodeButton);
+
+        final Label autoCreationEdgeButton = new Label("Auto Edge Mode");
+        autoCreationEdgeButton.setTextFill(Color.WHITE);
+        autoCreationEdgeButton.setFont(Font.font("manteka", 12));
+        HBox autoEdgeModeHBox = new HBox(5);
+        autoEdgeModeHBox.getChildren().addAll(autoEdgeCreate, autoCreationEdgeButton);
+
+        
+        
+        
         //final Label updateNodeLabel = new Label("Node");
         updateNodeLabel.setTextFill(Color.WHITE);
         updateNodeLabel.setFont(Font.font("manteka", 12));
@@ -361,12 +488,33 @@ public class MapTool extends Application {
         HBox NodeCreationBox = new HBox(5);
         final Button updateNodeButton = new Button("Update Node");
         final Button createNodeButton = new Button("Create Node");
-        NodeCreationBox.getChildren().addAll(createNodeButton, updateNodeButton);
         final Button deleteNodeButton = new Button("Delete Node");
+        updateNodeButton.setId("dark");
+        createNodeButton.setId("dark");
+        deleteNodeButton.setId("dark");
+        typeSelector.setId("dark");
+        mapSelector.setId("dark");
+        LoadMapButton.setId("dark");
+        isPlace.setId("dark");
+        lockX.setId("dark");
+        lockY.setId("dark");
+        autoNodeCreate.setId("dark");
+        autoEdgeCreate.setId("dark");
+        xField.setId("dark");
+        yField.setId("dark");
+        zField.setId("dark");
+        nameField.setId("dark");
+        
+        
+        NodeCreationBox.getChildren().addAll(createNodeButton, deleteNodeButton);
+        
+        HBox NodeUpdateBox = new HBox(5);
+        NodeUpdateBox.getChildren().addAll(updateNodeButton, autoNodeModeHBox);
+        
 
         controlLabels.setLayoutX(830);
         controlLabels.setLayoutY(20);
-        controlLabels.getChildren().addAll(xFieldName, xFieldBox, yFieldName, yFieldBox, zFieldName, zFieldBox, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox, deleteNodeButton);
+        controlLabels.getChildren().addAll(xFieldName, xFieldBox, yFieldName, yFieldBox, zFieldName, zFieldBox, nameFieldName, nameField, nodeTypeName, typeSelector, isPlaceName, isPlace, NodeCreationBox, NodeUpdateBox);
 
         //attach the cross image
         cross.setImage(crossImage);
@@ -388,7 +536,7 @@ public class MapTool extends Application {
         final Label lockLabel = new Label("Lock");
         lockLabel.setFont(Font.font("manteka", 12));
         lockLabel.setTextFill(Color.WHITE);
-        lockLabel.setLayoutX(1050);
+        lockLabel.setLayoutX(1040);
         lockLabel.setLayoutY(20);
 
 
@@ -399,15 +547,23 @@ public class MapTool extends Application {
         toField.setFont(Font.font("manteka", 12));
         toField.setTextFill(Color.WHITE);
         toBox.getChildren().addAll(toName, toField);
+        
+        
 
         HBox EdgeCreationBox = new HBox(5);
         final Button createEdgeButton = new Button("Create Edge");
         final Button deleteEdgeButton = new Button("Delete Edge");
         EdgeCreationBox.getChildren().addAll(createEdgeButton, deleteEdgeButton);
         final Button saveGraph = new Button("Save");
+        saveGraph.setId("dark");
+        createEdgeButton.setId("dark");
+        deleteEdgeButton.setId("dark");
+        
+        final HBox SaveBox = new HBox(5);
+        SaveBox.getChildren().addAll(saveGraph, autoEdgeModeHBox);
         edgeControls.setLayoutX(830);
-        edgeControls.setLayoutY(460);
-        edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, saveGraph);
+        edgeControls.setLayoutY(470);
+        edgeControls.getChildren().addAll(fromBox, toBox, EdgeCreationBox, SaveBox);
 
         imageView.setImage(mapImage);
         imageView.setLayoutX(0);
@@ -421,23 +577,7 @@ public class MapTool extends Application {
         bgView.setLayoutX(0);
         bgView.setLayoutY(0);
 
-        //AutoCreation node button
-        VBox autoModeBox = new VBox(5);
-        final Label autoCreationNodeButton = new Label("Auto Node Mode");
-        autoCreationNodeButton.setTextFill(Color.WHITE);
-        autoCreationNodeButton.setFont(Font.font("manteka", 12));
-        HBox autoNodeModeHBox = new HBox(5);
-        autoNodeModeHBox.getChildren().addAll(autoNodeCreate, autoCreationNodeButton);
-
-        final Label autoCreationEdgeButton = new Label("Auto Edge Mode");
-        autoCreationEdgeButton.setTextFill(Color.WHITE);
-        autoCreationEdgeButton.setFont(Font.font("manteka", 12));
-        HBox autoEdgeModeHBox = new HBox(5);
-        autoEdgeModeHBox.getChildren().addAll(autoEdgeCreate, autoCreationEdgeButton);
-
-        autoModeBox.getChildren().addAll(autoNodeModeHBox, autoEdgeModeHBox);
-        autoModeBox.setLayoutX(600);
-        autoModeBox.setLayoutY(620);
+        
 
         //Attach everything to the screen
         root.getChildren().add(bgView);
@@ -445,7 +585,6 @@ public class MapTool extends Application {
         root.getChildren().add(mapSelectionBoxV);
         root.getChildren().add(edgeControls);
         root.getChildren().add(controlLabels);
-        root.getChildren().add(autoModeBox);
         root.getChildren().addAll(lockLabel);
 
         root.getChildren().add(warningBox);
@@ -463,7 +602,6 @@ public class MapTool extends Application {
 
         final Group group = new Group(imageView, NodePane);
         Parent zoomPane = createZoomPane(group);
-
         root.getChildren().add(zoomPane);
 
         // Keyboard shortcuts
@@ -595,6 +733,45 @@ public class MapTool extends Application {
                 disableKey = true;
             }
         });
+        
+scene.widthProperty().addListener(new ChangeListener<Number>() {
+            
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+    				Number oldValue, Number newValue) {
+    			stageInitialWidthDifference = scene.getWidth()- 1100;    			
+    			scrollPane.setPrefViewportWidth(800 + stageInitialWidthDifference);
+    			
+    			mapSelectionBoxV.setTranslateX(stageInitialWidthDifference);
+    			controlLabels.setTranslateX(stageInitialWidthDifference);
+    			edgeControls.setTranslateX(stageInitialWidthDifference);
+    			lockLabel.setTranslateX(stageInitialWidthDifference);
+    			
+    			//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			//TODO asdasd
+    			
+
+    		}
+    	});
+
+	    scene.heightProperty().addListener(new ChangeListener<Number>() {
+    		@Override
+    		public void changed(ObservableValue<? extends Number> observable,
+                   Number oldValue, Number newValue) {
+    	        stageInitialHeightDifference = scene.getHeight()-700;
+    	        scrollPane.setPrefViewportHeight(700 + stageInitialHeightDifference);
+    			//s1.setPrefSize(270, 400 + stageInitialHeightDifference);
+    			
+    			
+
+    		}
+    	});
 
 
         NodePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -637,7 +814,6 @@ public class MapTool extends Application {
                 }
             }
         });
-
 
         deleteNodeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -701,12 +877,12 @@ public class MapTool extends Application {
     public void createEdge(Pane NodePane) {
         if (!(fromNode == null) || !(toNode == null)) {
             if (Objects.equals(fromNode.getName(), toNode.getName())) {
-                System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
+                //System.out.println("Cannot create Edge: Tried to make edge connecting node to self");
                 warningLabel.setText("Cannot Create Edge");
             } else {
                 Edge newEdge = new Edge(fromNode, toNode, getDistanceNodeFlat(fromNode, toNode));
-                System.out.println(fromNode.getName());
-                System.out.println(toNode.getName());
+                //System.out.println(fromNode.getName());
+                //System.out.println(toNode.getName());
                 edgeList.add(newEdge);
                 if (Objects.equals(fromNode.getFloorMap(), toNode.getFloorMap())) {
                     Line line = new Line();
@@ -899,128 +1075,53 @@ public class MapTool extends Application {
     //Create Hot Key events
     public void buttonPressed(KeyEvent e) {
         if (e.getCode().toString().equals("ENTER")) {
-            System.out.println("asdasdasdasdasdasdasdasda)");
+            //System.out.println("asdasdasdasdasdasdasdasda)");
             //createNodeButton.setOnAction(CreateHandler);
         }
     }
     
-    private Graph createGlobalGraph(Graph GLOBALGRAPH) {
+    private void createGlobalGraph() {
 
     	//create Global nodes and edges list to pass to other createGraph method
-    	LinkedList<Edge> globalEdgeList = new LinkedList<Edge>();
     	LinkedList<EdgeDataConversion> globalEdgeListConversion = new LinkedList<EdgeDataConversion>();
 
     	//Manually add all of the Nodes...
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CampusMap.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AKB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/AK3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/BH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/CC3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLSB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GLB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/GL2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/Gl3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHAPT.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/HHGAR.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/PC2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SHB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/SH3.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLSB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FLB.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL1.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL2.json"));
-    	globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/FL3.json"));
-    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);
-    	
-    	//Manually add all of the Edges
-    	/*globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CampusMapEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AKBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/AK3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLSBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GLBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/GL3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SHBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/SH3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/CC3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/PC2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHBEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHAPTEdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HHGAREdges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH1Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH2Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	globalEdgeListConversion = JsonParser.getJsonContentEdge("Graphs/Edges/HH3Edges.json");
-    	globalEdgeList.addAll(convertEdgeData(globalEdgeListConversion));
-    	
-    	//TODO Add rest
-    	    	
+        File nodeFolder = new File("Graphs/Nodes");
+        for (File file : nodeFolder.listFiles()){
+            if (file.getName().endsWith(".json")){
+                globalNodeList.addAll(JsonParser.getJsonContent("Graphs/Nodes/" + file.getName()));
+                //System.out.println(file.getName());
+            }
+        }
 
-    	GLOBALGRAPH = createGraph(GLOBALGRAPH, globalNodeList, globalEdgeList);*/
-    	return GLOBALGRAPH;
+        globalGraph.setNodes(globalNodeList);
+
+        File edgeFolder = new File("Graphs/Edges");
+        for (File file : edgeFolder.listFiles()){
+            if (file.getName().endsWith(".json")){
+                globalEdgeListConversion.addAll(JsonParser.getJsonContentEdge("Graphs/Edges/" + file.getName()));
+                //System.out.println(file.getName());
+            }
+        }
+
+        globalGraph.setNodes(globalNodeList);
+
+        //Create HashMap of every node in the globalNodeList
+        globalNodeHashMap = new HashMap<>();
+        for (Node n : globalNodeList){
+            globalNodeHashMap.put(n.getName(), n);
+        }
+
+        // Create edges and add them to the graph
+        for (EdgeDataConversion edc : globalEdgeListConversion){
+            Node fromNode = globalNodeHashMap.get(edc.getFrom());
+            Node toNode = globalNodeHashMap.get(edc.getTo());
+            if (fromNode == null || toNode == null){
+                continue;
+            }
+            globalGraph.addEdge(fromNode, toNode);
+        }
 	}
-    
-    private Graph createGraph(Graph g, LinkedList<Node> nodes, LinkedList<Edge> edges){
-    	g.setNodes(nodes);
-    	
-    	//Added this way so they can be bi directionally added
-    	for(int i = 0; i < edges.size(); i++){
-    		//System.out.print("Edgefrom: " + edges.get(i).getFrom().getName() + " , to: "+ edges.get(i).getTo().getName());
-    		g.addEdgeByString(edges.get(i).getFrom().getName(), edges.get(i).getTo().getName());
-    	}
-    	return g;
-    }
 
     //Change where we call drawEdges to just change the drawEdgeBool to true;
     private void drawEdges(LinkedList<Edge> edges, GraphicsContext gc, Pane nodePane) {
@@ -1198,25 +1299,17 @@ public class MapTool extends Application {
 
     private LinkedList<Edge> convertEdgeData(LinkedList<EdgeDataConversion> edgeData) {
         LinkedList<Edge> edgeList = new LinkedList<Edge>();
-        int from = 0, to = 0;
-
         //iterate through the edges
-        for (int i = 0; i < edgeData.size(); i++) {
-            //iterate throught he nodelist to find the matching node
-            for (int j = 0; j < globalNodeList.size(); j++) {
-                if (edgeData.get(i).getFrom().equals((globalNodeList.get(j)).getName())) {
-                    from = j;
-                }
-                if (edgeData.get(i).getTo().equals((globalNodeList.get(j)).getName())) {
-                    to = j;
-                }
+        for (EdgeDataConversion edc : edgeData){
+            Node fromNode = globalNodeHashMap.get(edc.getFrom());
+            Node toNode = globalNodeHashMap.get(edc.getTo());
+            if (fromNode == null || toNode == null){
+                continue;
             }
-
-            Edge newEdge = new Edge(globalGraph.getNodes().get(from), globalGraph.getNodes().get(to), edgeData.get(i).getDistance());
-
-            //Edge newEdge = new Edge(fromEdgeNode, toEdgeNode, edgeListConversion.get(i).getDistance());
+            Edge newEdge = new Edge(fromNode, toNode, (int) Graph.d(fromNode, toNode));
             edgeList.add(newEdge);
         }
+
         return edgeList;
     }
 
@@ -1242,13 +1335,19 @@ public class MapTool extends Application {
     private Parent createZoomPane(final Group group) {
         final double SCALE_DELTA = 1.1;
         final StackPane zoomPane = new StackPane();
-        final ScrollPane scrollPane = new ScrollPane();
 
         zoomPane.getChildren().add(group);
 
 
         final Group scrollContent = new Group(zoomPane);
         scrollPane.setContent(scrollContent);
+        
+        
+        if(mapSelector.getValue().getInitials().equals("CampusMap")) {
+		    scrollContent.setTranslateX(-517);
+	    	scrollContent.setTranslateY(-196);
+	    }
+        
         //Removes Scroll bars
         scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -1262,116 +1361,84 @@ public class MapTool extends Application {
         });
 
         scrollPane.setPrefViewportWidth(800);
-        scrollPane.setPrefViewportHeight(605);
+        scrollPane.setPrefViewportHeight(700);
 
+        
+        class DragContext {
+            double mouseAnchorX;
+            double mouseAnchorY;
 
-        zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-                event.consume();
+            double translateAnchorX;
+            double translateAnchorY;
 
-                if (event.getDeltaY() == 0) {
-                    return;
-                }
+        }
 
-                double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA
-                        : 1 / SCALE_DELTA;
-
-                if (scaleFactor < 1 && k > -1) {
-                    k--;
-                    // amount of scrolling in each direction in scrollContent coordinate
-                    // units
-                    Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-
-                    group.setScaleX(group.getScaleX() * scaleFactor);
-                    group.setScaleY(group.getScaleY() * scaleFactor);
-
-                    // move viewport so that old center remains in the center after the
-                    // scaling
-                    repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-                }
-                if (scaleFactor > 1 && k < 8) {
-                    k++;
-                    // amount of scrolling in each direction in scrollContent coordinate
-                    // units
-                    Point2D scrollOffset = figureScrollOffset(scrollContent, scrollPane);
-
-                    group.setScaleX(group.getScaleX() * scaleFactor);
-                    group.setScaleY(group.getScaleY() * scaleFactor);
-
-                    // move viewport so that old center remains in the center after the
-                    // scaling
-                    repositionScroller(scrollContent, scrollPane, scaleFactor, scrollOffset);
-                }
-
-            }
+        
+        zoomPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+        		mouseYposition = event.getY();
+        		mouseXposition = event.getX();
+        		
+        	}
         });
+        
+        
+        zoomPane.setOnScroll(new EventHandler<ScrollEvent>() {
+  	      @Override
+  	      public void handle(ScrollEvent event) {
+  	    	  double zoomFactor = 1.1;
+  	    	  
+  	    	  
+  	          if (event.getDeltaY() <= 0) {
+  	              // zoom out
+  	              zoomFactor = 1 / zoomFactor;
+  	              
+  	          }
+  	          Scale scale = new Scale(zoomFactor, zoomFactor, mouseXposition, mouseYposition);
+  	          
+  	          if ( zoomFactor > 1 && k < 10) {
+  	        	  
+  		          scrollContent.getTransforms().add(scale);
+  	        	  k++;
+  	          }
+  	          if (zoomFactor < 1 && k > -5 ){
+  		          scrollContent.getTransforms().add(scale);
+  	        	  k--;
+  	          }
+  	                    
+  	          event.consume();
+  	      }
+  	    });
 
         // Panning via drag....
-        final ObjectProperty<Point2D> lastMouseCoordinates = new SimpleObjectProperty<Point2D>();
+        DragContext sceneDragContext = new DragContext();
         scrollContent.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                lastMouseCoordinates.set(new Point2D(event.getX(), event.getY()));
-            }
-        });
+  	      @Override
+  	      public void handle(MouseEvent event) {
+  	    	  sceneDragContext.mouseAnchorX = event.getSceneX();
+  	            sceneDragContext.mouseAnchorY = event.getSceneY();
+
+  	            sceneDragContext.translateAnchorX = scrollContent.getTranslateX();
+  	            sceneDragContext.translateAnchorY = scrollContent.getTranslateY();
+  	      }
+  	    });
 
         scrollContent.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                double deltaX = event.getX() - lastMouseCoordinates.get().getX();
-                double extraWidth = scrollContent.getLayoutBounds().getWidth() - scrollPane.getViewportBounds().getWidth();
-                double deltaH = deltaX * (scrollPane.getHmax() - scrollPane.getHmin()) / extraWidth;
-                double desiredH = scrollPane.getHvalue() - deltaH;
-                scrollPane.setHvalue(Math.max(0, Math.min(scrollPane.getHmax(), desiredH)));
-
-                double deltaY = event.getY() - lastMouseCoordinates.get().getY();
-                double extraHeight = scrollContent.getLayoutBounds().getHeight() - scrollPane.getViewportBounds().getHeight();
-                double deltaV = deltaY * (scrollPane.getHmax() - scrollPane.getHmin()) / extraHeight;
-                double desiredV = scrollPane.getVvalue() - deltaV;
-                scrollPane.setVvalue(Math.max(0, Math.min(scrollPane.getVmax(), desiredV)));
-            }
+            	scrollContent.setTranslateX(sceneDragContext.translateAnchorX + event.getSceneX() - sceneDragContext.mouseAnchorX);
+            	scrollContent.setTranslateY(sceneDragContext.translateAnchorY + event.getSceneY() - sceneDragContext.mouseAnchorY);
+            	event.consume();
+            	}
         });
 
         return scrollPane;
     }
 
-    private void repositionScroller(Group scrollContent, ScrollPane scroller, double scaleFactor, Point2D scrollOffset) {
-        double scrollXOffset = scrollOffset.getX();
-        double scrollYOffset = scrollOffset.getY();
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        if (extraWidth > 0) {
-            double halfWidth = scroller.getViewportBounds().getWidth() / 2;
-            double newScrollXOffset = (scaleFactor - 1) * halfWidth + scaleFactor * scrollXOffset;
-            scroller.setHvalue(scroller.getHmin() + newScrollXOffset * (scroller.getHmax() - scroller.getHmin()) / extraWidth);
-        } else {
-            scroller.setHvalue(scroller.getHmin());
-        }
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        if (extraHeight > 0) {
-            double halfHeight = scroller.getViewportBounds().getHeight() / 2;
-            double newScrollYOffset = (scaleFactor - 1) * halfHeight + scaleFactor * scrollYOffset;
-            scroller.setVvalue(scroller.getVmin() + newScrollYOffset * (scroller.getVmax() - scroller.getVmin()) / extraHeight);
-        } else {
-            scroller.setHvalue(scroller.getHmin());
-        }
-    }
-
-    private Point2D figureScrollOffset(Group scrollContent, ScrollPane scroller) {
-        double extraWidth = scrollContent.getLayoutBounds().getWidth() - scroller.getViewportBounds().getWidth();
-        double hScrollProportion = (scroller.getHvalue() - scroller.getHmin()) / (scroller.getHmax() - scroller.getHmin());
-        double scrollXOffset = hScrollProportion * Math.max(0, extraWidth);
-        double extraHeight = scrollContent.getLayoutBounds().getHeight() - scroller.getViewportBounds().getHeight();
-        double vScrollProportion = (scroller.getVvalue() - scroller.getVmin()) / (scroller.getVmax() - scroller.getVmin());
-        double scrollYOffset = vScrollProportion * Math.max(0, extraHeight);
-        return new Point2D(scrollXOffset, scrollYOffset);
-    }
-
-
     private void loadMap(Pane root, Canvas canvas, Parent zoomPane, Pane NodePane, ImageView imageView) {
         
     	//Generate the Global map graph
-        globalGraph = createGlobalGraph(globalGraph);
+        createGlobalGraph();
     	
     	k = 0; // Reset Zoom Variable
         disableKey = false;
@@ -1402,348 +1469,591 @@ public class MapTool extends Application {
         imageView.setImage(mapImage);
         NodePane.setPrefSize(2450, 1250);
 
-        switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
-            case "CampusMap":
-                NodePane.setPrefSize(3000, 2000);
-                imageView.setScaleX(0.75);
-                imageView.setScaleY(0.75);
-                imageView.relocate(-1000, -600);
-                NodePane.setScaleX(0.75);
-                NodePane.setScaleY(0.75);
-                NodePane.relocate(-965, -643);
-                zField.setText("0");
-                buttonRescale = 1 / 0.75;
-                break;
-            case "AKB":
-                imageView.setScaleX(0.6536);
-                imageView.setScaleY(0.6536);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6536);
-                NodePane.setScaleY(0.6536);
-                NodePane.relocate(-212, -88);
-                buttonRescale = 1 / 0.6536;
-                zField.setText("-2");
-                break;
-            case "AK1":
-                imageView.setScaleX(0.5161);
-                imageView.setScaleY(0.5161);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5161);
-                NodePane.setScaleY(0.5161);
-                NodePane.relocate(-218, -22);
-                buttonRescale = 1 / 0.5161;
-                zField.setText("-1");
-                break;
-            case "AK2":
-                imageView.setScaleX(0.6706);
-                imageView.setScaleY(0.6706);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6706);
-                NodePane.setScaleY(0.6706);
-                NodePane.relocate(-206, -57);
-                buttonRescale = 1 / 0.6706;
-                zField.setText("0");
-                break;
-            case "AK3":
-                imageView.setScaleX(0.6536);
-                imageView.setScaleY(0.6536);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6536);
-                NodePane.setScaleY(0.6536);
-                NodePane.relocate(-212, -0);
-                buttonRescale = 1 / 0.6536;
-                zField.setText("1");
-                break;
-            case "BHB":
-                imageView.setScaleX(0.5427);
-                imageView.setScaleY(0.5427);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5427);
-                NodePane.setScaleY(0.5427);
-                NodePane.relocate(-200, -90);
-                buttonRescale = 1 / 0.5427;
-                zField.setText("-1");
-                break;
-            case "BH1":
-                imageView.setScaleX(0.5476);
-                imageView.setScaleY(0.5476);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5476);
-                NodePane.setScaleY(0.5476);
-                NodePane.relocate(-220, -86);
-                buttonRescale = 1 / 0.5476;
-                zField.setText("0");
-                break;
-            case "BH2":
-                imageView.setScaleX(0.5438);
-                imageView.setScaleY(0.5438);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5438);
-                NodePane.setScaleY(0.5438);
-                NodePane.relocate(-220, -99);
-                buttonRescale = 1 / 0.5438;
-                zField.setText("1");
-                break;
-            case "BH3":
-                imageView.setScaleX(0.5358);
-                imageView.setScaleY(0.5358);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5358);
-                NodePane.setScaleY(0.5358);
-                NodePane.relocate(-220, -110);
-                buttonRescale = 1 / 0.5358;
-                zField.setText("2");
-                break;
-            case "CC1":
-                imageView.setScaleX(0.6107);
-                imageView.setScaleY(0.6107);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6107);
-                NodePane.setScaleY(0.6107);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6107;
-                zField.setText("-1");
-                break;
-            case "CC2":
-                imageView.setScaleX(0.6127);
-                imageView.setScaleY(0.6127);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6127);
-                NodePane.setScaleY(0.6127);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6127;
-                zField.setText("0");
-                break;
-            case "CC3":
-                imageView.setScaleX(0.6061);
-                imageView.setScaleY(0.6061);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6061);
-                NodePane.setScaleY(0.6061);
-                NodePane.relocate(-222, -59);
-                buttonRescale = 1 / 0.6061;
-                zField.setText("1");
-                break;
-            case "GLSB":
-                imageView.setScaleX(0.5686);
-                imageView.setScaleY(0.5686);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5686);
-                NodePane.setScaleY(0.5686);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5686;
-                zField.setText("-3");
-                break;
-            case "GLB":
-                imageView.setScaleX(0.5409);
-                imageView.setScaleY(0.5409);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5409);
-                NodePane.setScaleY(0.5409);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5409;
-                zField.setText("-2");
-                break;
-            case "GL1":
-                imageView.setScaleX(0.5678);
-                imageView.setScaleY(0.5678);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5678);
-                NodePane.setScaleY(0.5678);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5678;
-                zField.setText("-1");
-                break;
-            case "GL2":
-                imageView.setScaleX(0.5638);
-                imageView.setScaleY(0.5638);
-                imageView.relocate(-0, 0);
-                NodePane.setScaleX(0.5638);
-                NodePane.setScaleY(0.5638);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.5638;
-                zField.setText("0");
-                break;
-            case "GL3":
-                imageView.setScaleX(0.6119);
-                imageView.setScaleY(0.6119);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6119);
-                NodePane.setScaleY(0.6119);
-                NodePane.relocate(-225, -42);
-                buttonRescale = 1 / 0.6119;
-                zField.setText("1");
-                break;
-            case "HHB":
-                imageView.setScaleX(0.5181);
-                imageView.setScaleY(0.5181);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5181);
-                NodePane.setScaleY(0.5181);
-                NodePane.relocate(-360, -22);
-                buttonRescale = 1 / 0.5181;
-                zField.setText("-3");
-                break;
-            case "HH1":
-                imageView.setScaleX(0.5535);
-                imageView.setScaleY(0.5535);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5535);
-                NodePane.setScaleY(0.5535);
-                NodePane.relocate(-338, -37);
-                buttonRescale = 1 / 0.5535;
-                zField.setText("-2");
-                break;
-            case "HH2":
-                imageView.setScaleX(0.6067);
-                imageView.setScaleY(0.6067);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6067);
-                NodePane.setScaleY(0.6067);
-                NodePane.relocate(-298, -50);
-                buttonRescale = 1 / 0.6067;
-                zField.setText("-1");
-                break;
-            case "HH3":
-                imageView.setScaleX(0.5917);
-                imageView.setScaleY(0.5917);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5917);
-                NodePane.setScaleY(0.5917);
-                NodePane.relocate(-310, -48);
-                buttonRescale = 1 / 0.5917;
-                zField.setText("0");
-                break;
-            case "HHAPT":
-                imageView.setScaleX(0.8197);
-                imageView.setScaleY(0.8197);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.8197);
-                NodePane.setScaleY(0.8197);
-                NodePane.relocate(-130, -50);
-                buttonRescale = 1 / 0.8197;
-                zField.setText("-1");
-                break;
-            case "HHGAR":
-                imageView.setScaleX(0.8172);
-                imageView.setScaleY(0.8172);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.8172);
-                NodePane.setScaleY(0.8172);
-                NodePane.relocate(-133, -53);
-                buttonRescale = 1 / 0.8172;
-                zField.setText("-2");
-                break;
-            case "PC1":
-                imageView.setScaleX(0.6764);
-                imageView.setScaleY(0.6764);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6764);
-                NodePane.setScaleY(0.6764);
-                NodePane.relocate(-208, -58);
-                buttonRescale = 1 / 0.6764;
-                zField.setText("0");
-                break;
-            case "PC2":
-                imageView.setScaleX(0.6006);
-                imageView.setScaleY(0.6006);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6006);
-                NodePane.setScaleY(0.6006);
-                NodePane.relocate(-222, -48);
-                buttonRescale = 1 / 0.6006;
-                zField.setText("1");
-                break;
-            case "SHB":
-                imageView.setScaleX(0.5464);
-                imageView.setScaleY(0.5464);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5464);
-                NodePane.setScaleY(0.5464);
-                NodePane.relocate(-224, -88);
-                buttonRescale = 1 / 0.5464;
-                zField.setText("-1");
-                break;
-            case "SH1":
-                imageView.setScaleX(0.5583);
-                imageView.setScaleY(0.5583);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5583);
-                NodePane.setScaleY(0.5583);
-                NodePane.relocate(-224, -82);
-                buttonRescale = 1 / 0.5583;
-                zField.setText("0");
-                break;
-            case "SH2":
-                imageView.setScaleX(0.5556);
-                imageView.setScaleY(0.5556);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5556);
-                NodePane.setScaleY(0.5556);
-                NodePane.relocate(-224, -86);
-                buttonRescale = 1 / 0.5556;
-                zField.setText("1");
-                break;
-            case "SH3":
-                imageView.setScaleX(0.5544);
-                imageView.setScaleY(0.5544);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5544);
-                NodePane.setScaleY(0.5544);
-                NodePane.relocate(-224, -83);
-                buttonRescale = 1 / 0.5544;
-                zField.setText("2");
-                break;
-            case "FLSB":
-                imageView.setScaleX(0.7882);
-                imageView.setScaleY(0.7882);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.7882);
-                NodePane.setScaleY(0.7882);
-                NodePane.relocate(-150, -80);
-                buttonRescale = 1 / 0.7882;
-                zField.setText("-4");
-                break;
-            case "FLB":
-                imageView.setScaleX(0.7601);
-                imageView.setScaleY(0.7601);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.7601);
-                NodePane.setScaleY(0.7601);
-                NodePane.relocate(-170, -55);
-                buttonRescale = 1 / 0.7601;
-                zField.setText("-3");
-                break;
-            case "FL1":
-                imageView.setScaleX(0.6098);
-                imageView.setScaleY(0.6098);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.6098);
-                NodePane.setScaleY(0.6098);
-                NodePane.relocate(-250, -52);
-                buttonRescale = 1 / 0.6098;
-                zField.setText("-2");
-                break;
-            case "FL2":
-                imageView.setScaleX(0.5585);
-                imageView.setScaleY(0.5585);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5585);
-                NodePane.setScaleY(0.5585);
-                NodePane.relocate(-250, -40);
-                buttonRescale = 1 / 0.5585;
-                zField.setText("-1");
-                break;
-            case "FL3":
-                imageView.setScaleX(0.5515);
-                imageView.setScaleY(0.5515);
-                imageView.relocate(0, 0);
-                NodePane.setScaleX(0.5515);
-                NodePane.setScaleY(0.5515);
-                NodePane.relocate(-270, -40);
-                buttonRescale = 1 / 0.5515;
-                zField.setText("0");
-                break;
+		switch (mapSelector.getValue().getInitials() + mapSelector.getValue().getFloor()) {
+		case "CampusMap":
+			NodePane.setPrefSize(3000, 2000);
+			imageView.setScaleX(0.75);
+			imageView.setScaleY(0.75);
+			imageView.relocate(-1000, -600);
+			NodePane.setScaleX(0.75);
+			NodePane.setScaleY(0.75);
+			NodePane.relocate(-965, -643);
+			zField.setText("0");
+			buttonRescale = 1 / 0.75;
+			break;
+		case "AKB":
+			imageView.setScaleX(0.6536);
+			imageView.setScaleY(0.6536);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6536);
+			NodePane.setScaleY(0.6536);
+			NodePane.relocate(-212, -88);
+			buttonRescale = 1 / 0.6536;
+			zField.setText("-20");
+			break;
+		case "AK1":
+			imageView.setScaleX(0.5161);
+			imageView.setScaleY(0.5161);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5161);
+			NodePane.setScaleY(0.5161);
+			NodePane.relocate(-218, -22);
+			buttonRescale = 1 / 0.5161;
+			zField.setText("-10");
+			break;
+		case "AK2":
+			imageView.setScaleX(0.6706);
+			imageView.setScaleY(0.6706);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6706);
+			NodePane.setScaleY(0.6706);
+			NodePane.relocate(-206, -57);
+			buttonRescale = 1 / 0.6706;
+			zField.setText("0");
+			break;
+		case "AK3":
+			imageView.setScaleX(0.6536);
+			imageView.setScaleY(0.6536);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6536);
+			NodePane.setScaleY(0.6536);
+			NodePane.relocate(-212, -0);
+			buttonRescale = 1 / 0.6536;
+			zField.setText("10");
+			break;
+		case "BHB":
+			imageView.setScaleX(0.5427);
+			imageView.setScaleY(0.5427);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5427);
+			NodePane.setScaleY(0.5427);
+			NodePane.relocate(-200, -90);
+			buttonRescale = 1 / 0.5427;
+			zField.setText("-10");
+			break;
+		case "BH1":
+			imageView.setScaleX(0.5476);
+			imageView.setScaleY(0.5476);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5476);
+			NodePane.setScaleY(0.5476);
+			NodePane.relocate(-220, -86);
+			buttonRescale = 1 / 0.5476;
+			zField.setText("0");
+			break;
+		case "BH2":
+			imageView.setScaleX(0.5438);
+			imageView.setScaleY(0.5438);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5438);
+			NodePane.setScaleY(0.5438);
+			NodePane.relocate(-220, -99);
+			buttonRescale = 1 / 0.5438;
+			zField.setText("10");
+			break;
+		case "BH3":
+			imageView.setScaleX(0.5358);
+			imageView.setScaleY(0.5358);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5358);
+			NodePane.setScaleY(0.5358);
+			NodePane.relocate(-220, -110);
+			buttonRescale = 1 / 0.5358;
+			zField.setText("20");
+			break;
+		case "CC1":
+			imageView.setScaleX(0.6107);
+			imageView.setScaleY(0.6107);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6107);
+			NodePane.setScaleY(0.6107);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6107;
+			zField.setText("-10");
+			break;
+		case "CC2":
+			imageView.setScaleX(0.6127);
+			imageView.setScaleY(0.6127);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6127);
+			NodePane.setScaleY(0.6127);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6127;
+			zField.setText("0");
+			break;
+		case "CC3":
+			imageView.setScaleX(0.6061);
+			imageView.setScaleY(0.6061);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6061);
+			NodePane.setScaleY(0.6061);
+			NodePane.relocate(-222, -59);
+			buttonRescale = 1 / 0.6061;
+			zField.setText("10");
+			break;
+		case "GLSB":
+			imageView.setScaleX(0.5686);
+			imageView.setScaleY(0.5686);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5686);
+			NodePane.setScaleY(0.5686);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5686;
+			zField.setText("-30");
+			break;
+		case "GLB":
+			imageView.setScaleX(0.5409);
+			imageView.setScaleY(0.5409);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5409);
+			NodePane.setScaleY(0.5409);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5409;
+			zField.setText("-20");
+			break;
+		case "GL1":
+			imageView.setScaleX(0.5678);
+			imageView.setScaleY(0.5678);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5678);
+			NodePane.setScaleY(0.5678);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5678;
+			zField.setText("-10");
+			break;
+		case "GL2":
+			imageView.setScaleX(0.5638);
+			imageView.setScaleY(0.5638);
+			imageView.relocate(-0, 0);
+			NodePane.setScaleX(0.5638);
+			NodePane.setScaleY(0.5638);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.5638;
+			zField.setText("0");
+			break;
+		case "GL3":
+			imageView.setScaleX(0.6119);
+			imageView.setScaleY(0.6119);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6119);
+			NodePane.setScaleY(0.6119);
+			NodePane.relocate(-225, -42);
+			buttonRescale = 1 / 0.6119;
+			zField.setText("10");
+			break;
+		case "HHB":
+			imageView.setScaleX(0.5181);
+			imageView.setScaleY(0.5181);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5181);
+			NodePane.setScaleY(0.5181);
+			NodePane.relocate(-360, -22);
+			buttonRescale = 1 / 0.5181;
+			zField.setText("-30");
+			break;
+		case "HH1":
+			imageView.setScaleX(0.5535);
+			imageView.setScaleY(0.5535);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5535);
+			NodePane.setScaleY(0.5535);
+			NodePane.relocate(-338, -37);
+			buttonRescale = 1 / 0.5535;
+			zField.setText("-20");
+			break;
+		case "HH2":
+			imageView.setScaleX(0.6067);
+			imageView.setScaleY(0.6067);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6067);
+			NodePane.setScaleY(0.6067);
+			NodePane.relocate(-298, -50);
+			buttonRescale = 1 / 0.6067;
+			zField.setText("-10");
+			break;
+		case "HH3":
+			imageView.setScaleX(0.5917);
+			imageView.setScaleY(0.5917);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5917);
+			NodePane.setScaleY(0.5917);
+			NodePane.relocate(-310, -48);
+			buttonRescale = 1 / 0.5917;
+			zField.setText("0");
+			break;
+		case "HHAPT":
+			imageView.setScaleX(0.8197);
+			imageView.setScaleY(0.8197);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.8197);
+			NodePane.setScaleY(0.8197);
+			NodePane.relocate(-130, -50);
+			buttonRescale = 1 / 0.8197;
+			zField.setText("-10");
+			break;
+		case "HHGAR":
+			imageView.setScaleX(0.8172);
+			imageView.setScaleY(0.8172);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.8172);
+			NodePane.setScaleY(0.8172);
+			NodePane.relocate(-133, -53);
+			buttonRescale = 1 / 0.8172;
+			zField.setText("-20");
+			break;
+		case "PC1":
+			imageView.setScaleX(0.6764);
+			imageView.setScaleY(0.6764);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6764);
+			NodePane.setScaleY(0.6764);
+			NodePane.relocate(-208, -58);
+			buttonRescale = 1 / 0.6764;
+			zField.setText("0");
+			break;
+		case "PC2":
+			imageView.setScaleX(0.6006);
+			imageView.setScaleY(0.6006);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6006);
+			NodePane.setScaleY(0.6006);
+			NodePane.relocate(-222, -48);
+			buttonRescale = 1 / 0.6006;
+			zField.setText("10");
+			break;
+		case "SHB":
+			imageView.setScaleX(0.5464);
+			imageView.setScaleY(0.5464);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5464);
+			NodePane.setScaleY(0.5464);
+			NodePane.relocate(-224, -88);
+			buttonRescale = 1 / 0.5464;
+			zField.setText("-10");
+			break;
+		case "SH1":
+			imageView.setScaleX(0.5583);
+			imageView.setScaleY(0.5583);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5583);
+			NodePane.setScaleY(0.5583);
+			NodePane.relocate(-224, -82);
+			buttonRescale = 1 / 0.5583;
+			zField.setText("0");
+			break;
+		case "SH2":
+			imageView.setScaleX(0.5556);
+			imageView.setScaleY(0.5556);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5556);
+			NodePane.setScaleY(0.5556);
+			NodePane.relocate(-224, -86);
+			buttonRescale = 1 / 0.5556;
+			zField.setText("10");
+			break;
+		case "SH3":
+			imageView.setScaleX(0.5544);
+			imageView.setScaleY(0.5544);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5544);
+			NodePane.setScaleY(0.5544);
+			NodePane.relocate(-224, -83);
+			buttonRescale = 1 / 0.5544;
+			zField.setText("20");
+			break;
+		case "FLSB":
+			imageView.setScaleX(0.7882);
+			imageView.setScaleY(0.7882);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.7882);
+			NodePane.setScaleY(0.7882);
+			NodePane.relocate(-150, -80);
+			buttonRescale = 1 / 0.7882;
+			zField.setText("-40");
+			break;
+		case "FLB":
+			imageView.setScaleX(0.7601);
+			imageView.setScaleY(0.7601);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.7601);
+			NodePane.setScaleY(0.7601);
+			NodePane.relocate(-170, -55);
+			buttonRescale = 1 / 0.7601;
+			zField.setText("-30");
+			break;
+		case "FL1":
+			imageView.setScaleX(0.6098);
+			imageView.setScaleY(0.6098);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6098);
+			NodePane.setScaleY(0.6098);
+			NodePane.relocate(-250, -52);
+			buttonRescale = 1 / 0.6098;
+			zField.setText("-20");
+			break;
+		case "FL2":
+			imageView.setScaleX(0.5585);
+			imageView.setScaleY(0.5585);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5585);
+			NodePane.setScaleY(0.5585);
+			NodePane.relocate(-250, -40);
+			buttonRescale = 1 / 0.5585;
+			zField.setText("-10");
+			break;
+		case "FL3":
+			imageView.setScaleX(0.5515);
+			imageView.setScaleY(0.5515);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5515);
+			NodePane.setScaleY(0.5515);
+			NodePane.relocate(-270, -40);
+			buttonRescale = 1 / 0.5515;
+			zField.setText("0");
+			break;
+		case "WestB":
+			imageView.setScaleX(0.6305);
+			imageView.setScaleY(0.6305);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6305);
+			NodePane.setScaleY(0.6305);
+			NodePane.relocate(-270, -55);
+			buttonRescale = 1 / 0.6305;
+			zField.setText("-30");
+			break;
+		case "West1":
+			imageView.setScaleX(0.5949);
+			imageView.setScaleY(0.5949);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5949);
+			NodePane.setScaleY(0.5949);
+			NodePane.relocate(-270, -50);
+			buttonRescale = 1 / 0.5949;
+			zField.setText("-20");
+			break;
+		case "West2":
+			imageView.setScaleX(0.5929);
+			imageView.setScaleY(0.5929);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5929);
+			NodePane.setScaleY(0.5929);
+			NodePane.relocate(-270, -50);
+			buttonRescale = 1 / 0.5929;
+			zField.setText("-10");
+			break;
+		case "SLB":
+			imageView.setScaleX(0.6976);
+			imageView.setScaleY(0.6976);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6976);
+			NodePane.setScaleY(0.6976);
+			NodePane.relocate(-230, -60);
+			buttonRescale = 1 / 0.6976;
+			zField.setText("-10");
+			break;
+		case "SL1":
+			imageView.setScaleX(0.5780);
+			imageView.setScaleY(0.5780);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5780);
+			NodePane.setScaleY(0.5780);
+			NodePane.relocate(-220, -80);
+			buttonRescale = 1 / 0.5780;
+			zField.setText("0");
+			break;
+		case "SL2":
+			imageView.setScaleX(0.5755);
+			imageView.setScaleY(0.5755);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5755);
+			NodePane.setScaleY(0.5755);
+			NodePane.relocate(-220, -80);
+			buttonRescale = 1 / 0.5755;
+			zField.setText("10");
+			break;	
+		case "SL3":
+			imageView.setScaleX(0.6840);
+			imageView.setScaleY(0.6840);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6840);
+			NodePane.setScaleY(0.6840);
+			NodePane.relocate(-240, -60);
+			buttonRescale = 1 / 0.6840;
+			zField.setText("20");
+			break;
+		case "SL4":
+			imageView.setScaleX(0.6988);
+			imageView.setScaleY(0.6988);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6988);
+			NodePane.setScaleY(0.6988);
+			NodePane.relocate(-230, -60);
+			buttonRescale = 1 / 0.6988;
+			zField.setText("30");
+			break;
+		case "WSB":
+			imageView.setScaleX(0.5827);
+			imageView.setScaleY(0.5827);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5827);
+			NodePane.setScaleY(0.5827);
+			NodePane.relocate(-225, -48);
+			buttonRescale = 1 / 0.5827;
+			zField.setText("-10");
+			break;
+		case "WS1":
+			imageView.setScaleX(0.6116);
+			imageView.setScaleY(0.6116);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6116);
+			NodePane.setScaleY(0.6116);
+			NodePane.relocate(-225, -45);
+			buttonRescale = 1 / 0.6116;
+			zField.setText("0");
+			break;
+		case "WS2":
+			imageView.setScaleX(0.5972);
+			imageView.setScaleY(0.5972);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5972);
+			NodePane.setScaleY(0.5972);
+			NodePane.relocate(-225, -45);
+			buttonRescale = 1 / 0.5972;
+			zField.setText("20");
+			break;
+		case "WS3":
+			imageView.setScaleX(0.6335);
+			imageView.setScaleY(0.6335);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6335);
+			NodePane.setScaleY(0.6335);
+			NodePane.relocate(-245, -48);
+			buttonRescale = 1 / 0.6335;
+			zField.setText("30");
+			break;
+		case "HAB":
+			imageView.setScaleX(0.5168);
+			imageView.setScaleY(0.5168);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5168);
+			NodePane.setScaleY(0.5168);
+			NodePane.relocate(-215, -35);
+			buttonRescale = 1 / 0.5168;
+			zField.setText("-10");
+			break;
+		case "HA1":
+			imageView.setScaleX(0.5057);
+			imageView.setScaleY(0.5057);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5057);
+			NodePane.setScaleY(0.5057);
+			NodePane.relocate(-232, -10);
+			buttonRescale = 1 / 0.5057;
+			zField.setText("0");
+			break;
+		case "HA2":
+			imageView.setScaleX(0.5185);
+			imageView.setScaleY(0.5185);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5185);
+			NodePane.setScaleY(0.5185);
+			NodePane.relocate(-218, -45);
+			buttonRescale = 1 / 0.5185;
+			zField.setText("10");
+			break;
+		case "HA3":
+			imageView.setScaleX(0.5191);
+			imageView.setScaleY(0.5191);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5191);
+			NodePane.setScaleY(0.5191);
+			NodePane.relocate(-218, -45);
+			buttonRescale = 1 / 0.5191;
+			zField.setText("20");
+			break;
+		case "HLB":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -65);
+			buttonRescale = 1 / 0.6395;
+			zField.setText("-10");
+			break;
+		case "HL1":
+			imageView.setScaleX(0.6395);
+			imageView.setScaleY(0.6395);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6395);
+			NodePane.setScaleY(0.6395);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6395;
+			zField.setText("0");
+			break;
+		case "HL2":
+			imageView.setScaleX(0.6431);
+			imageView.setScaleY(0.6431);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6431);
+			NodePane.setScaleY(0.6431);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6431;
+			zField.setText("10");
+			break;
+		case "HL3":
+			imageView.setScaleX(0.6421);
+			imageView.setScaleY(0.6421);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6421);
+			NodePane.setScaleY(0.6421);
+			NodePane.relocate(-215, -65);
+			buttonRescale = 1 / 0.6421;
+			zField.setText("20");
+			break;
+		case "AHSB":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-215, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("-20");
+			break;
+		case "AHB":
+			imageView.setScaleX(0.5780);
+			imageView.setScaleY(0.5780);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.5780);
+			NodePane.setScaleY(0.5780);
+			NodePane.relocate(-220, -58);
+			buttonRescale = 1 / 0.5780;
+			zField.setText("-10");
+			break;
+		case "AH1":
+			imageView.setScaleX(0.6385);
+			imageView.setScaleY(0.6385);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6385);
+			NodePane.setScaleY(0.6385);
+			NodePane.relocate(-245, -85);
+			buttonRescale = 1 / 0.6385;
+			zField.setText("0");
+			break;
+		case "AH2":
+			imageView.setScaleX(0.6344);
+			imageView.setScaleY(0.6344);
+			imageView.relocate(0, 0);
+			NodePane.setScaleX(0.6344);
+			NodePane.setScaleY(0.6344);
+			NodePane.relocate(-215, -75);
+			buttonRescale = 1 / 0.6344;
+			zField.setText("10");
+			break;
+              //TODO ADD BUILDINGS
+
+                    
         }
 
         drawEdges(edgeList, gc, NodePane);

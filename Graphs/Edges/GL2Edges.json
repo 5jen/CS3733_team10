@@ -1,206 +1,6 @@
 [
  {
   "distance": 2,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 3,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 0,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 0,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 4,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 0,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 2,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 4,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 7,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 9,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 4,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 10,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 7,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 13,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 2,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 6,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 9,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 2,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 6,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 1,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 4,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 11,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 2,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 7,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 8,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 5,
-  "from": "CampusMap:Point:1008:868",
-  "to": "CampusMap:Point:1008:868"
- },
- {
-  "distance": 2,
   "from": "GL2:Point:309:473",
   "to": "GL2:Point:309:431"
  },
@@ -282,11 +82,6 @@
  {
   "distance": 6,
   "from": "GL2:Point:309:431",
-  "to": "GL2:Point:431:433"
- },
- {
-  "distance": 5,
-  "from": "GL2:Point:557:431",
   "to": "GL2:Point:431:433"
  },
  {
@@ -430,11 +225,6 @@
   "to": "GL2:Point:840:260"
  },
  {
-  "distance": 14,
-  "from": "GL2:Point:846:43",
-  "to": "GL2:Point:535:43"
- },
- {
   "distance": 11,
   "from": "GL2:Point:309:43",
   "to": "GL2:Point:535:43"
@@ -550,7 +340,7 @@
   "to": "GL2:Point:1197:654"
  },
  {
-  "distance": 7,
+  "distance": 12,
   "from": "GL2:Staircase:559:399",
   "to": "GL1:Staircase:422:448"
  },
@@ -558,5 +348,60 @@
   "distance": 48,
   "from": "GL2:Transition Point:761:664",
   "to": "GL Front Entrance"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:495:431",
+  "to": "GL2:Elevator:495:400"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:557:431",
+  "to": "GL2:Point:495:431"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:431:433",
+  "to": "GL2:Point:495:431"
+ },
+ {
+  "distance": 30,
+  "from": "GL2:Elevator:495:400",
+  "to": "GLSB:Elevator:485:439"
+ },
+ {
+  "distance": 20,
+  "from": "GL2:Elevator:495:400",
+  "to": "GLB:Elevator:490:441"
+ },
+ {
+  "distance": 10,
+  "from": "GL2:Elevator:495:400",
+  "to": "GL1:Elevator:490:444"
+ },
+ {
+  "distance": 7,
+  "from": "GL2:Point:535:43",
+  "to": "GL2:Point:682:43"
+ },
+ {
+  "distance": 3,
+  "from": "GL2:Point:682:43",
+  "to": "GL2:Point:748:43"
+ },
+ {
+  "distance": 4,
+  "from": "GL2:Point:748:43",
+  "to": "GL2:Point:846:43"
+ },
+ {
+  "distance": 2,
+  "from": "GL2:Point:748:43",
+  "to": "GL2:Vending Machine:743:84snacks"
+ },
+ {
+  "distance": 1,
+  "from": "GL2:Point:682:43",
+  "to": "GL2:Vending Machine:688:81drinks"
  }
 ]

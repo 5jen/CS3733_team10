@@ -1,0 +1,192 @@
+[
+ {
+  "distance": 2,
+  "from": "HL3:Point:706:271",
+  "to": "HL311"
+ },
+ {
+  "distance": 0,
+  "from": "HL3:Point:706:257",
+  "to": "HL3:Point:706:271"
+ },
+ {
+  "distance": 10,
+  "from": "HL3:Point:706:271",
+  "to": "HL3:Point:517:257"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:517:257",
+  "to": "HL3:Point:494:257"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:494:257",
+  "to": "HL3:Point:471:257"
+ },
+ {
+  "distance": 8,
+  "from": "HL3:Point:471:257",
+  "to": "HL3:Point:316:257"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:316:257",
+  "to": "HL3:Point:316:301"
+ },
+ {
+  "distance": 6,
+  "from": "HL3:Point:316:405",
+  "to": "HL3:Point:316:301"
+ },
+ {
+  "distance": 3,
+  "from": "HL3:Point:316:405",
+  "to": "HL3:Point:316:461"
+ },
+ {
+  "distance": 9,
+  "from": "HL3:Point:156:461",
+  "to": "HL3:Point:316:461"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:316:461",
+  "to": "HL301A"
+ },
+ {
+  "distance": 1,
+  "from": "HL309",
+  "to": "HL3:Point:316:405"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:332:298",
+  "to": "HL3:Point:316:301"
+ },
+ {
+  "distance": 2,
+  "from": "HL314",
+  "to": "HL3:Point:316:257"
+ },
+ {
+  "distance": 1,
+  "from": "HL313",
+  "to": "HL3:Point:471:257"
+ },
+ {
+  "distance": 2,
+  "from": "HL312",
+  "to": "HL3:Point:517:257"
+ },
+ {
+  "distance": 1,
+  "from": "HL305",
+  "to": "HL3:Point:494:257"
+ },
+ {
+  "distance": 3,
+  "from": "HL3:Point:706:371",
+  "to": "HL301"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:706:371",
+  "to": "HL3:Point:706:348"
+ },
+ {
+  "distance": 4,
+  "from": "HL3:Point:706:348",
+  "to": "HL3:Point:706:271"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:681:349",
+  "to": "HL3:Point:706:348"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:706:371",
+  "to": "HL3:Point:681:369"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:681:369",
+  "to": "HL3:Point:681:349"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Men's Bathroom:675:329",
+  "to": "HL3:Point:681:349"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Women's Bathroom:675:385",
+  "to": "HL3:Point:681:369"
+ },
+ {
+  "distance": 6,
+  "from": "HL3:Point:454:463",
+  "to": "HL301A"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:454:463",
+  "to": "HL307"
+ },
+ {
+  "distance": 4,
+  "from": "HL3:Point:530:460",
+  "to": "HL3:Point:454:463"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:530:460",
+  "to": "HL306"
+ },
+ {
+  "distance": 5,
+  "from": "HL3:Point:173:349",
+  "to": "HL3:Elevator:176:458"
+ },
+ {
+  "distance": 1,
+  "from": "HL3:Point:173:349",
+  "to": "HL232"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:156:461",
+  "to": "HL3:Elevator:176:458"
+ },
+ {
+  "distance": 3,
+  "from": "HL3:Elevator:368:215",
+  "to": "HL3:Point:316:257"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:706:371",
+  "to": "HL3:Point:706:399"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:706:399",
+  "to": "HL3:Point:745:407"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Staircase:742:371",
+  "to": "HL3:Point:745:407"
+ },
+ {
+  "distance": 2,
+  "from": "HL3:Point:156:461",
+  "to": "HL3:Staircase:111:460"
+ },
+ {
+  "distance": 0,
+  "from": "HL2:Elevator:368:213",
+  "to": "HL3:Elevator:368:215"
+ }
+]

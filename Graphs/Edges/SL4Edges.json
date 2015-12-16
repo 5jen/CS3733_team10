@@ -1,0 +1,262 @@
+[
+ {
+  "distance": 3,
+  "from": "SL414",
+  "to": "SL4:Point:606:721"
+ },
+ {
+  "distance": 5,
+  "from": "SL4:Point:606:632",
+  "to": "SL4:Point:606:721"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:606:632",
+  "to": "SL4:Staircase:651:632"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:651:571",
+  "to": "SL4:Staircase:651:632"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:651:571",
+  "to": "SL4:Elevator:661:522"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:651:571",
+  "to": "SL4:Point:603:571"
+ },
+ {
+  "distance": 4,
+  "from": "SL411",
+  "to": "SL4:Point:603:571"
+ },
+ {
+  "distance": 2,
+  "from": "SL412",
+  "to": "SL4:Point:603:571"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:571",
+  "to": "SL4:Point:651:571"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:710:571",
+  "to": "SL 4th Floor Men's Bathroom"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:571",
+  "to": "SL402"
+ },
+ {
+  "distance": 6,
+  "from": "SL4:Point:710:571",
+  "to": "SL4:Point:710:462"
+ },
+ {
+  "distance": 2,
+  "from": "SL409",
+  "to": "SL4:Point:710:462"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:710:462",
+  "to": "SL4:Point:710:423"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:423",
+  "to": "SL4:Point:776:429"
+ },
+ {
+  "distance": 5,
+  "from": "SL4:Point:776:497",
+  "to": "SL4:Point:776:429"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:776:429",
+  "to": "SL405E"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:776:497",
+  "to": "SL405F"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:776:429",
+  "to": "SL4:Point:776:367"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:367",
+  "to": "SL4:Point:776:367"
+ },
+ {
+  "distance": 1,
+  "from": "SL4:Point:710:367",
+  "to": "SL4:Point:710:390"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:710:423",
+  "to": "SL4:Point:710:390"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:655:390",
+  "to": "SL4:Point:710:390"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:655:390",
+  "to": "SL4:Point:655:424"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:655:390",
+  "to": "SL4:Point:655:356"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:655:306",
+  "to": "SL4:Point:655:356"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:655:235",
+  "to": "SL4:Point:655:306"
+ },
+ {
+  "distance": 6,
+  "from": "SL4:Point:710:265",
+  "to": "SL4:Point:710:367"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:265",
+  "to": "SL4:Point:776:265"
+ },
+ {
+  "distance": 1,
+  "from": "SL4:Point:776:248",
+  "to": "SL4:Point:776:265"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:776:312",
+  "to": "SL4:Point:776:265"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:776:367",
+  "to": "SL4:Point:776:312"
+ },
+ {
+  "distance": 2,
+  "from": "SL405B",
+  "to": "SL4:Point:776:248"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:776:178",
+  "to": "SL4:Point:776:248"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:776:178",
+  "to": "SL405A"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:776:312",
+  "to": "SL405C"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:776:367",
+  "to": "SL405D"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:710:265",
+  "to": "SL4:Point:710:206"
+ },
+ {
+  "distance": 4,
+  "from": "SL406A",
+  "to": "SL4:Point:710:206"
+ },
+ {
+  "distance": 4,
+  "from": "SL4:Point:647:206",
+  "to": "SL4:Point:710:206"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:647:206",
+  "to": "SL406B"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:647:206",
+  "to": "SL4:Staircase:629:178"
+ },
+ {
+  "distance": 1,
+  "from": "SL4:Staircase:622:206",
+  "to": "SL4:Point:647:206"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:655:235",
+  "to": "SL408A"
+ },
+ {
+  "distance": 3,
+  "from": "SL4:Point:655:306",
+  "to": "SL408B"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:655:356",
+  "to": "SL408C"
+ },
+ {
+  "distance": 2,
+  "from": "SL4:Point:655:424",
+  "to": "SL408D"
+ },
+ {
+  "distance": 15,
+  "from": "SL3:Point:637:813",
+  "to": "SL4:Staircase:651:632"
+ },
+ {
+  "distance": 10,
+  "from": "SL4:Staircase:622:206",
+  "to": "SL3:Staircase:629:174"
+ },
+ {
+  "distance": 30,
+  "from": "SL4:Elevator:661:522",
+  "to": "SL1:Elevator:634:515"
+ },
+ {
+  "distance": 20,
+  "from": "SL4:Elevator:661:522",
+  "to": "SL2:Elevator:610:520"
+ },
+ {
+  "distance": 0,
+  "from": "SL4:Elevator:661:522",
+  "to": "SL3:Elevator:663:518"
+ }
+]

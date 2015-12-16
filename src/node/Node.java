@@ -124,7 +124,7 @@ public class Node {
 	public void printConnectingNodes(){
 		for (Edge e : edges){
 			String sf = String.format("X:%d, Y:%d", e.getTo().getX(), e.getTo().getY());
-			System.out.println(sf);
+			//System.out.println(sf);
 		}
 	}
 

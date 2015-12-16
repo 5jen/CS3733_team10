@@ -1,0 +1,54 @@
+[
+ {
+  "valx": 1066,
+  "globalY": 1024,
+  "isWalkable": true,
+  "globalX": 1242,
+  "floorMap": "Alden Hall 1",
+  "name": "AH1:Transition Point:1066:386",
+  "isPlace": false,
+  "type": "Transition Point",
+  "valz": 0,
+  "building": "Alden Hall",
+  "valy": 386
+ },
+ {
+  "valx": 1032,
+  "globalY": 1025,
+  "isWalkable": true,
+  "globalX": 1242,
+  "floorMap": "Alden Hall 1",
+  "name": "AH1:Point:1032:386",
+  "isPlace": false,
+  "type": "Point",
+  "valz": 0,
+  "building": "Alden Hall",
+  "valy": 386
+ },
+ {
+  "valx": 1032,
+  "globalY": 1025,
+  "isWalkable": true,
+  "globalX": 1237,
+  "floorMap": "Alden Hall 1",
+  "name": "AH1:Staircase:1032:299",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": 0,
+  "building": "Alden Hall",
+  "valy": 299
+ },
+ {
+  "valx": 1032,
+  "globalY": 1026,
+  "isWalkable": true,
+  "globalX": 1246,
+  "floorMap": "Alden Hall 1",
+  "name": "AH1:Staircase:1032:471",
+  "isPlace": false,
+  "type": "Staircase",
+  "valz": 0,
+  "building": "Alden Hall",
+  "valy": 471
+ }
+]

@@ -1,83 +1,5 @@
 [
  {
-  "valx": 156,
-  "globalY": 451,
-  "isWalkable": true,
-  "globalX": 1195,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:156:149",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 149
- },
- {
-  "valx": 375,
-  "globalY": 454,
-  "isWalkable": true,
-  "globalX": 1192,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:375:147",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 147
- },
- {
-  "valx": 570,
-  "globalY": 457,
-  "isWalkable": true,
-  "globalX": 1189,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:570:149",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 149
- },
- {
-  "valx": 588,
-  "globalY": 455,
-  "isWalkable": true,
-  "globalX": 1187,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:588:307",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 307
- },
- {
-  "valx": 340,
-  "globalY": 451,
-  "isWalkable": true,
-  "globalX": 1190,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:340:305",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 305
- },
- {
-  "valx": 168,
-  "globalY": 449,
-  "isWalkable": true,
-  "globalX": 1193,
-  "floorMap": "Higgins House Garage",
-  "name": "HHGAR:Point:168:305",
-  "isPlace": true,
-  "type": "Point",
-  "valz": -20,
-  "building": "Higgins House",
-  "valy": 305
- },
- {
   "valx": 805,
   "globalY": 383,
   "isWalkable": true,
@@ -128,5 +50,18 @@
   "valz": -20,
   "building": "Higgins House",
   "valy": 454
+ },
+ {
+  "valx": 425,
+  "globalY": 390,
+  "isWalkable": true,
+  "globalX": 1224,
+  "floorMap": "Higgins House Garage",
+  "name": "Higgins House Garage",
+  "isPlace": true,
+  "type": "Point",
+  "valz": -2,
+  "building": "Higgins House",
+  "valy": 277
  }
 ]

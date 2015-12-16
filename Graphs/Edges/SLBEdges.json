@@ -1,0 +1,332 @@
+[
+ {
+  "distance": 2,
+  "from": "SL001",
+  "to": "SLB:Point:609:73"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:630:73",
+  "to": "SLB:Point:609:73"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:73",
+  "to": "SL002"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:630:73",
+  "to": "SLB:Point:630:111"
+ },
+ {
+  "distance": 2,
+  "from": "SL003",
+  "to": "SLB:Point:630:111"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:111",
+  "to": "SLB:Point:630:125"
+ },
+ {
+  "distance": 1,
+  "from": "SL006A",
+  "to": "SLB:Point:630:125"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:630:125",
+  "to": "SLB:Point:630:165"
+ },
+ {
+  "distance": 1,
+  "from": "SL004",
+  "to": "SLB:Point:630:165"
+ },
+ {
+  "distance": 2,
+  "from": "SL006",
+  "to": "SLB:Point:630:165"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:630:226",
+  "to": "SLB:Point:630:165"
+ },
+ {
+  "distance": 1,
+  "from": "SL005",
+  "to": "SLB:Point:630:226"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:630:262",
+  "to": "SLB:Point:630:226"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:262",
+  "to": "SLB:Point:630:273"
+ },
+ {
+  "distance": 4,
+  "from": "SL008",
+  "to": "SLB:Point:630:262"
+ },
+ {
+  "distance": 7,
+  "from": "SLB:Transition Point:733:273",
+  "to": "SLB:Point:630:273"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:273",
+  "to": "SLB:Point:630:262"
+ },
+ {
+  "distance": 9,
+  "from": "SLB:Point:630:407",
+  "to": "SLB:Point:630:273"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:630:407",
+  "to": "SL013"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:630:407",
+  "to": "SLB:Point:630:481"
+ },
+ {
+  "distance": 7,
+  "from": "SLB:Point:743:481",
+  "to": "SLB:Point:630:481"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:743:481",
+  "to": "SLB:Point:745:418"
+ },
+ {
+  "distance": 1,
+  "from": "SL014",
+  "to": "SLB:Point:745:418"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:802:418",
+  "to": "SLB:Point:745:418"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:802:418",
+  "to": "SLB:Point:802:481"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:743:481",
+  "to": "SLB:Point:802:481"
+ },
+ {
+  "distance": 2,
+  "from": "SL015",
+  "to": "SLB:Point:802:418"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:870:418",
+  "to": "SLB:Point:802:418"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:870:418",
+  "to": "SLB:Point:870:467"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:870:504",
+  "to": "SLB:Point:870:467"
+ },
+ {
+  "distance": 5,
+  "from": "SLB:Point:870:504",
+  "to": "SLB:Point:870:580"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:870:418",
+  "to": "SL016"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:870:418",
+  "to": "SL017"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:870:467",
+  "to": "SL018"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:870:504",
+  "to": "SL019"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:870:580",
+  "to": "SL020"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:870:580",
+  "to": "SLB:Point:870:638"
+ },
+ {
+  "distance": 1,
+  "from": "SL035",
+  "to": "SLB:Point:870:638"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:870:672",
+  "to": "SLB:Point:870:638"
+ },
+ {
+  "distance": 2,
+  "from": "SL022",
+  "to": "SLB:Point:870:672"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:870:731",
+  "to": "SLB:Point:870:672"
+ },
+ {
+  "distance": 2,
+  "from": "SL023",
+  "to": "SLB:Point:870:731"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:835:731",
+  "to": "SLB:Point:870:731"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:835:731",
+  "to": "SLB:Point:835:804"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:835:804",
+  "to": "SL024"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:835:731",
+  "to": "SLB:Point:773:731"
+ },
+ {
+  "distance": 2,
+  "from": "SL026",
+  "to": "SLB:Point:773:731"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:742:731",
+  "to": "SLB:Point:773:731"
+ },
+ {
+  "distance": 2,
+  "from": "SL034",
+  "to": "SLB:Point:742:731"
+ },
+ {
+  "distance": 2,
+  "from": "SL027",
+  "to": "SLB:Point:742:731"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:675:731",
+  "to": "SLB:Point:742:731"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:675:731",
+  "to": "SL028"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:630:731",
+  "to": "SLB:Point:675:731"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:731",
+  "to": "SL029"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:589:748",
+  "to": "SL029"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:589:748",
+  "to": "SL042"
+ },
+ {
+  "distance": 1,
+  "from": "SLB:Point:630:731",
+  "to": "SLB:Point:630:715"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:630:715",
+  "to": "SL030"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:630:655",
+  "to": "SLB:Point:630:715"
+ },
+ {
+  "distance": 2,
+  "from": "SL031",
+  "to": "SLB:Point:630:655"
+ },
+ {
+  "distance": 4,
+  "from": "SLB:Point:630:586",
+  "to": "SLB:Point:630:655"
+ },
+ {
+  "distance": 6,
+  "from": "SLB:Point:630:586",
+  "to": "SLB:Point:538:586"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:484:586",
+  "to": "SLB:Point:538:586"
+ },
+ {
+  "distance": 5,
+  "from": "SLB:Point:538:586",
+  "to": "SLB:Staircase:538:513"
+ },
+ {
+  "distance": 2,
+  "from": "SLB:Point:484:586",
+  "to": "SL040"
+ },
+ {
+  "distance": 3,
+  "from": "SLB:Point:484:586",
+  "to": "SL041"
+ }
+]

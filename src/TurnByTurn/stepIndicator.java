@@ -32,66 +32,104 @@ public class stepIndicator {
 
         int i = 1;
         while (i<route.size()- 1){
-           // int angle = getAngleInDegree(route.get(i-1),route.get(i),route.get(i+1));
             String message;
             String maneuver;
             //the type for a node
             String type = route.get(i).getType();
             String name = route.get(i).getName();
-            System.out.println(name);
+            //System.out.println(name);
             int x1;//previous x
             int y1;//previous y
             int x2;//current x
             int y2;//current y
             int x3;//next x
             int y3;//next y
+            int globalx1;//previous globalx
+            int globaly1;//previous globaly
+            int globalx2;//current globalx
+            int globaly2;//current globaly
+            int globalx3;//next globalx
+            int globaly3;//next globaly
 
 
             int icon_id=0;//the icon_id for the instruction
 
-            x1 = route.get(i-1).getGlobalX();
-            y1 = route.get(i-1).getGlobalY();
-            x2 = route.get(i).getGlobalX();
-            y2 = route.get(i).getGlobalY();
-            x3 = route.get(i+1).getGlobalX();
-            y3 = route.get(i+1).getGlobalY();
+            x1 = route.get(i-1).getX();
+            y1 = route.get(i-1).getY();
+            x2 = route.get(i).getX();
+            y2 = route.get(i).getY();
+            x3 = route.get(i+1).getX();
+            y3 = route.get(i+1).getY();
+            
+            globalx1 = route.get(i-1).getGlobalX();
+            globaly1 = route.get(i-1).getGlobalY();
+            globalx2 = route.get(i).getGlobalX();
+            globaly2 = route.get(i).getGlobalY();
+            globalx3 = route.get(i+1).getGlobalX();
+            globaly3 = route.get(i+1).getGlobalY();
 
-            int dis = getDistance(x1,x2,y1,y2);
+            int dis = getDistance(globalx1,globalx2,globaly1,globaly2);
 
             // Transition point between maps
-            if (type.compareTo("Transition Point")==0) {
+            if ((type.compareTo("Transition Point")==0) &&
+                    (route.get(i+1).getType().compareTo("Transition Point") == 0)){
                 i++;//skip transition points in pairs
                 String map = route.get(i).getFloorMap();
+
                 //TODO convert map name to actual name
                 maneuver = "Go to ";//need to add building floor name
                 icon_id = 5;
                 message = maneuver + map;
             }
             else {
-                if (type.compareTo("Staircase") == 0){
-                    int z1 = route.get(i-1).getZ();
-                    int z2 = route.get(i+1).getZ();
 
-                    while ((i<route.size()-1) && (route.get(i+1).getType().compareTo("Staircase")==0)){
-                        i++;
+                if ((type.compareTo("Elevator")==0) &&
+                (route.get(i+1).getType().compareTo("Elevator") == 0)){
+                    String map = route.get(i).getFloorMap();
+                    maneuver = "Elevator to ";
+                    //TODO Use elevator image
+                    icon_id = 10;
+                    message = maneuver + map;
+                } else {
+                    if ((type.compareTo("Staircase") == 0) &&
+                            (route.get(i + 1).getType().compareTo("Staircase") == 0)) {
+                        int z1 = route.get(i - 1).getZ();
+                        int z2 = route.get(i + 1).getZ();
+
+                        while ((i < route.size() - 1) && (route.get(i + 1).getType().compareTo("Staircase") == 0)) {
+                            i++;
+                        }
+
+                        if (z2 > z1) {
+                            maneuver = "up stairs";
+                            icon_id = 1;
+                        } else {
+                            maneuver = "down stairs";
+                            icon_id = 2;
+                        }
+                        message = "Go " + maneuver;
+                    } else {
+
+                        message = generateMessage(x1, y1, x2, y2, x3, y3);
+
+                        if (message.compareTo("Keep straight for") == 0) {
+                            icon_id = 0;
+                        } else if (message.compareTo("Turn left in") == 0) {
+                            icon_id = 3;
+                        } else if (message.compareTo("Turn right in") == 0) {
+                            icon_id = 4;
+                        } else if (message.compareTo("Turn sharp left in") == 0) {
+                            icon_id = 33;
+                        } else if (message.compareTo("Turn sharp right in") == 0) {
+                            icon_id = 44;
+                        } else if (message.compareTo("Turn slight left in") == 0) {
+                            icon_id = 39;
+                        } else if (message.compareTo("Turn slight right in") == 0) {
+                            icon_id = 52;
+                        } else if (message.compareTo("Make a U turn in") == 0) {
+                            icon_id = 6;
+                        }
                     }
-
-                    if (z2>z1) {maneuver = "up stair"; icon_id=1;}
-                    else {maneuver = "down stair";icon_id =2;}
-                    message = "Go "+ maneuver;
-                }
-                else {
-
-                    message = generateMessage(x1,y1,x2,y2,x3,y3);
-
-                    if (message.compareTo("Keep straight for") == 0) {icon_id = 0;}
-                    else if (message.compareTo("Turn left in") == 0) {icon_id = 3;}
-                    else if (message.compareTo("Turn right in") == 0) {icon_id = 4;}
-                    else if (message.compareTo("Turn sharp left in") == 0) {icon_id = 33;}
-                    else if (message.compareTo("Turn sharp right in") == 0) {icon_id =44;}
-                    else if (message.compareTo("Turn slight left in") ==0) {icon_id = 39;}
-                    else if (message.compareTo("Turn slight right in") == 0) {icon_id = 52;}
-                    else if (message.compareTo("Make a U turn in") == 0){icon_id = 6;}
                 }
 
             }
@@ -112,6 +150,7 @@ public class stepIndicator {
              *  6                  U turn
              *  7                  starting route
              *  8                  reach destination
+             *  10                 elevator
              */
 
              //check duplicate go straight
@@ -125,10 +164,6 @@ public class stepIndicator {
 
              i++;
         }
-
-        //result.addFirst(new Step(0,"Walk Straight",0));
-        //result.addFirst(new Step(7,"Starting navigation",0));
-        //result.addLast(new Step(8,"You have reached your destination",0));
 
         return result;
     }
@@ -161,7 +196,7 @@ public class stepIndicator {
         int bc_y = y3 - y2;
 
         int dot_product = (ba_x * bc_x) + (ba_y * bc_y);
-        if (false) {System.out.println(dot_product);}
+        
 
         double absMA =  Math.sqrt((ba_x*ba_x)+(ba_y*ba_y));
         double absMB =  Math.sqrt((bc_x*bc_x)+(bc_y*bc_y));
@@ -182,7 +217,7 @@ public class stepIndicator {
     public double getSlope(int x1,int y1, int x2, int y2){
         double result;
         result = (double)(y2-y1)/(x2-x1);
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }
 

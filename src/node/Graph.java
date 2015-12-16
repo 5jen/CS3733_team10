@@ -87,8 +87,8 @@ public class Graph {
 		//System.out.println("Nodes: "+nodes);
 		//System.out.println("Index1: "+index1);
 		
-		System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
-		System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
+		//System.out.println("from: "+nodes.get(index1).getName()+" , to: "+nodes.get(index2).getName());
+		//System.out.println("from: "+nodes.get(index2).getName()+" , to: "+nodes.get(index1).getName());
 
 		Edge newEdge1 = new Edge(nodes.get(index1), nodes.get(index2), dist);
 		Edge newEdge2 = new Edge(nodes.get(index2), nodes.get(index1), dist);
@@ -181,7 +181,7 @@ public class Graph {
 	}
 	
 	private int getDistance(Node n1, Node n2){
-    	return (int) Math.sqrt((Math.pow((n1.getX() - n2.getX()), 2)) + (Math.pow((n1.getY() - n2.getY()), 2)) + (Math.pow((n1.getZ()-n2.getZ()),2)));
+    	return (int) Math.sqrt((Math.pow((n1.getGlobalX() - n2.getGlobalX()), 2)) + (Math.pow((n1.getGlobalY() - n2.getGlobalY()), 2)) + (Math.pow((n1.getZ()-n2.getZ()),2)));
     }
 
 	

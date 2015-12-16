@@ -520,11 +520,6 @@
   "to": "AK2:Point:817:433"
  },
  {
-  "distance": 10,
-  "from": "AK2:Point:817:401",
-  "to": "AK2:Point:817:244"
- },
- {
   "distance": 7,
   "from": "AK2:Point:817:148",
   "to": "AK2:Point:817:244"
@@ -560,18 +555,43 @@
   "to": "AK2:Point:1072:516"
  },
  {
-  "distance": 7,
+  "distance": 12,
   "from": "AK2:Staircase:1053:518",
   "to": "AK3:Staircase:1075:394"
  },
  {
-  "distance": 9,
+  "distance": 13,
   "from": "AK1:Staircase:1175:662",
   "to": "AK2:Staircase:1053:518"
  },
  {
-  "distance": 5,
+  "distance": 11,
   "from": "AK3:Point:897:9",
   "to": "AK2:Staircase:876:97"
+ },
+ {
+  "distance": 2,
+  "from": "AK2:Elevator:865:329",
+  "to": "AK2:Point:817:329"
+ },
+ {
+  "distance": 5,
+  "from": "AK2:Point:817:244",
+  "to": "AK2:Point:817:329"
+ },
+ {
+  "distance": 5,
+  "from": "AK2:Point:817:401",
+  "to": "AK2:Point:817:329"
+ },
+ {
+  "distance": 22,
+  "from": "AK2:Elevator:865:329",
+  "to": "AKB:Elevator:947:182"
+ },
+ {
+  "distance": 1,
+  "from": "AK2:Elevator:865:329",
+  "to": "AK1:Elevator:1130:426"
  }
 ]

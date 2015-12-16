@@ -330,7 +330,7 @@
   "isWalkable": true,
   "globalX": 1517,
   "floorMap": "Boynton Hall 2",
-  "name": "BH2:Point:603:228",
+  "name": "BH2:Elevator:603:228",
   "isPlace": false,
   "type": "Elevator",
   "valz": 10,

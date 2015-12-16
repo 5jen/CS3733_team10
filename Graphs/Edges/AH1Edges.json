@@ -1,0 +1,27 @@
+[
+ {
+  "distance": 1,
+  "from": "AH1:Point:1032:386",
+  "to": "AH1:Transition Point:1066:386"
+ },
+ {
+  "distance": 5,
+  "from": "AH1:Staircase:1032:299",
+  "to": "AH1:Point:1032:386"
+ },
+ {
+  "distance": 4,
+  "from": "AH1:Staircase:1032:471",
+  "to": "AH1:Point:1032:386"
+ },
+ {
+  "distance": 15,
+  "from": "AH1:Staircase:1032:299",
+  "to": "AHB:Staircase:1213:411"
+ },
+ {
+  "distance": 10,
+  "from": "AH1:Staircase:1032:471",
+  "to": "AHB:Staircase:1213:561"
+ }
+]
