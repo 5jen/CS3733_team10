@@ -926,12 +926,12 @@ public class GPSapp extends Application {
 		File pinFile2 = new File("CS3733_Graphics/MenuGraphics/redUIpin.png");
 		Image pinImage2 = new Image(pinFile2.toURI().toString());
 		ImageView pinView2 = new ImageView(pinImage2);//change to different pin images
-		pinView1.setFitWidth(20);
-		pinView1.setFitHeight(30);
-		pinView1.relocate(220, 20);//
-		pinView2.setFitWidth(20);
-		pinView2.setFitHeight(30);
-		pinView2.relocate(410, 20);//
+		pinView1.setFitWidth(12);
+		pinView1.setFitHeight(19);
+		pinView1.relocate(230, 29);//
+		pinView2.setFitWidth(12);
+		pinView2.setFitHeight(19);
+		pinView2.relocate(418, 29);//
 
 		File findRouteFile = new File("CS3733_Graphics/MenuGraphics/findRouteButton.png");
 		Image findRouteImage = new Image(findRouteFile.toURI().toString());
@@ -1132,7 +1132,7 @@ public class GPSapp extends Application {
 		ImageView resetToTodayButton = new ImageView(resetToTodayPic);
 		resetToTodayButton.setFitHeight(40);
 		resetToTodayButton.setFitWidth(40);
-		resetToTodayButton.relocate(10, 515);
+		resetToTodayButton.relocate(10, 510);
 		
 		//label the reset to today button
 		final Label resetLabel = new Label("Current Week");
