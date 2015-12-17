@@ -139,7 +139,7 @@ public class GPSapp extends Application {
 	Scene scene = new Scene(root, 1100, 750);
 	double scaleXratio = 1;
 	double scaleYRatio = 1;
-	double stageInitialWidthDifference = 100;
+	static double stageInitialWidthDifference = 100;
 	double stageInitialHeightDifference = 100;
 	int initialPanAmountX = 0, initialPanAmountY = 0;
 
@@ -2262,17 +2262,17 @@ public class GPSapp extends Application {
 		MoveTo g1moveTo = new MoveTo();
 
 		if (!descriptionIsOut)
-			g1moveTo.setX(1100 + 150);
+			g1moveTo.setX(1100 + 150+ stageInitialWidthDifference);
 		else 
-			g1moveTo.setX(800 + 150);
+			g1moveTo.setX(800 + 150+ stageInitialWidthDifference);
 		
 		g1moveTo.setY(0 + 50);
 
 		LineTo g1lineTo = new LineTo();
 		if (!descriptionIsOut)
-			g1lineTo.setX(800 + 150);
+			g1lineTo.setX(800 + 150+ stageInitialWidthDifference);
 		else
-			g1lineTo.setX(1100 + 150);
+			g1lineTo.setX(1100 + 150+ stageInitialWidthDifference);
 		
 		g1lineTo.setY(0 + 50);
 		
